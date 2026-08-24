@@ -1,0 +1,251 @@
+---
+import { Check, CircleHelp, ClipboardCheck, CreditCard, ShieldCheck, UserRoundCheck } from '@lucide/astro';
+import Button from '../components/Button.astro';
+import ContentBadge from '../components/ContentBadge.astro';
+import PageHeader from '../components/PageHeader.astro';
+import PagePanel from '../components/PagePanel.astro';
+import Card from '../components/ui/Card.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import Layout from '../layouts/Layout.astro';
+import { CLUB_LINKS } from '../config/links';
+import { withBase } from '../utils/paths';
+
+const membershipGroups = [
+  {
+    title: 'Academy',
+    ages: 'Our youngest boys and girls',
+    description: 'A welcoming introduction to football, focused on enjoyment, confidence and developing core skills.',
+  },
+  {
+    title: 'Underage',
+    ages: 'Schoolboy and schoolgirl teams',
+    description: 'Registration for the club’s competitive boys’ and girls’ age groups and player-development pathway.',
+  },
+  {
+    title: 'Youths',
+    ages: 'Youth football',
+    description: 'For players progressing from underage football toward the club’s senior teams.',
+  },
+  {
+    title: 'Senior',
+    ages: 'Adult players',
+    description: 'Playing membership for the club’s senior squads and adult football programmes.',
+  },
+  {
+    title: 'Non-playing',
+    ages: 'Supporters and volunteers',
+    description: 'Support the club and remain part of Killarney Athletic without registering as a player.',
+  },
+];
+
+const registrationSteps = [
+  {
+    icon: UserRoundCheck,
+    title: 'Choose the member',
+    text: 'Select the appropriate membership for the player, supporter or volunteer.',
+  },
+  {
+    icon: ClipboardCheck,
+    title: 'Complete their details',
+    text: 'Enter the requested contact, age-grade and registration information securely on Clubforce.',
+  },
+  {
+    icon: CreditCard,
+    title: 'Register and pay',
+    text: 'Complete payment online and retain the Clubforce confirmation for your records.',
+  },
+];
+
+const faqs = [
+  {
+    question: 'Where do I complete registration?',
+    answer: 'All online membership registration and payment is completed securely through Clubforce. This page explains the process before you continue.',
+  },
+  {
+    question: 'How do I know which age group to choose?',
+    answer: 'Clubforce lists the available memberships for the current season. If you are unsure, contact the club before paying and we will help identify the correct group.',
+  },
+  {
+    question: 'Are training times included in registration?',
+    answer: 'Training schedules are managed by each squad and may change during the season. Check the relevant team page or contact the club for the latest confirmed time.',
+  },
+  {
+    question: 'Who can help if I have a payment problem?',
+    answer: 'For a registration or payment query, contact the club through our Contact Us page and include the member’s name and age group.',
+  },
+];
+---
+
+<Layout
+  title="Membership | Killarney Athletic A.F.C."
+  description="Membership and online registration information for Killarney Athletic A.F.C. players, parents, volunteers and supporters."
+  canonicalPath="/membership/"
+>
+  <article class="membership-page">
+    <section class="membership-hero page-shell">
+      <PageHeader
+        variant="hero"
+        title="Join Killarney Athletic"
+        intro="Find the right membership, understand the registration process and continue securely to Clubforce when you are ready."
+        breadcrumbs={[
+          { label: 'Home', href: '/' },
+          { label: 'Membership' },
+        ]}
+      >
+        <div slot="meta" class="meta-row">
+          <ContentBadge label="2026/27 season" tone="cool-blue" />
+          <span>Online registration through Clubforce</span>
+        </div>
+        <div slot="actions" class="membership-hero__actions">
+          <Button
+            href={CLUB_LINKS.clubforce.membership}
+            label="Register on Clubforce"
+            variant="primary"
+            target="_blank"
+            rel="noopener noreferrer"
+          />
+          <Button href="#membership-options" label="View membership options" variant="outline-dark" icon={false} />
+        </div>
+      </PageHeader>
+    </section>
+
+    <section class="membership-intro page-shell section-block" aria-labelledby="membership-intro-heading">
+      <div>
+        <ContentBadge label="One club, every stage" tone="soft-indigo" />
+        <h2 id="membership-intro-heading">A place to play, develop and belong</h2>
+      </div>
+      <div class="membership-intro__copy">
+        <p>
+          Membership supports football at every level of Killarney Athletic—from a child’s
+          first Academy session to youth and senior football.
+        </p>
+        <p>
+          Registration is managed through Clubforce so membership details and payments
+          remain together in one secure account.
+        </p>
+      </div>
+    </section>
+
+    <section id="membership-options" class="membership-options page-shell section-block" aria-labelledby="membership-options-heading">
+      <SectionHeader
+        title="Membership options"
+        intro="Choose the category that best describes the member. Current fees and available age grades are shown on Clubforce."
+        id="membership-options-heading"
+      />
+      <div class="membership-options__grid">
+        {membershipGroups.map((group) => (
+          <Card class="membership-option">
+            <ContentBadge label={group.ages} tone="cool-blue" />
+            <h3>{group.title}</h3>
+            <p>{group.description}</p>
+            <span class="membership-option__included"><Check size={17} stroke-width={2.2} aria-hidden="true" /> Registered with Killarney Athletic</span>
+          </Card>
+        ))}
+      </div>
+    </section>
+
+    <section class="membership-process">
+      <div class="page-shell section-block">
+        <SectionHeader
+          title="How registration works"
+          intro="The complete online process normally takes only a few minutes."
+          id="membership-process-heading"
+        />
+        <ol class="membership-process__steps" aria-labelledby="membership-process-heading">
+          {registrationSteps.map((step, index) => (
+            <Card as="li" class="membership-process__step">
+              <span class="membership-process__number">{index + 1}</span>
+              <span class="membership-process__icon"><step.icon size={23} stroke-width={1.9} aria-hidden="true" /></span>
+              <h3>{step.title}</h3>
+              <p>{step.text}</p>
+            </Card>
+          ))}
+        </ol>
+        <div class="membership-process__action">
+          <Button
+            href={CLUB_LINKS.clubforce.membership}
+            label="Continue to Clubforce"
+            variant="primary"
+            target="_blank"
+            rel="noopener noreferrer"
+          />
+          <p><ShieldCheck size={17} stroke-width={2} aria-hidden="true" /> Registration and payment take place securely on Clubforce.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="membership-faq page-shell section-block" aria-labelledby="membership-faq-heading">
+      <SectionHeader title="Membership questions" id="membership-faq-heading">
+        <CircleHelp slot="icon" aria-hidden="true" />
+      </SectionHeader>
+      <div class="membership-faq__list">
+        {faqs.map((faq, index) => (
+          <details open={index === 0}>
+            <summary>{faq.question}<span aria-hidden="true">+</span></summary>
+            <p>{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <section class="membership-help page-shell">
+      <PagePanel class="membership-help__panel">
+        <div>
+          <ContentBadge label="Need help?" tone="warm-neutral" />
+          <h2>Not sure which membership to select?</h2>
+          <p>Contact the club before registering and we will help point you toward the correct squad or age group.</p>
+        </div>
+        <Button href={withBase('/contact-us/')} label="Contact the club" variant="outline-dark" />
+      </PagePanel>
+    </section>
+  </article>
+</Layout>
+
+<style>
+  .membership-page { padding-bottom:clamp(4rem,8vw,7rem); }
+  .membership-hero__actions { display:flex; flex-wrap:wrap; gap:.75rem; margin-top:1.5rem; }
+  .membership-intro { display:grid; grid-template-columns:minmax(250px,.85fr) minmax(300px,1.15fr); gap:clamp(2rem,7vw,6rem); align-items:start; }
+  .membership-intro h2 { max-width:13ch; margin:.8rem 0 0; color:var(--brand-navy); font-size:clamp(2rem,4vw,3.25rem); line-height:1.05; }
+  .membership-intro__copy { display:grid; gap:1rem; }
+  .membership-intro__copy p { margin:0; color:var(--muted); font-size:clamp(1rem,2vw,1.12rem); line-height:var(--type-leading-body); }
+  .membership-options__grid { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:1rem; margin-top:1.5rem; }
+  .membership-option { grid-column:span 2; }
+  .membership-option:nth-child(4) { grid-column:2 / span 2; }
+  .membership-option h3 { margin:.85rem 0 .45rem; color:var(--brand-navy); font-size:1.35rem; }
+  .membership-option p { margin:0; color:var(--muted); line-height:1.6; }
+  .membership-option__included { display:flex; align-items:center; gap:.45rem; margin-top:1.15rem; color:var(--club-blue); font-size:.8rem; font-weight:700; }
+  .membership-process { margin-block:clamp(3rem,7vw,5rem); background:var(--blue-50); }
+  .membership-process__steps { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin:1.5rem 0 0; padding:0; list-style:none; }
+  .membership-process__step { position:relative; }
+  .membership-process__number { position:absolute; top:1rem; right:1rem; color:rgb(0 35 102 / 25%); font-size:1.5rem; font-weight:700; }
+  .membership-process__icon { display:grid; width:46px; height:46px; place-items:center; border-radius:50%; color:var(--brand-royal); background:var(--badge-cool-blue-bg); }
+  .membership-process h3 { margin:1rem 0 .4rem; color:var(--brand-navy); font-size:1.15rem; }
+  .membership-process li p { margin:0; color:var(--muted); line-height:1.55; }
+  .membership-process__action { display:flex; align-items:center; flex-wrap:wrap; gap:1rem 1.25rem; margin-top:1.5rem; }
+  .membership-process__action p { display:flex; align-items:center; gap:.4rem; margin:0; color:var(--muted); font-size:.82rem; }
+  .membership-faq__list { display:grid; gap:.75rem; max-width:52rem; margin-top:1.5rem; }
+  .membership-faq details { border:1px solid var(--line); border-radius:.85rem; background:white; }
+  .membership-faq summary { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:1rem 1.15rem; color:var(--brand-navy); font-weight:650; cursor:pointer; list-style:none; }
+  .membership-faq summary::-webkit-details-marker { display:none; }
+  .membership-faq summary span { color:var(--brand-royal); font-size:1.35rem; transition:transform .18s ease; }
+  .membership-faq details[open] summary span { transform:rotate(45deg); }
+  .membership-faq details p { margin:0; padding:0 1.15rem 1.15rem; color:var(--muted); line-height:1.6; }
+  .membership-help { padding-top:clamp(1rem,3vw,2rem); }
+  .membership-help__panel { display:flex; align-items:center; justify-content:space-between; gap:2rem; }
+  .membership-help h2 { margin:.7rem 0 .35rem; color:var(--brand-navy); font-size:clamp(1.4rem,3vw,2rem); }
+  .membership-help p { max-width:44rem; margin:0; color:var(--muted); }
+  @media (max-width:850px) {
+    .membership-options__grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .membership-option,.membership-option:nth-child(4) { grid-column:auto; }
+    .membership-option:last-child { grid-column:1 / -1; }
+  }
+  @media (max-width:700px) {
+    .membership-intro,.membership-process__steps { grid-template-columns:1fr; }
+    .membership-help__panel { align-items:flex-start; flex-direction:column; }
+  }
+  @media (max-width:520px) {
+    .membership-options__grid { grid-template-columns:1fr; }
+    .membership-option:last-child { grid-column:auto; }
+    .membership-hero__actions :global(.ui-button) { width:100%; }
+  }
+</style>

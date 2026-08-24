@@ -1,0 +1,62 @@
+---
+import { Picture, type ImageMetadata } from 'astro:assets';
+import Button from './Button.astro';
+
+interface Props {
+  id?: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+  buttonLabel: string;
+  href: string;
+  target?: string;
+  rel?: string;
+  background: ImageMetadata;
+}
+
+const {
+  id,
+  eyebrow,
+  title,
+  description,
+  buttonLabel,
+  href,
+  target,
+  rel,
+  background,
+} = Astro.props as Props;
+---
+
+<section id={id} class="image-cta-section">
+  <div class="image-cta-section__media" aria-hidden="true">
+    <Picture
+      src={background}
+      formats={['avif', 'webp']}
+      fallbackFormat="webp"
+      width={960}
+      height={720}
+      widths={[640, 960]}
+      sizes="100vw"
+      alt=""
+      loading="lazy"
+      quality={52}
+    />
+  </div>
+
+  <div class="page-shell image-cta-section__content">
+    <div class="image-cta-section__heading">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2>{title}</h2>
+    </div>
+    <p class="image-cta-section__description">{description}</p>
+    <Button
+      class="image-cta-section__button"
+      href={href}
+      label={buttonLabel}
+      size="md"
+      variant="light"
+      target={target}
+      rel={rel}
+    />
+  </div>
+</section>

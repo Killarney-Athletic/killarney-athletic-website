@@ -1,0 +1,28 @@
+---
+interface Props {
+  title: string;
+  author: string;
+  image: string;
+  imageAlt: string;
+  href: string;
+  class?: string;
+}
+
+const {
+  title,
+  author,
+  image,
+  imageAlt,
+  href,
+  class: className = '',
+} = Astro.props as Props;
+---
+
+<a class:list={['history-article-card', className]} href={href} aria-label={`Read ${title} by ${author}`}>
+  <img src={image} alt={imageAlt} loading="lazy" />
+  <span class="history-article-card__shade" aria-hidden="true"></span>
+  <span class="history-article-card__content">
+    <strong>{title}</strong>
+    <span>{author}</span>
+  </span>
+</a>

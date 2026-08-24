@@ -1,0 +1,59 @@
+---
+interface LogoItem {
+  name: string;
+  href: string;
+  logo: string;
+  alt: string;
+}
+
+interface Props {
+  eyebrow?: string | false;
+  title: string;
+  accentTitle?: string;
+  description?: string;
+  descriptionAccent?: string;
+  items: LogoItem[];
+}
+
+const {
+  eyebrow = false,
+  title,
+  accentTitle,
+  description,
+  descriptionAccent,
+  items,
+} = Astro.props as Props;
+---
+
+<section class="logo-cloud section-block" aria-labelledby="logo-cloud-heading">
+  <div class="page-shell">
+    <div class="logo-cloud__heading">
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <h2 id="logo-cloud-heading">
+        {title}
+        {accentTitle && <span class="logo-cloud__title-accent">{accentTitle}</span>}
+      </h2>
+      {(description || descriptionAccent) && (
+        <p>
+          {description}
+          {descriptionAccent && <strong>{descriptionAccent}</strong>}
+        </p>
+      )}
+    </div>
+
+    <div class="logo-cloud__grid">
+      {items.map((item) => (
+        <a
+          class="logo-cloud__item"
+          href={item.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Visit ${item.name}`}
+        >
+          <img src={item.logo} alt={item.alt} loading="lazy" decoding="async" />
+          <span>{item.name}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

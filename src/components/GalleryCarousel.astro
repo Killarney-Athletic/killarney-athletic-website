@@ -1,0 +1,114 @@
+---
+import { ChevronLeft, ChevronRight, X } from '@lucide/astro';
+import type { GalleryImage } from '../lib/wordpress';
+
+interface GalleryData {
+  id: string;
+  title: string;
+  images: GalleryImage[];
+}
+
+interface Props {
+  galleries: GalleryData[];
+}
+
+const { galleries } = Astro.props as Props;
+---
+
+<dialog class="gallery-carousel" data-gallery-dialog aria-labelledby="gallery-carousel-title">
+  <div class="gallery-carousel__panel">
+    <header class="gallery-carousel__header">
+      <div>
+        <h2 id="gallery-carousel-title" data-gallery-title>Photo gallery</h2>
+        <p data-gallery-counter aria-live="polite"></p>
+      </div>
+      <button class="gallery-carousel__close" type="button" data-gallery-close aria-label="Close photo gallery">
+        <X aria-hidden="true" size={22} stroke-width={2.2} />
+      </button>
+    </header>
+
+    <div class="gallery-carousel__stage">
+      <button class="gallery-carousel__control gallery-carousel__control--previous" type="button" data-gallery-previous aria-label="Previous photo">
+        <ChevronLeft aria-hidden="true" size={26} stroke-width={2.2} />
+      </button>
+
+      <figure>
+        <img data-gallery-image src="" alt="" />
+        <figcaption data-gallery-caption></figcaption>
+      </figure>
+
+      <button class="gallery-carousel__control gallery-carousel__control--next" type="button" data-gallery-next aria-label="Next photo">
+        <ChevronRight aria-hidden="true" size={26} stroke-width={2.2} />
+      </button>
+    </div>
+  </div>
+</dialog>
+
+<script define:vars={{ galleries }}>
+  const galleryMap = new Map(galleries.map((gallery) => [gallery.id, gallery]));
+  const dialog = document.querySelector('[data-gallery-dialog]');
+  const title = dialog?.querySelector('[data-gallery-title]');
+  const counter = dialog?.querySelector('[data-gallery-counter]');
+  const image = dialog?.querySelector('[data-gallery-image]');
+  const caption = dialog?.querySelector('[data-gallery-caption]');
+  const previousButton = dialog?.querySelector('[data-gallery-previous]');
+  const nextButton = dialog?.querySelector('[data-gallery-next]');
+  const closeButton = dialog?.querySelector('[data-gallery-close]');
+  let activeGallery = null;
+  let activeIndex = 0;
+  let returnFocus = null;
+
+  function renderImage() {
+    const current = activeGallery?.images[activeIndex];
+    if (!current || !image) return;
+
+    image.src = current.src;
+    image.alt = current.alt || `${activeGallery.title}, photo ${activeIndex + 1}`;
+    if (caption) caption.textContent = current.alt || '';
+    if (counter) counter.textContent = `${activeIndex + 1} of ${activeGallery.images.length}`;
+    if (title) title.textContent = activeGallery.title;
+
+    const hasMultiple = activeGallery.images.length > 1;
+    if (previousButton) previousButton.hidden = !hasMultiple;
+    if (nextButton) nextButton.hidden = !hasMultiple;
+  }
+
+  function move(step) {
+    if (!activeGallery) return;
+    activeIndex = (activeIndex + step + activeGallery.images.length) % activeGallery.images.length;
+    renderImage();
+  }
+
+  document.querySelectorAll('[data-gallery-open]').forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const gallery = galleryMap.get(trigger.getAttribute('data-gallery-open'));
+      if (!gallery || !dialog) return;
+
+      activeGallery = gallery;
+      const requestedIndex = Number(trigger.getAttribute('data-gallery-index') ?? 0);
+      activeIndex = Number.isInteger(requestedIndex) && requestedIndex >= 0 && requestedIndex < gallery.images.length
+        ? requestedIndex
+        : 0;
+      returnFocus = trigger;
+      renderImage();
+      document.documentElement.classList.add('is-gallery-open');
+      dialog.showModal();
+    });
+  });
+
+  previousButton?.addEventListener('click', () => move(-1));
+  nextButton?.addEventListener('click', () => move(1));
+  closeButton?.addEventListener('click', () => dialog?.close());
+  dialog?.addEventListener('click', (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+  dialog?.addEventListener('close', () => {
+    document.documentElement.classList.remove('is-gallery-open');
+    returnFocus?.focus();
+    activeGallery = null;
+  });
+  dialog?.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowLeft') move(-1);
+    if (event.key === 'ArrowRight') move(1);
+  });
+</script>

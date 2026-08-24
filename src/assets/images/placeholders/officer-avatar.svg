@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-labelledby="title">
+  <title id="title">Officer portrait placeholder</title>
+  <circle cx="90" cy="90" r="90" fill="#f1f3f5"/>
+  <g fill="none" stroke="#aeb4bb" stroke-linecap="round" stroke-linejoin="round" stroke-width="4">
+    <circle cx="90" cy="72" r="16"/>
+    <path d="M65 125v-5c0-16 11-28 25-28s25 12 25 28v5"/>
+  </g>
+</svg>

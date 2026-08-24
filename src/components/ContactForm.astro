@@ -1,0 +1,119 @@
+---
+import { ExternalLink } from '@lucide/astro';
+import Button from './Button.astro';
+
+interface Props {
+  action?: string;
+  mailtoRecipient?: string;
+  method?: 'get' | 'post';
+  title?: string;
+  intro?: string;
+  class?: string;
+}
+
+const {
+  action,
+  mailtoRecipient,
+  method = 'post',
+  title = 'Send an enquiry',
+  intro = 'Complete the form and the club will respond as soon as possible.',
+  class: className = '',
+  ...rest
+} = Astro.props as Props;
+
+const isConnected = Boolean(action || mailtoRecipient);
+---
+
+<form
+  class:list={['contact-form', className]}
+  action={action}
+  method={method}
+  data-mailto-recipient={mailtoRecipient}
+  {...rest}
+>
+  <header class="contact-form__header">
+    <h2>{title}</h2>
+    <p>{intro}</p>
+  </header>
+
+  {mailtoRecipient && (
+    <p class="contact-form__notice">
+      <strong>Note:</strong> Clicking compose will launch your default email app with these fields pre-filled.
+    </p>
+  )}
+
+  <div class="contact-form__fields">
+    <label class="form-control">
+      <span class="label-text">Your name <span aria-hidden="true">*</span></span>
+      <input class="input input-bordered input-secondary w-full" name="name" type="text" autocomplete="name" required />
+    </label>
+
+    <label class="form-control">
+      <span class="label-text">Your email <span aria-hidden="true">*</span></span>
+      <input class="input input-bordered input-secondary w-full" name="email" type="email" autocomplete="email" required />
+    </label>
+
+    <label class="form-control contact-form__subject">
+      <span class="label-text">Subject</span>
+      <input class="input input-bordered input-secondary w-full" name="subject" type="text" />
+    </label>
+
+    <label class="form-control contact-form__message">
+      <span class="label-text">Your message <span aria-hidden="true">*</span></span>
+      <textarea
+        class="textarea textarea-bordered textarea-secondary w-full"
+        name="message"
+        rows="5"
+        maxlength="1200"
+        required
+        data-contact-message
+        aria-describedby="contact-message-limit"
+      ></textarea>
+      <span id="contact-message-limit" class="contact-form__counter" data-contact-counter aria-live="polite">0 / 1200</span>
+    </label>
+  </div>
+
+  <div class="contact-form__actions">
+    <Button label="Compose email" type="submit" size="sm" variant="primary" disabled={!isConnected} aria-disabled={!isConnected ? 'true' : undefined}>
+      <ExternalLink slot="icon" size={16} stroke-width={2.25} />
+    </Button>
+    {!isConnected && <p class="contact-form__status">Online submission is not connected yet. Please use the general enquiries email.</p>}
+  </div>
+</form>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('.contact-form[data-mailto-recipient]').forEach((form) => {
+    if (form.dataset.mailtoReady === 'true') return;
+    form.dataset.mailtoReady = 'true';
+
+    form.addEventListener('submit', (event) => {
+      const recipient = form.dataset.mailtoRecipient;
+      if (!recipient) return;
+
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+
+      const data = new FormData(form);
+      const name = String(data.get('name') ?? '').trim();
+      const email = String(data.get('email') ?? '').trim();
+      const subject = String(data.get('subject') ?? '').trim() || 'Website enquiry';
+      const message = String(data.get('message') ?? '').trim();
+      const body = [`Name: ${name}`, `Email: ${email}`, '', message].join('\n');
+      window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    });
+  });
+
+  document.querySelectorAll<HTMLFormElement>('.contact-form').forEach((form) => {
+    const message = form.querySelector<HTMLTextAreaElement>('[data-contact-message]');
+    const counter = form.querySelector<HTMLElement>('[data-contact-counter]');
+    if (!message || !counter || message.dataset.counterReady === 'true') return;
+    message.dataset.counterReady = 'true';
+
+    const updateCounter = () => {
+      counter.textContent = `${message.value.length} / ${message.maxLength}`;
+    };
+
+    message.addEventListener('input', updateCounter);
+    updateCounter();
+  });
+</script>

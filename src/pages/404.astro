@@ -1,0 +1,43 @@
+---
+import Button from '../components/Button.astro';
+import Layout from '../layouts/Layout.astro';
+import { withBase } from '../utils/paths';
+---
+
+<Layout
+  title="Page Not Found | Killarney Athletic A.F.C."
+  description="The requested page could not be found."
+  canonicalPath="/404/"
+>
+  <section class="not-found page-shell" aria-labelledby="not-found-title">
+    <p class="not-found__code" aria-hidden="true">404</p>
+    <h1 id="not-found-title">Page not found</h1>
+    <Button href={withBase('/')} label="Back to home" variant="primary" />
+  </section>
+</Layout>
+
+<style>
+  .not-found {
+    display:grid;
+    min-height:60vh;
+    place-content:center;
+    justify-items:center;
+    gap:1rem;
+    padding-block:clamp(4rem,12vw,9rem);
+    text-align:center;
+  }
+
+  .not-found__code {
+    margin:0;
+    color:var(--brand-royal);
+    font-size:clamp(4rem,14vw,8rem);
+    font-weight:700;
+    line-height:.85;
+  }
+
+  .not-found h1 {
+    margin:0 0 .5rem;
+    color:var(--brand-navy);
+    font-size:clamp(1.8rem,4vw,3rem);
+  }
+</style>

@@ -1,0 +1,41 @@
+---
+import { withBase } from '../utils/paths';
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+  ariaLabel?: string;
+  class?: string;
+}
+
+const {
+  items,
+  ariaLabel = 'Breadcrumb',
+  class: className = '',
+} = Astro.props as Props;
+
+const resolveHref = (href: string) => {
+  if (href.startsWith('http') || href.startsWith('#')) return href;
+  return withBase(href);
+};
+---
+
+{items.length > 0 && (
+  <nav class:list={['breadcrumbs', className]} aria-label={ariaLabel}>
+    <ol>
+      {items.map((item) => (
+        <li>
+          {item.href ? (
+            <a href={resolveHref(item.href)}>{item.label}</a>
+          ) : (
+            <span aria-current="page">{item.label}</span>
+          )}
+        </li>
+      ))}
+    </ol>
+  </nav>
+)}

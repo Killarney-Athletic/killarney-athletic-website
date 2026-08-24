@@ -1,0 +1,58 @@
+---
+import { Images } from '@lucide/astro';
+import Button from './Button.astro';
+import ContentBadge from './ContentBadge.astro';
+
+interface Props {
+  galleryId: string;
+  title: string;
+  excerpt?: string;
+  category?: string;
+  date: Date | string;
+  imageCount: number;
+  coverImageUrl: string;
+  class?: string;
+}
+
+const {
+  galleryId,
+  title,
+  excerpt,
+  category = 'Gallery',
+  date,
+  imageCount,
+  coverImageUrl,
+  class: className = '',
+  ...rest
+} = Astro.props as Props;
+
+const parsedDate = new Date(date);
+---
+
+<article class:list={['listing-item', 'gallery-listing-item', className]} {...rest}>
+  <img class="gallery-listing-item__cover" src={coverImageUrl} alt="" width="160" height="110" loading="lazy" />
+
+  <div class="gallery-listing-item__content">
+    <div class="meta-row gallery-listing-item__meta">
+      <ContentBadge label={category} />
+      <time datetime={parsedDate.toISOString()}>
+        {parsedDate.toLocaleDateString('en-IE', { day: 'numeric', month: 'long', year: 'numeric' })}
+      </time>
+      <span>{imageCount} {imageCount === 1 ? 'photo' : 'photos'}</span>
+    </div>
+
+    <h2>{title}</h2>
+    {excerpt && <p>{excerpt}</p>}
+
+    <Button
+      class="gallery-listing-item__button"
+      label="View gallery"
+      size="sm"
+      variant="primary"
+      ariaLabel={`Open photo gallery: ${title}`}
+      data-gallery-open={galleryId}
+    >
+      <Images slot="icon" size={16} stroke-width={2.25} />
+    </Button>
+  </div>
+</article>

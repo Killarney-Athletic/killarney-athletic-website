@@ -1,0 +1,57 @@
+---
+import { Mail } from '@lucide/astro';
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+import ContactCard from '../components/ContactCard.astro';
+import ContactForm from '../components/ContactForm.astro';
+import PageHeader from '../components/PageHeader.astro';
+import PagePanel from '../components/PagePanel.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+
+const directionsUrl = 'https://maps.app.goo.gl/ADu28Es1htB8Nw5CA';
+---
+
+<Layout
+  title="Contact Us | Killarney Athletic AFC"
+  description="Contact Killarney Athletic AFC and find directions to Killarney Athletic Park in Woodlawn."
+  canonicalPath="/contact-us/"
+>
+  <article class="contact-page page-shell">
+    <PageHeader
+      title="Contact Us"
+      intro="Get in touch with Killarney Athletic A.F.C. or find your way to our grounds in Woodlawn."
+      breadcrumbs={[
+        { label: 'Home', href: '/' },
+        { label: 'Contact Us' },
+      ]}
+    />
+
+    <section class="contact-page__main" aria-label="Enquiry form and location">
+      <PagePanel class="contact-page__form-panel">
+        <ContactForm mailtoRecipient="sec@killarneyathletic.com" />
+      </PagePanel>
+
+      <PagePanel class="contact-page__map-panel">
+        <SectionHeader slot="header" title="Find the club" intro="Killarney Athletic Park, Woodlawn Road." />
+        <ContactCard
+          title="General enquiries"
+          text="For general club enquiries, contact the club secretary by email."
+          href="mailto:sec@killarneyathletic.com"
+          linkLabel="sec@killarneyathletic.com"
+        >
+          <Mail slot="icon" size={21} stroke-width={2.2} />
+        </ContactCard>
+        <div class="contact-map">
+          <iframe
+            title="Map showing Killarney Athletic Park"
+            src="https://www.google.com/maps?q=Killarney%20Athletic%20Park%2C%20Woodlawn%20Road%2C%20Killarney%2C%20Ireland&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+        <Button label="Get directions" href={directionsUrl} size="sm" variant="outline-dark" target="_blank" rel="noopener noreferrer" />
+      </PagePanel>
+    </section>
+
+  </article>
+</Layout>

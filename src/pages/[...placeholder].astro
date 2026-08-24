@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import PagePanel from '../components/PagePanel.astro';
+
+interface PlaceholderPage {
+  path: string;
+  title: string;
+  parent?: { label: string; href: string };
+}
+
+export function getStaticPaths() {
+  const pages: PlaceholderPage[] = [
+    { path: 'privacy-policy', title: 'Privacy Policy' },
+    { path: 'cookie-policy', title: 'Cookie Policy' },
+  ];
+
+  return pages.map((page) => ({
+    params: { placeholder: page.path },
+    props: { page },
+  }));
+}
+
+const { page } = Astro.props as { page: PlaceholderPage };
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  ...(page.parent ? [page.parent] : []),
+  { label: page.title },
+];
+---
+
+<Layout
+  title={`${page.title} | Killarney Athletic AFC`}
+  description={`${page.title} information from Killarney Athletic A.F.C.`}
+  canonicalPath={`/${page.path}/`}
+>
+  <section class="page-shell page-template page-template--standard coming-soon-page">
+    <PageHeader title={page.title} breadcrumbs={breadcrumbs} />
+
+    <PagePanel bodyClass="coming-soon-page__content">
+      <p>Coming soon</p>
+    </PagePanel>
+  </section>
+</Layout>

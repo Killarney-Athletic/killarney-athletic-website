@@ -1,0 +1,178 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import Button from '../../../../components/Button.astro';
+import GalleryCarousel from '../../../../components/GalleryCarousel.astro';
+import PageHeader from '../../../../components/PageHeader.astro';
+import { Clock, Share2 } from '@lucide/astro';
+import woodlawnRoversImage from '../../../../assets/images/history/woodlawn-rovers-team.jpg';
+import munsterJuniorCupImage from '../../../../assets/images/history/athletic-1979-80-munster-junior-cup.jpg';
+import reserveCupImage from '../../../../assets/images/history/athletic-b-1979-80-reserve-cup.jpg';
+import bountyBoysImage from '../../../../assets/images/history/bounty-boys-1977-full.jpg';
+
+const sourcePdf = 'https://www.killarneyathletic.com/wp-content/uploads/2015/07/Killarney-Athletic-1975-1980-3.pdf';
+const articleTitle = 'Killarney Athletic 1975–1980';
+const articleUrl = new URL(`${import.meta.env.BASE_URL}about/club-history/articles/killarney-athletic-1975-1980/`, Astro.site ?? 'https://www.killarneyathletic.com');
+const articleGalleryId = 'killarney-athletic-1975-1980-gallery';
+---
+
+<Layout
+  title={`${articleTitle} | Killarney Athletic A.F.C.`}
+  description="Killarney Athletic’s history from 1975 to 1980, including Woodlawn Rovers, the first B team and the beginnings of the seven-a-side tournament."
+  canonicalPath="/about/club-history/articles/killarney-athletic-1975-1980/"
+  bodyClass="history-story-page"
+  hideFooter={true}
+>
+  <article class="history-story">
+    <header class="history-story__header page-shell">
+      <PageHeader
+        variant="hero"
+        title={articleTitle}
+        breadcrumbs={[
+          { label: 'Home', href: '/' },
+          { label: 'Club History', href: '/about/club-history/' },
+          { label: 'Stories & Articles', href: '/about/club-history/#articles' },
+          { label: articleTitle },
+        ]}
+      >
+        <span slot="intro" class="history-story__byline">
+          <span>Killarney Athletic Archive</span>
+          <span aria-hidden="true">·</span>
+          <span>2015</span>
+          <span class="history-story__read-time"><Clock aria-hidden="true" size={15} stroke-width={2} /> 7 min read</span>
+        </span>
+      </PageHeader>
+    </header>
+
+    <div class="history-story__body page-shell">
+      <section>
+        <p>The mid to late ‘70s was a significant period not just in the club’s history but also in the development of soccer in Killarney and Kerry.</p>
+        <p>James Gleeson RIP followed in the steps of his brother Donagh and served the club as chairman and team manager for a number of seasons while also serving on the KDL board. Peter Gilhooley RIP and Tom ‘Sossy’ Mullins RIP shared the secretarial role within the club during this period.</p>
+        <p>Although there were competing teams in many parts of the county, the KDL and affiliated soccer clubs were still only ‘finding their feet’ to the extent that nearly all the clubs were just comprised of 1 junior (adult) team with only 6 clubs fielding a youth team in the 1st youth league of the KDL in the 1974/75 season. Athletic finished runners-up to a strong Cahersiveen team who had the great Jack O’ Shea in their line-up that season. Cahersiveen were also the top junior side in the KDL league in the first years of its formation.</p>
+        <p>In many ways at the time the key person in a club was the team manager and for many of the clubs the player/manager role was quite common. Denny Hayes took over from James as player/manager in 1976 and was also to make an outstanding contribution to the club over the following decades at all levels within the club and the Kerry Schoolboys League.</p>
+      </section>
+
+      <section>
+        <h2>Woodlawn Rovers Join Killarney Athletic</h2>
+        <p>Many people involved with soccer in Kerry would associate the name of Billy Doyle with Killarney Athletic but Billy had his own team in the KDL and they were named Woodlawn Rovers and played in division 2 of the league for two seasons—1973/74 and ‘74/’75. However they joined Killarney Athletic ahead of the ‘75/’76 season. The club was to benefit enormously as a result of this decision because not only did Billy attach himself to Athletic but he also brought with him some very good players. One in particular to stand out above all others was Donie Murphy and the rest as they say ‘is history’. As many people would know Donie has been involved with the club in every decade since and presently coaches &amp; manages with the under 10s and 12s. Gerard Looney and Tom O’Shea were other talented players to come from the ‘Rovers’ and wear the Athletic colours.</p>
+      </section>
+
+      <figure>
+        <button class="history-story__image-trigger" type="button" data-gallery-open={articleGalleryId} data-gallery-index="0" aria-label="Open the 1975 to 1980 article gallery at the Woodlawn Rovers team photograph">
+          <img src={woodlawnRoversImage.src} alt="Woodlawn Rovers players photographed during the mid-1970s" />
+        </button>
+        <figcaption><strong>Woodlawn Rovers Join Killarney Athletic</strong></figcaption>
+      </figure>
+
+      <section>
+        <h2>Athletic ‘B’ and Killarney Rangers</h2>
+        <p>The 1975/’76 season was also a landmark year for the club as it became the 1st Kerry league club to field a second junior team that competed in the 2nd division of the league. This decision was made to cater for the ever increasing numbers coming into the club, and it also marked Billy’s first time managing a Killarney Athletic side.</p>
+        <p>Also that season Killarney Rangers were founded and entered into the 2nd division of the KDL with Athletic ‘B‘. Outside of Liebherr there were now two distinctive soccer clubs in town. The ‘Rangers’ changed their club name in the 1977/’78 season when a young Killarney Albion 7-a-side team joined them, and the renamed club became Killarney Celtic.</p>
+        <p>There is no doubt that local sporting rivalry is one of the healthiest things in sport, as it inspires clubs and teams to be at their best to compete against each other. It is also true to say that the Killarney ’derbies’ between the 2 clubs have been a highlight in many of the soccer seasons over the decades.</p>
+        <p>For the record it was a Toni Fleming goal that separated the sides in the clubs’ 1st competitive meeting in a Munster Junior Cup game played in the St. Finans pitch in the 1978 season. The aforementioned Toni along with Donal Hayes were 2 prolific goal scorers for Athletic in the ‘70s while Toni also made a significant contribution as an administrator of the club.</p>
+      </section>
+
+      <div class="history-story__figure-pair">
+        <figure>
+          <button class="history-story__image-trigger" type="button" data-gallery-open={articleGalleryId} data-gallery-index="1" aria-label="Open the article gallery at the 1979 to 1980 Munster Junior Cup team photograph">
+            <img src={munsterJuniorCupImage.src} alt="Killarney Athletic team that won the Kerry section of the 1979 to 1980 Munster Junior Cup" />
+          </button>
+          <figcaption><strong>1979-80 (Winners of Kerry Section of Munster Junior Cup)</strong></figcaption>
+        </figure>
+
+        <figure>
+          <button class="history-story__image-trigger" type="button" data-gallery-open={articleGalleryId} data-gallery-index="2" aria-label="Open the article gallery at the 1979 to 1980 Reserve Cup team photograph">
+            <img src={reserveCupImage.src} alt="Killarney Athletic B team that won the 1979 to 1980 Reserve Cup" />
+          </button>
+          <figcaption>
+            <strong>Killarney Athletic 'B' team that won the 1979/80 Reserve Cup</strong>
+            <span>Back left- Billy Doyle, Pat Reen, John Casey, Jimmy Reen, Colm Galvin, Josie Donoghue, John O'Connor, Sean Brosnan, and Gerard Looney. Front left-Derry Keeffe, Jerry O'Leary,Toni Fleming, Frank Doyle, Antonio Cirillo, Niall Casey, Tom Mullins &amp; Peter Gilhooley both RIP.</span>
+          </figcaption>
+        </figure>
+      </div>
+
+      <section>
+        <h2>Start of the 7-A-Side in 1977</h2>
+        <p>As mentioned in a previous article there were competitive 7-asides held in the Half Moon and in the ‘Áras’ pitch in the early 70s but in 1977 the club organised and held the first 7-a-side tournament that has run in every consecutive year since then. Next year, in 2016, the club will mark and celebrate the 40th year of organising and running this most popular tournament and there will be a lot of interest in recalling the past 39 years of 7-a-side memories. The organising committee of the 1977 tournament under the chairmanship of Billy Doyle deserve great credit for giving the 7-a-side the organisational level that has endured the past 39 years.</p>
+        <p>The goal of this 1st 7-a-side was to further promote the game in the area and also to raise funds for a local charity. Securing exclusive use of the ’Aras’ pitch to run the tournament was a must and again the Franciscan community through Fr. Vivian RIP gave their full support to the club. The next important requirement was a main sponsor, as the committee proposed prize funds to the winners and runners-up as well as trophies. Hence, without hesitation, Con O’Leary of the Laurels Bar committed to sponsoring the tournament for a 3 year period.</p>
+        <p>From an organisation and rules point of view teams were only allowed to have 2 registered players with the KDL in their squads, there were no walkovers or late arrivals allowed and all teams had to be properly kitted out. The players, managers and their sponsors all bought into the organisation and spirit of the tournament and the 1977 event proved to be an outstanding success, setting the trend for future tournaments – Brian McCarthy refereed most of the matches that year. There were 19 competing teams with a Laurels-sponsored team—The Bounty Boys—winning the spoils against a Killarney Albion side that had ’Poggs’ Looney and Pa Moynihan in the team. Pa had moved from Fossa (formerly Liebherr) to join Athletic that same year and he later managed many Athletic teams at senior and under age level.</p>
+        <p>The one downside of the tournament for the club was it also proved to be an ideal recruiting base for many of the new emerging clubs that were joining the KDL at the time and the club were not as persuasive as others in enticing the more ‘sought after players’ into the club.</p>
+      </section>
+
+      <figure>
+        <button class="history-story__image-trigger" type="button" data-gallery-open={articleGalleryId} data-gallery-index="3" aria-label="Open the article gallery at the first seven-a-side winners photograph">
+          <img src={bountyBoysImage.src} alt="The Bounty Boys, winners of the first Killarney Athletic seven-a-side tournament in 1977" />
+        </button>
+        <figcaption>
+          <strong>1st 7-a-side winners 1977</strong>
+          <span>Back left- Mike O’ Connor, James Gleeson, Billy Doyle, Mike “Smiler” Moloney, Denny Hayes, Donagh Gleeson, Pogs Looney. Front left- Barry O’ Connor, Toni Fleming, John Joe Grady, Sean Kelliher.</span>
+        </figcaption>
+      </figure>
+
+      <section>
+        <h2>Start of Underage 7-A-Side in 1978</h2>
+        <p>Since its formation the promotion of the game at underage level was always a core principle of the club and it was a natural development that the club organised the 1st underage 7-a-side in 1978 also in the ‘Áras’ pitch. John J Murphy deserves great credit for organising the earlier tournaments and also for his commitment to the club over many years as an administrator and team manager.</p>
+      </section>
+
+      <section>
+        <h2>The Late ‘70s</h2>
+        <p>Most Kerry people would know that the late 70s was a ‘golden era’ for the Kerry football team under Mick O’ Dwyer and although the KDL was still popular during the winter months, many of clubs, Killarney Athletic included, had a lot dual players in the make-up of their teams. This had the effect of not fielding the same 11 consistently enough to compete against the better sides in the division 1 league. This was also allied to the fact that many of the keen soccer players that played with the club in the early 70s had retired, and of course the rivalry between the local clubs meant that players were been pursued to join different clubs.</p>
+        <p>Peter McGrath, who was an outstanding goalkeeper with Athletic, took over as player/manager for the 1979/’80 season. He made a bold attempt to improve the fortunes of the club’s 1st team by attracting some good quality players into the fold and the side did well and won the Kerry area final of the Munster Junior Cup. The club were well also represented in the Kerry Oscar Traynor team in every year throughout the ‘70s.</p>
+      </section>
+
+      <blockquote class="history-story__pullquote">
+        <p>The mid to late ‘70s was a significant period not just in the club’s history but also in the development of soccer in Killarney and Kerry.</p>
+        <cite>Killarney Athletic Archive</cite>
+      </blockquote>
+
+      <nav class="history-story__share" aria-label="Share this article">
+        <span class="history-story__share-label"><Share2 aria-hidden="true" size={17} stroke-width={2} /> Share</span>
+        <div>
+          <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(articleUrl.href)}`} target="_blank" rel="noopener noreferrer">Facebook</a>
+          <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(articleUrl.href)}&text=${encodeURIComponent(articleTitle)}`} target="_blank" rel="noopener noreferrer">X</a>
+          <a href={`mailto:?subject=${encodeURIComponent(articleTitle)}&body=${encodeURIComponent(articleUrl.href)}`}>Email</a>
+        </div>
+      </nav>
+
+      <footer class="history-story__source">
+        <p><strong>Killarney Athletic Archive</strong><br />From the club’s 50 years of soccer series.</p>
+        <Button href={sourcePdf} label="View the original PDF" variant="outline-dark" target="_blank" rel="noopener noreferrer" />
+      </footer>
+    </div>
+  </article>
+
+  <GalleryCarousel galleries={[{
+    id: articleGalleryId,
+    title: articleTitle,
+    images: [
+      { src: woodlawnRoversImage.src, alt: 'Woodlawn Rovers players photographed during the mid-1970s.' },
+      { src: munsterJuniorCupImage.src, alt: 'Killarney Athletic, winners of the Kerry section of the 1979 to 1980 Munster Junior Cup.' },
+      { src: reserveCupImage.src, alt: 'Killarney Athletic B team, winners of the 1979 to 1980 Reserve Cup.' },
+      { src: bountyBoysImage.src, alt: 'The Bounty Boys, winners of the first Killarney Athletic seven-a-side tournament in 1977.' },
+    ],
+  }]} />
+</Layout>
+
+<style>
+  .history-story__figure-pair {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.25rem, 3vw, 2rem);
+    margin-top: clamp(3rem, 7vw, 5rem);
+  }
+
+  .history-story__body .history-story__figure-pair figure {
+    width: 100%;
+    margin: 0;
+    transform: none;
+  }
+
+  .history-story__figure-pair img {
+    aspect-ratio: 1.45 / 1;
+  }
+
+  @media (max-width: 720px) {
+    .history-story__figure-pair {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

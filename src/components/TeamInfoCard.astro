@@ -1,0 +1,75 @@
+---
+import { Clock3, Mail, MapPin, Phone, UserRound } from '@lucide/astro';
+import Card from './ui/Card.astro';
+
+interface Props {
+  kind: 'manager' | 'training' | 'pitch';
+  label: string;
+  value: string;
+  secondary?: string;
+  pending?: boolean;
+  pendingNote?: string;
+  email?: string;
+  phone?: string;
+}
+
+const {
+  kind,
+  label,
+  value,
+  secondary,
+  pending = false,
+  pendingNote,
+  email,
+  phone,
+} = Astro.props as Props;
+
+const icons = { manager: UserRound, training: Clock3, pitch: MapPin };
+const Icon = icons[kind];
+---
+
+<Card class="team-info-card" tone={pending ? 'muted' : 'default'}>
+  <div class="team-info-card__layout">
+    <span class="team-info-card__icon"><Icon aria-hidden="true" size={22} stroke-width={1.8} /></span>
+    <div class="team-info-card__content">
+      <p class="team-info-card__label">{label}</p>
+      <h3>{value}</h3>
+      {secondary && <p class="team-info-card__secondary">{secondary}</p>}
+      {pendingNote && <p class="team-info-card__pending-note">{pendingNote}</p>}
+      {(email || phone) && (
+        <div class="team-info-card__links">
+          {email && <a href={`mailto:${email}`}><Mail aria-hidden="true" size={16} /> {email}</a>}
+          {phone && <a href={`tel:${phone}`}><Phone aria-hidden="true" size={16} /> {phone}</a>}
+        </div>
+      )}
+    </div>
+  </div>
+</Card>
+
+<style>
+  :global(.team-info-card) { min-height: 100%; }
+  .team-info-card__layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .team-info-card__icon {
+    display: grid;
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    place-items: center;
+    border-radius: 50%;
+    color: var(--brand-royal);
+    background: var(--badge-cool-blue-bg);
+  }
+
+  .team-info-card__content { min-width: 0; }
+  .team-info-card__label { margin: 0 0 .45rem; color: var(--muted); font-size: .78rem; font-weight: 700; line-height: 1.25; text-transform: uppercase; }
+  .team-info-card__content h3 { margin: 0; color: var(--brand-navy); font-size: clamp(1.15rem, 2vw, 1.5rem); font-weight: 500; }
+  .team-info-card__secondary { margin: .2rem 0 0; color: var(--muted); font-size: .9rem; line-height: var(--type-leading-body); }
+  .team-info-card__pending-note { margin: .65rem 0 0; color: var(--muted); font-size: .8rem; }
+  .team-info-card__links { display: grid; gap: .5rem; margin-top: .75rem; }
+  .team-info-card__links a { display: inline-flex; align-items: center; gap: .4rem; min-width: 0; color: var(--brand-royal); overflow-wrap: anywhere; }
+</style>

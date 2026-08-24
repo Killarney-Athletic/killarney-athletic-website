@@ -1,0 +1,21 @@
+---
+import { getContentBadgeTone, type ContentBadgeTone } from '../utils/contentBadges';
+
+interface Props {
+  label: string;
+  tone?: ContentBadgeTone;
+  class?: string;
+}
+
+const {
+  label,
+  tone = getContentBadgeTone(label),
+  class: className = '',
+  ...rest
+} = Astro.props as Props;
+---
+
+<span class:list={['content-badge', `content-badge--${tone}`, className]} {...rest}>
+  <slot name="icon" />
+  <span>{label}</span>
+</span>

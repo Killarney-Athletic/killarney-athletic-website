@@ -1,0 +1,149 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+import GalleryCarousel from '../components/GalleryCarousel.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { Clock, MapPin, Share2 } from '@lucide/astro';
+import earlyPitchImage from '../assets/images/history/facilities-pitch-circa-1993.jpg';
+import aerialImage from '../assets/images/history/facilities-woodlawn-aerial.jpg';
+import riverAccessImage from '../assets/images/history/facilities-river-access.jpg';
+
+const sourcePage = 'http://www.killarneyathletic.com/about/our-facilities';
+const articleTitle = 'Our Facilities';
+const articleUrl = new URL(`${import.meta.env.BASE_URL}facilities/`, Astro.site ?? 'https://www.killarneyathletic.com');
+const galleryId = 'facilities-gallery';
+const gallery = [
+  { src: earlyPitchImage.src, alt: 'The original Woodlawn playing field circa 1993.' },
+  { src: aerialImage.src, alt: 'An aerial view of Killarney Athletic Park beside the River Flesk.' },
+  { src: riverAccessImage.src, alt: 'The accessible riverside path beside Killarney Athletic Park.' },
+];
+---
+
+<Layout
+  title={`${articleTitle} | Killarney Athletic A.F.C.`}
+  description="Killarney Athletic Park at Woodlawn: the history, pitches, clubhouse and riverside facilities that form the club’s home."
+  canonicalPath="/facilities/"
+  bodyClass="history-story-page facilities-story-page"
+  hideFooter={true}
+>
+  <article class="history-story">
+    <header class="history-story__header page-shell">
+      <PageHeader
+        variant="hero"
+        title={articleTitle}
+        breadcrumbs={[
+          { label: 'Home', href: '/' },
+          { label: articleTitle },
+        ]}
+      >
+        <span slot="intro" class="history-story__byline">
+          <span class="facilities-story__location"><MapPin aria-hidden="true" size={15} stroke-width={2} /> Killarney Athletic Park, Woodlawn</span>
+          <span aria-hidden="true">·</span>
+          <span class="history-story__read-time"><Clock aria-hidden="true" size={15} stroke-width={2} /> 3 min read</span>
+        </span>
+      </PageHeader>
+    </header>
+
+    <div class="history-story__body page-shell">
+      <section class="facilities-story__opening">
+        <p>Our home at Woodlawn is of much pride to the Club and with the Flesk River as a natural picturesque backdrop, it is a place where dreams have and will be made.</p>
+        <p>The history of the pitch and facilities development within the club is really quite phenomenal. ‘In the beginning’, Club founder Don Harrington secured the use of a pitch from the late John McShain in an area of his land known as the ‘Half Moon’, and the Club played its home games there from 1965 to 1988 before moving to a pitch in the Knockreer area of the estate after the Office of Public Works had taken over responsibility for the Park.</p>
+      </section>
+
+      <figure>
+        <button class="history-story__image-trigger" type="button" data-gallery-open={galleryId} data-gallery-index="0" aria-label="Open the facilities gallery at the Woodlawn pitches photograph">
+          <img src={earlyPitchImage.src} alt={gallery[0].alt} />
+        </button>
+        <figcaption>
+          <strong>Pitch circa 1993</strong>
+          <span>The Woodlawn site before the club’s programme of pitch and facilities development.</span>
+        </figcaption>
+      </figure>
+
+      <section>
+        <h2>Finding a permanent home</h2>
+        <p>While necessary resurfacing and drainage work was being carried out by the club on the Knockreer pitch in 1990, we were forced to look elsewhere for an alternative playing area for a time and fortunately for the club, Tom Lyne (Park Rd.), had also grown up in the ‘60s street league era and had a close affection for the club. Tom owned a 6½ acre site in Woodlawn and the Club rented the land from him for two seasons before purchasing it in 1993.</p>
+        <p>The purchase of the land heralded a new era in the Club’s history and we commenced our first pitch development in 1994. Our permanent base now secured meant that we could plan for the future with confidence.</p>
+      </section>
+
+      <section>
+        <h2>Designed for the life of the club</h2>
+        <p>Since 1993 a lot of development has taken place on the ground, and a land swap with our near neighbour on the eastern side of the ground in 2003 enabled us to plan for two full size pitches. The layout of the site inspired us to come up with an open plan design for the playing area thus allowing us the flexibility to move and rotate the pitches around.</p>
+        <p>This is an important feature in the design as the ground is easily one of the most used soccer pitches in the country, catering not only for the huge number of players and teams in the Club but also for the Club’s annual 7-A-Side Tournament that has been running every summer since 1977.</p>
+      </section>
+
+      <figure>
+        <button class="history-story__image-trigger" type="button" data-gallery-open={galleryId} data-gallery-index="1" aria-label="Open the facilities gallery at the aerial photograph">
+          <img src={aerialImage.src} alt={gallery[1].alt} />
+        </button>
+        <figcaption>
+          <strong>Killarney Athletic aerial view</strong>
+          <span>The Woodlawn grounds and their setting beside the River Flesk.</span>
+        </figcaption>
+      </figure>
+
+      <section>
+        <h2>Today’s facilities</h2>
+        <p>The sand based structure of the surface with a very comprehensive drainage system ensures the ground takes the many matches played on it.</p>
+        <p>The present facilities incorporate a playing surface area that caters for two full size pitches with its own underground water system surrounded by perimeter fencing and an outer walkway/jogging pathway, a floodlit training area, a building comprising of four adjoining dressing rooms, with showers, a general purpose room and a car park.</p>
+      </section>
+
+      <figure>
+        <button class="history-story__image-trigger" type="button" data-gallery-open={galleryId} data-gallery-index="2" aria-label="Open the facilities gallery at the river access photograph">
+          <img src={riverAccessImage.src} alt={gallery[2].alt} />
+        </button>
+        <figcaption>
+          <strong>River access</strong>
+          <span>The accessible path to the River Flesk beside the club grounds.</span>
+        </figcaption>
+      </figure>
+
+      <section>
+        <h2>River access and Knockreer</h2>
+        <p>An additional enhancement of the facilities is a disabled access point to the river bank. This initiative was carried out by the club as a gesture of goodwill to the Loch Léin Anglers club so as to facilitate any of their disabled members or friends, while the area has also proven popular to many locals who like to stroll by the river.</p>
+        <p>All work on the boundary areas of the pitch has been carried out with the full support of the Planning Department of Killarney UDC. As previously mentioned, we continue to maintain our interest in the upkeep and use of the Knockreer pitch for training and games.</p>
+      </section>
+
+      <blockquote class="history-story__pullquote">
+        <p>With the Flesk River as a natural picturesque backdrop, it is a place where dreams have and will be made.</p>
+        <cite>Killarney Athletic A.F.C.</cite>
+      </blockquote>
+
+      <nav class="history-story__share" aria-label="Share this page">
+        <span class="history-story__share-label"><Share2 aria-hidden="true" size={17} stroke-width={2} /> Share</span>
+        <div>
+          <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(articleUrl.href)}`} target="_blank" rel="noopener noreferrer">Facebook</a>
+          <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(articleUrl.href)}&text=${encodeURIComponent(articleTitle)}`} target="_blank" rel="noopener noreferrer">X</a>
+          <a href={`mailto:?subject=${encodeURIComponent(articleTitle)}&body=${encodeURIComponent(articleUrl.href)}`}>Email</a>
+        </div>
+      </nav>
+
+      <footer class="history-story__source">
+        <p><strong>Killarney Athletic Park</strong><br />Woodlawn Road, Killarney, Co. Kerry, V93 XY79</p>
+        <Button href={sourcePage} label="View the original page" variant="outline-dark" target="_blank" rel="noopener noreferrer" />
+      </footer>
+    </div>
+  </article>
+
+  <GalleryCarousel galleries={[{ id: galleryId, title: articleTitle, images: gallery }]} />
+</Layout>
+
+<style>
+  .facilities-story__location {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+  }
+
+  .facilities-story__opening {
+    margin-top: clamp(2rem, 4vw, 3rem);
+  }
+
+  .facilities-story__opening p:first-child {
+    margin-top: 0;
+    color: var(--brand-navy);
+    font-size: clamp(1.2rem, 2.2vw, 1.55rem);
+    line-height: 1.55;
+  }
+
+</style>

@@ -1,0 +1,132 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import Button from '../../../../components/Button.astro';
+import GalleryCarousel from '../../../../components/GalleryCarousel.astro';
+import PageHeader from '../../../../components/PageHeader.astro';
+import { Clock, Share2 } from '@lucide/astro';
+import earlyTeamImage from '../../../../assets/images/history/killarney-athletic-1969-team.jpg';
+import kdlTeamImage from '../../../../assets/images/history/kdl-1972-team.jpg';
+
+const sourcePdf = 'https://www.killarneyathletic.com/wp-content/uploads/2015/05/Killarney-Athletic-1969-75.pdf';
+const articleUrl = new URL(`${import.meta.env.BASE_URL}about/club-history/articles/a-new-league-takes-shape/`, Astro.site ?? 'https://www.killarneyathletic.com');
+const articleGalleryId = 'new-league-gallery';
+const articleTitle = 'A New League Takes Shape';
+---
+
+<Layout
+  title={`${articleTitle} | Killarney Athletic A.F.C.`}
+  description="How Killarney Athletic regrouped after 1969, helped establish the Kerry District League and won its first KDL trophy."
+  canonicalPath="/about/club-history/articles/a-new-league-takes-shape/"
+  bodyClass="history-story-page"
+  hideFooter={true}
+>
+  <article class="history-story">
+    <header class="history-story__header page-shell">
+      <PageHeader
+        variant="hero"
+        title={articleTitle}
+        breadcrumbs={[
+          { label: 'Home', href: '/' },
+          { label: 'Club History', href: '/about/club-history/' },
+          { label: 'Stories & Articles', href: '/about/club-history/#articles' },
+          { label: articleTitle },
+        ]}
+      >
+        <span slot="intro" class="history-story__byline">
+          <span>Killarney Athletic Archive</span>
+          <span aria-hidden="true">·</span>
+          <span>2015</span>
+          <span class="history-story__read-time"><Clock aria-hidden="true" size={15} stroke-width={2} /> 7 min read</span>
+        </span>
+      </PageHeader>
+    </header>
+
+    <div class="history-story__body page-shell">
+      <section>
+        <h2>After the Harrington era 1969</h2>
+        <p>Dan Harrington’s departure from Killarney in <strong>1969</strong> left a considerable gap. Jim O’Sullivan, Sean O’Donoghue and Donagh Gleeson stepped forward as the club’s first chairman, secretary and treasurer, but replacing Harrington as team manager proved more difficult.</p>
+        <p>Brian Gilhooley was the natural successor, though his strongest interest lay in coaching the Franciscan Youth Club teams. Killarney Athletic continued in the Desmond League under a succession of player-managers, travelling throughout West Limerick at a cost the young club eventually found impossible to sustain.</p>
+        <p>The club did not enter the <strong>1970–71 season</strong>. Brian McCarthy and Tom “Sossy” Mullins instead featured for Tralee Dynamos, while Big Jim O’Sullivan emigrated to Australia in 1971.</p>
+      </section>
+
+      <figure>
+        <button class="history-story__image-trigger" type="button" data-gallery-open={articleGalleryId} data-gallery-index="0" aria-label="Open the article gallery at the Killarney Athletic 1969 team photograph">
+          <img src={earlyTeamImage.src} alt="A Killarney Athletic team from around 1969 wearing striped shirts" />
+        </button>
+        <figcaption>
+          <strong>Killarney Athletic at the close of the 1960s.</strong>
+          <span>The club faced a period of transition after Dan Harrington left Killarney.</span>
+        </figcaption>
+      </figure>
+
+      <section class="history-story__subsection">
+        <h3 class="history-story__episode">Football’s changing place in Ireland</h3>
+        <p>Two events transformed the atmosphere around soccer. The <strong>1970 World Cup</strong>, won in unforgettable style by Brazil, brought “the beautiful game” to an unprecedented television audience. Pelé collected his third World Cup medal and the game’s popularity surged in Ireland.</p>
+        <p>Closer to home, the GAA’s removal of the Rule 27 “Ban” in 1971 gave players the freedom to take part in Gaelic games as well as soccer and rugby. It marked a major change in Irish sporting life and opened the game to many more participants.</p>
+      </section>
+
+      <section class="history-story__subsection">
+        <h3 class="history-story__episode">The road to the Kerry District League</h3>
+        <p>Although Athletic had no competitive league in 1970–71, players continued to meet for friendly matches at the Half Moon. An inter-firm seven-a-side competition there in 1971, followed by a tournament in Tralee, showed the depth of soccer interest across Killarney.</p>
+        <p>The Killarney Bartenders included Donagh Gleeson, Tom “Sossy” Mullins and Greg Collins from the Desmond League side, together with Denis Hayes, Mike “Smiler” Moloney and Richard Clifford. Many would become central to the reformed Athletic team when it joined the new Kerry District League.</p>
+      </section>
+
+      <section class="history-story__subsection">
+        <h3 class="history-story__episode">Brian Gilhooley and the Franciscan Youth Club</h3>
+        <p>Brian Gilhooley, a Cork native and devoted Cork Hibernians supporter, had settled on Countess Road in 1963. He formed a close friendship with Fr Vivian Molloy, a Franciscan friar and Arsenal supporter, and together they organised the Youth Club soccer teams.</p>
+        <p>Those teams produced many of Athletic’s finest future players and administrators, among them James Gleeson, Peter Gilhooley, Donal “Pro” Casey, Kevin O’Malley, Ger Galbraith, Ritchie O’Connor, Sean O’Connor, Padraig “Poggs” Looney and Mike “Smiler” Moloney.</p>
+      </section>
+
+      <section class="history-story__subsection">
+        <h3 class="history-story__episode">The Áras Phádraig pitch</h3>
+        <p>The Áras pitch offered an idyllic training ground in the heart of Killarney. By opening it to local youngsters in the late 1960s, the Franciscan community made an important statement of acceptance at a time when soccer still met resistance in Kerry.</p>
+        <p>Fr Vivian successfully opposed a proposal to use the site for housing, preserving the pitch for generations of novice friars, altar boys, Youth Club and Athletic teams, and the crowds who gathered for summer seven-a-side football. The ground was eventually sold in 1999 and became a bus and car park, ending four decades of football there.</p>
+      </section>
+
+      <section>
+        <h2>Kick-off in the KDL 1972</h2>
+        <p>The Kerry District League officially began in <strong>February 1972</strong>. Killarney Athletic became a founding member, bringing together experienced players from the 1960s with a talented new generation shaped by the Youth Club.</p>
+        <p>Donagh Gleeson and Brian McCarthy guided the opening campaign. Joe Grant took charge for 1972–73 and led Athletic to the Munster Junior area final before a narrow quarter-final defeat to Riverside of Cork.</p>
+      </section>
+
+      <figure>
+        <button class="history-story__image-trigger" type="button" data-gallery-open={articleGalleryId} data-gallery-index="1" aria-label="Open the article gallery at the early KDL team photograph">
+          <img src={kdlTeamImage.src} alt="An early Killarney Athletic Kerry District League team posed with two footballs" />
+        </button>
+        <figcaption>
+          <strong>A new generation for a new league.</strong>
+          <span>Killarney Athletic combined members of the old guard with players emerging from the Franciscan Youth Club.</span>
+        </figcaption>
+      </figure>
+
+      <section class="history-story__subsection">
+        <h3 class="history-story__episode">Athletic’s first KDL trophy</h3>
+        <p>Athletic secured its first Kerry District League trophy with victory over Scartaglen in the <strong>1973–74 Anchor Shield final</strong>. The team then reached three more finals, losing each to Park of Tralee, twice after extra time.</p>
+        <p>Joe Grant’s contribution extended far beyond team management. An outstanding club and league administrator, he was remembered by KDL officials as <em>“a man before his time.”</em> Sean O’Connor later succeeded him while also serving both club and league before emigrating to Australia in 1975.</p>
+      </section>
+
+      <nav class="history-story__share" aria-label="Share this article">
+        <span class="history-story__share-label"><Share2 aria-hidden="true" size={17} stroke-width={2} /> Share</span>
+        <div>
+          <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(articleUrl.href)}`} target="_blank" rel="noopener noreferrer">Facebook</a>
+          <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(articleUrl.href)}&text=${encodeURIComponent(articleTitle)}`} target="_blank" rel="noopener noreferrer">X</a>
+          <a href={`mailto:?subject=${encodeURIComponent(articleTitle)}&body=${encodeURIComponent(articleUrl.href)}`}>Email</a>
+        </div>
+      </nav>
+
+      <footer class="history-story__source">
+        <p><strong>Killarney Athletic Archive</strong><br />From the club’s 50 years of soccer series.</p>
+        <Button href={sourcePdf} label="View the original PDF" variant="outline-dark" target="_blank" rel="noopener noreferrer" />
+      </footer>
+    </div>
+  </article>
+
+  <GalleryCarousel galleries={[{
+    id: articleGalleryId,
+    title: articleTitle,
+    images: [
+      { src: earlyTeamImage.src, alt: 'A Killarney Athletic team from around 1969 wearing striped shirts.' },
+      { src: kdlTeamImage.src, alt: 'An early Killarney Athletic Kerry District League team.' },
+    ],
+  }]} />
+</Layout>

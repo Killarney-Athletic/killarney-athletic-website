@@ -1,0 +1,43 @@
+---
+import Breadcrumbs from './Breadcrumbs.astro';
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  title: string;
+  intro?: string;
+  breadcrumbs?: BreadcrumbItem[];
+  variant?: 'standard' | 'hero';
+  headingLevel?: 'h1' | 'h2' | 'h3';
+  class?: string;
+}
+
+const {
+  title,
+  intro,
+  breadcrumbs = [],
+  variant = 'standard',
+  headingLevel = 'h1',
+  class: className = '',
+} = Astro.props as Props;
+
+const Heading = headingLevel;
+---
+
+<header class:list={['page-header', `page-header--${variant}`, className]}>
+  {breadcrumbs.length > 0 && <Breadcrumbs items={breadcrumbs} />}
+
+  <div class="page-header__body">
+    <div>
+      <slot name="meta" />
+      <Heading class="page-header__title">{title}</Heading>
+      {(intro || Astro.slots.has('intro')) && (
+        <p><slot name="intro">{intro}</slot></p>
+      )}
+    </div>
+    <slot name="actions" />
+  </div>
+</header>

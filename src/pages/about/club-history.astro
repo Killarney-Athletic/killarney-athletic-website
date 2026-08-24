@@ -1,0 +1,300 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import HistoryArticleCard from '../../components/HistoryArticleCard.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import Card from '../../components/ui/Card.astro';
+import harringtonEraTeamImage from '../../assets/images/history/harrington-era-team.jpg';
+import kdl1972TeamImage from '../../assets/images/history/kdl-1972-team.jpg';
+import toniFlemingMemorialImage from '../../assets/images/history/toni-fleming-memorial.jpg';
+import woodlawnRoversTeamImage from '../../assets/images/history/woodlawn-rovers-team.jpg';
+import committee1985Image from '../../assets/images/history/committee-1985-seven-a-side-trophies.jpg';
+import senior1990CupFinalistsImage from '../../assets/images/history/senior-team-1990-cup-finalists.jpg';
+import bryanMurphyTeamImage from '../../assets/images/history/bryan-murphy-seven-a-side.jpg';
+import bryanMurphyGoalkeeperImage from '../../assets/images/history/bryan-murphy-goalkeeper.jpg';
+import ladiesSevenAsideImage from '../../assets/images/history/ladies-seven-a-side-launch-2012.jpg';
+import { withBase } from '../../utils/paths';
+
+const pageTitle = 'Club History | Killarney Athletic A.F.C.';
+const pageDescription =
+  'The story of Killarney Athletic A.F.C., founded in 1965 and now based at Woodlawn in Killarney.';
+
+const sections = [
+  { id: 'history', label: 'History' },
+  { id: 'academy', label: 'Academy' },
+  { id: 'players', label: 'Celebrated Players' },
+  { id: 'grounds', label: 'Club Grounds' },
+  { id: 'seven-a-side', label: '7-A-Side Tournament' },
+  { id: 'articles', label: 'Stories & Articles' },
+];
+
+const historyArticles = [
+  {
+    id: 1,
+    title: 'Foundation & Formation',
+    author: 'Dan Harrington',
+    image: harringtonEraTeamImage.src,
+    imageAlt: 'An early Killarney Athletic team pictured in striped shirts',
+    href: withBase('/about/club-history/articles/foundation-and-formation/'),
+  },
+  {
+    id: 2,
+    title: 'A New League Takes Shape',
+    author: 'Killarney Athletic Archive',
+    image: kdl1972TeamImage.src,
+    imageAlt: 'A Killarney Athletic team from the early Kerry District League era',
+    href: withBase('/about/club-history/articles/a-new-league-takes-shape/'),
+  },
+  {
+    id: 3,
+    title: 'Thanks for the Memories',
+    author: 'Toni Fleming',
+    image: toniFlemingMemorialImage.src,
+    imageAlt: 'Toni Fleming at Killarney Athletic’s Woodlawn grounds',
+    href: withBase('/about/club-history/articles/thanks-for-the-memories/'),
+  },
+  {
+    id: 4,
+    title: 'Killarney Athletic 1975–1980',
+    author: 'Killarney Athletic Archive',
+    image: woodlawnRoversTeamImage.src,
+    imageAlt: 'A Killarney Athletic team from the mid-1970s',
+    href: withBase('/about/club-history/articles/killarney-athletic-1975-1980/'),
+  },
+  {
+    id: 5,
+    title: 'Killarney Athletic: The 1980s',
+    author: 'Killarney Athletic Archive',
+    image: committee1985Image.src,
+    imageAlt: 'Killarney Athletic’s 1985 committee pictured with seven-a-side trophies',
+    href: withBase('/about/club-history/articles/killarney-athletic-the-1980s/'),
+  },
+  {
+    id: 6,
+    title: 'Killarney Athletic: The Later 1980s',
+    author: 'Killarney Athletic Archive',
+    image: senior1990CupFinalistsImage.src,
+    imageAlt: 'Killarney Athletic’s 1990 Kerry Cup finalists',
+    href: withBase('/about/club-history/articles/killarney-athletic-the-later-1980s/'),
+  },
+  {
+    id: 7,
+    title: 'Bryan Murphy: Beaufort to Croker',
+    author: 'Killarney Athletic Archive',
+    image: bryanMurphyTeamImage.src,
+    imageAlt: 'Bryan Murphy with a Killarney Athletic seven-a-side team',
+    href: withBase('/about/club-history/articles/bryan-murphy-beaufort-to-croker/'),
+  },
+  {
+    id: 8,
+    title: 'Bryan Murphy: In His Own Words',
+    author: 'Bryan Murphy',
+    image: bryanMurphyGoalkeeperImage.src,
+    imageAlt: 'Bryan Murphy playing as a goalkeeper',
+    href: withBase('/about/club-history/articles/bryan-murphy-in-his-own-words/'),
+  },
+  {
+    id: 9,
+    title: 'Ladies to the Fore',
+    author: 'Killarney Athletic Archive',
+    image: ladiesSevenAsideImage.src,
+    imageAlt: 'Club volunteers launching the Killarney Athletic seven-a-side in 2012',
+    href: withBase('/about/club-history/articles/ladies-to-the-fore/'),
+  },
+  {
+    id: 10,
+    title: 'Reflection on Club Highlights',
+    author: 'Killarney Athletic Archive',
+    image: harringtonEraTeamImage.src,
+    imageAlt: 'An early Killarney Athletic team',
+    href: withBase('/about/club-history/articles/reflection-on-club-highlights/'),
+  },
+];
+---
+
+<Layout title={pageTitle} description={pageDescription} canonicalPath="/about/club-history/">
+  <section class="inner-hero page-shell">
+    <PageHeader
+      variant="hero"
+      title="Club History"
+      intro="Founded in 1965, Killarney Athletic A.F.C. has grown from street football in Killarney into a club rooted at Woodlawn and woven into Kerry soccer."
+      breadcrumbs={[
+        { label: 'Home', href: '/' },
+        { label: 'Club History' },
+      ]}
+    />
+  </section>
+
+  <section class="history-overview page-shell" aria-label="Club history highlights">
+    <Card class="history-overview__stat">
+      <span>Founded</span>
+      <strong>1965</strong>
+    </Card>
+    <Card class="history-overview__stat">
+      <span>Academy started</span>
+      <strong>1992</strong>
+    </Card>
+    <Card class="history-overview__stat">
+      <span>Woodlawn era</span>
+      <strong>1988</strong>
+    </Card>
+    <Card class="history-overview__stat">
+      <span>7-A-Side began</span>
+      <strong>1977</strong>
+    </Card>
+  </section>
+
+  <section class="content-page page-shell section-block">
+    <aside class="content-page__nav" aria-label="Club history sections">
+      <p>On this page</p>
+      {sections.map((section) => (
+        <a href={`#${section.id}`}>{section.label}</a>
+      ))}
+    </aside>
+
+    <article class="content-page__article">
+      <section id="history">
+        <h2>Killarney Athletic A.F.C. History</h2>
+        <p>
+          Killarney Athletic A.F.C. was founded in 1965 by Don Harrington, a young Garda
+          who hailed from Cork City and was stationed in town. This came after Don had
+          observed youngsters from various parts of Killarney playing soccer on the
+          streets at that time.
+        </p>
+        <p>
+          The club played its first competitive game in the Desmond League as a youth
+          team and entered a junior team at the start of 1966.
+        </p>
+        <p>
+          When Don Harrington left Killarney in 1969, the late Brian Gilhooley took over
+          as manager with Big Jim O’Sullivan, Sean O’Donoghue, Joe Grant and Donagh
+          Gleeson as officers of the club.
+        </p>
+        <p>
+          In the early 70s, a fresh and vibrant young club emerged, becoming a founding
+          club of the Kerry District League. The nucleus of the team was formed with some
+          of the old guard and a large number of the Franciscan Youth Club team under the
+          guidance of Brian Gilhooley and Fr. Vivian Molloy.
+        </p>
+        <p>
+          The club entered its first youth and B teams into the Kerry District League in
+          1975 and presently has two senior teams and a youth team competing in the
+          league.
+        </p>
+        <p>
+          The club was also a founding member of the Kerry Schoolboys League in 1984 and
+          currently fields teams across age groups from under 10s to under 16s boys and
+          girls. The club has also actively contributed to Kerry soccer by providing
+          officers for both leagues.
+        </p>
+      </section>
+
+      <section id="academy">
+        <h2>Academy</h2>
+        <p>
+          In response to growth, particularly at underage level and due in part to the
+          relative success of the Irish team in the 1990 World Cup, the club set up its
+          first coaching academy in 1992. The academy focused on individual technique and
+          skill development for under 10 year olds.
+        </p>
+        <p>
+          Under the guidance of Jerry Doyle and regional development officer Darren
+          Aherne, the academy continues to progress the development of players of the
+          future.
+        </p>
+      </section>
+
+      <section id="players">
+        <h2>Celebrated Players</h2>
+        <p>
+          The club has a proud history of promoting soccer in Killarney and is very proud
+          to have produced numerous talented players who have excelled at higher levels
+          of the game.
+        </p>
+        <p>
+          In 1990, Michael Moloney of High Street became the first Kerry player to win a
+          schoolboy international cap. He was also part of the Irish under 17 squad which
+          won a bronze medal in the Youth Olympics in 1990.
+        </p>
+        <p>
+          Bryan Murphy of Beaufort was part of the Irish universities squad that competed
+          in the World University Games in 1997 while a student of Boston University.
+          Diarmuid O’Carroll began his professional career with Glasgow Celtic in 2003,
+          while Michael “Smiler” Moloney was capped on five occasions for the Irish
+          under 16 team in 2004.
+        </p>
+        <p>
+          Brendan Moloney signed a four-year professional contract with Nottingham
+          Forest in August 2005. Ronan Murphy from Beaufort was also noted as an
+          up-and-coming player for the future.
+        </p>
+      </section>
+
+      <section id="grounds">
+        <h2>Club Grounds</h2>
+        <p>
+          The club’s home at Woodlawn is a source of real pride. With the Flesk river as
+          a picturesque backdrop, it is a place where dreams have been made and where
+          future players will continue to grow.
+        </p>
+        <p>
+          In 1965, John McShain, a wealthy American benefactor, provided the use of a
+          pitch in his Demesne estate known as the Half Moon Field. The club moved from
+          the original Half Moon in 1988 to the Knockreer area and continues to use this
+          pitch today.
+        </p>
+        <p>
+          At this point the club purchased a 6½ acre site in Woodlawn from Tom Lyne,
+          formerly of The Vintage Bar. Development of the ground heralded a new era in
+          the club’s history, and since 1993 the club has continued to develop the ground
+          into facilities that now include two full-size pitches.
+        </p>
+      </section>
+
+      <section id="seven-a-side">
+        <h2>7-A-Side Tournament</h2>
+        <p>
+          It is no overstatement to say that the tournament has been the greatest
+          promoter of soccer in Killarney and beyond over the past three decades, with
+          the roots of a number of clubs in the area stemming from the 7-a-side.
+        </p>
+        <p>
+          The club ran the first 7-a-side with two objectives: to promote and encourage
+          participation in the game, and to contribute a portion of the revenue raised to
+          local charities.
+        </p>
+        <p>
+          In 1977, the club hosted its first tournament with 19 teams competing. A
+          Killarney Athletic based team, the Laurels, overcame a youthful Killarney Albion
+          team in the final. The bulk of that Albion team later joined with Killarney
+          Rangers to form Killarney Celtic.
+        </p>
+        <p>
+          In 2011, the tournament marked its 35th consecutive year, having run from 1977
+          to 1999 in Aras Phadraig before moving to Killarney Athletic Park.
+        </p>
+      </section>
+    </article>
+  </section>
+
+  <section id="articles" class="history-articles page-shell section-block" aria-labelledby="history-articles-heading">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Club archive</p>
+        <h2 id="history-articles-heading">Stories from our history</h2>
+      </div>
+      <p class="section-note">First-hand accounts, photographs and reflections documenting Killarney Athletic from its foundation onward.</p>
+    </div>
+
+    <div class="history-articles__grid">
+      {historyArticles.map((article) => (
+        <HistoryArticleCard
+          title={article.title}
+          author={article.author}
+          image={article.image}
+          imageAlt={article.imageAlt}
+          href={article.href}
+        />
+      ))}
+    </div>
+  </section>
+</Layout>

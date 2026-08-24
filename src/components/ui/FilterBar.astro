@@ -1,0 +1,131 @@
+---
+import { CalendarDays, ChevronDown, RotateCcw, Search, SlidersHorizontal, Tags } from '@lucide/astro';
+import Button from '../Button.astro';
+import ContentBadge from '../ContentBadge.astro';
+
+type FilterOption = string | {
+  label: string;
+  value?: string;
+};
+
+interface Props {
+  ariaLabel?: string;
+  summaryLabel?: string;
+  action?: string;
+  method?: 'get' | 'post';
+  searchLabel?: string;
+  searchPlaceholder?: string;
+  searchName?: string;
+  yearLabel?: string;
+  yearName?: string;
+  yearOptions?: FilterOption[];
+  typeLabel?: string;
+  typeName?: string;
+  typeOptions?: FilterOption[];
+  submitLabel?: string;
+  clearLabel?: string;
+  resultLabel?: string;
+  activeFilters?: FilterOption[];
+  showFieldLabels?: boolean;
+  showSubmit?: boolean;
+}
+
+const {
+  ariaLabel = 'Filter content',
+  summaryLabel = 'Search and filter news',
+  action,
+  method = 'get',
+  searchLabel = 'Search',
+  searchPlaceholder = 'Search…',
+  searchName = 'search',
+  yearLabel = 'Year',
+  yearName = 'year',
+  yearOptions = ['All years'],
+  typeLabel = 'Item type',
+  typeName = 'type',
+  typeOptions = ['All types'],
+  submitLabel = 'Apply filters',
+  clearLabel = 'Clear',
+  resultLabel,
+  activeFilters = [],
+  showFieldLabels = true,
+  showSubmit = true,
+} = Astro.props;
+
+function toOption(option: FilterOption) {
+  if (typeof option === 'string') {
+    return {
+      label: option,
+      value: option,
+    };
+  }
+
+  return {
+    label: option.label,
+    value: option.value ?? option.label,
+  };
+}
+
+const yearItems = yearOptions.map(toOption);
+const typeItems = typeOptions.map(toOption);
+const activeItems = activeFilters.map(toOption);
+---
+
+<details class="filter-bar-shell" data-filter-shell open>
+  <summary class="filter-bar-summary">
+    <span class="filter-bar-summary__label">
+      <SlidersHorizontal aria-hidden="true" size={17} stroke-width={2.25} />
+      <span>{summaryLabel}</span>
+    </span>
+    <span class="filter-bar-summary__meta">
+      {resultLabel && <span class="filter-bar__result">{resultLabel}</span>}
+      <ChevronDown aria-hidden="true" size={17} stroke-width={2.25} />
+    </span>
+  </summary>
+
+  <form class="filter-bar" action={action} method={method} aria-label={ariaLabel}>
+    <label class="form-control filter-bar__search">
+      {showFieldLabels && <span class="label-text">{searchLabel}</span>}
+      <div class="input input-bordered input-secondary filter-bar__input">
+        <Search aria-hidden="true" size={18} stroke-width={2.25} />
+        <input name={searchName} type="search" placeholder={searchPlaceholder} aria-label={searchLabel} />
+      </div>
+    </label>
+
+    <label class="form-control">
+      {showFieldLabels && <span class="label-text">{yearLabel}</span>}
+      <select class="select select-bordered select-secondary w-full" name={yearName} aria-label={yearLabel}>
+        {yearItems.map((option) => <option value={option.value}>{option.label}</option>)}
+      </select>
+    </label>
+
+    <label class="form-control">
+      {showFieldLabels && <span class="label-text">{typeLabel}</span>}
+      <select class="select select-bordered select-secondary w-full" name={typeName} aria-label={typeLabel}>
+        {typeItems.map((option) => <option value={option.value}>{option.label}</option>)}
+      </select>
+    </label>
+
+    <div class="filter-bar__actions">
+      {showSubmit && (
+        <Button label={submitLabel} type="submit" size="sm" variant="primary" ariaLabel={submitLabel}>
+          <Tags slot="icon" size={17} stroke-width={2.25} />
+        </Button>
+      )}
+      <Button label={clearLabel} type="reset" size="sm" variant="outline-dark" ariaLabel={clearLabel}>
+        <RotateCcw slot="icon" size={17} stroke-width={2.25} />
+      </Button>
+    </div>
+
+    {(activeItems.length > 0 || resultLabel) && (
+      <div class="filter-bar__active" aria-label="Active filters">
+        {activeItems.map((filter, index) => (
+          <ContentBadge label={filter.label}>
+            {index === 0 && <CalendarDays aria-hidden="true" size={13} stroke-width={2.4} />}
+          </ContentBadge>
+        ))}
+        {resultLabel && <ContentBadge label={resultLabel} tone="slate-gray" class="filter-bar__result" />}
+      </div>
+    )}
+  </form>
+</details>

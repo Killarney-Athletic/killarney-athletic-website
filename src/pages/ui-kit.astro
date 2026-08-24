@@ -1,0 +1,952 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { CLUB_LINKS } from '../config/links';
+import { ArrowRight, Mail, Search, Share2, Volleyball } from '@lucide/astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Button from '../components/Button.astro';
+import HeroSection from '../components/HeroSection.astro';
+import HistoryArticleCard from '../components/HistoryArticleCard.astro';
+import ImageCtaSection from '../components/ImageCtaSection.astro';
+import ListingItem from '../components/ListingItem.astro';
+import GalleryListingItem from '../components/GalleryListingItem.astro';
+import GalleryCarousel from '../components/GalleryCarousel.astro';
+import ContentBadge from '../components/ContentBadge.astro';
+import ContactCard from '../components/ContactCard.astro';
+import ContactForm from '../components/ContactForm.astro';
+import FixtureCard from '../components/FixtureCard.astro';
+import LogoCloud from '../components/LogoCloud.astro';
+import NewsCard from '../components/NewsCard.astro';
+import FullBleedCarousel from '../components/FullBleedCarousel.astro';
+import OfficerCard from '../components/OfficerCard.astro';
+import PageHeader from '../components/PageHeader.astro';
+import PagePanel from '../components/PagePanel.astro';
+import ResourceCard from '../components/ResourceCard.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import Card from '../components/ui/Card.astro';
+import FilterBar from '../components/ui/FilterBar.astro';
+import TabGroup from '../components/ui/TabGroup.astro';
+import TeamInfoCard from '../components/TeamInfoCard.astro';
+import TeamSwitcher from '../components/TeamSwitcher.astro';
+import clubhouseImage from '../assets/images/backgrounds/Clubhouse.jpg';
+import pitchImage from '../assets/images/backgrounds/pitch.jpg';
+import harringtonEraTeamImage from '../assets/images/history/harrington-era-team.jpg';
+import registrationImage from '../assets/images/backgrounds/registration.png';
+import donieNotSmiling from '../assets/images/headshots/donie_not_smile.png';
+import donieSmiling from '../assets/images/headshots/donie_smile.png';
+import clubCrestWhiteUrl from '../assets/images/brand/Club Crest White.svg?url';
+import { withBase } from '../utils/paths';
+import teams from '../data/teams.json';
+
+const componentGroups = [
+  {
+    name: 'Atomic components',
+    description: 'Small primitives that should be safe to reuse almost anywhere.',
+    items: [
+      {
+        name: 'Card',
+        path: 'src/components/ui/Card.astro',
+        note: 'Shared surface primitive for standard informational, linked, compact and muted cards.',
+      },
+      {
+        name: 'Button',
+        path: 'src/components/Button.astro',
+        note: 'Shared action/link primitive built on daisyUI button classes.',
+      },
+      {
+        name: 'Breadcrumbs',
+        path: 'src/components/Breadcrumbs.astro',
+        note: 'Shared breadcrumb navigation used directly and through PageHeader.',
+      },
+      {
+        name: 'ContentBadge',
+        path: 'src/components/ContentBadge.astro',
+        note: 'Permanent content-category badge with a stable label-to-colour mapping.',
+      },
+      {
+        name: 'SectionHeader',
+        path: 'src/components/SectionHeader.astro',
+        note: 'Smaller module title row with optional tools on the right.',
+      },
+      {
+        name: 'PagePanel',
+        path: 'src/components/PagePanel.astro',
+        note: 'Contained module wrapper for tables, filters, resources and forms.',
+      },
+    ],
+  },
+  {
+    name: 'Controls and listing patterns',
+    description: 'Reusable pieces for searchable/listing pages.',
+    items: [
+      {
+        name: 'FilterBar',
+        path: 'src/components/ui/FilterBar.astro',
+        note: 'Generic daisyUI search/filter pattern with page-specific labels and options.',
+      },
+      {
+        name: 'TabGroup',
+        path: 'src/components/ui/TabGroup.astro',
+        note: 'Accessible daisyUI horizontal tabs with keyboard navigation and compact-screen scrolling.',
+      },
+      {
+        name: 'ContactCard',
+        path: 'src/components/ContactCard.astro',
+        note: 'Contact-channel composition built on the shared Card surface.',
+      },
+      {
+        name: 'ContactForm',
+        path: 'src/components/ContactForm.astro',
+        note: 'DaisyUI enquiry form that can compose a pre-filled email or submit to a configured endpoint.',
+      },
+      {
+        name: 'ListingItem',
+        path: 'src/components/ListingItem.astro',
+        note: 'News listing variant with the shared small action button.',
+      },
+      {
+        name: 'GalleryListingItem',
+        path: 'src/components/GalleryListingItem.astro',
+        note: 'Gallery listing variant with a right-aligned 16:9 thumbnail and shared small action button.',
+      },
+      {
+        name: 'GalleryCarousel',
+        path: 'src/components/GalleryCarousel.astro',
+        note: 'Modal image carousel launched by the gallery listing variant.',
+      },
+      {
+        name: 'NewsCard',
+        path: 'src/components/NewsCard.astro',
+        note: 'Homepage news card with shared media, metadata and action treatment.',
+      },
+      {
+        name: 'HistoryArticleCard',
+        path: 'src/components/HistoryArticleCard.astro',
+        note: 'Image-led card for long-form club-history articles, with a dark text overlay and subtle hover zoom.',
+      },
+      {
+        name: 'FixtureCard',
+        path: 'src/components/FixtureCard.astro',
+        note: 'Specialised two-part match card that shares the card radius and surface tokens.',
+      },
+      {
+        name: 'FullBleedCarousel',
+        path: 'src/components/FullBleedCarousel.astro',
+        note: 'News-card grid that becomes an edge-to-edge, touch-scroll carousel at 430px and below.',
+      },
+      {
+        name: 'ResourceCard',
+        path: 'src/components/ResourceCard.astro',
+        note: 'Linked document/resource row used on the child welfare page.',
+      },
+      {
+        name: 'OfficerCard',
+        path: 'src/components/OfficerCard.astro',
+        note: 'Profile card used for committee and board member grids.',
+      },
+      {
+        name: 'TeamInfoCard',
+        path: 'src/components/TeamInfoCard.astro',
+        note: 'Shared manager, training and pitch information card with confirmed and pending states.',
+      },
+      {
+        name: 'TeamSwitcher',
+        path: 'src/components/TeamSwitcher.astro',
+        note: 'Shared squad navigation control for every team page.',
+      },
+    ],
+  },
+  {
+    name: 'Page patterns',
+    description: 'Bigger composition pieces that shape whole pages.',
+    items: [
+      {
+        name: 'PageHeader',
+        path: 'src/components/PageHeader.astro',
+        note: 'Shared page title pattern with breadcrumbs, intro text and optional actions.',
+      },
+      {
+        name: 'HeroSection',
+        path: 'src/components/HeroSection.astro',
+        note: 'Image-backed homepage hero composed from PageHeader with optional breadcrumbs and actions.',
+      },
+    ],
+  },
+  {
+    name: 'Composed / domain sections',
+    description: 'Reusable, but more specific to this club website.',
+    items: [
+      {
+        name: 'ImageCtaSection',
+        path: 'src/components/ImageCtaSection.astro',
+        note: 'Reusable full-width image/gradient call-to-action section.',
+      },
+      {
+        name: 'LogoCloud',
+        path: 'src/components/LogoCloud.astro',
+        note: 'Reusable partner/association logo cloud.',
+      },
+    ],
+  },
+];
+
+const logoItems = [
+  {
+    name: 'SFAI',
+    href: 'https://sfai.ie/',
+    logo: 'https://sfai.ie/wp-content/uploads/2022/07/cropped-SFAI-PNG-2-300x300.png',
+    alt: 'SFAI crest',
+  },
+  {
+    name: 'FAI',
+    href: 'https://www.fai.ie/national-teams/',
+    logo: 'https://www.fai.ie/packages/fai_package/themes/fai_theme/images/fai-logo.svg',
+    alt: 'FAI crest',
+  },
+  {
+    name: 'Munster Football Association',
+    href: 'https://munsterfootball.ie/',
+    logo: 'https://munsterfootball.ie/wp-content/uploads/2025/02/Blue-Gold-300x300.png',
+    alt: 'Munster Football Association crest',
+  },
+];
+
+const contentBadgePalette = [
+  ['Cool Blue', 'cool-blue', '#EBF3FA', '#1C3D5A'],
+  ['Soft Indigo', 'soft-indigo', '#EEF2FB', '#1E2A5A'],
+  ['Lavender', 'lavender', '#F0EEFA', '#34235A'],
+  ['Muted Purple', 'muted-purple', '#F4EEF8', '#422052'],
+  ['Dusty Orchid', 'dusty-orchid', '#F7EDF5', '#4A1E45'],
+  ['Soft Mauve', 'soft-mauve', '#F8ECF0', '#4D1B2D'],
+  ['Blush Pink', 'blush-pink', '#FCEEEF', '#5A1E24'],
+  ['Warm Peach', 'warm-peach', '#FDF0EA', '#5C2817'],
+  ['Soft Apricot', 'soft-apricot', '#FDF3E7', '#5C3312'],
+  ['Warm Sand', 'warm-sand', '#FAF4E8', '#4E3814'],
+  ['Soft Amber', 'soft-amber', '#FAF6E6', '#4C3D12'],
+  ['Warm Neutral', 'warm-neutral', '#F7F4EE', '#3D3830'],
+  ['Slate Gray', 'slate-gray', '#F0F2F5', '#2B333E'],
+  ['Cool Sky', 'cool-sky', '#EAF5FA', '#173F4E'],
+  ['Deep Ice', 'deep-ice', '#E8F4F8', '#133E4A'],
+] as const;
+
+const contentBadgeExamples = [
+  'News', 'Club notes', 'Galleries', 'Senior A', 'Academy', 'Club policy', 'Committee',
+  'Fixtures & Results', 'Summer Camp', '300 Club', 'Child Welfare', 'Irish football',
+];
+---
+
+<Layout
+  title="UI Kit | Killarney Athletic AFC"
+  description="Temporary Killarney Athletic AFC UI kit and component inventory."
+  bodyClass="is-ui-kit-page"
+>
+  <section class="ui-kit-hero page-shell">
+    <PageHeader
+      variant="hero"
+      title="UI Kit"
+      intro="A working page for the reusable pieces we already have. We can style components here first, then reuse them across the real site."
+    />
+  </section>
+
+  <section class="ui-kit-search page-shell" aria-labelledby="ui-kit-search-heading">
+    <div>
+      <h2 id="ui-kit-search-heading">Find a component</h2>
+      <p>Search buttons, filters, listings, panels, cards, breadcrumbs and composed sections.</p>
+    </div>
+    <label class="ui-kit-search__control input input-bordered">
+      <Search aria-hidden="true" size={18} stroke-width={2.25} />
+      <span class="sr-only">Search UI kit</span>
+      <input data-ui-kit-search type="search" placeholder="Search UI kit…" autocomplete="off" />
+    </label>
+    <p class="ui-kit-search__result" data-ui-kit-search-result aria-live="polite"></p>
+  </section>
+
+  <section class="ui-kit-section page-shell" data-ui-kit-inventory-section>
+    <div class="section-heading">
+      <h2>Component inventory</h2>
+      <p class="section-note">A cleaner map of what is atomic, what is a pattern, and what is club-specific.</p>
+    </div>
+    <div class="ui-kit-inventory ui-kit-inventory--grouped">
+      {componentGroups.map((group) => (
+        <PagePanel class="ui-kit-inventory-group" data-ui-kit-inventory-group>
+          <SectionHeader slot="header" title={group.name} intro={group.description} />
+          <div class="ui-kit-inventory">
+            {group.items.map((component) => (
+              <Card
+                eyebrow={component.path}
+                title={component.name}
+                data-ui-kit-inventory-item
+                data-ui-kit-search-text={`${group.name} ${group.description} ${component.name} ${component.path} ${component.note}`}
+              >
+                <p>{component.note}</p>
+              </Card>
+            ))}
+          </div>
+        </PagePanel>
+      ))}
+    </div>
+  </section>
+
+  <section class="ui-kit-section page-shell">
+    <div class="section-heading">
+      <h2>Horizontal tabs</h2>
+      <p class="section-note">A daisyUI tab group for switching between related views without leaving the page.</p>
+    </div>
+    <PagePanel>
+      <SectionHeader slot="header" title="Team information tabs" intro="Use for a small set of closely related content views. The row scrolls horizontally on compact screens." />
+      <TabGroup
+        ariaLabel="Team information"
+        activeId="overview"
+        items={[
+          { id: 'overview', label: 'Overview', content: 'A quick summary of the team, its season and the latest club information.' },
+          { id: 'fixtures', label: 'Fixtures', content: 'Upcoming matches, kick-off times and venues appear in this view.' },
+          { id: 'results', label: 'Results', content: 'Recent scores and match outcomes appear in this view.' },
+          { id: 'table', label: 'League table', content: 'Current standings and competition progress appear in this view.' },
+          { id: 'squad', label: 'Squad', content: 'Players, coaches and team contacts appear in this view.' },
+        ]}
+      />
+    </PagePanel>
+  </section>
+
+  <section class="ui-kit-section page-shell">
+    <div class="section-heading">
+      <h2>Headers</h2>
+      <p class="section-note">One shared header component with standard and hero sizing, plus optional breadcrumbs.</p>
+    </div>
+    <div class="ui-kit-header-demos">
+      <PagePanel>
+        <SectionHeader slot="header" title="Standard page header" intro="Used on listing and data pages." />
+        <PageHeader
+          headingLevel="h3"
+          title="Fixtures & Results"
+          intro="Fixtures, results and league information for Killarney Athletic A.F.C."
+          breadcrumbs={[
+            { label: 'Home', href: '/' },
+            { label: 'Fixtures & Results' },
+          ]}
+        />
+      </PagePanel>
+
+      <PagePanel>
+        <SectionHeader slot="header" title="Hero page header" intro="Used on the homepage and UI kit with a title capped at 5rem." />
+        <PageHeader
+          variant="hero"
+          headingLevel="h3"
+          title="Killarney Athletic A.F.C."
+          intro="Community football from Woodlawn, Killarney. News, teams, camps and club updates in one place."
+          breadcrumbs={[
+            { label: 'Home', href: '/' },
+            { label: 'Club' },
+          ]}
+        />
+      </PagePanel>
+    </div>
+  </section>
+
+  <section class="ui-kit-section" aria-labelledby="ui-kit-hero-component-heading">
+    <div class="section-heading page-shell">
+      <h2 id="ui-kit-hero-component-heading">Hero section</h2>
+      <p class="section-note">The reusable image-backed hero with default and registration variants.</p>
+    </div>
+    <HeroSection
+      title="Killarney Athletic A.F.C."
+      intro="Community football from Woodlawn, Killarney. News, teams, camps and club updates in one place."
+      background={clubhouseImage.src}
+      headingLevel="h3"
+      breadcrumbs={[
+        { label: 'Home', href: '/' },
+        { label: 'Club' },
+      ]}
+    >
+      <Fragment slot="actions">
+        <Button href={withBase('/membership/')} label="Join the club" variant="primary" />
+        <Button class="home-hero__secondary-action" href={withBase('/news/')} label="Latest news" variant="light" icon={false} />
+      </Fragment>
+    </HeroSection>
+    <HeroSection
+      variant="registration"
+      eyebrow="Registration open · 2026/27"
+      title="Join Killarney Athletic"
+      background={registrationImage.src}
+      overlayImage={clubhouseImage.src}
+      headingLevel="h3"
+    >
+      <Fragment slot="intro">Registrations are now <strong>open for the 2026/27 season</strong> for our youngest Academy players through to Youth and Senior teams.</Fragment>
+      <Fragment slot="actions">
+        <Button href={CLUB_LINKS.clubforce.membership} label="Register for 2026/27" variant="primary" target="_blank" rel="noopener noreferrer" />
+      </Fragment>
+    </HeroSection>
+  </section>
+
+  <section class="ui-kit-section page-shell">
+    <div class="section-heading">
+      <h2>Atoms: typography and colour</h2>
+      <p class="section-note">Text sizes and colour hierarchy using one consistent sample sentence.</p>
+    </div>
+    <PagePanel>
+      <SectionHeader slot="header" title="Text scale">
+        <span slot="tools" class="text-sm text-base-content/60">Sample: The quick brown fox</span>
+      </SectionHeader>
+      <div class="ui-kit-type-scale">
+        <article>
+          <span>Page title / Inter Regular / primary navy</span>
+          <p class="ui-kit-type-scale__page">The quick brown fox jumps over the lazy dog</p>
+        </article>
+        <article>
+          <span>Section title / Inter Regular / primary navy</span>
+          <p class="ui-kit-type-scale__section">The quick brown fox jumps over the lazy dog</p>
+        </article>
+        <article>
+          <span>Body / Inter Regular / primary text</span>
+          <p class="ui-kit-type-scale__body">The quick brown fox jumps over the lazy dog</p>
+        </article>
+        <article>
+          <span>Secondary / Inter Light / secondary text</span>
+          <p class="ui-kit-type-scale__secondary">The quick brown fox jumps over the lazy dog</p>
+        </article>
+        <article>
+          <span>Small / Inter Regular / secondary text</span>
+          <p class="ui-kit-type-scale__small">The quick brown fox jumps over the lazy dog</p>
+        </article>
+      </div>
+
+      <div class="ui-kit-colour-list" aria-label="Brand text colours">
+        <div>
+          <i style="--swatch: var(--primary-text);"></i>
+          <span>Primary text</span>
+          <code>#101720</code>
+        </div>
+        <div>
+          <i style="--swatch: var(--muted);"></i>
+          <span>Secondary text</span>
+          <code>#4B5563</code>
+        </div>
+        <div>
+          <i style="--swatch: var(--brand-navy);"></i>
+          <span>Dark navy</span>
+          <code>#002366</code>
+        </div>
+        <div>
+          <i style="--swatch: var(--brand-royal);"></i>
+          <span>Royal blue</span>
+          <code>#4169E1</code>
+        </div>
+      </div>
+    </PagePanel>
+  </section>
+
+  <section class="ui-kit-section page-shell">
+    <div class="section-heading">
+      <h2>Atoms: buttons</h2>
+      <p class="section-note">
+        Official brand button system built on daisyUI’s <code>btn</code> class. Use links for navigation
+        and real buttons for in-page actions.
+      </p>
+    </div>
+
+    <div class="ui-kit-button-system">
+      <div class="ui-kit-daisy-panel__group">
+        <h3>Primary buttons</h3>
+        <div class="ui-kit-demo-row">
+          <Button href={withBase('/membership/')} label="Primary blue" variant="primary" ariaLabel="Open membership registration">
+            <ArrowRight slot="icon" size={17} stroke-width={2.4} />
+          </Button>
+          <Button href={withBase('/membership/')} label="Primary dark" variant="primary-dark" ariaLabel="Open membership registration">
+            <ArrowRight slot="icon" size={17} stroke-width={2.4} />
+          </Button>
+          <Button href={withBase('/membership/')} label="Small blue" size="sm" variant="primary" ariaLabel="Open membership registration">
+            <ArrowRight slot="icon" size={16} stroke-width={2.4} />
+          </Button>
+          <Button href={withBase('/membership/')} label="Small dark" size="sm" variant="primary-dark" ariaLabel="Open membership registration">
+            <ArrowRight slot="icon" size={16} stroke-width={2.4} />
+          </Button>
+        </div>
+      </div>
+
+      <div class="ui-kit-daisy-panel__group">
+        <h3>Light and outline buttons</h3>
+        <div class="ui-kit-demo-row">
+          <Button href={withBase('/membership/')} label="Light" variant="light" ariaLabel="Open membership registration">
+            <Volleyball slot="icon" size={17} stroke-width={2.25} />
+          </Button>
+          <Button href={withBase('/membership/')} label="Small light" size="sm" variant="light" ariaLabel="Open membership registration">
+            <Volleyball slot="icon" size={16} stroke-width={2.25} />
+          </Button>
+          <Button href={withBase('/news/')} label="Outline" variant="outline" ariaLabel="Open news page">
+            <Search slot="icon" size={17} stroke-width={2.25} />
+          </Button>
+          <Button href={withBase('/news/')} label="Outline dark" variant="outline-dark" ariaLabel="Open news page">
+            <Search slot="icon" size={17} stroke-width={2.25} />
+          </Button>
+          <Button href={withBase('/news/')} label="Small outline" size="sm" variant="outline" ariaLabel="Open news page">
+            <ArrowRight slot="icon" size={16} stroke-width={2.4} />
+          </Button>
+          <Button href={withBase('/news/')} label="Small outline dark" size="sm" variant="outline-dark" ariaLabel="Open news page">
+            <ArrowRight slot="icon" size={16} stroke-width={2.4} />
+          </Button>
+        </div>
+      </div>
+
+      <div class="ui-kit-daisy-panel__group">
+        <h3>White buttons for tricky backgrounds</h3>
+        <div class="ui-kit-colour-stage">
+          <Button href={withBase('/membership/')} label="Light on colour" variant="light" ariaLabel="Open membership registration">
+            <Volleyball slot="icon" size={17} stroke-width={2.25} />
+          </Button>
+          <Button href={withBase('/news/')} label="White outline" variant="outline-light" ariaLabel="Open news page">
+            <Search slot="icon" size={17} stroke-width={2.25} />
+          </Button>
+          <Button href={withBase('/news/')} label="Small white outline" size="sm" variant="outline-light" ariaLabel="Open news page">
+            <ArrowRight slot="icon" size={16} stroke-width={2.4} />
+          </Button>
+        </div>
+      </div>
+
+      <div class="ui-kit-daisy-panel__group">
+        <h3>Action buttons and no-icon buttons</h3>
+        <div class="ui-kit-demo-row">
+          <Button label="Refresh table" variant="outline" ariaLabel="Refresh the league table">
+            <Share2 slot="icon" size={17} stroke-width={2.25} />
+          </Button>
+          <Button label="Save changes" variant="primary-dark" type="submit" ariaLabel="Save changes">
+            <ArrowRight slot="icon" size={17} stroke-width={2.4} />
+          </Button>
+          <Button label="Small refresh" size="sm" variant="outline" ariaLabel="Refresh the league table">
+            <Share2 slot="icon" size={16} stroke-width={2.25} />
+          </Button>
+          <Button label="Small save" size="sm" variant="primary-dark" type="submit" ariaLabel="Save changes">
+            <ArrowRight slot="icon" size={16} stroke-width={2.4} />
+          </Button>
+          <Button href={withBase('/news/')} label="No icon link" variant="primary" icon={false} ariaLabel="Open news page" />
+          <Button label="No icon button" variant="outline-dark" icon={false} ariaLabel="Clear the current filters" />
+          <Button label="Small no icon" size="sm" variant="outline-dark" icon={false} ariaLabel="Clear the current filters" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ui-kit-section page-shell" id="content-cards">
+    <div class="section-heading">
+      <h2>Content cards</h2>
+      <p class="section-note">The card patterns currently rendered on live pages.</p>
+    </div>
+    <div class="ui-kit-content-card-demos">
+      <PagePanel>
+        <SectionHeader slot="header" title="Base card family" intro="The single shared surface contract. Default, linked and muted cards use the same border, radius, shadow, padding and interaction tokens." />
+        <div class="ui-kit-card-family-demo">
+          <Card eyebrow="Default" title="Contained information">
+            <p>Use this for simple grouped content that does not need a custom visual structure.</p>
+          </Card>
+          <Card eyebrow="Interactive" title="Linked destination" href="#content-cards">
+            <p>A linked card receives the standard focus, hover and elevation behaviour.</p>
+          </Card>
+          <Card eyebrow="Muted" title="Pending information" tone="muted">
+            <p>Use the muted variant for information that is incomplete or still to be confirmed.</p>
+          </Card>
+        </div>
+      </PagePanel>
+
+      <PagePanel>
+        <SectionHeader slot="header" title="History article card" intro="Used in the Club History article archive to open a fully formatted historical story." />
+        <div class="ui-kit-history-card-demo" id="history-article-card">
+          <HistoryArticleCard
+            title="Foundation & Formation"
+            author="Dan Harrington"
+            image={harringtonEraTeamImage.src}
+            imageAlt="An early Killarney Athletic team pictured in striped shirts"
+            href="#history-article-card"
+          />
+        </div>
+      </PagePanel>
+
+      <PagePanel>
+        <SectionHeader slot="header" title="Full-bleed carousel" intro="A card grid above 430px and a touch-scroll, full-bleed carousel on compact phones." />
+        <FullBleedCarousel label="Full-bleed carousel example" class="ui-kit-full-bleed-carousel-demo">
+          <NewsCard
+            class="full-bleed-carousel__item"
+            title="Summer Camp (Boys & Girls) 2026"
+            href={withBase('/news/summer-camp-boys-girls-2026/')}
+            excerpt="Our Summer Camp for boys and girls will take place at Killarney Athletic Grounds at Woodlawn."
+            category="News"
+            date="2026-06-29"
+            fallbackImage={pitchImage}
+            crestUrl={clubCrestWhiteUrl}
+          />
+          <NewsCard
+            class="full-bleed-carousel__item"
+            title="Registration now open"
+            href={withBase('/membership/')}
+            excerpt="Registration is open for Academy, Youth and Senior teams for the coming season."
+            category="Membership"
+            date="2026-07-31"
+            fallbackImage={pitchImage}
+            crestUrl={clubCrestWhiteUrl}
+          />
+          <NewsCard
+            class="full-bleed-carousel__item"
+            title="Latest club update"
+            href={withBase('/news/')}
+            excerpt="A representative third card demonstrates the compact-phone scrolling and card peek."
+            category="Club"
+            date="2026-07-30"
+            fallbackImage={clubhouseImage}
+            crestUrl={clubCrestWhiteUrl}
+          />
+        </FullBleedCarousel>
+      </PagePanel>
+
+      <PagePanel>
+        <SectionHeader slot="header" title="Resource card" intro="Used for downloadable welfare and policy documents." />
+        <div class="resource-list">
+          <ResourceCard
+            title="Killarney Athletic Child Safeguarding Statement"
+            description="Club child safeguarding statement and welfare information."
+            href={withBase('/documents/child-welfare/child-safeguarding-statement.pdf')}
+          />
+        </div>
+      </PagePanel>
+
+      <PagePanel>
+        <SectionHeader slot="header" title="Fixture card" intro="A specialised match card with a branded team panel and a separate details panel." />
+        <div class="ui-kit-fixture-card-demo">
+          <FixtureCard
+            label="Senior fixture"
+            homeTeam="Killarney Athletic"
+            awayTeam="Opponent TBC"
+            competition="KDL Premier A"
+            date="Sunday, 3:00 pm"
+            venue="Killarney Athletic Park, Woodlawn"
+          />
+        </div>
+      </PagePanel>
+
+      <PagePanel>
+        <SectionHeader slot="header" title="Club officer card" intro="Used for confirmed committee members and board roles." />
+        <div class="ui-kit-officer-card-demo">
+          <OfficerCard
+            name="Donie Murphy"
+            role="Chairman"
+            avatar={donieNotSmiling.src}
+            hoverAvatar={donieSmiling.src}
+            email="sec@killarneyathletic.com"
+          />
+          <OfficerCard name="To be confirmed" role="Committee role" variant="pending" />
+        </div>
+      </PagePanel>
+
+      <PagePanel>
+        <SectionHeader slot="header" title="Team page components" intro="The production switcher and information-card variants proposed for every team page." />
+        <div class="ui-kit-team-switcher-demo">
+          <TeamSwitcher teams={teams} current="senior-a" navigate={false} id="ui-kit-team-switcher" />
+        </div>
+        <div class="ui-kit-team-info-demo">
+          <TeamInfoCard kind="manager" label="Manager / lead contact" value="To be confirmed" pending pendingNote="Contact the club in the meantime" />
+          <TeamInfoCard kind="training" label="Training" value="To be confirmed" secondary="To be confirmed" pending pendingNote="Schedule to follow" />
+          <TeamInfoCard kind="pitch" label="Home pitch / allocation" value="Killarney Athletic Park, Woodlawn" />
+        </div>
+      </PagePanel>
+    </div>
+  </section>
+
+  <section class="ui-kit-section page-shell">
+    <div class="section-heading">
+      <h2>Controls and small UI</h2>
+      <p class="section-note">Breadcrumbs, filters, form controls and status treatments.</p>
+    </div>
+
+    <div class="ui-kit-daisy-panel">
+      <div class="ui-kit-daisy-panel__group">
+        <h3>Breadcrumbs</h3>
+        <Breadcrumbs items={[
+          { label: 'Home', href: '/' },
+          { label: 'News', href: '/news/' },
+          { label: 'Summer Camp (Boys & Girls) 2026' },
+        ]} />
+      </div>
+
+      <div class="ui-kit-daisy-panel__group">
+        <h3>News filter bar</h3>
+        <FilterBar
+          ariaLabel="News filters"
+          searchPlaceholder="Search club updates…"
+          yearOptions={[
+            { label: 'All years', value: '' },
+            '2026',
+            '2025',
+            '2024',
+            '2018',
+          ]}
+          typeOptions={[
+            { label: 'All types', value: '' },
+            'News',
+            'Academy',
+            'Fixtures & Results',
+            'Club notes',
+            'Summer Camp',
+          ]}
+          activeFilters={['2026', 'News']}
+          resultLabel="Showing 6 updates"
+        />
+      </div>
+
+      <div class="ui-kit-daisy-panel__group">
+        <h3>Same component, different page prompt</h3>
+        <FilterBar
+          ariaLabel="Programme filters"
+          searchLabel="Find a programme"
+          searchPlaceholder="Search teams, camps or club programmes…"
+          yearLabel="Season"
+          yearName="season"
+          yearOptions={[
+            { label: 'All seasons', value: '' },
+            '2026',
+            '2025',
+          ]}
+          typeLabel="Programme"
+          typeName="programme"
+          typeOptions={[
+            { label: 'All programmes', value: '' },
+            'Academy',
+            'Summer Camp',
+            '7-A-Side Tournament',
+            '300 Club',
+          ]}
+          submitLabel="Search programmes"
+          activeFilters={['2026', 'Academy']}
+          resultLabel="Showing programme examples"
+        />
+      </div>
+
+      <div class="ui-kit-daisy-panel__group">
+        <h3>Form controls</h3>
+        <div class="ui-kit-form-grid">
+          <label class="form-control">
+            <span class="label-text">Search news</span>
+            <input class="input input-bordered w-full" type="search" placeholder="Search club updates…" />
+          </label>
+          <label class="form-control">
+            <span class="label-text">Category</span>
+            <select class="select select-bordered w-full">
+              <option>All categories</option>
+              <option>News</option>
+              <option>Club notes</option>
+              <option>Academy</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="ui-kit-daisy-panel__group">
+        <h3>Badges and filters</h3>
+        <div class="ui-kit-demo-row">
+          <ContentBadge label="News" />
+          <ContentBadge label="Club notes" />
+          <ContentBadge label="Irish football" />
+          <Button label="Summer Camp" size="sm" variant="outline" icon={false} ariaLabel="Filter by Summer Camp" />
+          <Button label="300 Club" size="sm" variant="outline-dark" icon={false} ariaLabel="Filter by 300 Club" />
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="ui-kit-section page-shell">
+    <div class="section-heading">
+      <h2>Content badges</h2>
+      <p class="section-note">The permanent pastel palette for categories, types and active content filters. Each content label always resolves to the same tone.</p>
+    </div>
+    <PagePanel>
+      <SectionHeader slot="header" title="15 accessible pastel tones" intro="Every tone pairs its soft background with the corresponding dark text colour." />
+      <div class="ui-kit-badge-palette">
+        {contentBadgePalette.map(([name, tone, background, text]) => (
+          <article>
+            <ContentBadge label={name} tone={tone} />
+            <code>{background} / {text}</code>
+          </article>
+        ))}
+      </div>
+      <div class="ui-kit-badge-mapping">
+        <h3>Permanent content mappings</h3>
+        <div class="ui-kit-demo-row">
+          {contentBadgeExamples.map((label) => <ContentBadge label={label} />)}
+        </div>
+      </div>
+    </PagePanel>
+  </section>
+
+  <section class="ui-kit-section page-shell">
+    <div class="section-heading">
+      <h2>Listing patterns</h2>
+      <p class="section-note">Two deliberate variants, both using the same small primary button from the shared button system.</p>
+    </div>
+    <div class="ui-kit-listing-variants">
+      <PagePanel>
+        <SectionHeader slot="header" title="News listing variant" intro="Text-led row for news and editorial updates." />
+        <div class="ui-kit-listing-demo">
+          <ListingItem
+            title="Summer Camp (Boys & Girls) 2026"
+            href={withBase('/news/summer-camp-boys-girls-2026/')}
+            category="News"
+            date="2026-06-29"
+            excerpt="Our Summer Camp for boys and girls will take place at Killarney Athletic Grounds at Woodlawn."
+          />
+        </div>
+      </PagePanel>
+      <PagePanel>
+        <SectionHeader slot="header" title="Gallery listing variant" intro="Text and action on the left, with a top-aligned 16:9 thumbnail on the right." />
+        <div class="ui-kit-listing-demo">
+          <GalleryListingItem
+            galleryId="ui-kit-gallery"
+            title="Club celebration gallery"
+            excerpt="A working gallery row showing the shared action treatment, permanent badge and image crop."
+            category="Galleries"
+            date="2026-06-29"
+            imageCount={2}
+            coverImageUrl={clubhouseImage.src}
+          />
+        </div>
+      </PagePanel>
+    </div>
+    <GalleryCarousel galleries={[{
+      id: 'ui-kit-gallery',
+      title: 'Club celebration gallery',
+      images: [
+        { src: clubhouseImage.src, alt: 'Killarney Athletic clubhouse' },
+        { src: pitchImage.src, alt: 'Killarney Athletic football pitch' },
+      ],
+    }]} />
+  </section>
+
+  <section class="ui-kit-section page-shell">
+    <div class="section-heading">
+      <h2>Contact patterns</h2>
+      <p class="section-note">DaisyUI-based contact components defined here first and reused together on the Contact Us page.</p>
+    </div>
+    <div class="ui-kit-contact-patterns">
+      <PagePanel class="ui-kit-contact-patterns__form">
+        <ContactForm
+          title="Contact form"
+          intro="The shared field, validation, character-count and email-composition pattern."
+          mailtoRecipient="sec@killarneyathletic.com"
+        />
+      </PagePanel>
+      <PagePanel class="ui-kit-contact-patterns__details">
+        <SectionHeader slot="header" title="Contact details" intro="Contact channels sit with the location content on the real page." />
+        <ContactCard
+          title="General enquiries"
+          text="Use a contact card for a clear contact channel and its supporting context."
+          href="mailto:sec@killarneyathletic.com"
+          linkLabel="sec@killarneyathletic.com"
+        >
+          <Mail slot="icon" size={21} stroke-width={2.2} />
+        </ContactCard>
+      </PagePanel>
+    </div>
+  </section>
+
+  <section class="ui-kit-section page-shell">
+    <div class="section-heading">
+      <h2>Page patterns</h2>
+      <p class="section-note">The shared structure for non-home pages before the individual content changes.</p>
+    </div>
+    <div class="ui-kit-template-demo">
+      <PagePanel>
+        <SectionHeader slot="header" title="Contained module title">
+          <div slot="tools" class="ui-kit-demo-row">
+            <span class="text-sm text-base-content/60">Updated 29 Jul 2026</span>
+            <Button label="Refresh" size="sm" variant="outline-dark" ariaLabel="Refresh this module">
+              <Share2 slot="icon" size={16} stroke-width={2.25} />
+            </Button>
+          </div>
+        </SectionHeader>
+        <p>
+          Use this panel wrapper for tables, filter blocks, PDF/resource lists, officer grids and other
+          page modules that need to feel like one contained unit.
+        </p>
+      </PagePanel>
+    </div>
+  </section>
+
+  <LogoCloud
+    title="Connected through"
+    accentTitle="Irish Football"
+    description="Killarney Athletic is part of a wider football community across "
+    descriptionAccent="Kerry, Munster and Ireland."
+    items={logoItems}
+  />
+
+  <ImageCtaSection
+    id="ui-kit-membership"
+    eyebrow="CTA section"
+    title="Membership and registration"
+    description="Reusable image-backed call-to-action section using the club gradient and standard button."
+    buttonLabel="Join the club"
+    href={CLUB_LINKS.clubforce.membership}
+    target="_blank"
+    rel="noopener noreferrer"
+    background={clubhouseImage}
+  />
+
+  <script>
+    const searchInput = document.querySelector('[data-ui-kit-search]');
+    const searchResult = document.querySelector('[data-ui-kit-search-result]');
+    const searchableSections = Array.from(document.querySelectorAll('.ui-kit-section, .logo-cloud, .image-cta-section'));
+    const inventorySection = document.querySelector('[data-ui-kit-inventory-section]');
+    const inventoryGroups = Array.from(document.querySelectorAll('[data-ui-kit-inventory-group]'));
+    const inventoryItems = Array.from(document.querySelectorAll('[data-ui-kit-inventory-item]'));
+
+    const getSectionLabel = (section) => {
+      const heading = section.querySelector('h2, h3');
+      return heading?.textContent?.trim() || 'section';
+    };
+
+    const filterInventory = (query) => {
+      if (!inventoryItems.length) return;
+
+      inventoryItems.forEach((item) => {
+        const searchableText = item.getAttribute('data-ui-kit-search-text')?.toLowerCase() || item.textContent?.toLowerCase() || '';
+        item.hidden = Boolean(query) && !searchableText.includes(query);
+      });
+
+      inventoryGroups.forEach((group) => {
+        const visibleItems = Array.from(group.querySelectorAll('[data-ui-kit-inventory-item]')).filter((item) => !item.hidden);
+        group.hidden = Boolean(query) && visibleItems.length === 0;
+      });
+    };
+
+    const filterUiKit = () => {
+      const query = searchInput?.value.trim().toLowerCase() || '';
+      let visibleCount = 0;
+
+      filterInventory(query);
+      if (inventorySection) {
+        inventorySection.hidden = Boolean(query);
+      }
+
+      searchableSections.forEach((section) => {
+        if (section === inventorySection) {
+          if (!section.hidden) visibleCount += 1;
+          return;
+        }
+
+        const searchableText = section.textContent?.toLowerCase() || '';
+        const visibleInventoryGroups = section.querySelectorAll('[data-ui-kit-inventory-group]:not([hidden])').length;
+        const isComponentInventory = section.querySelector('[data-ui-kit-inventory-group]');
+        const isVisible = !query || searchableText.includes(query) || (Boolean(isComponentInventory) && visibleInventoryGroups > 0);
+        section.hidden = !isVisible;
+        if (isVisible) visibleCount += 1;
+      });
+
+      if (!searchResult) return;
+
+      if (!query) {
+        searchResult.textContent = '';
+        return;
+      }
+
+      const label = visibleCount === 1 ? getSectionLabel(searchableSections.find((section) => !section.hidden)) : `${visibleCount} sections`;
+      searchResult.textContent = visibleCount ? `Showing ${label}` : 'No UI Kit sections match that search.';
+    };
+
+    searchInput?.addEventListener('input', filterUiKit);
+  </script>
+</Layout>

@@ -1,0 +1,54 @@
+---
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  href?: string;
+  class?: string;
+  target?: string;
+  rel?: string;
+  ariaLabel?: string;
+  padding?: 'default' | 'compact' | 'none';
+  tone?: 'default' | 'muted';
+  as?: 'article' | 'div' | 'li';
+}
+
+const {
+  eyebrow,
+  title,
+  href,
+  class: className = '',
+  target,
+  rel,
+  ariaLabel,
+  padding = 'default',
+  tone = 'default',
+  as = 'article',
+  ...rest
+} = Astro.props as Props;
+
+const Tag = href ? 'a' : as;
+---
+
+<Tag
+  {...rest}
+  class:list={[
+    'ui-card',
+    `ui-card--padding-${padding}`,
+    tone === 'muted' && 'ui-card--muted',
+    className,
+  ]}
+  href={href}
+  target={target}
+  rel={rel}
+  aria-label={ariaLabel}
+>
+  {(eyebrow || title) && (
+    <header class="ui-card__header">
+      {eyebrow && <p class="ui-card__eyebrow">{eyebrow}</p>}
+      {title && <h3>{title}</h3>}
+    </header>
+  )}
+  <div class="ui-card__body">
+    <slot />
+  </div>
+</Tag>

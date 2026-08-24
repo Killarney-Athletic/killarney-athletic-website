@@ -1,0 +1,248 @@
+{
+  "success": true,
+  "timestamp": "2026-08-24T15:26:03.124Z",
+  "isFallback": false,
+  "data": {
+    "latestResults": [
+      {
+        "id": "2025-05-11t12-00-41-killarney-athletic-afc-vs-st-brendans-park-fc",
+        "date": "2025-05-11T12:00:41",
+        "homeTeam": "Killarney Athletic AFC",
+        "awayTeam": "St. Brendan’s Park FC",
+        "score": {
+          "home": 6,
+          "away": 0,
+          "raw": "6 - 0"
+        },
+        "status": "FULL_TIME",
+        "ground": "Woodlawn",
+        "competition": "Kerry District League Premier A",
+        "isKillarneyAthletic": true,
+        "isHomeMatch": true
+      },
+      {
+        "id": "2025-05-04t11-30-00-killarney-celtic-fc-vs-killarney-athletic-afc",
+        "date": "2025-05-04T11:30:00",
+        "homeTeam": "Killarney Celtic FC",
+        "awayTeam": "Killarney Athletic AFC",
+        "score": {
+          "home": 5,
+          "away": 5,
+          "raw": "5 - 5"
+        },
+        "status": "FULL_TIME",
+        "ground": "Celtic Park, Killarney",
+        "competition": "Kerry District League Premier A",
+        "isKillarneyAthletic": true,
+        "isHomeMatch": false
+      },
+      {
+        "id": "2025-04-24t20-00-00-castleisland-afc-vs-killarney-athletic-afc",
+        "date": "2025-04-24T20:00:00",
+        "homeTeam": "Castleisland AFC",
+        "awayTeam": "Killarney Athletic AFC",
+        "score": {
+          "home": 0,
+          "away": 3,
+          "raw": "0 - 3"
+        },
+        "status": "FULL_TIME",
+        "ground": "Georgie O’Callaghan Park",
+        "competition": "Kerry District League Premier A",
+        "isKillarneyAthletic": true,
+        "isHomeMatch": false
+      },
+      {
+        "id": "2025-04-16t18-45-28-killarney-athletic-afc-vs-mastergeeha-fc",
+        "date": "2025-04-16T18:45:28",
+        "homeTeam": "Killarney Athletic AFC",
+        "awayTeam": "Mastergeeha FC",
+        "score": {
+          "home": 3,
+          "away": 0,
+          "raw": "3 - 0"
+        },
+        "status": "FULL_TIME",
+        "ground": "Woodlawn",
+        "competition": "Kerry District League Premier A",
+        "isKillarneyAthletic": true,
+        "isHomeMatch": true
+      },
+      {
+        "id": "2025-04-13t11-00-00-tralee-dynamos-vs-killarney-athletic-afc",
+        "date": "2025-04-13T11:00:00",
+        "homeTeam": "Tralee Dynamos",
+        "awayTeam": "Killarney Athletic AFC",
+        "score": {
+          "home": 1,
+          "away": 0,
+          "raw": "1 - 0"
+        },
+        "status": "FULL_TIME",
+        "ground": "Cahermoneen",
+        "competition": "Kerry District League Premier A",
+        "isKillarneyAthletic": true,
+        "isHomeMatch": false
+      },
+      {
+        "id": "2025-04-09t20-00-00-classic-fc-vs-killarney-athletic-afc",
+        "date": "2025-04-09T20:00:00",
+        "homeTeam": "Classic FC",
+        "awayTeam": "Killarney Athletic AFC",
+        "score": {
+          "home": 0,
+          "away": 4,
+          "raw": "0 - 4"
+        },
+        "status": "FULL_TIME",
+        "ground": "Mounthawk Park",
+        "competition": "Kerry District League Premier A",
+        "isKillarneyAthletic": true,
+        "isHomeMatch": false
+      }
+    ],
+    "upcomingFixtures": [],
+    "standings": [
+      {
+        "position": 1,
+        "club": "Killarney Celtic FC",
+        "crestUrl": "/images/team-crests/killarney-celtic-fc.png",
+        "played": 17,
+        "won": 13,
+        "drawn": 4,
+        "lost": 0,
+        "goalsFor": 65,
+        "goalsAgainst": 24,
+        "goalDifference": 41,
+        "points": 43,
+        "isKillarneyAthletic": false
+      },
+      {
+        "position": 2,
+        "club": "Tralee Dynamos",
+        "crestUrl": "/images/team-crests/tralee-dynamos.png",
+        "played": 16,
+        "won": 13,
+        "drawn": 1,
+        "lost": 2,
+        "goalsFor": 54,
+        "goalsAgainst": 13,
+        "goalDifference": 41,
+        "points": 40,
+        "isKillarneyAthletic": false
+      },
+      {
+        "position": 3,
+        "club": "Castleisland AFC",
+        "crestUrl": "/images/team-crests/castleisland-afc.png",
+        "played": 16,
+        "won": 9,
+        "drawn": 2,
+        "lost": 5,
+        "goalsFor": 28,
+        "goalsAgainst": 20,
+        "goalDifference": 8,
+        "points": 29,
+        "isKillarneyAthletic": false
+      },
+      {
+        "position": 4,
+        "club": "Killarney Athletic AFC",
+        "crestUrl": "/images/team-crests/killarney-athletic-afc.svg",
+        "played": 14,
+        "won": 8,
+        "drawn": 2,
+        "lost": 4,
+        "goalsFor": 44,
+        "goalsAgainst": 24,
+        "goalDifference": 20,
+        "points": 26,
+        "isKillarneyAthletic": true
+      },
+      {
+        "position": 5,
+        "club": "Listowel Celtic AFC",
+        "crestUrl": "/images/team-crests/listowel-celtic-afc.png",
+        "played": 13,
+        "won": 6,
+        "drawn": 1,
+        "lost": 6,
+        "goalsFor": 25,
+        "goalsAgainst": 34,
+        "goalDifference": -9,
+        "points": 19,
+        "isKillarneyAthletic": false
+      },
+      {
+        "position": 6,
+        "club": "Ballyheigue Athletic FC",
+        "crestUrl": "/images/team-crests/ballyheigue-athletic-fc.png",
+        "played": 14,
+        "won": 5,
+        "drawn": 1,
+        "lost": 8,
+        "goalsFor": 28,
+        "goalsAgainst": 27,
+        "goalDifference": 1,
+        "points": 16,
+        "isKillarneyAthletic": false
+      },
+      {
+        "position": 7,
+        "club": "Killorglin AFC",
+        "crestUrl": "/images/team-crests/killorglin-afc.png",
+        "played": 14,
+        "won": 4,
+        "drawn": 1,
+        "lost": 9,
+        "goalsFor": 22,
+        "goalsAgainst": 37,
+        "goalDifference": -15,
+        "points": 13,
+        "isKillarneyAthletic": false
+      },
+      {
+        "position": 8,
+        "club": "St. Brendan’s Park FC",
+        "crestUrl": "/images/team-crests/st-brendans-park-fc.png",
+        "played": 15,
+        "won": 3,
+        "drawn": 0,
+        "lost": 12,
+        "goalsFor": 25,
+        "goalsAgainst": 45,
+        "goalDifference": -20,
+        "points": 9,
+        "isKillarneyAthletic": false
+      },
+      {
+        "position": 9,
+        "club": "Classic FC",
+        "crestUrl": "/images/team-crests/classic-fc.png",
+        "played": 11,
+        "won": 2,
+        "drawn": 1,
+        "lost": 8,
+        "goalsFor": 10,
+        "goalsAgainst": 36,
+        "goalDifference": -26,
+        "points": 7,
+        "isKillarneyAthletic": false
+      },
+      {
+        "position": 10,
+        "club": "Mastergeeha FC",
+        "crestUrl": "/images/team-crests/mastergeeha-fc.png",
+        "played": 14,
+        "won": 2,
+        "drawn": 1,
+        "lost": 11,
+        "goalsFor": 18,
+        "goalsAgainst": 59,
+        "goalDifference": -41,
+        "points": 7,
+        "isKillarneyAthletic": false
+      }
+    ]
+  }
+}

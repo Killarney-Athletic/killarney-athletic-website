@@ -1,0 +1,42 @@
+[
+  {
+    "slug": "senior-a",
+    "name": "Senior A",
+    "summary": "Killarney Athletic Senior A.",
+    "manager": { "name": "To be confirmed", "email": null, "phone": null },
+    "training": [{ "day": "To be confirmed", "time": "To be confirmed" }],
+    "pitch": "Killarney Athletic Park, Woodlawn"
+  },
+  {
+    "slug": "senior-b",
+    "name": "Senior B",
+    "summary": "Killarney Athletic’s second senior team.",
+    "manager": { "name": "To be confirmed", "email": null, "phone": null },
+    "training": [{ "day": "To be confirmed", "time": "To be confirmed" }],
+    "pitch": "Killarney Athletic Park, Woodlawn"
+  },
+  {
+    "slug": "youths",
+    "name": "Youths",
+    "summary": "The club’s youth squad and pathway into senior football.",
+    "manager": { "name": "To be confirmed", "email": null, "phone": null },
+    "training": [{ "day": "To be confirmed", "time": "To be confirmed" }],
+    "pitch": "Killarney Athletic Park, Woodlawn"
+  },
+  {
+    "slug": "underage",
+    "name": "Underage",
+    "summary": "Schoolboy and schoolgirl teams across the club’s competitive age groups.",
+    "manager": { "name": "Age-group coaches", "email": null, "phone": null },
+    "training": [{ "day": "Varies by age group", "time": "Contact the club for details" }],
+    "pitch": "Killarney Athletic Park, Woodlawn"
+  },
+  {
+    "slug": "academy",
+    "name": "Academy",
+    "summary": "A welcoming introduction to football, focused on enjoyment and player development.",
+    "manager": { "name": "Academy coaching team", "email": null, "phone": null },
+    "training": [{ "day": "To be confirmed", "time": "To be confirmed" }],
+    "pitch": "Killarney Athletic Park, Woodlawn"
+  }
+]

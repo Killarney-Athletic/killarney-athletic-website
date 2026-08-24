@@ -1,0 +1,198 @@
+---
+import knowledgeBase from '../data/assistant-kb.json';
+import historyArticles from '../data/history-search.json';
+import teams from '../data/teams.json';
+import { getPosts } from '../lib/wordpress';
+import { withBase } from '../utils/paths';
+import { Sparkles } from '@lucide/astro';
+import Button from './Button.astro';
+
+type AssistantEntry = {
+  id: string;
+  keywords: string[];
+  title: string;
+  category: string;
+  summary: string;
+  actionLabel: string;
+  actionUrl: string;
+  isExternal?: boolean;
+};
+
+const squadEntries: AssistantEntry[] = teams.map((team) => ({
+  id: 'squad-' + team.slug,
+  keywords: [team.slug, team.name, 'squad', 'team', 'training', 'time', 'manager', 'coach', 'pitch', 'woodlawn'],
+  title: team.name + ' squad',
+  category: 'Training & Teams',
+  summary: team.summary + ' Training: ' + team.training.map((session) => session.day + ', ' + session.time).join('; ') + '. Pitch: ' + team.pitch + '.',
+  actionLabel: 'View ' + team.name,
+  actionUrl: '/teams/' + team.slug + '/',
+}));
+
+const historyEntries: AssistantEntry[] = historyArticles.map((article) => ({
+  id: 'history-' + article.slug,
+  keywords: [article.author, 'history', 'story', 'article', 'archive', ...article.title.split(' ')],
+  title: article.title,
+  category: 'Club History',
+  summary: article.summary + ' By ' + article.author + '.',
+  actionLabel: 'Read the story',
+  actionUrl: '/about/club-history/articles/' + article.slug + '/',
+}));
+
+const newsPosts = await getPosts(100);
+const newsEntries: AssistantEntry[] = newsPosts.map((post) => ({
+  id: 'news-' + post.slug,
+  keywords: ['news', 'update', String(post.date.getFullYear()), ...post.categories.map((category) => category.name)],
+  title: post.title,
+  category: 'Club News',
+  summary: post.excerpt,
+  actionLabel: 'Read the update',
+  actionUrl: '/news/' + post.slug + '/',
+}));
+
+const entries = ([...knowledgeBase, ...squadEntries, ...historyEntries, ...newsEntries] as AssistantEntry[]).map((entry) => ({
+  ...entry,
+  actionUrl: entry.isExternal ? entry.actionUrl : withBase(entry.actionUrl),
+}));
+---
+
+<div class="parent-assistant" data-parent-assistant>
+  <Button class="assistant-trigger" label="Ask the club" size="sm" variant="outline-dark" ariaLabel="Open Parent and Coach Assistant" data-assistant-open>
+    <Sparkles slot="icon" size={18} stroke-width={2} />
+  </Button>
+
+  <dialog class="assistant-dialog" aria-labelledby="assistant-title" data-assistant-dialog>
+    <div class="assistant-shell">
+      <header class="assistant-header">
+        <div>
+          <p class="assistant-eyebrow">Parent &amp; Coach Assistant</p>
+          <h2 id="assistant-title">How can we help?</h2>
+        </div>
+        <button class="assistant-close" type="button" aria-label="Close assistant" data-assistant-close>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg>
+        </button>
+      </header>
+
+      <label class="assistant-search">
+        <span class="sr-only">Search club information</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
+        <input type="search" placeholder="Try “academy times” or “where is the pitch?”" autocomplete="off" data-assistant-input />
+      </label>
+      <p class="assistant-hint">Search teams, training, membership, facilities, news and club history.</p>
+      <div class="assistant-results" role="listbox" aria-label="Suggested answers" data-assistant-results></div>
+      <p class="assistant-empty" hidden data-assistant-empty>No close match yet. Try a person, story, team, training, membership, pitch or tournament.</p>
+    </div>
+  </dialog>
+  <script type="application/json" data-assistant-data set:html={JSON.stringify(entries)} />
+</div>
+
+<script>
+  const assistant = document.querySelector<HTMLElement>('[data-parent-assistant]');
+  const dialog = assistant?.querySelector<HTMLDialogElement>('[data-assistant-dialog]');
+  const input = assistant?.querySelector<HTMLInputElement>('[data-assistant-input]');
+  const results = assistant?.querySelector<HTMLElement>('[data-assistant-results]');
+  const empty = assistant?.querySelector<HTMLElement>('[data-assistant-empty]');
+  const dataNode = assistant?.querySelector<HTMLScriptElement>('[data-assistant-data]');
+  const openButton = assistant?.querySelector<HTMLButtonElement>('[data-assistant-open]');
+  const closeButton = assistant?.querySelector<HTMLButtonElement>('[data-assistant-close]');
+  const entries = JSON.parse(dataNode?.textContent ?? '[]');
+  let activeIndex = 0;
+
+  const normalize = (value: unknown) => String(value ?? '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+  const tokens = (value: unknown) => normalize(value).split(/\s+/).filter(Boolean);
+  const scoreEntry = (entry: any, query: string) => {
+    const queryTokens = tokens(query);
+    if (!queryTokens.length) return entry.id.startsWith('squad-') ? 0 : 1;
+    const title = normalize(entry.title);
+    const keywords = entry.keywords.map(normalize);
+    const searchable = normalize([entry.title, entry.category, entry.summary, ...entry.keywords].join(' '));
+    return queryTokens.reduce((score: number, token: string) => {
+      if (title.includes(token)) return score + 8;
+      if (keywords.some((keyword: string) => keyword === token)) return score + 6;
+      if (keywords.some((keyword: string) => keyword.includes(token))) return score + 4;
+      return score + (searchable.includes(token) ? 2 : 0);
+    }, 0);
+  };
+  const escapeHtml = (value: unknown) => String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[char] ?? char);
+  const getMatches = (query: string) => entries.map((entry: any) => ({ entry, score: scoreEntry(entry, query) })).filter((item: any) => item.score > 0).sort((a: any, b: any) => b.score - a.score).slice(0, 6);
+  const setActive = (index: number) => {
+    const cards = [...(results?.querySelectorAll<HTMLElement>('[role="option"]') ?? [])];
+    if (!cards.length) return;
+    activeIndex = (index + cards.length) % cards.length;
+    cards.forEach((card, cardIndex) => {
+      card.classList.toggle('is-active', cardIndex === activeIndex);
+      card.setAttribute('aria-selected', String(cardIndex === activeIndex));
+    });
+    cards[activeIndex]?.scrollIntoView({ block: 'nearest' });
+  };
+  const badgeTone = (category: string) => ({
+    'Training & Teams': 'cool-blue',
+    'Membership': 'soft-indigo',
+    'Facilities': 'cool-sky',
+    'Tournaments': 'soft-apricot',
+    'Club Store': 'warm-neutral',
+    'Club History': 'warm-sand',
+    'Club News': 'slate-gray',
+  })[category] ?? 'slate-gray';
+  const render = () => {
+    if (!results || !empty) return;
+    const matches = getMatches(input?.value ?? '');
+    results.innerHTML = matches.map(({ entry }: any, index: number) =>
+      '<a class="assistant-result' + (index === 0 ? ' is-active' : '') + '" role="option" aria-selected="' + (index === 0) + '" href="' + escapeHtml(entry.actionUrl) + '"' +
+      (entry.isExternal ? ' target="_blank" rel="noopener noreferrer"' : '') + '><span class="content-badge content-badge--' + badgeTone(entry.category) + '">' + escapeHtml(entry.category) + '</span><strong>' + escapeHtml(entry.title) + '</strong><p>' + escapeHtml(entry.summary) + '</p><span class="assistant-result__action">' + escapeHtml(entry.actionLabel) + (entry.isExternal ? ' ↗' : ' →') + '</span></a>'
+    ).join('');
+    empty.hidden = matches.length > 0;
+    activeIndex = 0;
+  };
+  const open = () => {
+    if (!dialog?.open) dialog?.showModal();
+    render();
+    window.setTimeout(() => input?.focus(), 0);
+  };
+  const close = () => dialog?.close();
+  openButton?.addEventListener('click', open);
+  closeButton?.addEventListener('click', close);
+  input?.addEventListener('input', render);
+  input?.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowDown') { event.preventDefault(); setActive(activeIndex + 1); }
+    if (event.key === 'ArrowUp') { event.preventDefault(); setActive(activeIndex - 1); }
+    if (event.key === 'Enter') {
+      const selected = results?.querySelector<HTMLAnchorElement>('.is-active');
+      if (selected) { event.preventDefault(); selected.click(); }
+    }
+  });
+  dialog?.addEventListener('click', (event) => { if (event.target === dialog) close(); });
+  dialog?.addEventListener('close', () => { if (input) input.value = ''; openButton?.focus(); });
+  document.addEventListener('keydown', (event) => {
+    if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
+      event.preventDefault();
+      dialog?.open ? close() : open();
+    }
+  });
+</script>
+
+<style>
+  .parent-assistant { margin-top:1.25rem; }
+  .assistant-trigger :global(.ui-button__icon) { color:var(--brand-royal); }
+  .assistant-search svg { width:1rem; height:1rem; fill:none; stroke:currentColor; stroke-width:2; }
+  .assistant-dialog { position:fixed; inset:auto; top:max(1rem,calc((100dvh - 44rem) / 2)); left:50%; width:min(44rem,calc(100% - 2rem)); max-height:min(44rem,calc(100dvh - 2rem)); margin:0; padding:0; border:0; border-radius:1.15rem; color:var(--ink); background:white; box-shadow:0 28px 90px rgb(0 18 60 / 35%); transform:translateX(-50%); }
+  .assistant-dialog::backdrop { background:rgb(0 20 58 / 52%); backdrop-filter:blur(6px); }
+  .assistant-shell { padding:clamp(1rem,3vw,1.65rem); }
+  .assistant-header { display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; }
+  .assistant-header h2 { margin:.15rem 0 1.1rem; color:var(--brand-navy); font-size:clamp(1.55rem,4vw,2.15rem); }
+  .assistant-eyebrow { margin:0; color:var(--club-blue); font-size:.72rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+  .assistant-close { display:grid; place-items:center; width:2.5rem; height:2.5rem; border:0; border-radius:50%; color:var(--brand-navy); background:var(--card-background-muted); cursor:pointer; }
+  .assistant-close svg { width:1.15rem; fill:none; stroke:currentColor; stroke-width:2; }
+  .assistant-search { display:flex; align-items:center; gap:.7rem; padding:.75rem 1rem; border:2px solid var(--blue-100); border-radius:.8rem; color:var(--club-blue); }
+  .assistant-search:focus-within { border-color:var(--club-blue); box-shadow:0 0 0 3px rgb(48 100 221 / 12%); }
+  .assistant-search input { width:100%; border:0; outline:0; color:var(--ink); background:transparent; font:inherit; font-size:1rem; }
+  .assistant-hint { margin:.65rem 0 1rem; color:var(--muted); font-size:.78rem; }
+  .assistant-results { display:grid; gap:.85rem; max-height:min(26rem,52dvh); padding:.15rem; overflow:auto; }
+  .assistant-results :global(.assistant-result) { display:grid; justify-items:start; gap:.45rem; padding:var(--card-padding); border:1px solid var(--card-border); border-radius:var(--card-radius); color:inherit; text-decoration:none; background:var(--card-background); box-shadow:var(--card-shadow); transition:var(--card-transition),background-color .18s ease; }
+  .assistant-results :global(.assistant-result:hover), .assistant-results :global(.assistant-result.is-active) { border-color:var(--card-border-hover); background:rgb(65 105 225 / 10%); box-shadow:var(--card-shadow-hover); transform:translateY(-1px); }
+  .assistant-results :global(.assistant-result:focus-visible) { outline:3px solid rgb(48 100 221 / 30%); outline-offset:2px; }
+  .assistant-results :global(.assistant-result strong) { color:var(--brand-navy); font-size:1rem; }
+  .assistant-results :global(.assistant-result p) { margin:0 0 .1rem; color:var(--muted); font-size:.86rem; line-height:1.5; }
+  .assistant-results :global(.assistant-result__action) { color:var(--club-blue); font-size:.78rem; font-weight:800; }
+  .assistant-empty { padding:1.25rem; color:var(--muted); text-align:center; background:var(--card-background-muted); border-radius:var(--card-radius); }
+  @media (max-width:760px) { .assistant-dialog { top:max(.5rem,calc((100dvh - 44rem) / 2)); width:calc(100% - 1rem); max-height:calc(100dvh - 1rem); } }
+</style>

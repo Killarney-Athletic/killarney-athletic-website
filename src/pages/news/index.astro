@@ -1,0 +1,166 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ListingItem from '../../components/ListingItem.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import FilterBar from '../../components/ui/FilterBar.astro';
+import { getPosts } from '../../lib/wordpress';
+import { withBase } from '../../utils/paths';
+
+const posts = await getPosts(100);
+const normalizeFilterValue = (value: string) => value
+  .toLowerCase()
+  .replace(/&/g, 'and')
+  .replace(/[^a-z0-9]+/g, '-')
+  .replace(/^-|-$/g, '');
+
+const yearOptions = [
+  { label: 'All years', value: '' },
+  ...Array.from(new Set(posts.map((post) => post.date.getFullYear().toString()))).sort((a, b) => Number(b) - Number(a)),
+];
+const typeOptions = [
+  { label: 'All types', value: '' },
+  ...Array.from(
+    new Set(posts.flatMap((post) => post.categories.map((category) => category.name))),
+  )
+    .sort((a, b) => a.localeCompare(b))
+    .map((category) => ({
+      label: category,
+      value: normalizeFilterValue(category),
+    })),
+];
+---
+
+<Layout
+  title="News | Killarney Athletic AFC"
+  description="Latest news, updates and announcements from Killarney Athletic AFC."
+>
+  <section class="news-listing page-shell page-template page-template--listing">
+    <PageHeader
+      title="News"
+      intro="Latest updates, announcements and club notes from Killarney Athletic A.F.C."
+      breadcrumbs={[
+        { label: 'Home', href: '/' },
+        { label: 'News' },
+      ]}
+    />
+
+    <div class="news-listing__filters">
+      <FilterBar
+        ariaLabel="News filters"
+        action={withBase('/news/')}
+        searchPlaceholder="Search club updates…"
+        yearOptions={yearOptions}
+        typeOptions={typeOptions}
+        resultLabel={`Showing ${posts.length} updates`}
+        showFieldLabels={false}
+        showSubmit={false}
+      />
+    </div>
+
+    <div class="news-listing__items">
+      {posts.map((post) => (
+        <ListingItem
+          class="news-listing__item"
+          title={post.title}
+          href={withBase(`/news/${post.slug}/`)}
+          excerpt={post.excerpt}
+          category={post.categories[0]?.name}
+          date={post.date}
+          data-news-item
+          data-news-year={post.date.getFullYear()}
+          data-news-type={post.categories.map((category) => normalizeFilterValue(category.name)).join('|')}
+          data-news-search={`${post.title} ${post.excerpt} ${post.categories.map((category) => category.name).join(' ')}`.toLowerCase()}
+        />
+      ))}
+    </div>
+  </section>
+
+  <script>
+    const newsSection = document.querySelector<HTMLElement>('.news-listing');
+    const filterShell = newsSection?.querySelector<HTMLDetailsElement>('[data-filter-shell]');
+    const filterForm = newsSection?.querySelector<HTMLFormElement>('.filter-bar');
+    const searchInput = filterForm?.querySelector<HTMLInputElement>('input[name="search"]');
+    const yearSelect = filterForm?.querySelector<HTMLSelectElement>('select[name="year"]');
+    const typeSelect = filterForm?.querySelector<HTMLSelectElement>('select[name="type"]');
+    const resultBadges = Array.from(newsSection?.querySelectorAll<HTMLElement>('.filter-bar__result') ?? []);
+    const items = Array.from(newsSection?.querySelectorAll<HTMLElement>('[data-news-item]') ?? []);
+
+    function applyNewsFilters(updateUrl = true) {
+      const searchValue = searchInput?.value.trim().toLowerCase() ?? '';
+      const yearValue = yearSelect?.value ?? '';
+      const typeValue = typeSelect?.value ?? '';
+      let visibleCount = 0;
+
+      items.forEach((item) => {
+        const matchesSearch = !searchValue || (item.dataset.newsSearch ?? '').includes(searchValue);
+        const matchesYear = !yearValue || item.dataset.newsYear === yearValue;
+        const matchesType = !typeValue || (item.dataset.newsType ?? '').split('|').includes(typeValue);
+        const isVisible = matchesSearch && matchesYear && matchesType;
+
+        item.hidden = !isVisible;
+        if (isVisible) visibleCount += 1;
+      });
+
+      resultBadges.forEach((resultBadge) => {
+        resultBadge.textContent = `Showing ${visibleCount} ${visibleCount === 1 ? 'update' : 'updates'}`;
+      });
+
+      if (!updateUrl) return;
+
+      const params = new URLSearchParams();
+      if (searchValue) params.set('search', searchValue);
+      if (yearValue) params.set('year', yearValue);
+      if (typeValue) params.set('type', typeValue);
+
+      const nextUrl = params.toString() ? `${window.location.pathname}?${params}` : window.location.pathname;
+      window.history.replaceState({}, '', nextUrl);
+    }
+
+    if (filterForm && searchInput && yearSelect && typeSelect) {
+      const params = new URLSearchParams(window.location.search);
+      const typeParam = params.get('type') ?? '';
+      const matchingTypeValue = Array.from(typeSelect.options).find((option) => (
+        option.value === typeParam || option.textContent?.toLowerCase() === typeParam.toLowerCase()
+      ))?.value ?? '';
+
+      searchInput.value = params.get('search') ?? '';
+      yearSelect.value = params.get('year') ?? '';
+      typeSelect.value = matchingTypeValue;
+      const mobileFilterQuery = window.matchMedia('(max-width: 1020px)');
+      const syncFilterShellState = () => {
+        if (!filterShell) return;
+        const hasActiveFilters = Boolean(searchInput.value || yearSelect.value || typeSelect.value);
+        filterShell.open = hasActiveFilters || !mobileFilterQuery.matches;
+      };
+
+      syncFilterShellState();
+      mobileFilterQuery.addEventListener('change', syncFilterShellState);
+      applyNewsFilters(false);
+
+      filterForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        applyNewsFilters();
+      });
+
+      filterForm.addEventListener('reset', () => {
+        window.setTimeout(() => {
+          applyNewsFilters();
+          syncFilterShellState();
+        }, 0);
+      });
+
+      searchInput.addEventListener('input', () => {
+        applyNewsFilters();
+        syncFilterShellState();
+      });
+      yearSelect.addEventListener('change', () => {
+        applyNewsFilters();
+        syncFilterShellState();
+      });
+      typeSelect.addEventListener('change', () => {
+        applyNewsFilters();
+        syncFilterShellState();
+      });
+    }
+  </script>
+</Layout>

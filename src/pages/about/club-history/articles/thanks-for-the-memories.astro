@@ -1,0 +1,165 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import Button from '../../../../components/Button.astro';
+import GalleryCarousel from '../../../../components/GalleryCarousel.astro';
+import PageHeader from '../../../../components/PageHeader.astro';
+import { Clock, Share2 } from '@lucide/astro';
+import toniTeamImage from '../../../../assets/images/history/toni-fleming-athletic-team.jpg';
+import bountyBoysImage from '../../../../assets/images/history/bounty-boys-1977.jpg';
+import reunionImage from '../../../../assets/images/history/toni-fleming-reunion.jpg';
+import memorialImage from '../../../../assets/images/history/toni-fleming-memorial.jpg';
+
+const sourcePdf = 'https://www.killarneyathletic.com/wp-content/uploads/2015/07/Thanks-for-the-Memories-Toni-Fleming.pdf';
+const articleTitle = 'Thanks for the Memories';
+const articleUrl = new URL(`${import.meta.env.BASE_URL}about/club-history/articles/thanks-for-the-memories/`, Astro.site ?? 'https://www.killarneyathletic.com');
+const articleGalleryId = 'toni-fleming-gallery';
+---
+
+<Layout
+  title={`${articleTitle} | Killarney Athletic A.F.C.`}
+  description="Toni Fleming remembers his playing days, friendships and favourite stories from Killarney Athletic."
+  canonicalPath="/about/club-history/articles/thanks-for-the-memories/"
+  bodyClass="history-story-page"
+  hideFooter={true}
+>
+  <article class="history-story">
+    <header class="history-story__header page-shell">
+      <PageHeader
+        variant="hero"
+        title={articleTitle}
+        breadcrumbs={[
+          { label: 'Home', href: '/' },
+          { label: 'Club History', href: '/about/club-history/' },
+          { label: 'Stories & Articles', href: '/about/club-history/#articles' },
+          { label: articleTitle },
+        ]}
+      >
+        <span slot="intro" class="history-story__byline">
+          <span>Toni Fleming</span>
+          <span aria-hidden="true">·</span>
+          <span>2015</span>
+          <span class="history-story__read-time"><Clock aria-hidden="true" size={15} stroke-width={2} /> 3 min read</span>
+        </span>
+      </PageHeader>
+    </header>
+
+    <div class="history-story__body page-shell">
+      <section>
+        <p>I joined Killarney Athletic in 1971. I was the 23rd man on the squad and it took me 1 ½ years before I got a game—friendly games, yes, first team, no.</p>
+      </section>
+
+      <figure>
+        <button class="history-story__image-trigger" type="button" data-gallery-open={articleGalleryId} data-gallery-index="0" aria-label="Open Toni Fleming's article gallery at the Killarney Athletic team photograph">
+          <img src={toniTeamImage.src} alt="Toni Fleming with a Killarney Athletic team and trophy" />
+        </button>
+        <figcaption><strong>Toni: front row third from left</strong></figcaption>
+      </figure>
+
+      <section class="history-story__subsection">
+        <p>In the Anchor Shield final, Killarney Athletic were playing Scartaglin and with 20 minutes to go, a player called Sossie Mullins walked off the pitch and went up to the manager, Joe Grant. “Give the new guy a run,” he said. I got my chance and after being on the pitch for five minutes, I scored a goal. The rest is history!</p>
+        <p>Sossie and I became the best of friends, even though we never agreed about anything. We had two opposite personalities which often clashed but that was part of our great relationship. What a character!</p>
+      </section>
+
+      <figure>
+        <button class="history-story__image-trigger" type="button" data-gallery-open={articleGalleryId} data-gallery-index="1" aria-label="Open Toni Fleming's article gallery at the Bounty Boys photograph">
+          <img src={bountyBoysImage.src} alt="The Bounty Boys, winners of the 1977 seven-a-side tournament" />
+        </button>
+        <figcaption><strong>Toni: front row second from left</strong></figcaption>
+      </figure>
+
+      <section class="history-story__subsection">
+        <p>One other memory I do recall is the day our manager Joe Grant asked me at training if I would travel to Listowel with Woodlawn Rovers. He was dropping me from the squad as I hadn’t scored in a few games. So, I went to Listowel and Woodlawn Rovers won the game.</p>
+        <p>One goal in particular was an absolute “fluke”! There was an electricity cable running directly over the halfway line. During the game the ball struck the wire. When it came down, I chested it to my feet, looked at the ref who said “Play on!” and that was goal number one. I scored again, 2-0 to Woodlawn Rovers. Billy Doyle the Woodlawn manager was so over the moon he nearly had a pint. Nearly, ok! And Athletic lost their game 3-0 to the Park.</p>
+        <p>Question: Have any of you gone on loan to another club? I’d love to know!</p>
+        <p>Yours in Sport,<br />Toni No. 7</p>
+        <p>P.S. When we got married, my wife Phil said, “It’s me or the ball!” I played until I was 43. I really loved that ball!</p>
+      </section>
+
+      <figure>
+        <button class="history-story__image-trigger" type="button" data-gallery-open={articleGalleryId} data-gallery-index="2" aria-label="Open Toni Fleming's article gallery at the Half Moon reunion photograph">
+          <img src={reunionImage.src} alt="Toni Fleming with Denny Hayes and Don Harrington at the Half Moon reunion" />
+        </button>
+        <figcaption><strong>Toni with Denny Hayes and Don Harrington at The Half Moon 50th Anniversary Reunion</strong></figcaption>
+      </figure>
+
+      <blockquote class="history-story__pullquote">
+        <p>I really loved that ball!</p>
+        <cite>Toni Fleming</cite>
+      </blockquote>
+
+      <section class="history-story__postscript" aria-labelledby="toni-postscript-heading">
+        <p class="history-story__postscript-label">Postscript</p>
+        <h2 id="toni-postscript-heading">Remembering Toni</h2>
+        <p>It was with great sadness that the news reached us this morning of the sad passing of one of our truest blues Toni Fleming.</p>
+        <p>All of us at Killarney Athletic would like to send out sincere condolences to his wife Phil son Stephen,Daughters Lorraine and Amanda,Grandson Ethan,great Grandkids Maddie and Theo.</p>
+        <p>Also John,Jer and Domi.</p>
+        <p>Also to his Sister in Law Ger Our Former Chairperson and to Toni's extended Family.</p>
+        <p>Toni joined the Club in 1971 played for many years and was affectionately knows as (Tappy No 7 )for his goal scoring abilities.</p>
+        <p>Toni was also Chairman of the Club on two occasions</p>
+        <p>In recent years, Toni was at Athletic early every morning, taking care of whatever needed to be done, with no task ever too big or too small.</p>
+        <p>Toni will be greatly missed; a true gent and a wonderful clubman.</p>
+        <p>Rest Easy Toni you won't be forgotten from the Blues</p>
+      </section>
+
+      <figure class="history-story__memorial-figure">
+        <button class="history-story__image-trigger" type="button" data-gallery-open={articleGalleryId} data-gallery-index="3" aria-label="Open Toni Fleming's memorial photograph in the article gallery">
+          <img src={memorialImage.src} alt="Toni Fleming at Killarney Athletic’s Woodlawn grounds" />
+        </button>
+        <figcaption>
+          <strong>Toni Fleming</strong>
+          <span>A true gent, a wonderful clubman and one of our truest blues.</span>
+        </figcaption>
+      </figure>
+
+      <nav class="history-story__share" aria-label="Share this article">
+        <span class="history-story__share-label"><Share2 aria-hidden="true" size={17} stroke-width={2} /> Share</span>
+        <div>
+          <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(articleUrl.href)}`} target="_blank" rel="noopener noreferrer">Facebook</a>
+          <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(articleUrl.href)}&text=${encodeURIComponent(articleTitle)}`} target="_blank" rel="noopener noreferrer">X</a>
+          <a href={`mailto:?subject=${encodeURIComponent(articleTitle)}&body=${encodeURIComponent(articleUrl.href)}`}>Email</a>
+        </div>
+      </nav>
+
+      <footer class="history-story__source">
+        <p><strong>Toni Fleming</strong><br />From Killarney Athletic’s 50 years of soccer series.</p>
+        <Button href={sourcePdf} label="View the original PDF" variant="outline-dark" target="_blank" rel="noopener noreferrer" />
+      </footer>
+    </div>
+  </article>
+
+  <GalleryCarousel galleries={[{
+    id: articleGalleryId,
+    title: articleTitle,
+    images: [
+      { src: toniTeamImage.src, alt: 'Toni Fleming with a Killarney Athletic team and trophy.' },
+      { src: bountyBoysImage.src, alt: 'The Bounty Boys, winners of the 1977 seven-a-side tournament.' },
+      { src: reunionImage.src, alt: 'Toni Fleming with Denny Hayes and Don Harrington at the Half Moon 50th anniversary reunion.' },
+      { src: memorialImage.src, alt: 'Toni Fleming at Killarney Athletic’s Woodlawn grounds.' },
+    ],
+  }]} />
+</Layout>
+
+<style>
+  .history-story__postscript {
+    margin-top: clamp(4rem, 8vw, 6rem) !important;
+    padding-top: clamp(2rem, 5vw, 3.5rem);
+    border-top: 1px solid var(--line);
+  }
+
+  .history-story__postscript-label {
+    margin: 0 0 0.6rem !important;
+    color: var(--muted) !important;
+    font-size: 0.78rem !important;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .history-story__postscript h2 {
+    margin-bottom: 1.25rem;
+  }
+
+  .history-story__body .history-story__memorial-figure {
+    margin-top: clamp(2rem, 5vw, 3.5rem);
+  }
+</style>

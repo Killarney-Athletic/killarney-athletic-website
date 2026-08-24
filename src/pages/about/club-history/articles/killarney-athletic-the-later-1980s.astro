@@ -1,0 +1,178 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import Button from '../../../../components/Button.astro';
+import GalleryCarousel from '../../../../components/GalleryCarousel.astro';
+import PageHeader from '../../../../components/PageHeader.astro';
+import { Clock, Share2 } from '@lucide/astro';
+import cupFinalistsImage from '../../../../assets/images/history/senior-team-1990-cup-finalists.jpg';
+import trebleTrophiesImage from '../../../../assets/images/history/derry-city-treble-trophies-1989.jpg';
+import derryPresentationImage from '../../../../assets/images/history/derry-city-presentation-1989.jpg';
+import later1980sTeamImage from '../../../../assets/images/history/athletic-late-1980s-team.jpg';
+
+const sourcePdf = 'https://www.killarneyathletic.com/wp-content/uploads/2015/07/Killarney-Athletic-History-in-the-later-80s-2.pdf';
+const articleTitle = 'Killarney Athletic: The Later 1980s';
+const articleUrl = new URL(`${import.meta.env.BASE_URL}about/club-history/articles/killarney-athletic-the-later-1980s/`, Astro.site ?? 'https://www.killarneyathletic.com');
+const articleGalleryId = 'killarney-athletic-later-1980s-gallery';
+---
+
+<Layout
+  title={`${articleTitle} | Killarney Athletic A.F.C.`}
+  description="Killarney Athletic in the later 1980s: Roy Keane at the Half Moon, Euro ’88, the move to Knockreer and Derry City’s visit."
+  canonicalPath="/about/club-history/articles/killarney-athletic-the-later-1980s/"
+  bodyClass="history-story-page"
+  hideFooter={true}
+>
+  <article class="history-story">
+    <header class="history-story__header page-shell">
+      <PageHeader
+        variant="hero"
+        title={articleTitle}
+        breadcrumbs={[
+          { label: 'Home', href: '/' },
+          { label: 'Club History', href: '/about/club-history/' },
+          { label: 'Stories & Articles', href: '/about/club-history/#articles' },
+          { label: articleTitle },
+        ]}
+      >
+        <span slot="intro" class="history-story__byline">
+          <span>Killarney Athletic Archive</span>
+          <span aria-hidden="true">·</span>
+          <span>2015</span>
+          <span class="history-story__read-time"><Clock aria-hidden="true" size={15} stroke-width={2} /> 5 min read</span>
+        </span>
+      </PageHeader>
+    </header>
+
+    <div class="history-story__body page-shell">
+      <section>
+        <h2>Roy Keane ‘Tasted Defeat’ in the Half Moon</h2>
+        <p>The club has fielded some outstanding underage teams throughout its rich history and one such team reached the last 8 of the FAI Youths Cup in the 1988/89 season. The team that was co-managed by Brian McCarthy and a Vince Casey overcame a fancied Rockmount side from Cork in a titanic struggle in the Half Moon. Rockmount had one Roy Keane playing in the centre of their midfield and despite fielding other Schoolboy International players in their line-up they made a shock exit from the cup. A tremendous team performance by Athletic on the day saw the home side win on a 2-1 score line with the first from Andrew Dennehy and Marc Culloty getting the winner. Although the side were well beaten in the quarter final on a wet and windswept day in the St. Finan’s pitch by a very physically strong Casement Celtic side, also from Cork, the team had proved that with a bit of ambition Killarney Athletic could compete against the best at underage level. Roy Keane signed with Cobh Ramblers in 1989 and was snapped up by Nottingham Forest in 1990.</p>
+        <p>Many of the youths went on to play with the senior team that reached the 1989/90 Kerry Cup final but were beaten by the odd goal in extra time in a cup final replay to the Park.</p>
+      </section>
+
+      <section>
+        <h2>Euro ‘88</h2>
+        <p>Qualifying for the European Championship Finals in 1988 not only marked Ireland’s first qualification for such a major tournament but also marked the beginning of the ‘Charlton Era’ and the effect this period had on the promotion of soccer in this country is never likely to be surpassed. The interest at the time created a ‘boom’ of participation in the game particularly with more young boys &amp; girls taking up soccer. Killarney Athletic through its youth policy was to the fore in Kerry and benefitted enormously from the increased interest in the game.</p>
+      </section>
+
+      <section>
+        <h2>End of play in Half Moon</h2>
+        <p>The Office of Public Works (OPW) took control of the McShain estate in the early ‘80s through the generosity of the family gifting the lands to the state. Athletic and the ‘Sem’ continued to use the pitches in the Half Moon that were granted to them by John McShain 20 years earlier for a period thereafter. However a decision was made in the late ‘80s by the OPW to relocate both into the Knockreer pitch where there were already 2 existing GAA pitches. The move was not great for the club as the proposed designated soccer pitch area was of very poor standard and not comparable to the Half Moon that held huge sentimental value for the club. Club chairman at the time was Brian McCarthy, who strongly opposed the move, but the licence permit agreement gave the club little choice and in 1988 Killarney Athletic played its last home match in the Half Moon.</p>
+      </section>
+
+      <figure>
+        <button class="history-story__image-trigger" type="button" data-gallery-open={articleGalleryId} data-gallery-index="0" aria-label="Open the later 1980s article gallery at the 1990 cup finalists photograph">
+          <img src={cupFinalistsImage.src} alt="Killarney Athletic’s 1990 Kerry Cup finalists" />
+        </button>
+        <figcaption>
+          <strong>Senior team 1990 Cup Finalists (included are 8 from Youth Team v Rockmount)</strong>
+          <span>Back Left: Richard Horgan, Vince Casey, Roland Neher, JP O’ Shea, Donie Murphy, Simon Clifford, Tony Looney, Mark Culloty and Tom Mullins. Front Left: John O’ Shea, Andrew Dennehy, Denis O’ Leary, David O’ Donoghue, Thomas Curran, Peter Counihan and Don Fennell.</span>
+        </figcaption>
+      </figure>
+
+      <section>
+        <h2>Knockreer Pitch</h2>
+        <p>After the Knockreer pitch was deemed unfit for matches in 1989, club officials under the chairmanship of Vincent Casey reached agreement with the OPW management to carry out works to improve the surface. While the works required a considerable financial cost to the club at the time it secured a new home venue for the 10 teams that the club were fielding. The club continue to maintain the field today and are planning further pitch improvement works in the near future.</p>
+      </section>
+
+      <section>
+        <h2>Derry City Come to Town in 1989</h2>
+      </section>
+
+      <div class="history-story__figure-pair">
+        <figure>
+          <button class="history-story__image-trigger" type="button" data-gallery-open={articleGalleryId} data-gallery-index="1" aria-label="Open the article gallery at the Derry City treble trophies photograph">
+            <img src={trebleTrophiesImage.src} alt="Derry City’s League Cup, FAI Cup and League Trophy in Killarney" />
+          </button>
+          <figcaption>
+            <strong>Photo of Treble Trophies League Cup (left), FAI Cup and League Trophy.</strong>
+            <span>From Left: JP Mullins, Tom “Sossy” Mullins and Kevin Moynihan (Organising Committee)</span>
+          </figcaption>
+        </figure>
+
+        <figure>
+          <button class="history-story__image-trigger" type="button" data-gallery-open={articleGalleryId} data-gallery-index="2" aria-label="Open the article gallery at the Derry City presentation photograph">
+            <img src={derryPresentationImage.src} alt="Derry City presentation during the club’s 1989 visit to Killarney" />
+          </button>
+          <figcaption>
+            <strong>Derry City Presentation</strong>
+            <span>From Left: Felix Healy, Seán O’Grady (Mayor), John Coady.</span>
+          </figcaption>
+        </figure>
+      </div>
+
+      <section class="history-story__subsection">
+        <p>The iconic nature of the Aras Phádraig pitch as a soccer ground was further emphasised in 1989 when Derry City F.C. accepted an invitation from the club to include a weekend visit to Killarney as part of their pre-season training. They trained and played a number of 7-a-side matches against mixed club selection teams of Athletic &amp; Celtic players over an August weekend on the ‘áras’ pitch.</p>
+        <p>The Jim McLaughlin managed team brought with them the 3 most coveted FAI trophies that they had won in the 1988/89 season. These were the League Trophy, the FAI Cup and the League Cup. The side had also qualified to play Benfica in the 89/90 European Cup later in the season.</p>
+        <p>The club were so impressed by the welcome they had received and the value of their pre-season work that they returned again the following year in 1990.</p>
+      </section>
+
+      <figure>
+        <button class="history-story__image-trigger" type="button" data-gallery-open={articleGalleryId} data-gallery-index="3" aria-label="Open the later 1980s article gallery at the Killarney Athletic team photograph">
+          <img src={later1980sTeamImage.src} alt="A Killarney Athletic team from the later 1980s in blue and white striped shirts" />
+        </button>
+        <figcaption><strong>Killarney Athletic in the later ‘80s</strong></figcaption>
+      </figure>
+
+      <section>
+        <h2>Thanks to Danny Bowe &amp; DF O’Sullivan</h2>
+        <p>Through the support of Danny Bowe the club got permission in the ‘80s to use the old Ryans Hotel field in the Park Rd. for midweek training under lights during the winter months of the season. The club also got the use of a pitch from DF O’Sullivan on the Muckross Rd. during a period in the late ’80s when we had been moved from the Half Moon. These generous gestures of support were typical of the good will shown by many business people towards the club in town.</p>
+      </section>
+
+      <blockquote class="history-story__pullquote">
+        <p>With a bit of ambition Killarney Athletic could compete against the best at underage level.</p>
+        <cite>Killarney Athletic Archive</cite>
+      </blockquote>
+
+      <nav class="history-story__share" aria-label="Share this article">
+        <span class="history-story__share-label"><Share2 aria-hidden="true" size={17} stroke-width={2} /> Share</span>
+        <div>
+          <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(articleUrl.href)}`} target="_blank" rel="noopener noreferrer">Facebook</a>
+          <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(articleUrl.href)}&text=${encodeURIComponent(articleTitle)}`} target="_blank" rel="noopener noreferrer">X</a>
+          <a href={`mailto:?subject=${encodeURIComponent(articleTitle)}&body=${encodeURIComponent(articleUrl.href)}`}>Email</a>
+        </div>
+      </nav>
+
+      <footer class="history-story__source">
+        <p><strong>Killarney Athletic Archive</strong><br />From the club’s 50 years of soccer series.</p>
+        <Button href={sourcePdf} label="View the original PDF" variant="outline-dark" target="_blank" rel="noopener noreferrer" />
+      </footer>
+    </div>
+  </article>
+
+  <GalleryCarousel galleries={[{
+    id: articleGalleryId,
+    title: articleTitle,
+    images: [
+      { src: cupFinalistsImage.src, alt: 'Killarney Athletic’s 1990 Kerry Cup finalists.' },
+      { src: trebleTrophiesImage.src, alt: 'Derry City’s League Cup, FAI Cup and League Trophy in Killarney.' },
+      { src: derryPresentationImage.src, alt: 'Derry City presentation during the club’s 1989 visit to Killarney.' },
+      { src: later1980sTeamImage.src, alt: 'A Killarney Athletic team from the later 1980s.' },
+    ],
+  }]} />
+</Layout>
+
+<style>
+  .history-story__figure-pair {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.25rem, 3vw, 2rem);
+    margin-top: clamp(1.25rem, 3vw, 2rem);
+  }
+
+  .history-story__body .history-story__figure-pair figure {
+    width: 100%;
+    margin: 0;
+    transform: none;
+  }
+
+  .history-story__figure-pair img {
+    aspect-ratio: 1.5 / 1;
+  }
+
+  @media (max-width: 720px) {
+    .history-story__figure-pair {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

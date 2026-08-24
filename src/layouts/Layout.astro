@@ -1,0 +1,392 @@
+---
+import '../styles/global.css';
+import { CLUB_LINKS } from '../config/links';
+import Button from '../components/Button.astro';
+import ParentAssistant from '../components/ParentAssistant.astro';
+import clubCrestDefaultUrl from '../assets/images/brand/Club Crest Default.svg?url';
+import clubCrestWhiteUrl from '../assets/images/brand/Club Crest White.svg?url';
+import jakoLogoUrl from '../assets/images/sponsors/jako.svg?url';
+import { isTournamentSeason, tournamentPath } from '../lib/tournament';
+import { withBase } from '../utils/paths';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalPath?: string;
+  image?: string;
+  bodyClass?: string;
+  hideFooter?: boolean;
+}
+
+const {
+  title = 'Killarney Athletic AFC',
+  description = 'News and updates from Killarney Athletic AFC at Woodlawn.',
+  canonicalPath = Astro.url.pathname,
+  image = '/images/placeholders/news-fallback.svg',
+  bodyClass = '',
+  hideFooter = false,
+} = Astro.props as Props;
+
+const siteUrl = Astro.site ?? new URL('https://www.killarneyathletic.com');
+const canonicalUrl = new URL(withBase(canonicalPath), siteUrl);
+const socialImageUrl = new URL(withBase(image), siteUrl);
+const isHomePage = Astro.url.pathname === withBase('/');
+const tournamentIsActive = isTournamentSeason();
+// Header logo test:
+const headerLogoUrl = clubCrestWhiteUrl;
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'SportsOrganization',
+      '@id': `${siteUrl.href}#club`,
+      name: 'Killarney Athletic AFC',
+      url: siteUrl.href,
+      logo: new URL(clubCrestDefaultUrl, siteUrl).href,
+      foundingDate: '1965',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Killarney',
+        addressRegion: 'County Kerry',
+        addressCountry: 'IE',
+      },
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl.href}#website`,
+      name: 'Killarney Athletic AFC',
+      url: siteUrl.href,
+      publisher: { '@id': `${siteUrl.href}#club` },
+    },
+    {
+      '@type': 'WebPage',
+      '@id': canonicalUrl.href,
+      name: title,
+      description,
+      url: canonicalUrl.href,
+      isPartOf: { '@id': `${siteUrl.href}#website` },
+    },
+  ],
+};
+---
+
+<html lang="en" data-theme="killarney">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Oleo+Script+Swash+Caps:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={socialImageUrl} />
+    <meta property="og:site_name" content="Killarney Athletic AFC" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageUrl} />
+    <link rel="icon" type="image/svg+xml" href={clubCrestDefaultUrl} />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+    <title>{title}</title>
+  </head>
+  <body class:list={[{ 'is-home-page': isHomePage, 'is-inner-page': !isHomePage }, bodyClass]}>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="club-mark" href={withBase('/')} aria-label="Killarney Athletic AFC home">
+          <img class="club-mark__crest" src={headerLogoUrl} alt="" width="42" height="62" />
+          <span class="club-mark__name">
+            <span>Killarney</span>
+            <strong>Athletic</strong>
+            <b>A.F.C</b>
+          </span>
+        </a>
+        <nav class="main-nav" aria-label="Main navigation">
+          {tournamentIsActive && <a class="seasonal-nav-link" href={withBase(tournamentPath)}>7-A-Side</a>}
+          <a href={withBase('/news/')}>News</a>
+          <div class="nav-dropdown">
+            <button class="nav-dropdown__trigger" type="button" aria-haspopup="true">
+              <span>Teams</span>
+              <svg viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M4 6l4 4 4-4" />
+              </svg>
+            </button>
+            <div class="nav-dropdown__panel">
+              <a href={withBase('/teams/senior-a/')}>Senior A</a>
+              <a href={withBase('/teams/senior-b/')}>Senior B</a>
+              <a href={withBase('/teams/youths/')}>Youths</a>
+              <a href={withBase('/teams/underage/')}>Underage</a>
+              <a href={withBase('/teams/academy/')}>Academy</a>
+            </div>
+          </div>
+          <a href={withBase('/fixtures-results/')}>Fixtures &amp; Results</a>
+          <div class="nav-dropdown">
+            <button class="nav-dropdown__trigger" type="button" aria-haspopup="true">
+              <span>Club</span>
+              <svg viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M4 6l4 4 4-4" />
+              </svg>
+            </button>
+            <div class="nav-dropdown__panel">
+              <a href={withBase('/about/club-history/')}>Club History</a>
+              <a href={withBase('/club-officers/')}>Club Officers</a>
+              <a href={withBase('/facilities/')}>Facilities</a>
+              <a href={withBase('/child-welfare/')}>Child Welfare</a>
+              <a href={withBase(tournamentPath)}>7-A-Side Tournament</a>
+              <a href={withBase('/photo-galleries/')}>Photo Galleries</a>
+              <a href={withBase('/contact-us/')}>Contact Us</a>
+            </div>
+          </div>
+          <a
+            class="jako-store-link"
+            href={CLUB_LINKS.shop.jako}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="JAKO Store"
+          >
+            <img src={jakoLogoUrl} alt="" width="105" height="30" />
+            <span>Store</span>
+          </a>
+        </nav>
+        <Button
+          class="header-action"
+          href={withBase('/membership/')}
+          label="Join the club"
+          size="sm"
+          variant="outline-light"
+        />
+        <button
+          class="mobile-menu-button"
+          type="button"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+        >
+          <span>Menu</span>
+          <span class="mobile-menu-button__icon" aria-hidden="true">
+            <i></i><i></i><i></i>
+          </span>
+        </button>
+      </div>
+      <div id="mobile-menu" class="mobile-menu" hidden>
+        <nav aria-label="Mobile navigation">
+          {tournamentIsActive && <a class="seasonal-nav-link" href={withBase(tournamentPath)}>7-A-Side Tournament</a>}
+          <a href={withBase('/news/')}>News</a>
+          <details class="mobile-nav-group">
+            <summary>
+              <span>Teams</span>
+              <svg viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M4 6l4 4 4-4" />
+              </svg>
+            </summary>
+            <div class="mobile-nav-group__panel">
+              <a href={withBase('/teams/senior-a/')}>Senior A</a>
+              <a href={withBase('/teams/senior-b/')}>Senior B</a>
+              <a href={withBase('/teams/youths/')}>Youths</a>
+              <a href={withBase('/teams/underage/')}>Underage</a>
+              <a href={withBase('/teams/academy/')}>Academy</a>
+            </div>
+          </details>
+          <a href={withBase('/fixtures-results/')}>Fixtures &amp; Results</a>
+          <a
+            href={CLUB_LINKS.shop.jako}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Shop
+          </a>
+          <details class="mobile-nav-group">
+            <summary>
+              <span>Club</span>
+              <svg viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M4 6l4 4 4-4" />
+              </svg>
+            </summary>
+            <div class="mobile-nav-group__panel">
+              <a href={withBase('/about/club-history/')}>Club History</a>
+              <a href={withBase('/club-officers/')}>Club Officers</a>
+              <a href={withBase('/facilities/')}>Facilities</a>
+              <a href={withBase('/child-welfare/')}>Child Welfare</a>
+              <a href={withBase(tournamentPath)}>7-A-Side Tournament</a>
+              <a href={withBase('/photo-galleries/')}>Photo Galleries</a>
+              <a href={withBase('/contact-us/')}>Contact Us</a>
+            </div>
+          </details>
+          <Button
+            class="mobile-menu__action"
+            href={withBase('/membership/')}
+            label="Join the Club"
+            size="md"
+            variant="primary"
+          />
+        </nav>
+      </div>
+    </header>
+    <main>
+      <slot />
+    </main>
+    {!hideFooter && <footer class="site-footer">
+      <div class="site-footer__inner">
+        <div class="site-footer__brand">
+          <img src={clubCrestDefaultUrl} alt="" width="52" height="76" />
+          <div>
+            <p class="site-footer__title">Killarney Athletic A.F.C.</p>
+            <p>Woodlawn Road, Woodlawn, Killarney, Co. Kerry</p>
+            <a
+              class="site-footer__directions"
+              href="https://maps.app.goo.gl/ADu28Es1htB8Nw5CA"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 21s7-6.1 7-12A7 7 0 0 0 5 9c0 5.9 7 12 7 12Z" />
+                <circle cx="12" cy="9" r="2.4" />
+              </svg>
+              <span>Get directions</span>
+            </a>
+          </div>
+        </div>
+
+        <nav class="site-footer__nav" aria-label="Footer navigation">
+          <div>
+            <h2>Club</h2>
+            <a href={withBase('/news/')}>News</a>
+            <a href={withBase('/photo-galleries/')}>Photo Galleries</a>
+            <a href={withBase('/club-officers/')}>Club Officers</a>
+            <a href={withBase('/fixtures-results/')}>Fixtures &amp; Results</a>
+            <a
+              href={CLUB_LINKS.shop.jako}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Shop
+            </a>
+            <a href={withBase('/membership/')}>Membership</a>
+            <a href={withBase('/contact-us/')}>Contact Us</a>
+          </div>
+          <div>
+            <h2>Programmes</h2>
+            <a href={withBase('/news/summer-camp-boys-girls-2026/')}>Summer Camp</a>
+            <a href={withBase(tournamentPath)}>7-A-Side Tournament</a>
+            <a
+              href={CLUB_LINKS.clubforce.membership}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Clubforce Registration
+            </a>
+            <a href={withBase('/ui-kit/')}>UI Kit</a>
+          </div>
+          <div>
+            <h2>Policies</h2>
+            <a href={withBase('/child-welfare/')}>Child Welfare</a>
+            <a href={withBase('/privacy-policy/')}>Privacy Policy</a>
+            <a href={withBase('/cookie-policy/')}>Cookie Policy</a>
+          </div>
+        </nav>
+
+        <div class="site-footer__social">
+          <h2>Follow the club</h2>
+          <div class="social-links">
+            <a
+              href={CLUB_LINKS.socials.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Killarney Athletic AFC on Facebook"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M14.2 8.3V6.9c0-.7.5-1.1 1.2-1.1h1.5V3.2c-.7-.1-1.5-.2-2.3-.2-2.3 0-3.9 1.4-3.9 3.8v1.5H8.1v2.9h2.6V21h3.2v-9.8h2.6l.4-2.9h-2.7Z" />
+              </svg>
+            </a>
+            <a
+              href={CLUB_LINKS.socials.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Killarney Athletic AFC on Instagram"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7.8 2.8h8.4c2.8 0 5 2.2 5 5v8.4c0 2.8-2.2 5-5 5H7.8c-2.8 0-5-2.2-5-5V7.8c0-2.8 2.2-5 5-5Zm0 2.1c-1.6 0-2.9 1.3-2.9 2.9v8.4c0 1.6 1.3 2.9 2.9 2.9h8.4c1.6 0 2.9-1.3 2.9-2.9V7.8c0-1.6-1.3-2.9-2.9-2.9H7.8Zm4.2 3.2a3.9 3.9 0 1 1 0 7.8 3.9 3.9 0 0 1 0-7.8Zm0 2.1a1.8 1.8 0 1 0 0 3.6 1.8 1.8 0 0 0 0-3.6Zm4.1-2.4a1.1 1.1 0 1 1 2.2 0 1.1 1.1 0 0 1-2.2 0Z" />
+              </svg>
+            </a>
+          </div>
+          <ParentAssistant />
+        </div>
+      </div>
+
+      <div class="site-footer__base">
+        <p>Killarney Athletic A.F.C © 2026 All rights reserved</p>
+      </div>
+    </footer>}
+    <script>
+      const siteHeader = document.querySelector<HTMLElement>('.site-header');
+      const menuButton = document.querySelector<HTMLButtonElement>('.mobile-menu-button');
+      const mobileMenu = document.querySelector<HTMLElement>('#mobile-menu');
+      let lastScrollY = window.scrollY;
+      let ticking = false;
+      const headerHideThreshold = 110;
+      const scrollDelta = 8;
+
+      function closeMobileMenu(returnFocus = false) {
+        if (!menuButton || !mobileMenu) return;
+        menuButton.setAttribute('aria-expanded', 'false');
+        mobileMenu.hidden = true;
+        siteHeader?.classList.remove('is-menu-open');
+        mobileMenu.querySelectorAll<HTMLDetailsElement>('details[open]').forEach((details) => {
+          details.open = false;
+        });
+        if (returnFocus) menuButton.focus();
+      }
+
+      menuButton?.addEventListener('click', () => {
+        if (!mobileMenu) return;
+        const willOpen = menuButton.getAttribute('aria-expanded') !== 'true';
+        menuButton.setAttribute('aria-expanded', String(willOpen));
+        mobileMenu.hidden = !willOpen;
+        siteHeader?.classList.toggle('is-menu-open', willOpen);
+        if (willOpen) siteHeader?.classList.remove('is-hidden');
+      });
+
+      mobileMenu?.addEventListener('click', (event) => {
+        if ((event.target as HTMLElement).closest('a')) closeMobileMenu();
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && menuButton?.getAttribute('aria-expanded') === 'true') {
+          closeMobileMenu(true);
+        }
+      });
+
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 720) closeMobileMenu();
+      });
+
+      window.addEventListener('scroll', () => {
+        if (!siteHeader) return;
+        if (ticking) return;
+
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          const isMenuOpen = menuButton?.getAttribute('aria-expanded') === 'true';
+          const isScrollingDown = currentScrollY > lastScrollY;
+          const movedEnough = Math.abs(currentScrollY - lastScrollY) > scrollDelta;
+
+          if (currentScrollY <= headerHideThreshold || isMenuOpen) {
+            siteHeader.classList.remove('is-hidden');
+          } else if (movedEnough && isScrollingDown) {
+            siteHeader.classList.add('is-hidden');
+          } else if (movedEnough && !isScrollingDown) {
+            siteHeader.classList.remove('is-hidden');
+          }
+
+          lastScrollY = Math.max(currentScrollY, 0);
+          ticking = false;
+        });
+
+        ticking = true;
+      }, { passive: true });
+    </script>
+  </body>
+</html>

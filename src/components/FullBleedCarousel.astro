@@ -1,0 +1,16 @@
+---
+interface Props {
+  label: string;
+  class?: string;
+}
+
+const { label, class: className = '' } = Astro.props as Props;
+---
+
+<div
+  class:list={['full-bleed-carousel', className]}
+  role="region"
+  aria-label={label}
+>
+  <slot />
+</div>

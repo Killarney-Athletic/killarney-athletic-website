@@ -1,0 +1,92 @@
+---
+import Layout from '../layouts/Layout.astro';
+import OfficerCard from '../components/OfficerCard.astro';
+import PageHeader from '../components/PageHeader.astro';
+import PagePanel from '../components/PagePanel.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import ContentBadge from '../components/ContentBadge.astro';
+import donieNotSmiling from '../assets/images/headshots/donie_not_smile.png';
+import donieSmiling from '../assets/images/headshots/donie_smile.png';
+
+const officers = [
+  {
+    name: 'Donie Murphy',
+    role: 'Chairman',
+    avatar: donieNotSmiling.src,
+    hoverAvatar: donieSmiling.src,
+    email: 'sec@killarneyathletic.com',
+    emailLabel: 'Email Killarney Athletic about the Chairman',
+    variant: 'confirmed' as const,
+  },
+  {
+    name: 'Cian Breen',
+    role: 'Secretary',
+    variant: 'pending' as const,
+  },
+  {
+    name: 'To be confirmed',
+    role: 'Vice-Chairperson',
+    variant: 'pending' as const,
+  },
+  {
+    name: 'To be confirmed',
+    role: 'Schoolboys/girls Fixtures Secretary',
+    variant: 'pending' as const,
+  },
+  {
+    name: 'To be confirmed',
+    role: 'Treasurer',
+    variant: 'pending' as const,
+  },
+  {
+    name: 'To be confirmed',
+    role: 'Child Welfare Officer',
+    variant: 'pending' as const,
+  },
+];
+
+const boardMembers = [{
+  name: 'To be confirmed',
+  role: 'Board member',
+  variant: 'pending' as const,
+}];
+---
+
+<Layout
+  title="Club Officers | Killarney Athletic AFC"
+  description="Committee and board members for Killarney Athletic AFC."
+  canonicalPath="/club-officers/"
+>
+  <article class="notice-page page-shell club-officers-page">
+    <PageHeader
+      title="Club Officers"
+      breadcrumbs={[
+        { label: 'Home', href: '/' },
+        { label: 'Club Officers' },
+      ]}
+    >
+      <div slot="meta" class="meta-row">
+        <ContentBadge label="Committee" />
+        <span>Current appointments</span>
+      </div>
+    </PageHeader>
+
+    <PagePanel class="officer-section">
+      <SectionHeader slot="header" title="Committee" intro="Current club officers and committee roles. Remaining appointments will be added once confirmed." id="committee-heading" />
+      <div class="officers-grid">
+        {officers.map((person) => (
+          <OfficerCard {...person} />
+        ))}
+      </div>
+    </PagePanel>
+
+    <PagePanel class="officer-section">
+      <SectionHeader slot="header" title="Board Members" id="board-heading" />
+      <div class="officers-grid">
+        {boardMembers.map((person) => (
+          <OfficerCard {...person} />
+        ))}
+      </div>
+    </PagePanel>
+  </article>
+</Layout>

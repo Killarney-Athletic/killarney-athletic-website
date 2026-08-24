@@ -1,0 +1,94 @@
+---
+import { Picture, type ImageMetadata } from 'astro:assets';
+import ContentBadge from './ContentBadge.astro';
+
+interface Props {
+  title: string;
+  href: string;
+  excerpt: string;
+  category?: string;
+  date: Date | string;
+  featuredImageUrl?: string;
+  featuredImageAlt?: string;
+  fallbackImage: ImageMetadata;
+  fallbackLogoUrl?: string;
+  crestUrl: string;
+  treatment?: 'default' | 'summer-camp' | 'three-hundred-club';
+  class?: string;
+}
+
+const {
+  title,
+  href,
+  excerpt,
+  category,
+  date,
+  featuredImageUrl,
+  featuredImageAlt = '',
+  fallbackImage,
+  fallbackLogoUrl,
+  crestUrl,
+  treatment = 'default',
+  class: className = '',
+} = Astro.props as Props;
+
+const parsedDate = new Date(date);
+const useFeaturedImage = featuredImageUrl && treatment === 'default';
+const fallbackClass = [
+  'news-card__fallback',
+  treatment === 'summer-camp' ? 'news-card__fallback--summer-camp' : '',
+  treatment === 'three-hundred-club' ? 'news-card__fallback--three-hundred-club' : '',
+].filter(Boolean);
+---
+
+<article class:list={['news-card', className]}>
+  <a class="news-card__media" href={href} tabindex="-1" aria-hidden="true">
+    {useFeaturedImage ? (
+      <img src={featuredImageUrl} alt={featuredImageAlt} loading="lazy" width="800" height="450" />
+    ) : (
+      <span class:list={fallbackClass}>
+        {treatment === 'three-hundred-club' ? (
+          <>
+            <span class="news-card__halftone news-card__halftone--primary" aria-hidden="true"></span>
+            <span class="news-card__halftone news-card__halftone--secondary" aria-hidden="true"></span>
+            <span class="news-card__fallback-title" aria-hidden="true">
+              <img src={crestUrl} alt="" width="70" height="104" loading="lazy" />
+              <i></i>
+              <span>300</span>
+              <strong>Club</strong>
+            </span>
+          </>
+        ) : (
+          <Picture
+            src={fallbackImage}
+            formats={['avif', 'webp']}
+            fallbackFormat="webp"
+            width={760}
+            height={428}
+            widths={[420, 760]}
+            sizes="(max-width: 580px) calc(100vw - 2rem), (max-width: 850px) 50vw, 373px"
+            alt=""
+            loading="lazy"
+            quality={45}
+          />
+        )}
+        {treatment === 'summer-camp' && fallbackLogoUrl ? (
+          <img class="news-card__fallback-logo" src={fallbackLogoUrl} alt="" width="260" height="140" loading="lazy" />
+        ) : treatment === 'default' ? (
+          <img class="news-card__fallback-crest" src={crestUrl} alt="" width="82" height="122" loading="lazy" />
+        ) : null}
+      </span>
+    )}
+  </a>
+  <div class="news-card__body">
+    <div class="meta-row">
+      {category && <ContentBadge label={category} />}
+      <time datetime={parsedDate.toISOString()}>
+        {parsedDate.toLocaleDateString('en-IE', { day: 'numeric', month: 'short', year: 'numeric' })}
+      </time>
+    </div>
+    <h3><a href={href}>{title}</a></h3>
+    <p>{excerpt}</p>
+    <a class="text-link" href={href}>Read update <span aria-hidden="true">→</span></a>
+  </div>
+</article>

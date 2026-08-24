@@ -1,0 +1,179 @@
+---
+import { readFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
+import FixtureCard from '../components/FixtureCard.astro';
+import PageHeader from '../components/PageHeader.astro';
+import PagePanel from '../components/PagePanel.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import Layout from '../layouts/Layout.astro';
+import type { KDLApiResponse, KDLMatch } from '../lib/types/kdl';
+import { withBase } from '../utils/paths';
+import clubCrestUrl from '../assets/images/brand/Club Crest White.svg?url';
+
+const emptyData: KDLApiResponse = {
+  success: false,
+  timestamp: new Date(0).toISOString(),
+  isFallback: true,
+  data: { latestResults: [], upcomingFixtures: [], standings: [] },
+  error: 'No synchronized KDL data is available.',
+};
+let kdlData = emptyData;
+try {
+  kdlData = JSON.parse(await readFile(resolve(process.cwd(), 'public/data/kdl.json'), 'utf8')) as KDLApiResponse;
+} catch (error) {
+  console.warn('[fixtures-results] Unable to read synchronized data', error);
+}
+const formatDate = (value: string) => {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? value : date.toLocaleDateString('en-IE', { weekday: 'short', day: 'numeric', month: 'short' });
+};
+const matchLabel = (match: KDLMatch) =>
+  match.status === 'FULL_TIME' ? 'Full time · ' + match.score.raw : match.status === 'POSTPONED' ? 'Postponed' : formatDate(match.date);
+const updatedAt = new Date(kdlData.timestamp).getTime() > 0
+  ? 'Updated ' + new Date(kdlData.timestamp).toLocaleString('en-IE', { dateStyle: 'medium', timeStyle: 'short' })
+  : 'Awaiting the latest KDL update';
+---
+
+<Layout title="Fixtures & Results | Killarney Athletic A.F.C." description="Fixtures, results and league information for Killarney Athletic A.F.C." canonicalPath="/fixtures-results/">
+  <article class="page-shell page-template page-template--data fixtures-results-page" data-kdl-root data-built-at={kdlData.timestamp} data-club-crest={clubCrestUrl}>
+    <PageHeader title="Fixtures & Results" intro="Fixtures, results and league information for Killarney Athletic A.F.C." breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Fixtures & Results' }]} />
+
+    <div class="kdl-status">
+      <p data-kdl-updated>{kdlData.isFallback ? 'Showing saved data. ' + (kdlData.error ?? '') : updatedAt}</p>
+      <button class="btn btn-ghost kdl-refresh" type="button" data-kdl-refresh>
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-15.3 6.4M3 12A9 9 0 0 1 18.3 5.6" /><path d="M21 4v6h-6M3 20v-6h6" /></svg>
+        <span>Refresh</span>
+      </button>
+    </div>
+    <p class="sr-only" aria-live="polite" data-kdl-live></p>
+
+    <section class="match-section" aria-labelledby="latest-results-heading">
+      <SectionHeader title="Latest results" id="latest-results-heading" />
+      <div class="match-grid" data-kdl-results>
+        {kdlData.data.latestResults.length ? kdlData.data.latestResults.map((match) => (
+          <FixtureCard matchId={match.id} isHomeMatch={match.isHomeMatch} label={matchLabel(match)} homeTeam={match.homeTeam} awayTeam={match.awayTeam} competition={match.competition} date={formatDate(match.date)} venue={match.ground} />
+        )) : <p class="kdl-empty">No recent results are available.</p>}
+      </div>
+    </section>
+
+    <section class="match-section" aria-labelledby="upcoming-fixtures-heading">
+      <SectionHeader title="Upcoming fixtures" id="upcoming-fixtures-heading" />
+      <div class="match-grid" data-kdl-fixtures>
+        {kdlData.data.upcomingFixtures.length ? kdlData.data.upcomingFixtures.map((match) => (
+          <FixtureCard matchId={match.id} isHomeMatch={match.isHomeMatch} label={matchLabel(match)} homeTeam={match.homeTeam} awayTeam={match.awayTeam} competition={match.competition} date={formatDate(match.date)} venue={match.ground} />
+        )) : <p class="kdl-empty">No upcoming fixtures are available.</p>}
+      </div>
+    </section>
+
+    <section class="league-table-section" aria-labelledby="league-table-heading">
+      <PagePanel class="league-table-shell" flush>
+        <SectionHeader slot="header" title="KDL Premier A table" id="league-table-heading" class="league-table-shell__header" />
+        <div class="overflow-x-auto" data-kdl-table-wrap>
+          <table class="table table-zebra league-table">
+            <caption class="sr-only">Kerry District League Premier A standings</caption>
+            <thead><tr><th>Pos</th><th>Club</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th></tr></thead>
+            <tbody data-kdl-standings>
+              {kdlData.data.standings.length ? kdlData.data.standings.map((row) => (
+                <tr class:list={{ 'league-table__club-row': row.isKillarneyAthletic }}>
+                  <td>{row.position}</td>
+                  <th scope="row"><span class="league-table__club">{row.crestUrl ? <img src={withBase(row.crestUrl)} alt="" width="28" height="28" loading="lazy" /> : <span class="league-table__crest-placeholder"></span>}<span>{row.club}</span></span></th>
+                  <td>{row.played}</td><td>{row.won}</td><td>{row.drawn}</td><td>{row.lost}</td><td>{row.goalsFor}</td><td>{row.goalsAgainst}</td><td>{row.goalDifference}</td><td><strong>{row.points}</strong></td>
+                </tr>
+              )) : <tr><td colspan="10">No league table is available.</td></tr>}
+            </tbody>
+          </table>
+        </div>
+      </PagePanel>
+    </section>
+  </article>
+
+  <script>
+    const root = document.querySelector<HTMLElement>('[data-kdl-root]');
+    const results = document.querySelector<HTMLElement>('[data-kdl-results]');
+    const fixtures = document.querySelector<HTMLElement>('[data-kdl-fixtures]');
+    const standings = document.querySelector<HTMLTableSectionElement>('[data-kdl-standings]');
+    const tableWrap = document.querySelector<HTMLElement>('[data-kdl-table-wrap]');
+    const updated = document.querySelector<HTMLElement>('[data-kdl-updated]');
+    const live = document.querySelector<HTMLElement>('[data-kdl-live]');
+    const refresh = document.querySelector<HTMLButtonElement>('[data-kdl-refresh]');
+    const dataUrl = import.meta.env.BASE_URL + 'data/kdl.json';
+    const clubCrest = root?.dataset.clubCrest ?? '';
+    const escapeHtml = (value: unknown) => String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[char] ?? char);
+    const formatDate = (value: string) => {
+      const date = new Date(value);
+      return Number.isNaN(date.getTime()) ? value : date.toLocaleDateString('en-IE', { weekday: 'short', day: 'numeric', month: 'short' });
+    };
+    const labelFor = (match: any) => match.status === 'FULL_TIME' ? 'Full time · ' + match.score.raw : match.status === 'POSTPONED' ? 'Postponed' : formatDate(match.date);
+    const toCrestUrl = (source: string | null) => source?.startsWith('/') ? import.meta.env.BASE_URL.replace(/\/$/, '') + source : source;
+    const teamMarkup = (name: string, isAthletic: boolean) => '<div class="fixture-team"><span class="fixture-team__crest' + (isAthletic ? '' : ' fixture-team__crest--tbc') + '" aria-hidden="true">' + (isAthletic ? '<img src="' + escapeHtml(clubCrest) + '" alt="" width="46" height="68">' : '?') + '</span><strong>' + escapeHtml(name) + '</strong></div>';
+    const matchMarkup = (match: any) => {
+      const homeIsAthletic = /killarney athletic/i.test(match.homeTeam);
+      const awayIsAthletic = /killarney athletic/i.test(match.awayTeam);
+      return '<article class="fixture-card" data-match-id="' + escapeHtml(match.id) + '"><div class="fixture-card__teams">' +
+        teamMarkup(match.homeTeam, homeIsAthletic) + '<span class="fixture-card__versus" aria-label="versus">VS</span>' + teamMarkup(match.awayTeam, awayIsAthletic) +
+        '</div><div class="fixture-card__details"><p class="fixture-card__type">Football · ' + escapeHtml(labelFor(match)) + '</p><h3>' + escapeHtml(match.competition) + '</h3><p class="fixture-card__date"><span aria-hidden="true">▣</span> ' + escapeHtml(formatDate(match.date)) + '</p><p class="fixture-card__venue"><span aria-hidden="true">⌖</span> ' + escapeHtml(match.ground) + '</p></div></article>';
+    };
+    const renderMatches = (target: HTMLElement | null, rows: any[], empty: string) => {
+      if (target) target.innerHTML = rows.length ? rows.map(matchMarkup).join('') : '<p class="kdl-empty">' + empty + '</p>';
+    };
+    const renderStandings = (rows: any[]) => {
+      if (!standings) return;
+      standings.innerHTML = rows.length ? rows.map((row) => {
+        const crest = toCrestUrl(row.crestUrl);
+        return '<tr class="' + (row.isKillarneyAthletic ? 'league-table__club-row' : '') + '"><td>' + escapeHtml(row.position) + '</td><th scope="row"><span class="league-table__club">' +
+          (crest ? '<img src="' + escapeHtml(crest) + '" alt="" width="28" height="28" loading="lazy">' : '<span class="league-table__crest-placeholder"></span>') +
+          '<span>' + escapeHtml(row.club) + '</span></span></th><td>' + escapeHtml(row.played) + '</td><td>' + escapeHtml(row.won) + '</td><td>' + escapeHtml(row.drawn) + '</td><td>' + escapeHtml(row.lost) + '</td><td>' + escapeHtml(row.goalsFor) + '</td><td>' + escapeHtml(row.goalsAgainst) + '</td><td>' + escapeHtml(row.goalDifference) + '</td><td><strong>' + escapeHtml(row.points) + '</strong></td></tr>';
+      }).join('') : '<tr><td colspan="10">No league table is available.</td></tr>';
+    };
+    const setLoading = (loading: boolean) => {
+      if (refresh) {
+        refresh.disabled = loading;
+        refresh.classList.toggle('is-loading', loading);
+      }
+    };
+    const fetchKdl = async (force = false) => {
+      setLoading(true);
+      try {
+        const response = await fetch(dataUrl, { cache: 'no-cache' });
+        if (!response.ok) throw new Error('KDL data returned ' + response.status);
+        const payload = await response.json();
+        const incoming = Date.parse(payload.timestamp);
+        const built = Date.parse(root?.dataset.builtAt ?? '');
+        if (!force && (!Number.isFinite(incoming) || incoming <= built)) {
+          if (live) live.textContent = 'Fixtures and results are already up to date.';
+          return;
+        }
+        [results, fixtures, tableWrap].forEach((element) => element?.classList.add('is-updating'));
+        await new Promise((resolve) => window.setTimeout(resolve, 140));
+        renderMatches(results, payload.data.latestResults, 'No recent results are available.');
+        renderMatches(fixtures, payload.data.upcomingFixtures, 'No upcoming fixtures are available.');
+        renderStandings(payload.data.standings);
+        if (root) root.dataset.builtAt = payload.timestamp;
+        if (updated) updated.textContent = payload.isFallback ? ('Showing saved data. ' + (payload.error ?? '')).trim() : 'Updated ' + new Date(payload.timestamp).toLocaleString('en-IE', { dateStyle: 'medium', timeStyle: 'short' });
+        [results, fixtures, tableWrap].forEach((element) => element?.classList.remove('is-updating'));
+        if (live) live.textContent = 'Fixtures, results and league table updated.';
+      } catch (error) {
+        console.error('[fixtures-results]', error);
+        if (live) live.textContent = 'The latest KDL data could not be loaded.';
+      } finally {
+        setLoading(false);
+      }
+    };
+    refresh?.addEventListener('click', () => fetchKdl(true));
+    fetchKdl();
+  </script>
+</Layout>
+
+<style>
+  .kdl-status { display:flex; align-items:center; justify-content:flex-end; gap:.75rem; margin-block:0 2rem; color:var(--color-text-muted); font-size:.875rem; }
+  .kdl-status p { margin:0; }
+  .kdl-refresh svg { width:1rem; height:1rem; fill:none; stroke:currentColor; stroke-width:2; }
+  .kdl-refresh.is-loading svg { animation:kdl-spin .7s linear infinite; }
+  .match-section { margin-block:2.5rem; }
+  .match-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,18rem),1fr)); gap:1rem; transition:opacity .14s ease; }
+  [data-kdl-table-wrap] { transition:opacity .14s ease; }
+  .is-updating { opacity:.35; }
+  .kdl-empty { color:var(--color-text-muted); }
+  @keyframes kdl-spin { to { transform:rotate(360deg); } }
+  @media (max-width:640px) { .kdl-status { align-items:flex-start; justify-content:space-between; margin-bottom:1.5rem; } }
+</style>

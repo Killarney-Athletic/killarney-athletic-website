@@ -1,0 +1,98 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Button from '../../components/Button.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import TeamInfoCard from '../../components/TeamInfoCard.astro';
+import TeamSwitcher from '../../components/TeamSwitcher.astro';
+import teams from '../../data/teams.json';
+import { withBase } from '../../utils/paths';
+
+interface TeamContact {
+  name: string;
+  email: string | null;
+  phone: string | null;
+}
+
+interface TrainingSession {
+  day: string;
+  time: string;
+}
+
+interface Team {
+  slug: string;
+  name: string;
+  summary: string;
+  manager: TeamContact;
+  training: TrainingSession[];
+  pitch: string;
+}
+
+export function getStaticPaths() {
+  return (teams as Team[]).map((team) => ({
+    params: { team: team.slug },
+    props: { team },
+  }));
+}
+
+const { team } = Astro.props as { team: Team };
+const managerPending = team.manager.name === 'To be confirmed';
+const trainingPending = team.training.some((session) => session.day === 'To be confirmed' || session.time === 'To be confirmed');
+---
+
+<Layout
+  title={`${team.name} | Killarney Athletic A.F.C.`}
+  description={team.summary}
+  canonicalPath={`/teams/${team.slug}/`}
+>
+  <article class="team-page page-shell page-template page-template--standard">
+    <PageHeader
+      title={team.name}
+      intro={team.summary}
+      breadcrumbs={[
+        { label: 'Home', href: '/' },
+        { label: team.name },
+      ]}
+    />
+
+    <div class="team-page__switcher"><TeamSwitcher teams={teams as Team[]} current={team.slug} /></div>
+
+    <div class="team-page__details">
+      <TeamInfoCard kind="manager" label="Manager / lead contact" value={team.manager.name} pending={managerPending} pendingNote={managerPending ? 'Contact the club in the meantime' : undefined} email={team.manager.email ?? undefined} phone={team.manager.phone ?? undefined} />
+      <TeamInfoCard kind="training" label="Training" value={team.training[0]?.day ?? 'To be confirmed'} secondary={team.training[0]?.time} pending={trainingPending} pendingNote={trainingPending ? 'Schedule to follow' : undefined} />
+      <TeamInfoCard kind="pitch" label="Home pitch / allocation" value={team.pitch} />
+    </div>
+
+    <div class="team-page__actions">
+      <Button href={withBase('/contact-us/')} label="Contact the club" variant="primary" />
+      <Button href={withBase('/fixtures-results/')} label="Fixtures & Results" variant="outline-dark" />
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .team-page {
+    padding-bottom: clamp(4rem, 9vw, 7rem);
+  }
+
+  .team-page__details {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  .team-page__switcher { margin-top: clamp(1.5rem, 4vw, 2.5rem); }
+
+  .team-page__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+    margin-top: 1.5rem;
+  }
+
+  @media (max-width: 720px) {
+    .team-page__details {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

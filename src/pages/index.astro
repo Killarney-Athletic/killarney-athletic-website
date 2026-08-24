@@ -1,0 +1,154 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+import FixtureCard from '../components/FixtureCard.astro';
+import ImageCtaSection from '../components/ImageCtaSection.astro';
+import LogoCloud from '../components/LogoCloud.astro';
+import HeroSection from '../components/HeroSection.astro';
+import NewsCard from '../components/NewsCard.astro';
+import FullBleedCarousel from '../components/FullBleedCarousel.astro';
+import { getPosts } from '../lib/wordpress';
+import { CLUB_LINKS } from '../config/links';
+import { isTournamentSeason, tournamentPath } from '../lib/tournament';
+import pitchImage from '../assets/images/backgrounds/pitch.jpg';
+import summerCampsImage from '../assets/images/backgrounds/SummerCamps.png';
+import summerCampLogoUrl from '../assets/images/backgrounds/SummerCampLogo.svg?url';
+import clubhouseImage from '../assets/images/backgrounds/membership.png';
+import registrationHeroImageUrl from '../assets/images/backgrounds/registration.png?url';
+import membershipPlayerImageUrl from '../assets/images/backgrounds/membership.png?url';
+import clubCrestWhiteUrl from '../assets/images/brand/Club Crest White.svg?url';
+import { withBase } from '../utils/paths';
+
+let clubPosts = [];
+const footballBodies = [
+  {
+    name: 'SFAI',
+    href: 'https://sfai.ie/',
+    logo: 'https://sfai.ie/wp-content/uploads/2022/07/cropped-SFAI-PNG-2-300x300.png',
+    alt: 'Schoolboys Football Association of Ireland logo',
+  },
+  {
+    name: 'FAI',
+    href: 'https://www.fai.ie/national-teams/',
+    logo: 'https://www.fai.ie/packages/fai_package/themes/fai_theme/images/fai-logo.svg',
+    alt: 'Football Association of Ireland logo',
+  },
+  {
+    name: 'Munster Football Association',
+    href: 'https://munsterfootball.ie/',
+    logo: 'https://munsterfootball.ie/wp-content/uploads/2025/02/Blue-Gold-300x300.png',
+    alt: 'Munster Football Association logo',
+  },
+  {
+    name: 'Kerry Schoolboys/Girls League',
+    href: 'https://kerryschoolboysgirlsleague.com/',
+    logo: 'https://kerryschoolboysgirlsleague.com/wp-content/uploads/2021/09/favicon_logo-300x300.png',
+    alt: 'Kerry Schoolboys and Girls League logo',
+  },
+  {
+    name: 'Kerry District League',
+    href: 'https://www.facebook.com/KerryDistrictLg/',
+    logo: 'https://graph.facebook.com/KerryDistrictLg/picture?type=large',
+    alt: 'Kerry District League logo',
+  },
+];
+
+clubPosts = await getPosts(6);
+const tournamentIsActive = isTournamentSeason();
+---
+
+<Layout title="Killarney Athletic AFC | Latest News">
+  <HeroSection
+    variant="registration"
+    eyebrow="Registration open · 2026/27"
+    title="Join Killarney Athletic"
+    background={registrationHeroImageUrl}
+    overlayImage={membershipPlayerImageUrl}
+  >
+    <Fragment slot="intro">Registrations are now <strong>open for the 2026/27 season</strong> for our youngest Academy players through to Youth and Senior teams.</Fragment>
+    <Fragment slot="actions">
+      <Button
+        href={CLUB_LINKS.clubforce.membership}
+        label="Register for 2026/27"
+        size="md"
+        variant="primary"
+        target="_blank"
+        rel="noopener noreferrer"
+      />
+    </Fragment>
+  </HeroSection>
+
+  {tournamentIsActive && (
+    <section class="seasonal-tournament-promo" aria-labelledby="seasonal-tournament-heading">
+      <div class="page-shell seasonal-tournament-promo__inner">
+        <div>
+          <p class="eyebrow">June–early July · Woodlawn</p>
+          <h2 id="seasonal-tournament-heading">Killarney Credit Union 7-A-Side Tournament</h2>
+          <p>Find current tournament dates, entry information, fixtures and updates.</p>
+        </div>
+        <Button href={withBase(tournamentPath)} label="Tournament information" variant="light" />
+      </div>
+    </section>
+  )}
+
+  <section id="fixtures" class="fixtures-section section-block" aria-labelledby="fixtures-heading" hidden>
+    <div class="page-shell">
+      <div class="section-heading section-heading--light">
+        <div>
+          <h2 id="fixtures-heading">Upcoming fixtures</h2>
+        </div>
+        <p class="section-note">Preview layout — ready for the club’s official fixture data.</p>
+      </div>
+      <div class="fixtures-grid">
+        <FixtureCard label="Senior fixture" />
+        <FixtureCard label="Youth fixture" />
+        <FixtureCard label="Underage fixture" />
+      </div>
+    </div>
+  </section>
+
+  <section id="news" class="page-shell section-block news-section" aria-label="Club news">
+    <FullBleedCarousel label="Latest club news">
+        {clubPosts.map((post) => {
+          const isSummerCamp = /summer\s+camp/i.test(post.title);
+          const isThreeHundredClub = /300\s+club/i.test(post.title);
+          return (
+            <NewsCard
+              class="full-bleed-carousel__item"
+              title={post.title}
+              href={withBase(`/news/${post.slug}/`)}
+              excerpt={post.excerpt}
+              category={post.categories[0]?.name}
+              date={post.date}
+              featuredImageUrl={post.featuredImageUrl}
+              featuredImageAlt={post.featuredImageAlt}
+              fallbackImage={isSummerCamp ? summerCampsImage : pitchImage}
+              fallbackLogoUrl={summerCampLogoUrl}
+              crestUrl={clubCrestWhiteUrl}
+              treatment={isSummerCamp ? 'summer-camp' : isThreeHundredClub ? 'three-hundred-club' : 'default'}
+            />
+          );
+        })}
+    </FullBleedCarousel>
+  </section>
+
+  <LogoCloud
+    title="Connected through"
+    accentTitle="Irish Football"
+    description="Killarney Athletic is part of a wider football community across "
+    descriptionAccent="Kerry, Munster and Ireland."
+    items={footballBodies}
+  />
+
+  <ImageCtaSection
+    id="membership"
+    eyebrow="Be part of the club"
+    title="Membership and registration"
+    description="Register online through the club’s official Clubforce membership page."
+    buttonLabel="Join the Club"
+    href={CLUB_LINKS.clubforce.membership}
+    target="_blank"
+    rel="noopener noreferrer"
+    background={clubhouseImage}
+  />
+</Layout>

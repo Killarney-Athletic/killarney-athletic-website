@@ -1,0 +1,41 @@
+---
+import { withBase } from '../utils/paths';
+
+interface TeamOption { slug: string; name: string; }
+interface Props {
+  teams: TeamOption[];
+  current: string;
+  navigate?: boolean;
+  id?: string;
+}
+
+const { teams, current, navigate = true, id = 'team-switcher' } = Astro.props as Props;
+---
+
+<div class="team-switcher">
+  <label for={id}>Switch team</label>
+  <select id={id} class="select select-bordered" data-team-switcher={navigate ? '' : undefined}>
+    {teams.map((team) => (
+      <option value={withBase(`/teams/${team.slug}/`)} selected={team.slug === current}>{team.name}</option>
+    ))}
+  </select>
+</div>
+
+{navigate && (
+  <script>
+    document.querySelectorAll<HTMLSelectElement>('[data-team-switcher]').forEach((select) => {
+      if (select.dataset.ready === 'true') return;
+      select.dataset.ready = 'true';
+      select.addEventListener('change', () => window.location.assign(select.value));
+    });
+  </script>
+)}
+
+<style>
+  .team-switcher { display: grid; grid-template-columns: auto minmax(190px, 280px); align-items: center; justify-content: end; gap: .75rem; }
+  .team-switcher label { color: var(--muted); font-size: .82rem; font-weight: 700; }
+  .team-switcher select { width: 100%; background: white; }
+  @media (max-width: 720px) {
+    .team-switcher { grid-template-columns: 1fr; justify-content: stretch; }
+  }
+</style>

@@ -1,0 +1,38 @@
+---
+interface Props {
+  name: string;
+  role: string;
+  avatar?: string;
+  hoverAvatar?: string;
+  email?: string;
+  emailLabel?: string;
+  variant?: 'confirmed' | 'pending';
+}
+
+const { name, role, avatar, hoverAvatar, email, emailLabel = `Email ${name}`, variant = 'confirmed' } = Astro.props as Props;
+import { Mail, UserRound } from '@lucide/astro';
+---
+
+<article
+  class:list={['officer-card', { 'officer-card--pending': variant === 'pending', 'officer-card--interactive': hoverAvatar }]}
+  tabindex={hoverAvatar && !email ? 0 : undefined}
+>
+  {avatar ? (
+    <span class="officer-card__media" aria-hidden="true">
+      <img class="officer-card__image officer-card__image--default" src={avatar} alt="" width="180" height="180" loading="lazy" />
+      {hoverAvatar && <img class="officer-card__image officer-card__image--hover" src={hoverAvatar} alt="" width="180" height="180" loading="lazy" />}
+    </span>
+  ) : (
+    <span class="officer-card__avatar" aria-hidden="true">
+      <UserRound size={62} stroke-width={1.35} />
+    </span>
+  )}
+  <h3>{name}</h3>
+  <p>{role}</p>
+  {email && (
+    <a class="officer-card__email" href={`mailto:${email}`} aria-label={emailLabel} title={emailLabel}>
+      <Mail size={18} stroke-width={1.8} aria-hidden="true" />
+    </a>
+  )}
+  {variant === 'pending' && <span class="officer-card__status">Details to follow</span>}
+</article>

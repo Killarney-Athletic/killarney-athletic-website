@@ -1,0 +1,129 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import Button from '../../../../components/Button.astro';
+import GalleryCarousel from '../../../../components/GalleryCarousel.astro';
+import PageHeader from '../../../../components/PageHeader.astro';
+import { Clock, Share2 } from '@lucide/astro';
+import committeeImage from '../../../../assets/images/history/committee-1985-seven-a-side-trophies.jpg';
+import early1980sTeamImage from '../../../../assets/images/history/athletic-early-1980s-team.jpg';
+
+const sourcePdf = 'https://www.killarneyathletic.com/wp-content/uploads/2015/07/Killarney-Athletic-History-1980.pdf';
+const articleTitle = 'Killarney Athletic: The 1980s';
+const articleUrl = new URL(`${import.meta.env.BASE_URL}about/club-history/articles/killarney-athletic-the-1980s/`, Astro.site ?? 'https://www.killarneyathletic.com');
+const articleGalleryId = 'killarney-athletic-1980s-gallery';
+---
+
+<Layout
+  title={`${articleTitle} | Killarney Athletic A.F.C.`}
+  description="Killarney Athletic in the early 1980s: the seven-a-side, visiting League of Ireland clubs, dual players and the growth of schoolboy soccer."
+  canonicalPath="/about/club-history/articles/killarney-athletic-the-1980s/"
+  bodyClass="history-story-page"
+  hideFooter={true}
+>
+  <article class="history-story">
+    <header class="history-story__header page-shell">
+      <PageHeader
+        variant="hero"
+        title={articleTitle}
+        breadcrumbs={[
+          { label: 'Home', href: '/' },
+          { label: 'Club History', href: '/about/club-history/' },
+          { label: 'Stories & Articles', href: '/about/club-history/#articles' },
+          { label: articleTitle },
+        ]}
+      >
+        <span slot="intro" class="history-story__byline">
+          <span>Killarney Athletic Archive</span>
+          <span aria-hidden="true">·</span>
+          <span>2015</span>
+          <span class="history-story__read-time"><Clock aria-hidden="true" size={15} stroke-width={2} /> 5 min read</span>
+        </span>
+      </PageHeader>
+    </header>
+
+    <div class="history-story__body page-shell">
+      <section>
+        <p>The early ‘80s in the club saw Billy Doyle back to the ‘helm’ of ‘A’ team management while younger brother Frank played a more active role in the administration side of the club. Toni Fleming took over the ‘chair’ while Kevin ‘Plug’ Malley and Tom Ashe continued in their respective administrative roles that they held from the ‘70s. Antonio Cirillo who joined the club in the late ‘70s proved to be a very dedicated member of the committee. The organising and running of the 7-a-side had become the major focus of the club for three months of the summer as the tournament numbers swelled. The coverage and support of the local media contributed a lot to its increasing popularity.</p>
+      </section>
+
+      <figure>
+        <button class="history-story__image-trigger" type="button" data-gallery-open={articleGalleryId} data-gallery-index="0" aria-label="Open the 1980s article gallery at the 1985 committee photograph">
+          <img src={committeeImage.src} alt="Killarney Athletic’s 1985 committee pictured with seven-a-side trophies" />
+        </button>
+        <figcaption>
+          <strong>1985 Committee with 7-A-Side Trophies</strong>
+          <span>Back Left: Colm O’ Donoghue, Antonie Cirillo, Donal Brosan RIP Chairman, Toni Fleming, Billy Doyle, Donie Murphy. Front Left: Tom Mullins, Denis O’ Sullivan RIP, Joe Daly, Donal Casey.</span>
+        </figcaption>
+      </figure>
+
+      <section>
+        <h2>The ‘Men from the Bower’ join Athletic</h2>
+        <p>Another spin off from the 7-a-side was that there were many players getting the appetite to join the Kerry league clubs. Athletic gained with some members joining from the former ‘The Bower Rovers’ team (Rathmore). They were: Sean Moynihan, Dan Leary, Neily Kerins and the Mulcahy brothers of Donie and DD. Neily also managed teams at schoolboy level for the club and with Sean O’Sullivan had the privilege of managing Brendan Moloney of Nottingham Forest fame. DD Mulcahy was an excellent goal scorer and an outstanding club secretary in the ‘80s.</p>
+      </section>
+
+      <section>
+        <h2>Limerick United play in the Half Moon in 1982</h2>
+        <p>Frank Doyle was very keen to raise the profile of the club by bringing some League of Ireland teams to Killarney. To his credit he succeeded in landing Limerick United, the 1981/’82 FAI Cup winners to play a friendly against an Athletic selection in the Half Moon in September ‘82. The Limerick side who had qualified for European competitions for the 3rd successive year had many big soccer names in the club that season with Mia Dennehy, a former international and English League professional, the best known player while former Irish international manager Eoin Hand was also associated with the club. Needless to say Athletic didn’t win the match but scored on 3 occasions.</p>
+      </section>
+
+      <section>
+        <h2>Cobh Ramblers v Killarney Athletic in 1983</h2>
+        <p>Frank repeated his success in ‘83, when he attracts Cobh Ramblers the 1983 FAI Cup winners to town that September. This game was played on the St Finan’s Pitch that was to become the home ground for Celtic for many years. Bill Davidson a Cobh native managed Athletic on the night and for the early part of that season. Athletic were narrowly beaten by Cobh on a night when the club chairman Tom Griffin lined out in the back four. Bill was also to make an invaluable contribution with Connie O’Sullivan to the club’s underage teams over the following years.</p>
+      </section>
+
+      <section>
+        <h2>The Dual Players</h2>
+        <p>Some of the club’s better teams in the early ‘80s included a number of very good dual players, James Cronin, Connie ‘Doc’ O’ Doherty, Seanie and Pat O’Shea in particular were equally talented players in both codes. Connie also played for the KDL in the Oscar Traynor Cup, while Pat was a ‘wizard’ with the ball at his feet. Pat also had success as the Kerry team boss that won the 2007 All-Ireland Championship. Two other talented players of that era were John Casey and Pat Fennell.</p>
+      </section>
+
+      <figure>
+        <button class="history-story__image-trigger" type="button" data-gallery-open={articleGalleryId} data-gallery-index="1" aria-label="Open the 1980s article gallery at the early-1980s team photograph">
+          <img src={early1980sTeamImage.src} alt="A Killarney Athletic team pictured at the Half Moon in the early 1980s" />
+        </button>
+        <figcaption><strong>Killarney Athletic in the early ‘80s</strong></figcaption>
+      </figure>
+
+      <section>
+        <h2>‘B’ Team Knock ‘A’ Team out of Cup</h2>
+        <p>The 1983/84 season will be best remembered for the quarter-final cup tie between Athletic ‘A’ &amp; ‘B’ teams with the ‘B’ team emerging victorious after a replay thanks to a Vince Casey goal. A good win for the ‘boys’ but not such a good result for the club! The ‘Sossy’ managed ‘B’ team suffered a heavy defeat in the semi-final as they failed to raise their game against a strong Tralee Dynamos team.</p>
+      </section>
+
+      <section>
+        <h2>The Growth of Schoolboy Soccer</h2>
+        <p>With the Kerry soccer league now 10 years old many clubs were beginning to realise the importance of promoting underage soccer. Athletic’s underage 7-a-side tournament held in the ‘Áras’ pitch was nurturing a great interest in the game locally while Castleisland man George Callaghan was to the fore in promoting school boys soccer in the county. Vince Casey and Tom ‘Sossy’ Mullins co-managed Athletic’s first schoolboy team in the early ‘80s. The Kerry youth league was also proving to be a very popular competition and contributing to an improvement in the standards of the game in the county.</p>
+      </section>
+
+      <blockquote class="history-story__pullquote">
+        <p>Needless to say Athletic didn’t win the match but scored on 3 occasions.</p>
+        <cite>Killarney Athletic v Limerick United, 1982</cite>
+      </blockquote>
+
+      <section class="history-story__subsection">
+        <p>Next article will focus on the late ‘80s that saw the club moved from the Half Moon, Derry City visiting for pre-season 7-a-sides in the ‘Áras’ and the outstanding achievement &amp; honour for the club to have our first Schoolboys’ International capped player.</p>
+      </section>
+
+      <nav class="history-story__share" aria-label="Share this article">
+        <span class="history-story__share-label"><Share2 aria-hidden="true" size={17} stroke-width={2} /> Share</span>
+        <div>
+          <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(articleUrl.href)}`} target="_blank" rel="noopener noreferrer">Facebook</a>
+          <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(articleUrl.href)}&text=${encodeURIComponent(articleTitle)}`} target="_blank" rel="noopener noreferrer">X</a>
+          <a href={`mailto:?subject=${encodeURIComponent(articleTitle)}&body=${encodeURIComponent(articleUrl.href)}`}>Email</a>
+        </div>
+      </nav>
+
+      <footer class="history-story__source">
+        <p><strong>Killarney Athletic Archive</strong><br />From the club’s 50 years of soccer series.</p>
+        <Button href={sourcePdf} label="View the original PDF" variant="outline-dark" target="_blank" rel="noopener noreferrer" />
+      </footer>
+    </div>
+  </article>
+
+  <GalleryCarousel galleries={[{
+    id: articleGalleryId,
+    title: articleTitle,
+    images: [
+      { src: committeeImage.src, alt: 'Killarney Athletic’s 1985 committee pictured with seven-a-side trophies.' },
+      { src: early1980sTeamImage.src, alt: 'A Killarney Athletic team pictured at the Half Moon in the early 1980s.' },
+    ],
+  }]} />
+</Layout>

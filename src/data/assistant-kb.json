@@ -1,0 +1,49 @@
+[
+  {
+    "id": "academy-info",
+    "keywords": ["academy", "saturday", "u6", "u7", "u8", "u9", "u10", "u11", "kids", "young", "training", "times"],
+    "title": "Saturday Academy (U6–U11)",
+    "category": "Training & Teams",
+    "summary": "Runs Saturday mornings at Woodlawn Grounds (Grass & Astro). Focuses on skills and fun.",
+    "actionLabel": "View Academy Squad",
+    "actionUrl": "/teams/academy/"
+  },
+  {
+    "id": "membership-registration",
+    "keywords": ["register", "membership", "join", "pay", "fees", "insurance", "clubforce", "sign up", "cost", "deadline"],
+    "title": "2026/27 Season Registration",
+    "category": "Membership",
+    "summary": "Online registration for all age grades (Academy, Underage, Youths, Seniors) is managed via Clubforce.",
+    "actionLabel": "View Membership",
+    "actionUrl": "/membership/"
+  },
+  {
+    "id": "pitch-location",
+    "keywords": ["pitch", "grounds", "location", "address", "woodlawn", "directions", "where", "map", "astro"],
+    "title": "Woodlawn Grounds & Pitches",
+    "category": "Facilities",
+    "summary": "Located on Woodlawn Road, Killarney, Co. Kerry. Facilities include full-size grass pitches and all-weather floodlit training areas.",
+    "actionLabel": "Get Directions",
+    "actionUrl": "https://maps.app.goo.gl/ADu28Es1htB8Nw5CA",
+    "isExternal": true
+  },
+  {
+    "id": "seven-a-side",
+    "keywords": ["7-a-side", "seven a side", "tournament", "summer", "credit union", "entry", "july", "cup"],
+    "title": "Killarney Credit Union 7-A-Side",
+    "category": "Tournaments",
+    "summary": "Our flagship annual summer tournament taking place at Woodlawn Grounds.",
+    "actionLabel": "Tournament Hub",
+    "actionUrl": "/7-a-side-tournament/"
+  },
+  {
+    "id": "gear-shop",
+    "keywords": ["gear", "jersey", "kit", "shop", "jako", "shorts", "socks", "tracksuit", "merch", "buy"],
+    "title": "Official JAKO Club Shop",
+    "category": "Club Store",
+    "summary": "Order official Killarney Athletic jerseys, training wear, and rain jackets directly via Jako Ireland.",
+    "actionLabel": "Open Jako Store",
+    "actionUrl": "https://jako.ie/collections/killarney-athletic-afc",
+    "isExternal": true
+  }
+]

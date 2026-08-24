@@ -1,0 +1,33 @@
+---
+import { ExternalLink, FileText } from '@lucide/astro';
+import Card from './ui/Card.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  href: string;
+  target?: string;
+  rel?: string;
+}
+
+const {
+  title,
+  description,
+  href,
+  target = '_blank',
+  rel = 'noopener noreferrer',
+} = Astro.props as Props;
+---
+
+<Card class="resource-card" href={href} target={target} rel={rel} ariaLabel={title}>
+  <span class="resource-card__layout">
+    <span class="resource-card__icon" aria-hidden="true">
+      <FileText size={22} stroke-width={2.1} />
+    </span>
+    <span class="resource-card__content">
+      <strong>{title}</strong>
+      {description && <span>{description}</span>}
+    </span>
+    <ExternalLink class="resource-card__external" size={18} stroke-width={2.2} aria-hidden="true" />
+  </span>
+</Card>

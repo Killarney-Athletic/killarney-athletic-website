@@ -1,0 +1,49 @@
+---
+import clubCrestUrl from '../assets/images/brand/Club Crest White.svg?url';
+
+interface Props {
+  matchId?: string;
+  isHomeMatch?: boolean;
+  label: string;
+  homeTeam?: string;
+  awayTeam?: string;
+  competition?: string;
+  date?: string;
+  venue?: string;
+}
+
+const {
+  matchId,
+  isHomeMatch = true,
+  label,
+  homeTeam = 'Killarney Athletic',
+  awayTeam = 'Opponent TBC',
+  competition = 'Competition to be confirmed',
+  date = 'Date and time to be confirmed',
+  venue = 'Venue to be confirmed',
+} = Astro.props as Props;
+---
+
+<article class="fixture-card" data-match-id={matchId}>
+  <div class="fixture-card__teams">
+    <div class="fixture-team">
+      <span class:list={['fixture-team__crest', { 'fixture-team__crest--tbc': !isHomeMatch }]} aria-hidden="true">
+        {isHomeMatch ? <img src={clubCrestUrl} alt="" width="46" height="68" /> : '?'}
+      </span>
+      <strong>{homeTeam}</strong>
+    </div>
+    <span class="fixture-card__versus" aria-label="versus">VS</span>
+    <div class="fixture-team">
+      <span class:list={['fixture-team__crest', { 'fixture-team__crest--tbc': isHomeMatch }]} aria-hidden="true">
+        {isHomeMatch ? '?' : <img src={clubCrestUrl} alt="" width="46" height="68" />}
+      </span>
+      <strong>{awayTeam}</strong>
+    </div>
+  </div>
+  <div class="fixture-card__details">
+    <p class="fixture-card__type">Football · {label}</p>
+    <h3>{competition}</h3>
+    <p class="fixture-card__date"><span aria-hidden="true">▣</span> {date}</p>
+    <p class="fixture-card__venue"><span aria-hidden="true">⌖</span> {venue}</p>
+  </div>
+</article>

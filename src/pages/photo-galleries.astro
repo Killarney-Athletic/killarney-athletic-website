@@ -1,0 +1,144 @@
+---
+import Layout from '../layouts/Layout.astro';
+import FilterBar from '../components/ui/FilterBar.astro';
+import GalleryCarousel from '../components/GalleryCarousel.astro';
+import GalleryListingItem from '../components/GalleryListingItem.astro';
+import PageHeader from '../components/PageHeader.astro';
+import PagePanel from '../components/PagePanel.astro';
+import { getGalleryPosts } from '../lib/wordpress';
+import { withBase } from '../utils/paths';
+
+const galleries = await getGalleryPosts(100);
+const normalizeFilterValue = (value: string) => value
+  .toLowerCase()
+  .replace(/&/g, 'and')
+  .replace(/[^a-z0-9]+/g, '-')
+  .replace(/^-|-$/g, '');
+
+const yearOptions = [
+  { label: 'All years', value: '' },
+  ...Array.from(new Set(galleries.map((gallery) => gallery.date.getFullYear().toString())))
+    .sort((a, b) => Number(b) - Number(a)),
+];
+
+const galleryCategories = Array.from(new Set(
+  galleries.flatMap((gallery) => gallery.categories)
+    .filter((category) => !['galleries', 'uncategorized'].includes(category.slug))
+    .map((category) => category.name),
+)).sort((a, b) => a.localeCompare(b));
+
+const typeOptions = [
+  { label: 'All categories', value: '' },
+  ...galleryCategories.map((category) => ({
+    label: category,
+    value: normalizeFilterValue(category),
+  })),
+];
+---
+
+<Layout
+  title="Photo Galleries | Killarney Athletic AFC"
+  description="Photo galleries from Killarney Athletic A.F.C. teams, matches and club events."
+  canonicalPath="/photo-galleries/"
+>
+  <section class="gallery-listing page-shell page-template page-template--listing">
+    <PageHeader
+      title="Photo Galleries"
+      intro="Photos from Killarney Athletic teams, matches and club events."
+      breadcrumbs={[
+        { label: 'Home', href: '/' },
+        { label: 'Photo Galleries' },
+      ]}
+    />
+
+    <div class="news-listing__filters">
+      <FilterBar
+        ariaLabel="Photo gallery filters"
+        summaryLabel="Search and filter galleries"
+        action={withBase('/photo-galleries/')}
+        searchLabel="Search galleries"
+        searchPlaceholder="Search photo galleries…"
+        yearOptions={yearOptions}
+        typeLabel="Category"
+        typeOptions={typeOptions}
+        resultLabel={`Showing ${galleries.length} ${galleries.length === 1 ? 'gallery' : 'galleries'}`}
+        showFieldLabels={false}
+        showSubmit={false}
+      />
+    </div>
+
+    {galleries.length > 0 ? (
+      <div class="news-listing__items gallery-listing__items">
+        {galleries.map((gallery) => {
+          const filterCategories = gallery.categories
+            .filter((category) => !['galleries', 'uncategorized'].includes(category.slug));
+          const displayCategory = filterCategories[0]?.name || 'Gallery';
+
+          return (
+            <GalleryListingItem
+              galleryId={gallery.slug}
+              title={gallery.title}
+              excerpt={gallery.excerpt}
+              category={displayCategory}
+              date={gallery.date}
+              imageCount={gallery.images.length}
+              coverImageUrl={gallery.coverImageUrl}
+              data-gallery-item
+              data-gallery-year={gallery.date.getFullYear()}
+              data-gallery-type={filterCategories.map((category) => normalizeFilterValue(category.name)).join('|')}
+              data-gallery-search={`${gallery.title} ${gallery.excerpt} ${filterCategories.map((category) => category.name).join(' ')}`.toLowerCase()}
+            />
+          );
+        })}
+      </div>
+    ) : (
+      <PagePanel bodyClass="gallery-listing__empty">
+        <p>No photo galleries are available yet.</p>
+      </PagePanel>
+    )}
+  </section>
+
+  <GalleryCarousel galleries={galleries.map((gallery) => ({
+    id: gallery.slug,
+    title: gallery.title,
+    images: gallery.images,
+  }))} />
+
+  <script>
+    const gallerySection = document.querySelector<HTMLElement>('.gallery-listing');
+    const filterForm = gallerySection?.querySelector<HTMLFormElement>('.filter-bar');
+    const searchInput = filterForm?.querySelector<HTMLInputElement>('input[name="search"]');
+    const yearSelect = filterForm?.querySelector<HTMLSelectElement>('select[name="year"]');
+    const typeSelect = filterForm?.querySelector<HTMLSelectElement>('select[name="type"]');
+    const resultBadges = Array.from(gallerySection?.querySelectorAll<HTMLElement>('.filter-bar__result') ?? []);
+    const items = Array.from(gallerySection?.querySelectorAll<HTMLElement>('[data-gallery-item]') ?? []);
+
+    function applyGalleryFilters() {
+      const searchValue = searchInput?.value.trim().toLowerCase() ?? '';
+      const yearValue = yearSelect?.value ?? '';
+      const typeValue = typeSelect?.value ?? '';
+      let visibleCount = 0;
+
+      items.forEach((item) => {
+        const matchesSearch = !searchValue || (item.dataset.gallerySearch ?? '').includes(searchValue);
+        const matchesYear = !yearValue || item.dataset.galleryYear === yearValue;
+        const matchesType = !typeValue || (item.dataset.galleryType ?? '').split('|').includes(typeValue);
+        const isVisible = matchesSearch && matchesYear && matchesType;
+
+        item.hidden = !isVisible;
+        if (isVisible) visibleCount += 1;
+      });
+
+      resultBadges.forEach((badge) => {
+        badge.textContent = `Showing ${visibleCount} ${visibleCount === 1 ? 'gallery' : 'galleries'}`;
+      });
+    }
+
+    if (filterForm && searchInput && yearSelect && typeSelect) {
+      searchInput.addEventListener('input', applyGalleryFilters);
+      yearSelect.addEventListener('change', applyGalleryFilters);
+      typeSelect.addEventListener('change', applyGalleryFilters);
+      filterForm.addEventListener('reset', () => window.requestAnimationFrame(applyGalleryFilters));
+    }
+  </script>
+</Layout>

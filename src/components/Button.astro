@@ -1,0 +1,51 @@
+---
+import { Volleyball } from '@lucide/astro';
+
+interface Props {
+  href?: string;
+  label: string;
+  size?: 'sm' | 'md';
+  variant?: 'primary' | 'primary-dark' | 'light' | 'outline' | 'outline-dark' | 'outline-light';
+  icon?: boolean;
+  ariaLabel?: string;
+  type?: 'button' | 'submit' | 'reset';
+  target?: string;
+  rel?: string;
+  class?: string;
+}
+
+const {
+  href,
+  label,
+  size = 'md',
+  variant = 'primary',
+  icon = true,
+  ariaLabel,
+  type = 'button',
+  target,
+  rel,
+  class: className = '',
+  ...rest
+} = Astro.props as Props;
+
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag
+  class:list={['btn', 'ui-button', `ui-button--${size}`, `ui-button--${variant}`, className]}
+  href={href}
+  type={href ? undefined : type}
+  target={href ? target : undefined}
+  rel={href ? rel : undefined}
+  aria-label={ariaLabel}
+  {...rest}
+>
+  <span class="ui-button__label">{label}</span>
+  {icon && (
+    <span class="ui-button__icon" aria-hidden="true">
+      <slot name="icon">
+        <Volleyball size={18} stroke-width={2} />
+      </slot>
+    </span>
+  )}
+</Tag>

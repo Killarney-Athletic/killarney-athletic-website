@@ -1,0 +1,62 @@
+---
+import PageHeader from './PageHeader.astro';
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  title: string;
+  intro?: string;
+  eyebrow?: string;
+  background: string;
+  overlayImage?: string;
+  variant?: 'default' | 'registration';
+  breadcrumbs?: BreadcrumbItem[];
+  headingLevel?: 'h1' | 'h2' | 'h3';
+  class?: string;
+}
+
+const {
+  title,
+  intro,
+  eyebrow,
+  background,
+  overlayImage,
+  variant = 'default',
+  breadcrumbs = [],
+  headingLevel = 'h1',
+  class: className = '',
+} = Astro.props as Props;
+---
+
+<section class:list={['home-hero', `home-hero--${variant}`, 'page-shell', className]}>
+  <div
+    class="home-hero__panel"
+    style={`--home-hero-image: url(${background});${overlayImage ? ` --home-hero-overlay-image: url(${overlayImage});` : ''}`}
+  >
+    {variant === 'registration' && (
+      <img
+        class="home-hero__background-image"
+        src={overlayImage || background}
+        alt=""
+        aria-hidden="true"
+      />
+    )}
+    <PageHeader
+      class="home-hero__content"
+      variant="hero"
+      title={title}
+      intro={intro}
+      breadcrumbs={breadcrumbs}
+      headingLevel={headingLevel}
+    >
+      {eyebrow && <p slot="meta" class="eyebrow home-hero__eyebrow">{eyebrow}</p>}
+      {Astro.slots.has('intro') && <slot name="intro" slot="intro" />}
+      <div slot="actions" class="home-hero__actions">
+        <slot name="actions" />
+      </div>
+    </PageHeader>
+  </div>
+</section>

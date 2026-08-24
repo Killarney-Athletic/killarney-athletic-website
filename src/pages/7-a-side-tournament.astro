@@ -1,0 +1,103 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import PagePanel from '../components/PagePanel.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import TabGroup from '../components/ui/TabGroup.astro';
+import tournamentHeroImage from '../assets/images/backgrounds/7ASIDE.png';
+import sevenAsideLogoUrl from '../assets/images/brand/logos/7ASWhite.svg?url';
+import creditUnionLogoUrl from '../assets/images/brand/logos/creditUnion.svg?url';
+import { withBase } from '../utils/paths';
+
+const archiveItems = [
+  {
+    year: '2026',
+    title: 'Killarney Credit Union 7-A-Side Tournament 2026',
+    href: 'https://www.killarneyathletic.com/killarney-credit-union-7-a-side-tournament',
+  },
+  {
+    year: '2025',
+    title: 'Killarney Credit Union 7-A-Side Tournament 2025',
+    href: withBase('/news/killarney-credit-union-7-a-side-tournament-2025/'),
+  },
+  {
+    year: '2024',
+    title: '7-A-Side Tournament 2024',
+    href: 'https://www.killarneyathletic.com/killarney-credit-union-7-a-side-tournament/2024-fixtures',
+  },
+  {
+    year: '2023',
+    title: '7-A-Side Tournament 2023',
+    href: 'https://www.killarneyathletic.com/killarney-credit-union-7-a-side-tournament/2023-fixtures',
+  },
+];
+---
+
+<Layout
+  title="7-A-Side Tournament | Killarney Athletic AFC"
+  description="Details, entry information and archive for the annual Killarney Credit Union 7-A-Side Tournament at Woodlawn."
+  canonicalPath="/7-a-side-tournament/"
+  bodyClass="tournament-page-body"
+>
+  <HeroSection
+      class="tournament-hero"
+      variant="registration"
+      title="Killarney Credit Union 7-A-Side Tournament"
+      intro="Our annual summer football tournament at Killarney Athletic Grounds, Woodlawn."
+      background={tournamentHeroImage.src}
+      overlayImage={tournamentHeroImage.src}
+      breadcrumbs={[
+        { label: 'Home', href: '/' },
+        { label: '7-A-Side Tournament' },
+      ]}
+  >
+    <div slot="actions" class="tournament-hero__logos" aria-label="Tournament and sponsor logos">
+      <img class="tournament-hero__sevens-logo" src={sevenAsideLogoUrl} alt="7-A-Side" />
+      <span aria-hidden="true"></span>
+      <img class="tournament-hero__credit-union-logo" src={creditUnionLogoUrl} alt="Killarney Credit Union" />
+    </div>
+  </HeroSection>
+
+  <nav class="tournament-tabs page-shell" aria-label="Tournament page sections">
+    <TabGroup
+      ariaLabel="Tournament page sections"
+      activeId="overview"
+      items={[
+        { id: 'overview', label: 'Overview', href: '#overview' },
+        { id: 'archive', label: 'Archive', href: '#archive' },
+      ]}
+    />
+  </nav>
+
+  <article class="tournament-page page-shell page-template">
+
+    <div id="overview">
+    <PagePanel class="tournament-page__intro">
+      <div class="tournament-status">
+        <p class="eyebrow">Seasonal programme</p>
+        <h2>The Sevens return each summer</h2>
+        <p>
+          The tournament runs from June into early July each year, with competitions for underage teams,
+          senior men, senior ladies and Over 35s. Killarney Credit Union continues as the tournament’s main sponsor.
+        </p>
+        <p class="tournament-status__note">The 2026 tournament has concluded. Details of the next tournament will be announced here.</p>
+      </div>
+    </PagePanel>
+    </div>
+
+    <div id="archive">
+    <PagePanel class="tournament-page__archive">
+      <SectionHeader slot="header" title="Tournament archive" intro="Previous tournament information and results." />
+      <div class="tournament-archive">
+        {archiveItems.map((item) => (
+          <a class="tournament-archive__item" href={item.href}>
+            <span>{item.year}</span>
+            <strong>{item.title}</strong>
+            <span aria-hidden="true">→</span>
+          </a>
+        ))}
+      </div>
+    </PagePanel>
+    </div>
+  </article>
+</Layout>

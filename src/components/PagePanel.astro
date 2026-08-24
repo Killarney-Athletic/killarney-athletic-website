@@ -1,0 +1,24 @@
+---
+interface Props {
+  as?: 'section' | 'article' | 'div';
+  class?: string;
+  bodyClass?: string;
+  flush?: boolean;
+}
+
+const {
+  as = 'section',
+  class: className = '',
+  bodyClass = '',
+  flush = false,
+} = Astro.props as Props;
+
+const Tag = as;
+---
+
+<Tag class:list={['page-panel', className]}>
+  <slot name="header" />
+  <div class:list={['page-panel__body', flush && 'page-panel__body--flush', bodyClass]}>
+    <slot />
+  </div>
+</Tag>

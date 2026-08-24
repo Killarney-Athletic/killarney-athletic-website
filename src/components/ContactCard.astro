@@ -1,0 +1,37 @@
+---
+import Card from './ui/Card.astro';
+
+interface Props {
+  title: string;
+  text: string;
+  href?: string;
+  linkLabel?: string;
+  external?: boolean;
+  class?: string;
+}
+
+const {
+  title,
+  text,
+  href,
+  linkLabel,
+  external = false,
+  class: className = '',
+  ...rest
+} = Astro.props as Props;
+---
+
+<Card class={`contact-card ${className}`} {...rest}>
+  <div class="contact-card__layout">
+    <div class="contact-card__icon" aria-hidden="true"><slot name="icon" /></div>
+    <div class="contact-card__content">
+      <h3 class="card-title">{title}</h3>
+      <p>{text}</p>
+      {href && linkLabel && (
+        <a href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>
+          {linkLabel}
+        </a>
+      )}
+    </div>
+  </div>
+</Card>

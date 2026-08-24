@@ -1,0 +1,72 @@
+---
+import { Phone } from '@lucide/astro';
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import PagePanel from '../components/PagePanel.astro';
+import ResourceCard from '../components/ResourceCard.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import ContentBadge from '../components/ContentBadge.astro';
+import { withBase } from '../utils/paths';
+
+const resources = [
+  {
+    title: 'Killarney Athletic Child Safeguarding Statement',
+    description: 'Club child safeguarding statement and welfare information.',
+    href: '/documents/child-welfare/child-safeguarding-statement.pdf',
+  },
+  {
+    title: 'Code of Ethics for Parents',
+    description: 'Guidance for parents and guardians involved in underage football.',
+    href: '/documents/child-welfare/code-of-ethics-parents.pdf',
+  },
+  {
+    title: 'Code of Ethics for Coaches',
+    description: 'Guidance for coaches working with young players.',
+    href: '/documents/child-welfare/code-of-ethics-coaches.pdf',
+  },
+  {
+    title: 'Goal Post Safety',
+    description: 'Safety guidance for the use and movement of goalposts.',
+    href: '/documents/child-welfare/goal-post-safety.pdf',
+  },
+];
+---
+
+<Layout
+  title="Child Welfare | Killarney Athletic AFC"
+  description="Child welfare, safeguarding contacts and useful resources for Killarney Athletic AFC."
+  canonicalPath="/child-welfare/"
+>
+  <article class="notice-page page-shell child-welfare-page">
+    <PageHeader
+      title="Child Welfare"
+      breadcrumbs={[
+        { label: 'Home', href: '/' },
+        { label: 'Child Welfare' },
+      ]}
+    >
+      <div slot="meta" class="meta-row"><ContentBadge label="Club policy" /></div>
+    </PageHeader>
+
+    <PagePanel class="resource-panel">
+      <SectionHeader slot="header" title="Child welfare resources" intro="Safeguarding, ethics and safety documents for parents, coaches and volunteers." />
+      <div class="resource-list" aria-label="Child welfare resources">
+        {resources.map((resource) => (
+          <ResourceCard
+            title={resource.title}
+            description={resource.description}
+            href={withBase(resource.href)}
+          />
+        ))}
+      </div>
+    </PagePanel>
+
+    <aside class="contact-callout">
+      <Phone aria-hidden="true" size={20} stroke-width={2.2} />
+      <div>
+        <strong>Need to speak to the club?</strong>
+        <p>Contact the Child Welfare Liaison Officer directly on <a href="tel:+353876123512">087 6123512</a>.</p>
+      </div>
+    </aside>
+  </article>
+</Layout>

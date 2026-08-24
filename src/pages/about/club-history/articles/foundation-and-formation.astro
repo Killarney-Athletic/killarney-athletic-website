@@ -1,0 +1,184 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import Button from '../../../../components/Button.astro';
+import GalleryCarousel from '../../../../components/GalleryCarousel.astro';
+import PageHeader from '../../../../components/PageHeader.astro';
+import { Clock, Share2 } from '@lucide/astro';
+import firstTeamImage from '../../../../assets/images/history/harrington-era-team.jpg';
+import halfMoonTeamImage from '../../../../assets/images/history/harrington-era-half-moon-team.jpg';
+import harringtonOSullivanImage from '../../../../assets/images/history/harrington-osullivan-half-moon-better.jpg';
+import laterTeamImage from '../../../../assets/images/history/harrington-era-later-team.jpg';
+
+const sourcePdf = 'https://www.killarneyathletic.com/wp-content/uploads/2015/05/The-Harrington-Era.pdf';
+const articleUrl = new URL(`${import.meta.env.BASE_URL}about/club-history/articles/foundation-and-formation/`, Astro.site ?? 'https://www.killarneyathletic.com');
+const articleGalleryId = 'foundation-and-formation-gallery';
+---
+
+<Layout
+  title="Foundation & Formation | Killarney Athletic A.F.C."
+  description="Dan Harrington’s autobiographical account of the foundation and early years of Killarney Athletic A.F.C."
+  canonicalPath="/about/club-history/articles/foundation-and-formation/"
+  bodyClass="history-story-page"
+  hideFooter={true}
+>
+  <article class="history-story">
+    <header class="history-story__header page-shell">
+      <PageHeader
+        variant="hero"
+        title="Foundation & Formation"
+        breadcrumbs={[
+          { label: 'Home', href: '/' },
+          { label: 'Club History', href: '/about/club-history/' },
+          { label: 'Stories & Articles', href: '/about/club-history/#articles' },
+          { label: 'Foundation & Formation' },
+        ]}
+      >
+        <span slot="intro" class="history-story__byline">
+          <span>Dan Harrington</span>
+          <span aria-hidden="true">·</span>
+          <span>2015</span>
+          <span class="history-story__read-time"><Clock aria-hidden="true" size={15} stroke-width={2} /> 10 min read</span>
+        </span>
+      </PageHeader>
+    </header>
+
+    <div class="history-story__body page-shell">
+      <section>
+        <h2>The first days of the club 1965</h2>
+        <p>In <strong>September 1964</strong>, Dan Harrington joined An Garda Síochána. Posted to Killarney in January 1965, shortly after his nineteenth birthday, his town-centre patrols brought him into contact with the young footballers who would become the nucleus of Killarney Athletic.</p>
+        <p>One spring afternoon, Harrington saw a group of boys playing soccer in the Sand Pit Car Park at the junction of High Street and the Tralee Road. Some ran when they saw a Garda approaching, expecting to be told off for playing soccer. Harrington instead explained that he was a player himself and returned the following afternoon to join their kick-about.</p>
+        <p>Informal conversations about forming a club followed at the Market Cross, before more organised meetings began in Killarney Town Hall during the winter of 1965–66. Hilliard’s shop on Main Street helped advertise meetings and get-togethers in its window.</p>
+        <p>Builder Mr O’Brien offered the young players a narrow strip of land near St Finan’s Hospital and the rear entrance of the GAA ground. Scaffolding poles served as goalposts. Although it was too narrow for a full-size pitch, it gave the club’s first under-16 and minor players somewhere to train.</p>
+      </section>
+
+      <figure>
+        <button class="history-story__image-trigger" type="button" data-gallery-open={articleGalleryId} data-gallery-index="0" aria-label="Open the article photo gallery at the early Killarney Athletic team photograph">
+          <img src={firstTeamImage.src} alt="One of the earliest Killarney Athletic teams, posed in striped shirts" />
+        </button>
+        <figcaption>
+          <strong>An early Killarney Athletic team.</strong>
+          <span>The names in the original record remain to be confirmed.</span>
+        </figcaption>
+      </figure>
+
+      <section class="history-story__subsection">
+        <h3 class="history-story__episode">The first match</h3>
+        <p>By the summer of 1965 the club had a nucleus of under-16 and under-17 players and arranged a match against Listowel under-16s. There was no club kit. Players supplied their own shorts, socks and boots, while Harrington borrowed blue T-shirts from colleagues at Killarney Garda Station.</p>
+        <p>The game was played on the Gaelic football pitch used by St Brendan’s College, with Gaelic goalposts still in place. One Killarney Athletic player took part in a Kerry minor football match the following Sunday.</p>
+      </section>
+
+      <section class="history-story__subsection">
+        <h3 class="history-story__episode">Choosing the name Killarney Athletic</h3>
+        <p>The club played only one or two matches during 1965 while meetings continued and the organisation took shape. A Flag Day collection was arranged for 1966 to provide funds.</p>
+        <p>Donagh Gleeson favoured the name <strong>“Killarney Athletic”</strong>. At a time when the GAA’s ban on soccer remained in force, <em>“Athletic”</em> was considered a more practical name because it avoided the word “soccer”. The name was adopted, the Flag Days of 1966 and 1967 provided a sound financial base, and Gleeson became the club’s first treasurer.</p>
+      </section>
+
+      <div class="history-story__split">
+        <section>
+          <h2>The Half Moon, our first home</h2>
+          <p>In early 1966 Harrington approached solicitor Michael Casey about securing a pitch on land associated with John McShain’s estate. McShain agreed that the young people of Killarney could use a suitable area <em>free of charge</em> for as long as they wished to play soccer.</p>
+          <p>Harrington and Donagh Gleeson selected a flat section in the Half Moon field, measured and lined a full-size pitch, and arranged for wooden goalposts to be made in Castleisland. The club’s first nets were sea-fishing nets obtained from a trawlerman in Fenit.</p>
+        </section>
+
+        <figure class="history-story__compact-figure">
+          <button class="history-story__image-trigger" type="button" data-gallery-open={articleGalleryId} data-gallery-index="1" aria-label="Open the article photo gallery at the Half Moon portrait">
+            <img src={harringtonOSullivanImage.src} alt="Don Harrington and Mike O’Sullivan at the Half Moon in Knockreer" />
+          </button>
+          <figcaption>
+            <span>Don Harrington (right) with Killarney Athletic stalwart Mike O’Sullivan at the Half Moon in Knockreer, where the club played its games in the early days.</span>
+          </figcaption>
+        </figure>
+      </div>
+
+      <figure>
+        <button class="history-story__image-trigger" type="button" data-gallery-open={articleGalleryId} data-gallery-index="2" aria-label="Open the article photo gallery at the Half Moon team photograph">
+          <img src={halfMoonTeamImage.src} alt="An early Killarney Athletic team gathered at the Half Moon pitch" />
+        </button>
+        <figcaption>
+          <strong>Killarney Athletic at the Half Moon.</strong>
+          <span>Back, left to right: John Sparling, Byron Holmes, Jim O’Sullivan, Donagh Gleeson, Roland Stinakar and Donie Doyle. Front: Sean O’Donoghue, Johnny Heffernan, Dan Harrington, Don O’Donoghue and Pat Doody.</span>
+        </figcaption>
+      </figure>
+
+      <section class="history-story__subsection">
+        <h3 class="history-story__episode">Home games and the Desmond League</h3>
+        <p>Killarney’s attraction as a visitor destination meant away teams often brought their families for match days. Connections from Harrington’s own playing days also brought Cork teams to Killarney.</p>
+        <p>With no Kerry league in existence, Killarney Athletic registered in the Desmond League. By 1966 and 1967, minor and junior teams were established. Harrington, Donagh Gleeson and Brian McCarthy later represented the Desmond League in the 1968 Oscar Traynor Cup.</p>
+      </section>
+
+      <section class="history-story__subsection">
+        <h3 class="history-story__episode">Opposition to “official soccer”</h3>
+        <p>The club’s progress attracted concern while the GAA ban remained in place. Harrington later learned that an approach had been made to his Garda superiors requesting his transfer away from Killarney. A move to Ballyduff was arranged, but after he discussed the circumstances with Fr Sheehan, the transfer was cancelled on the morning he was due to leave.</p>
+        <p>The players had already held a going-away evening and presented him with an electric razor. When the transfer was cancelled, Harrington told them that <em>“the dream would live on”</em>.</p>
+      </section>
+
+      <figure>
+        <button class="history-story__image-trigger" type="button" data-gallery-open={articleGalleryId} data-gallery-index="3" aria-label="Open the article photo gallery at the later team photograph">
+          <img src={laterTeamImage.src} alt="Killarney Athletic players posed together during the club’s early years" />
+        </button>
+        <figcaption>
+          <strong>Killarney Athletic during the club’s early years.</strong>
+          <span>Back: Brian McCarthy, Donie Doyle, Pat Doody, Joe Grant, Noel Clifford, Greg Collins, Donagh Gleeson, Philip Culligan and Don O’Donoghue. Front: Sean Culligan, an unidentified player, Dan Harrington, Jim O’Sullivan and Brendan Culligan.</span>
+        </figcaption>
+      </figure>
+
+      <section>
+        <h2>Continued progress</h2>
+        <p>The club developed juvenile, minor and regular junior teams, eventually reaching a Desmond League Cup Final at Askeaton. The early organisation was deliberately simple: Harrington arranged fixtures, trained the players, selected teams and often drove transport, while Donagh Gleeson looked after the finances.</p>
+        <p>Training took place wherever space could be found, including the Glebe Hotel, St Mary’s Parish Hall and road-running routes around Muckross Road, Woodlawn Road, Ballycasheen and Pike Hill.</p>
+      </section>
+
+      <section class="history-story__subsection">
+        <h3 class="history-story__episode">Football’s changing place in Killarney</h3>
+        <p>The 1966 World Cup exposed many local people to international soccer on television for the first time. Harrington recalled supporters from other sporting traditions recognising the skill and global reach of the game.</p>
+        <p>The following year, a film of Celtic’s European Cup Final victory was shown at the Friary. The shared event helped establish a relationship between the club and the Franciscan community. Áras Phádraig later became a training base and the long-time home of the club’s 7-a-side tournament.</p>
+      </section>
+
+      <section class="history-story__subsection">
+        <h3 class="history-story__episode">Dero’s transport</h3>
+        <p>Denis “Dero” O’Sullivan provided minibuses for away matches throughout the club’s early years. Harrington later drove the buses himself to reduce costs. Journeys to Newcastle West, Foynes, Askeaton, Pallaskenry and Ardagh—and the stops on the way home—became an important part of club life.</p>
+      </section>
+
+      <section>
+        <h2>Leaving Killarney</h2>
+        <p>Harrington left Killarney in <strong>1969</strong> to join the West Yorkshire Police. He served for more than 35 years, retiring as a superintendent in 2004, while continuing to play football into his forties.</p>
+        <p>He credited Donagh Gleeson, Big Jim O’Sullivan, Sean O’Donoghue, Brian Gilhooley, Joe Grant, Don O’Donoghue and many others with sustaining and expanding the club after his departure.</p>
+      </section>
+
+      <section>
+        <h2>Forty years later</h2>
+        <p>At the club’s <strong>fortieth anniversary in 2005</strong>, Killarney Town Council held a civic reception recognising Killarney Athletic’s contribution to the town. Harrington learned that council minutes from 1966 had recorded concern about Killarney’s first official soccer match. Four decades later, soccer had become part of the sporting culture of Killarney.</p>
+      </section>
+
+      <blockquote class="history-story__pullquote">
+        <p>Their commitment and passion for the club ensured its existence today.</p>
+        <cite>Dan Harrington</cite>
+      </blockquote>
+
+      <nav class="history-story__share" aria-label="Share this article">
+        <span class="history-story__share-label"><Share2 aria-hidden="true" size={17} stroke-width={2} /> Share</span>
+        <div>
+          <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(articleUrl.href)}`} target="_blank" rel="noopener noreferrer">Facebook</a>
+          <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(articleUrl.href)}&text=${encodeURIComponent('Foundation & Formation')}`} target="_blank" rel="noopener noreferrer">X</a>
+          <a href={`mailto:?subject=${encodeURIComponent('Foundation & Formation')}&body=${encodeURIComponent(articleUrl.href)}`}>Email</a>
+        </div>
+      </nav>
+
+      <footer class="history-story__source">
+        <p><strong>Dan Harrington</strong><br />Founder and President of Killarney Athletic A.F.C.</p>
+        <Button href={sourcePdf} label="View the original PDF" variant="outline-dark" target="_blank" rel="noopener noreferrer" />
+      </footer>
+    </div>
+  </article>
+
+  <GalleryCarousel galleries={[{
+    id: articleGalleryId,
+    title: 'Foundation & Formation',
+    images: [
+      { src: firstTeamImage.src, alt: 'An early Killarney Athletic team. The names in the original record remain to be confirmed.' },
+      { src: harringtonOSullivanImage.src, alt: 'Don Harrington (right) with Mike O’Sullivan at the Half Moon in Knockreer.' },
+      { src: halfMoonTeamImage.src, alt: 'An early Killarney Athletic team gathered at the Half Moon pitch.' },
+      { src: laterTeamImage.src, alt: 'Killarney Athletic players during the club’s early years.' },
+    ],
+  }]} />
+</Layout>
