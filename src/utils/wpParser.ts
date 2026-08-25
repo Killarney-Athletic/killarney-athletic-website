@@ -18,6 +18,7 @@ export interface WPPostPayload {
   author?: number;
   categories?: number[];
   link?: string;
+  meta?: Record<string, unknown>;
   _embedded?: {
     author?: Array<{
       name?: string;
@@ -48,6 +49,11 @@ export interface WPPost {
   featuredImageAlt: string;
   hasClubforceLink: boolean;
   link: string;
+  notice?: {
+    team: string;
+    startsAt: Date;
+    expiresAt: Date;
+  };
 }
 
 const HTML_ENTITY_MAP: Record<string, string> = {
@@ -103,6 +109,27 @@ function toPlainText(value: string): string {
     .trim();
 }
 
+function summarize(value: string, maximumLength = 260): string {
+  if (value.length <= maximumLength) return value;
+  const shortened = value.slice(0, maximumLength + 1);
+  const lastSpace = shortened.lastIndexOf(' ');
+  return `${shortened.slice(0, lastSpace > maximumLength * 0.7 ? lastSpace : maximumLength).trim()}…`;
+}
+
+function parseNotice(meta: Record<string, unknown> | undefined): WPPost['notice'] {
+  const team = typeof meta?.ka_notice_team === 'string' ? meta.ka_notice_team.trim() : '';
+  const startsAtValue = typeof meta?.ka_notice_starts_at === 'string' ? meta.ka_notice_starts_at : '';
+  const expiresAtValue = typeof meta?.ka_notice_expires_at === 'string' ? meta.ka_notice_expires_at : '';
+  const startsAt = new Date(startsAtValue);
+  const expiresAt = new Date(expiresAtValue);
+
+  if (!team || Number.isNaN(startsAt.getTime()) || Number.isNaN(expiresAt.getTime()) || startsAt >= expiresAt) {
+    return undefined;
+  }
+
+  return { team, startsAt, expiresAt };
+}
+
 function sanitizeContent(value: string): string {
   return sanitizeHtml(decodeEntities(value), {
     allowedTags: ['p', 'br', 'a', 'img'],
@@ -137,9 +164,10 @@ function sanitizeContent(value: string): string {
 
 export function parseWPPost(payload: WPPostPayload): WPPost {
   const title = decodeEntities(payload.title?.rendered ?? 'Untitled post');
-  const excerpt = toPlainText(payload.excerpt?.rendered ?? '');
+  const wordpressExcerpt = toPlainText(payload.excerpt?.rendered ?? '');
   const rawContent = payload.content?.rendered ?? '';
   const plainContent = toPlainText(rawContent);
+  const excerpt = summarize(plainContent || wordpressExcerpt);
   const content = sanitizeContent(rawContent);
 
   const categories = (payload._embedded?.['wp:term'] ?? [])
@@ -170,5 +198,11 @@ export function parseWPPost(payload: WPPostPayload): WPPost {
     featuredImageAlt,
     hasClubforceLink,
     link: payload.link ?? '/',
+    notice: parseNotice(payload.meta),
   };
+}
+
+export function isNoticeActive(post: WPPost, now = new Date()): boolean {
+  if (!post.notice || Number.isNaN(now.getTime())) return false;
+  return post.notice.startsAt <= now && now < post.notice.expiresAt;
 }

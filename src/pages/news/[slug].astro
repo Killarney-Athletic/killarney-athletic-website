@@ -31,6 +31,14 @@ const postUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://www.killarney
           {post.date.toLocaleDateString('en-IE', { day: 'numeric', month: 'long', year: 'numeric' })}
         </time>
       </div>
+      {post.notice && (
+        <p slot="intro">
+          {post.notice.team} notice · Active from{' '}
+          <time datetime={post.notice.startsAt.toISOString()}>{post.notice.startsAt.toLocaleString('en-IE', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Europe/Dublin' })}</time>
+          {' '}until{' '}
+          <time datetime={post.notice.expiresAt.toISOString()}>{post.notice.expiresAt.toLocaleString('en-IE', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Europe/Dublin' })}</time>
+        </p>
+      )}
     </PageHeader>
 
     <div class="notice-page__content" set:html={post.content} />

@@ -1,0 +1,105 @@
+---
+import { Bell, CalendarDays } from '@lucide/astro';
+import type { WPPost } from '../utils/wpParser';
+import { withBase } from '../utils/paths';
+
+interface Props {
+  notices: WPPost[];
+}
+
+const { notices } = Astro.props as Props;
+const renderTime = new Date();
+const hasActiveNotice = notices.some((post) => post.notice && post.notice.startsAt <= renderTime && renderTime < post.notice.expiresAt);
+const formatDate = (date: Date) => date.toLocaleString('en-IE', {
+  dateStyle: 'medium',
+  timeStyle: 'short',
+  timeZone: 'Europe/Dublin',
+});
+---
+
+{notices.length > 0 && (
+  <section class="active-notices" aria-labelledby="active-notices-heading" data-active-notices hidden={!hasActiveNotice}>
+    <div class="page-shell active-notices__inner">
+      <div class="active-notices__heading">
+        <Bell aria-hidden="true" size={21} stroke-width={2.25} />
+        <div>
+          <p class="eyebrow">Current club information</p>
+          <h2 id="active-notices-heading">Team notices</h2>
+        </div>
+      </div>
+      <div class="active-notices__list">
+        {notices.map((post) => (
+          <article
+            class="active-notice"
+            data-active-notice
+            data-starts-at={post.notice?.startsAt.toISOString()}
+            data-expires-at={post.notice?.expiresAt.toISOString()}
+            hidden={post.notice ? !(post.notice.startsAt <= renderTime && renderTime < post.notice.expiresAt) : true}
+          >
+            <p class="active-notice__team">{post.notice?.team}</p>
+            <h3><a href={withBase(`/news/${post.slug}/`)}>{post.title}</a></h3>
+            <p>{post.excerpt}</p>
+            {post.notice && (
+              <p class="active-notice__timing">
+                <CalendarDays aria-hidden="true" size={16} stroke-width={2} />
+                <span>Active until <time datetime={post.notice.expiresAt.toISOString()}>{formatDate(post.notice.expiresAt)}</time></span>
+              </p>
+            )}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<script>
+  const noticeSections = document.querySelectorAll<HTMLElement>('[data-active-notices]');
+
+  noticeSections.forEach((section) => {
+    const notices = Array.from(section.querySelectorAll<HTMLElement>('[data-active-notice]'));
+    let timer: number | undefined;
+
+    const updateNotices = () => {
+      const now = Date.now();
+      const futureBoundaries: number[] = [];
+      let visibleCount = 0;
+
+      notices.forEach((notice) => {
+        const startsAt = Date.parse(notice.dataset.startsAt ?? '');
+        const expiresAt = Date.parse(notice.dataset.expiresAt ?? '');
+        const isActive = Number.isFinite(startsAt) && Number.isFinite(expiresAt) && startsAt <= now && now < expiresAt;
+        notice.hidden = !isActive;
+        if (isActive) visibleCount += 1;
+        if (startsAt > now) futureBoundaries.push(startsAt);
+        if (expiresAt > now) futureBoundaries.push(expiresAt);
+      });
+
+      section.hidden = visibleCount === 0;
+      if (timer) window.clearTimeout(timer);
+      const nextBoundary = Math.min(...futureBoundaries);
+      if (Number.isFinite(nextBoundary)) {
+        timer = window.setTimeout(updateNotices, Math.min(nextBoundary - now + 50, 2_147_483_647));
+      }
+    };
+
+    updateNotices();
+  });
+</script>
+
+<style>
+  .active-notices { color: white; background: var(--brand-navy); }
+  .active-notices__inner { display: grid; grid-template-columns: minmax(180px, .38fr) 1fr; gap: clamp(1.5rem, 4vw, 3.5rem); padding-block: clamp(1.5rem, 4vw, 2.5rem); }
+  .active-notices__heading { display: flex; align-items: flex-start; gap: .75rem; }
+  .active-notices__heading > svg { margin-top: .15rem; }
+  .active-notices__heading p, .active-notices__heading h2 { margin: 0; }
+  .active-notices__heading h2 { margin-top: .25rem; font-size: clamp(1.35rem, 2vw, 1.75rem); }
+  .active-notices__list { display: grid; gap: .8rem; }
+  .active-notice { padding: 1rem 1.1rem; border: 1px solid rgb(255 255 255 / 18%); border-radius: var(--card-radius-feature); background: rgb(255 255 255 / 8%); }
+  .active-notice h3 { margin: .2rem 0 .4rem; font-size: 1.12rem; }
+  .active-notice h3 a { text-decoration: none; }
+  .active-notice h3 a:hover, .active-notice h3 a:focus-visible { text-decoration: underline; text-underline-offset: .18em; }
+  .active-notice > p { margin: .25rem 0; color: rgb(255 255 255 / 82%); }
+  .active-notice__team { color: white !important; font-size: .75rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
+  .active-notice__timing { display: flex; align-items: center; gap: .45rem; margin-top: .65rem !important; font-size: .8rem; }
+  @media (max-width: 700px) { .active-notices__inner { grid-template-columns: 1fr; } }
+</style>

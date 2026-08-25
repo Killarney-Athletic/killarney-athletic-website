@@ -10,6 +10,7 @@
     "build": "npm run sync:kdl && astro build",
     "sync:kdl": "tsx scripts/sync-kdl.ts",
     "postbuild": "node scripts/clean-appledouble.mjs",
+    "test": "tsx --test tests/*.test.ts",
     "preview": "astro preview",
     "astro": "astro"
   },

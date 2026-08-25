@@ -42,3 +42,18 @@ Repository administrators must select **GitHub Actions** as the publishing sourc
 | `npm run sync:kdl` | Refresh `public/data/kdl.json` |
 | `npm run build` | Refresh data and build the static site |
 | `npm run preview` | Preview the latest production build |
+
+## Email-to-WordPress team notice pilot
+
+The pilot uses the WordPress plugin in `integrations/wordpress/ka-team-notices/`. It polls the existing Titan mailbox over IMAP, checks email authentication and sender/team permissions, prevents duplicates, publishes timed notices, and requests a GitHub Pages rebuild.
+
+The Astro frontend reads the public `team`, `starts_at` and `expires_at` post metadata and promotes only notices active at build time. Expired notices remain in the News archive. Private sender and source-message audit values stay inside WordPress.
+
+### Pilot setup order
+
+1. Install and configure the WordPress plugin using its README.
+2. Confirm PHP IMAP is available and add the mailbox and GitHub credentials to `wp-config.php`.
+3. Configure the approved manager/team mapping and test with **Check mailbox now**.
+4. Merge the repository-dispatch workflow change to `main`.
+5. Configure a Blacknight scheduled task for reliable one-minute WP-Cron checks.
+6. Send a notice from the configured test manager and confirm WordPress publication, GitHub Pages deployment and automatic expiry.
