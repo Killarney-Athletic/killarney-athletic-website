@@ -19,37 +19,42 @@ const officers = [
     variant: 'confirmed' as const,
   },
   {
-    name: 'Cian Breen',
-    role: 'Secretary',
-    variant: 'pending' as const,
+    name: 'Damien McCormick',
+    role: 'Vice Chair',
   },
   {
-    name: 'To be confirmed',
-    role: 'Vice-Chairperson',
-    variant: 'pending' as const,
-  },
-  {
-    name: 'To be confirmed',
-    role: 'Schoolboys/girls Fixtures Secretary',
-    variant: 'pending' as const,
-  },
-  {
-    name: 'To be confirmed',
-    role: 'Treasurer',
-    variant: 'pending' as const,
-  },
-  {
-    name: 'To be confirmed',
+    name: 'Lisa Crowley',
     role: 'Child Welfare Officer',
-    variant: 'pending' as const,
+  },
+  {
+    name: 'Cian Breen',
+    role: 'Senior Secretary',
+  },
+  {
+    name: 'Martin Muldoon',
+    role: 'Junior Secretary',
+  },
+  {
+    name: "Diarmaid O'Mahony",
+    role: 'Committee',
+  },
+  {
+    name: "Michael O'Shea",
+    role: 'Committee',
+  },
+  {
+    name: 'Con Clifford',
+    role: 'Committee',
+  },
+  {
+    name: "Paudie O'Connor",
+    role: 'Committee',
+  },
+  {
+    name: 'JP Mullins',
+    role: 'Committee',
   },
 ];
-
-const boardMembers = [{
-  name: 'To be confirmed',
-  role: 'Board member',
-  variant: 'pending' as const,
-}];
 ---
 
 <Layout
@@ -72,18 +77,9 @@ const boardMembers = [{
     </PageHeader>
 
     <PagePanel class="officer-section">
-      <SectionHeader slot="header" title="Committee" intro="Current club officers and committee roles. Remaining appointments will be added once confirmed." id="committee-heading" />
+      <SectionHeader slot="header" title="Committee" intro="Current club officers and committee members." id="committee-heading" />
       <div class="officers-grid">
         {officers.map((person) => (
-          <OfficerCard {...person} />
-        ))}
-      </div>
-    </PagePanel>
-
-    <PagePanel class="officer-section">
-      <SectionHeader slot="header" title="Board Members" id="board-heading" />
-      <div class="officers-grid">
-        {boardMembers.map((person) => (
           <OfficerCard {...person} />
         ))}
       </div>

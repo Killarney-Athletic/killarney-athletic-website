@@ -7,7 +7,26 @@ const REQUEST_TIMEOUT_MS = 8_000;
 const POSTS_CACHE_PATH = resolve(process.cwd(), '.cache/wp-posts-cache.json');
 const MAX_POSTS = 100;
 
-type CachedWPPost = Omit<WPPost, 'date'> & { date: string };
+type CachedNotice = {
+  team: string;
+  startsAt: string;
+  expiresAt: string;
+};
+
+type CachedWPPost = Omit<WPPost, 'date' | 'notice'> & {
+  date: string;
+  notice?: CachedNotice;
+};
+
+function isCachedNotice(value: unknown): value is CachedNotice {
+  if (!value || typeof value !== 'object') return false;
+  const notice = value as Partial<CachedNotice>;
+  return typeof notice.team === 'string'
+    && typeof notice.startsAt === 'string'
+    && !Number.isNaN(Date.parse(notice.startsAt))
+    && typeof notice.expiresAt === 'string'
+    && !Number.isNaN(Date.parse(notice.expiresAt));
+}
 
 function isCachedPost(value: unknown): value is CachedWPPost {
   if (!value || typeof value !== 'object') return false;
@@ -16,7 +35,8 @@ function isCachedPost(value: unknown): value is CachedWPPost {
     && typeof post.title === 'string'
     && typeof post.content === 'string'
     && typeof post.date === 'string'
-    && !Number.isNaN(Date.parse(post.date));
+    && !Number.isNaN(Date.parse(post.date))
+    && (post.notice === undefined || isCachedNotice(post.notice));
 }
 
 async function writePostsCache(posts: WPPost[]): Promise<void> {
@@ -30,7 +50,15 @@ async function readPostsCache(): Promise<WPPost[]> {
     throw new Error('The WordPress last-known-good cache is empty or invalid.');
   }
 
-  return cached.map((post) => ({ ...post, date: new Date(post.date) }));
+  return cached.map((post) => ({
+    ...post,
+    date: new Date(post.date),
+    notice: post.notice ? {
+      ...post.notice,
+      startsAt: new Date(post.notice.startsAt),
+      expiresAt: new Date(post.notice.expiresAt),
+    } : undefined,
+  }));
 }
 
 export class WordPressError extends Error {
