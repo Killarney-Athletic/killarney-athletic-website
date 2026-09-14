@@ -28,6 +28,7 @@ import TabGroup from '../components/ui/TabGroup.astro';
 import TeamInfoCard from '../components/TeamInfoCard.astro';
 import TeamSwitcher from '../components/TeamSwitcher.astro';
 import clubhouseImage from '../assets/images/backgrounds/Clubhouse.jpg';
+import joinTheClubImage from '../assets/images/backgrounds/JoinTheClub.png';
 import pitchImage from '../assets/images/backgrounds/pitch.jpg';
 import harringtonEraTeamImage from '../assets/images/history/harrington-era-team.jpg';
 import registrationImage from '../assets/images/backgrounds/registration.png';
@@ -876,6 +877,7 @@ const contentBadgeExamples = [
 
   <ImageCtaSection
     id="ui-kit-membership"
+    layout="hero"
     eyebrow="CTA section"
     title="Membership and registration"
     description="Reusable image-backed call-to-action section using the club gradient and standard button."
@@ -883,7 +885,7 @@ const contentBadgeExamples = [
     href={CLUB_LINKS.clubforce.membership}
     target="_blank"
     rel="noopener noreferrer"
-    background={clubhouseImage}
+    background={joinTheClubImage}
   />
 
   <script>

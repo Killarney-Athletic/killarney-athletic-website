@@ -13,7 +13,7 @@ import { isTournamentSeason, tournamentPath } from '../lib/tournament';
 import pitchImage from '../assets/images/backgrounds/pitch.jpg';
 import summerCampsImage from '../assets/images/backgrounds/SummerCamps.png';
 import summerCampLogoUrl from '../assets/images/backgrounds/SummerCampLogo.svg?url';
-import clubhouseImage from '../assets/images/backgrounds/membership.png';
+import joinTheClubImage from '../assets/images/backgrounds/JoinTheClub.png';
 import registrationHeroImageUrl from '../assets/images/backgrounds/registration.png?url';
 import membershipPlayerImageUrl from '../assets/images/backgrounds/membership.png?url';
 import clubCrestWhiteUrl from '../assets/images/brand/Club Crest White.svg?url';
@@ -64,7 +64,7 @@ const tournamentIsActive = isTournamentSeason();
   <HeroSection
     variant="registration"
     eyebrow="Registration open · 2026/27"
-    title="Join Killarney Athletic"
+    title={'Join\u00A0Killarney Athletic\u00A0A.F.C.'}
     background={registrationHeroImageUrl}
     overlayImage={membershipPlayerImageUrl}
   >
@@ -147,6 +147,7 @@ const tournamentIsActive = isTournamentSeason();
 
   <ImageCtaSection
     id="membership"
+    layout="hero"
     eyebrow="Be part of the club"
     title="Membership and registration"
     description="Register online through the club’s official Clubforce membership page."
@@ -154,6 +155,6 @@ const tournamentIsActive = isTournamentSeason();
     href={CLUB_LINKS.clubforce.membership}
     target="_blank"
     rel="noopener noreferrer"
-    background={clubhouseImage}
+    background={joinTheClubImage}
   />
 </Layout>
