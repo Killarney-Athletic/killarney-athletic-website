@@ -1,9 +1,12 @@
 ---
+import { CalendarDays, MapPin } from '@lucide/astro';
 import clubCrestUrl from '../assets/images/brand/Club Crest White.svg?url';
+import { withBase } from '../utils/paths';
 
 interface Props {
   matchId?: string;
   isHomeMatch?: boolean;
+  score?: string;
   label: string;
   homeTeam?: string;
   awayTeam?: string;
@@ -14,7 +17,7 @@ interface Props {
 
 const {
   matchId,
-  isHomeMatch = true,
+  score,
   label,
   homeTeam = 'Killarney Athletic',
   awayTeam = 'Opponent TBC',
@@ -22,28 +25,77 @@ const {
   date = 'Date and time to be confirmed',
   venue = 'Venue to be confirmed',
 } = Astro.props as Props;
+
+const isAthletic = (team: string) => /killarney\s+athletic(?:\s+a\.?f\.?c\.?)?/i.test(team);
+const slugify = (team: string) => team
+  .toLowerCase()
+  .replace(/&/g, 'and')
+  .replace(/[’']/g, '')
+  .replace(/[^a-z0-9]+/g, '-')
+  .replace(/^-|-$/g, '');
+const opponent = isAthletic(homeTeam) ? awayTeam : homeTeam;
+const opponentSlug = slugify(opponent);
+const opponentColours: Record<string, string> = {
+  'ballyheigue-athletic-fc': '#078b21',
+  'castleisland-afc': '#56aeda',
+  'classic-fc': '#bd242c',
+  'killarney-celtic-fc': '#08723e',
+  'killorglin-afc': '#242650',
+  'listowel-celtic-afc': '#087c5c',
+  'mastergeeha-fc': '#5874ad',
+  'st-brendans-park-fc': '#d92830',
+  'tralee-dynamos': '#b31f2b',
+};
+const opponentColour = opponentColours[opponentSlug] ?? '#344054';
+const displayScore = score?.replace(/\s*[-–]\s*/, ' – ');
+const homeIsAthletic = isAthletic(homeTeam);
+const gradientStyle = homeIsAthletic
+  ? `--team-left-colour: var(--brand-navy); --team-right-colour: ${opponentColour}`
+  : `--team-left-colour: ${opponentColour}; --team-right-colour: var(--brand-navy)`;
+const crestFor = (team: string) => {
+  if (isAthletic(team)) return clubCrestUrl;
+  return opponentColours[slugify(team)] ? withBase(`/images/team-crests/${slugify(team)}.png`) : null;
+};
+const displayName = (team: string) => {
+  if (isAthletic(team)) return ['Killarney', 'Athletic A.F.C.'];
+  if (team.length <= 18 || !team.includes(' ')) return [team];
+  const words = team.split(/\s+/);
+  let bestBreak = 1;
+  let smallestDifference = Number.POSITIVE_INFINITY;
+  for (let index = 1; index < words.length; index += 1) {
+    const firstLineLength = words.slice(0, index).join(' ').length;
+    const difference = Math.abs(firstLineLength - team.length / 2);
+    if (difference < smallestDifference) {
+      bestBreak = index;
+      smallestDifference = difference;
+    }
+  }
+  return [words.slice(0, bestBreak).join(' '), words.slice(bestBreak).join(' ')];
+};
 ---
 
 <article class="fixture-card" data-match-id={matchId}>
-  <div class="fixture-card__teams">
+  <div class="fixture-card__teams" style={gradientStyle}>
     <div class="fixture-team">
-      <span class:list={['fixture-team__crest', { 'fixture-team__crest--tbc': !isHomeMatch }]} aria-hidden="true">
-        {isHomeMatch ? <img src={clubCrestUrl} alt="" width="46" height="68" /> : '?'}
+      <span class:list={['fixture-team__crest', { 'fixture-team__crest--tbc': !crestFor(homeTeam) }]} aria-hidden="true">
+        {crestFor(homeTeam) ? <img src={crestFor(homeTeam)} alt="" width="64" height="64" /> : '?'}
       </span>
-      <strong>{homeTeam}</strong>
+      <strong>{displayName(homeTeam).map((line) => <span>{line}</span>)}</strong>
     </div>
-    <span class="fixture-card__versus" aria-label="versus">VS</span>
+    <span class:list={['fixture-card__versus', { 'fixture-card__score': displayScore }]} aria-label={displayScore ? `Final score ${displayScore}` : 'versus'}>
+      {displayScore ?? 'vs'}
+    </span>
     <div class="fixture-team">
-      <span class:list={['fixture-team__crest', { 'fixture-team__crest--tbc': isHomeMatch }]} aria-hidden="true">
-        {isHomeMatch ? '?' : <img src={clubCrestUrl} alt="" width="46" height="68" />}
+      <span class:list={['fixture-team__crest', { 'fixture-team__crest--tbc': !crestFor(awayTeam) }]} aria-hidden="true">
+        {crestFor(awayTeam) ? <img src={crestFor(awayTeam)} alt="" width="64" height="64" /> : '?'}
       </span>
-      <strong>{awayTeam}</strong>
+      <strong>{displayName(awayTeam).map((line) => <span>{line}</span>)}</strong>
     </div>
   </div>
   <div class="fixture-card__details">
     <p class="fixture-card__type">Football · {label}</p>
     <h3>{competition}</h3>
-    <p class="fixture-card__date"><span aria-hidden="true">▣</span> {date}</p>
-    <p class="fixture-card__venue"><span aria-hidden="true">⌖</span> {venue}</p>
+    <p class="fixture-card__date"><CalendarDays aria-hidden="true" size={17} stroke-width={1.8} /> {date}</p>
+    <p class="fixture-card__venue"><MapPin aria-hidden="true" size={17} stroke-width={1.8} /> {venue}</p>
   </div>
 </article>
