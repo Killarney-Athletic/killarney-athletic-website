@@ -607,15 +607,24 @@ const contentBadgeExamples = [
       </PagePanel>
 
       <PagePanel>
-        <SectionHeader slot="header" title="Fixture card" intro="A specialised match card with a branded team panel and a separate details panel." />
+        <SectionHeader slot="header" title="Fixture cards" intro="Upcoming matches use ‘vs’; completed matches replace it with the final score." />
         <div class="ui-kit-fixture-card-demo">
           <FixtureCard
-            label="Senior fixture"
-            homeTeam="Killarney Athletic"
-            awayTeam="Opponent TBC"
+            label="Upcoming fixture"
+            homeTeam="Killarney Athletic AFC"
+            awayTeam="Tralee Dynamos"
             competition="KDL Premier A"
-            date="Sunday, 3:00 pm"
-            venue="Killarney Athletic Park, Woodlawn"
+            date="Sunday, 10 June · 3:00 pm"
+            venue="Killarney Athletic Park"
+          />
+          <FixtureCard
+            score="3–1"
+            label="Full time"
+            homeTeam="Killarney Athletic AFC"
+            awayTeam="St. Brendan’s Park FC"
+            competition="KDL Premier A"
+            date="Sunday, 2 June · 12:00 pm"
+            venue="Killarney Athletic Park"
           />
         </div>
       </PagePanel>

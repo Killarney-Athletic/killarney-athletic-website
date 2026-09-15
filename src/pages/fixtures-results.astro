@@ -25,10 +25,13 @@ try {
 }
 const formatDate = (value: string) => {
   const date = new Date(value);
-  return Number.isNaN(date.getTime()) ? value : date.toLocaleDateString('en-IE', { weekday: 'short', day: 'numeric', month: 'short' });
+  if (Number.isNaN(date.getTime())) return value;
+  const day = date.toLocaleDateString('en-IE', { weekday: 'long', day: 'numeric', month: 'long' });
+  const time = date.toLocaleTimeString('en-IE', { hour: 'numeric', minute: '2-digit', hour12: true }).toLowerCase().replaceAll('.', '');
+  return `${day} · ${time}`;
 };
 const matchLabel = (match: KDLMatch) =>
-  match.status === 'FULL_TIME' ? 'Full time · ' + match.score.raw : match.status === 'POSTPONED' ? 'Postponed' : formatDate(match.date);
+  match.status === 'FULL_TIME' ? 'Full time' : match.status === 'POSTPONED' ? 'Postponed' : 'Upcoming fixture';
 const updatedAt = new Date(kdlData.timestamp).getTime() > 0
   ? 'Updated ' + new Date(kdlData.timestamp).toLocaleString('en-IE', { dateStyle: 'medium', timeStyle: 'short' })
   : 'Awaiting the latest KDL update';
@@ -51,7 +54,7 @@ const updatedAt = new Date(kdlData.timestamp).getTime() > 0
       <SectionHeader title="Latest results" id="latest-results-heading" />
       <div class="match-grid" data-kdl-results>
         {kdlData.data.latestResults.length ? kdlData.data.latestResults.map((match) => (
-          <FixtureCard matchId={match.id} isHomeMatch={match.isHomeMatch} label={matchLabel(match)} homeTeam={match.homeTeam} awayTeam={match.awayTeam} competition={match.competition} date={formatDate(match.date)} venue={match.ground} />
+          <FixtureCard matchId={match.id} isHomeMatch={match.isHomeMatch} score={match.score.raw} label={matchLabel(match)} homeTeam={match.homeTeam} awayTeam={match.awayTeam} competition={match.competition} date={formatDate(match.date)} venue={match.ground} />
         )) : <p class="kdl-empty">No recent results are available.</p>}
       </div>
     </section>
@@ -101,17 +104,55 @@ const updatedAt = new Date(kdlData.timestamp).getTime() > 0
     const escapeHtml = (value: unknown) => String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[char] ?? char);
     const formatDate = (value: string) => {
       const date = new Date(value);
-      return Number.isNaN(date.getTime()) ? value : date.toLocaleDateString('en-IE', { weekday: 'short', day: 'numeric', month: 'short' });
+      if (Number.isNaN(date.getTime())) return value;
+      const day = date.toLocaleDateString('en-IE', { weekday: 'long', day: 'numeric', month: 'long' });
+      const time = date.toLocaleTimeString('en-IE', { hour: 'numeric', minute: '2-digit', hour12: true }).toLowerCase().replaceAll('.', '');
+      return `${day} · ${time}`;
     };
-    const labelFor = (match: any) => match.status === 'FULL_TIME' ? 'Full time · ' + match.score.raw : match.status === 'POSTPONED' ? 'Postponed' : formatDate(match.date);
+    const labelFor = (match: any) => match.status === 'FULL_TIME' ? 'Full time' : match.status === 'POSTPONED' ? 'Postponed' : 'Upcoming fixture';
     const toCrestUrl = (source: string | null) => source?.startsWith('/') ? import.meta.env.BASE_URL.replace(/\/$/, '') + source : source;
-    const teamMarkup = (name: string, isAthletic: boolean) => '<div class="fixture-team"><span class="fixture-team__crest' + (isAthletic ? '' : ' fixture-team__crest--tbc') + '" aria-hidden="true">' + (isAthletic ? '<img src="' + escapeHtml(clubCrest) + '" alt="" width="46" height="68">' : '?') + '</span><strong>' + escapeHtml(name) + '</strong></div>';
+    const slugify = (value: string) => value.toLowerCase().replace(/&/g, 'and').replace(/[’']/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    const opponentColours: Record<string, string> = {
+      'ballyheigue-athletic-fc': '#078b21', 'castleisland-afc': '#56aeda', 'classic-fc': '#bd242c',
+      'killarney-celtic-fc': '#08723e', 'killorglin-afc': '#242650', 'listowel-celtic-afc': '#087c5c',
+      'mastergeeha-fc': '#5874ad', 'st-brendans-park-fc': '#d92830', 'tralee-dynamos': '#b31f2b',
+    };
+    const isAthletic = (name: string) => /killarney\s+athletic(?:\s+a\.?f\.?c\.?)?/i.test(name);
+    const displayName = (name: string) => {
+      if (isAthletic(name)) return ['Killarney', 'Athletic A.F.C.'];
+      if (name.length <= 18 || !name.includes(' ')) return [name];
+      const words = name.split(/\s+/);
+      let bestBreak = 1;
+      let smallestDifference = Number.POSITIVE_INFINITY;
+      for (let index = 1; index < words.length; index += 1) {
+        const firstLineLength = words.slice(0, index).join(' ').length;
+        const difference = Math.abs(firstLineLength - name.length / 2);
+        if (difference < smallestDifference) { bestBreak = index; smallestDifference = difference; }
+      }
+      return [words.slice(0, bestBreak).join(' '), words.slice(bestBreak).join(' ')];
+    };
+    const teamMarkup = (name: string) => {
+      const athletic = isAthletic(name);
+      const slug = slugify(name);
+      const crest = athletic ? clubCrest : (opponentColours[slug] ? toCrestUrl('/images/team-crests/' + slug + '.png') : null);
+      const teamName = displayName(name).map((line) => '<span>' + escapeHtml(line) + '</span>').join('');
+      return '<div class="fixture-team"><span class="fixture-team__crest' + (crest ? '' : ' fixture-team__crest--tbc') + '" aria-hidden="true">' +
+        (crest ? '<img src="' + escapeHtml(crest) + '" alt="" width="64" height="64">' : '?') + '</span><strong>' + teamName + '</strong></div>';
+    };
+    const calendarIcon = '<svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg>';
+    const locationIcon = '<svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
     const matchMarkup = (match: any) => {
-      const homeIsAthletic = /killarney athletic/i.test(match.homeTeam);
-      const awayIsAthletic = /killarney athletic/i.test(match.awayTeam);
-      return '<article class="fixture-card" data-match-id="' + escapeHtml(match.id) + '"><div class="fixture-card__teams">' +
-        teamMarkup(match.homeTeam, homeIsAthletic) + '<span class="fixture-card__versus" aria-label="versus">VS</span>' + teamMarkup(match.awayTeam, awayIsAthletic) +
-        '</div><div class="fixture-card__details"><p class="fixture-card__type">Football · ' + escapeHtml(labelFor(match)) + '</p><h3>' + escapeHtml(match.competition) + '</h3><p class="fixture-card__date"><span aria-hidden="true">▣</span> ' + escapeHtml(formatDate(match.date)) + '</p><p class="fixture-card__venue"><span aria-hidden="true">⌖</span> ' + escapeHtml(match.ground) + '</p></div></article>';
+      const opponent = isAthletic(match.homeTeam) ? match.awayTeam : match.homeTeam;
+      const opponentColour = opponentColours[slugify(opponent)] ?? '#344054';
+      const gradientStyle = isAthletic(match.homeTeam)
+        ? '--team-left-colour:var(--brand-navy);--team-right-colour:' + opponentColour
+        : '--team-left-colour:' + opponentColour + ';--team-right-colour:var(--brand-navy)';
+      const centre = match.status === 'FULL_TIME'
+        ? '<span class="fixture-card__versus fixture-card__score" aria-label="Final score ' + escapeHtml(match.score.raw) + '">' + escapeHtml(match.score.raw.replace(/\s*[-–]\s*/, ' – ')) + '</span>'
+        : '<span class="fixture-card__versus" aria-label="versus">vs</span>';
+      return '<article class="fixture-card" data-match-id="' + escapeHtml(match.id) + '"><div class="fixture-card__teams" style="' + escapeHtml(gradientStyle) + '">' +
+        teamMarkup(match.homeTeam) + centre + teamMarkup(match.awayTeam) +
+        '</div><div class="fixture-card__details"><p class="fixture-card__type">Football · ' + escapeHtml(labelFor(match)) + '</p><h3>' + escapeHtml(match.competition) + '</h3><p class="fixture-card__date">' + calendarIcon + escapeHtml(formatDate(match.date)) + '</p><p class="fixture-card__venue">' + locationIcon + escapeHtml(match.ground) + '</p></div></article>';
     };
     const renderMatches = (target: HTMLElement | null, rows: any[], empty: string) => {
       if (target) target.innerHTML = rows.length ? rows.map(matchMarkup).join('') : '<p class="kdl-empty">' + empty + '</p>';
