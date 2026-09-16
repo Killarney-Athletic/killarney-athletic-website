@@ -34,7 +34,13 @@ import clubCrestWhiteUrl from '../assets/images/brand/Club Crest White.svg?url';
     const one = <T extends HTMLElement>(selector: string) => root?.querySelector<T>(selector) ?? null;
     const text = (selector: string, value: unknown) => { const element = one(selector); if (element) element.textContent = String(value ?? ''); };
     const formatDate = (value: string) => new Intl.DateTimeFormat('en-IE', { timeZone: 'Europe/Dublin', weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true }).format(new Date(value)).replace(' at ', ', ').replace('a.m.', 'am').replace('p.m.', 'pm');
-    const crest = (selector: string, source: string | null) => { const image = one<HTMLImageElement>(selector); if (!image) return; image.hidden = !source; if (source) image.src = source.startsWith('/') ? import.meta.env.BASE_URL.replace(/\/$/, '') + source : source; };
+    const crest = (selector: string, source: string | null) => {
+      const image = one<HTMLImageElement>(selector); if (!image) return;
+      image.hidden = !source;
+      if (!source) return;
+      const base = import.meta.env.BASE_URL;
+      image.src = source.startsWith(base) || !source.startsWith('/') ? source : `${base.replace(/\/$/, '')}${source}`;
+    };
     const renderLineup = (selector: string, lineup: any, events: any[], side: 'home' | 'away') => {
       const container = one(selector); if (!container) return; container.replaceChildren();
       if (!lineup) return;
