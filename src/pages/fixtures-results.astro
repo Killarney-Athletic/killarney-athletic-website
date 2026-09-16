@@ -65,12 +65,12 @@ const updatedAt = new Intl.DateTimeFormat('en-IE', { dateStyle: 'medium', timeSt
     const heading = document.querySelector<HTMLElement>('[data-table-heading]');
     const matchesContext = document.querySelector<HTMLElement>('[data-matches-context]');
     const live = document.querySelector<HTMLElement>('[data-live]');
-    const reset = () => {
+    const reset = (behavior: ScrollBehavior = 'smooth') => {
       const team = filter?.value ?? 'all';
       if (matchesContext) matchesContext.textContent = team === 'all' ? 'All teams' : filter?.selectedOptions[0]?.textContent?.trim() || 'Selected team';
       items.forEach((item) => item.hidden = team !== 'all' && item.dataset.team !== team);
       const visibleItems = items.filter((item) => !item.hidden); const present = visibleItems.find((item) => item.dataset.status === 'future') ?? visibleItems.at(-1);
-      if (carousel && present) requestAnimationFrame(() => carousel.scrollTo({ left: Math.max(0, present.offsetLeft - (carousel.clientWidth - present.offsetWidth) / 2), behavior: 'smooth' }));
+      if (carousel && present) requestAnimationFrame(() => carousel.scrollTo({ left: Math.max(0, present.offsetLeft - (carousel.clientWidth - present.offsetWidth) / 2), behavior }));
       let shown = false;
       const firstCompetition = items.find((item) => !item.hidden)?.dataset.competition;
       const preferred = tables.find((table) => team !== 'all' && table.dataset.competition === firstCompetition) ?? tables.find((table) => team !== 'all' && (table.dataset.teamIds ?? '').split(',').includes(team));
@@ -78,11 +78,23 @@ const updatedAt = new Intl.DateTimeFormat('en-IE', { dateStyle: 'medium', timeSt
       if (empty) { empty.hidden = shown; empty.textContent = team === 'all' ? 'Select a team to see its current league table.' : 'No published league table is available for this team.'; }
       if (live) live.textContent = `${visibleItems.length} matches shown. Returned to the current point in the schedule.`;
     };
-    filter?.addEventListener('change', reset);
-    document.querySelector('[data-carousel-prev]')?.addEventListener('click', () => carousel?.scrollBy({ left: -(carousel.clientWidth || 300), behavior: 'smooth' }));
-    document.querySelector('[data-carousel-next]')?.addEventListener('click', () => carousel?.scrollBy({ left: carousel.clientWidth || 300, behavior: 'smooth' }));
-    document.querySelector('[data-refresh]')?.addEventListener('click', () => { if (filter) filter.value = 'all'; reset(); if (live) live.textContent = 'View refreshed and returned to the current point in the schedule.'; });
-    reset();
+    const moveCarousel = (direction: -1 | 1) => {
+      if (!carousel) return;
+      const visibleItems = items.filter((item) => !item.hidden);
+      const currentCentre = carousel.scrollLeft + carousel.clientWidth / 2;
+      const currentIndex = visibleItems.reduce((closest, item, index) => {
+        const itemCentre = item.offsetLeft + item.offsetWidth / 2;
+        const closestCentre = visibleItems[closest]?.offsetLeft + (visibleItems[closest]?.offsetWidth ?? 0) / 2;
+        return Math.abs(itemCentre - currentCentre) < Math.abs(closestCentre - currentCentre) ? index : closest;
+      }, 0);
+      const target = visibleItems[Math.max(0, Math.min(visibleItems.length - 1, currentIndex + direction))];
+      if (target) carousel.scrollTo({ left: Math.max(0, target.offsetLeft - (carousel.clientWidth - target.offsetWidth) / 2), behavior: 'smooth' });
+    };
+    filter?.addEventListener('change', () => reset('smooth'));
+    document.querySelector('[data-carousel-prev]')?.addEventListener('click', () => moveCarousel(-1));
+    document.querySelector('[data-carousel-next]')?.addEventListener('click', () => moveCarousel(1));
+    document.querySelector('[data-refresh]')?.addEventListener('click', () => { reset('auto'); if (live) live.textContent = `${filter?.selectedOptions[0]?.textContent?.trim() || 'All teams'} refreshed and returned to the next match.`; });
+    reset('auto');
   </script>
 </Layout>
 

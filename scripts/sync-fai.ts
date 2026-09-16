@@ -59,6 +59,7 @@ export const dublinOffsetMinutes = (date = new Date()) => {
   const match = zone.match(/GMT([+-])(\d{2}):?(\d{2})?/);
   if (!match) return 0;
   const minutes = Number(match[2]) * 60 + Number(match[3] ?? 0);
+  if (minutes === 0) return 0;
   return (match[1] === '+' ? -1 : 1) * minutes;
 };
 

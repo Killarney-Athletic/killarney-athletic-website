@@ -109,7 +109,10 @@ import clubCrestWhiteUrl from '../assets/images/brand/Club Crest White.svg?url';
           const row = rowForPosition(player.position ?? ''); const group = grouped.get(row) ?? []; const index = group.indexOf(player);
           const playerEvents = eventsFor(player, side); const descriptions = [player.captain ? 'captain' : '', playerEvents.goals ? `${playerEvents.goals} ${playerEvents.goals === 1 ? 'goal' : 'goals'}` : '', playerEvents.yellow ? 'yellow card' : '', playerEvents.red ? 'red card' : '', playerEvents.substitutedAt ? `substituted after ${playerEvents.substitutedAt}` : ''].filter(Boolean);
           const marker = document.createElement('div'); marker.className = `pitch-player pitch-player--${side}`; marker.setAttribute('role', 'listitem'); marker.setAttribute('aria-label', `${player.shirtNumber ?? ''} ${player.name}${descriptions.length ? `, ${descriptions.join(', ')}` : ''}, ${player.position ?? 'position not supplied'}`);
-          const y = side === 'home' ? [7,19,31,38,45][row] : [93,81,69,62,55][row]; const x = xForPosition(player.position ?? '', index, group.length);
+          const compactPitch = window.matchMedia('(max-width: 640px)').matches;
+          const homeRows = compactPitch ? [6,18,29,35,41] : [7,19,31,38,45];
+          const awayRows = compactPitch ? [94,82,71,65,59] : [93,81,69,62,55];
+          const y = side === 'home' ? homeRows[row] : awayRows[row]; const x = xForPosition(player.position ?? '', index, group.length);
           const hex = /^#[0-9a-f]{6}$/i.test(colour) ? colour.slice(1) : '52657d'; const rgb = [0, 2, 4].map((offset) => Number.parseInt(hex.slice(offset, offset + 2), 16)); const luminance = (rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000;
           marker.style.setProperty('--player-x', `${x}%`); marker.style.setProperty('--player-y', `${y}%`); marker.style.setProperty('--team-colour', colour); marker.style.setProperty('--team-ink', luminance > 165 ? '#101720' : '#fff');
           const circle = document.createElement('span'); circle.className = 'pitch-player__number'; circle.textContent = player.shirtNumber ?? '–';
@@ -139,6 +142,9 @@ import clubCrestWhiteUrl from '../assets/images/brand/Club Crest White.svg?url';
         const setMatchLink = (selector: string, target: any, label: string) => { const link = one<HTMLAnchorElement>(selector); if (!link || !target) return; link.hidden = false; link.href = `${import.meta.env.BASE_URL}match-centre/?match=${target.id}`; link.title = `${label}: ${target.homeTeam} vs ${target.awayTeam}`; };
         setMatchLink('[data-match-prev]', orderedMatches[matchIndex - 1], 'Previous match'); setMatchLink('[data-match-next]', orderedMatches[matchIndex + 1], 'Next match');
         text('[data-competition]', match.competition); text('[data-home-team]', match.homeTeam); text('[data-away-team]', match.awayTeam); text('[data-score]', match.score ?? 'vs'); text('[data-status]', match.status === 'past' ? 'Full time' : 'Upcoming fixture');
+        const scoreboard = one<HTMLElement>('.match-centre__scoreboard');
+        scoreboard?.style.setProperty('--team-left-colour', match.homeColour || (isAthletic(match.homeTeam) ? 'var(--brand-navy)' : '#52657d'));
+        scoreboard?.style.setProperty('--team-right-colour', match.awayColour || (isAthletic(match.awayTeam) ? 'var(--brand-navy)' : '#52657d'));
         const homeCrest = isAthletic(match.homeTeam) ? athleticCrest : match.homeCrest; const awayCrest = isAthletic(match.awayTeam) ? athleticCrest : match.awayCrest;
         const when = formatDate(match.date); text('[data-when]', when); text('[data-venue]', match.venue); crest('[data-home-crest]', homeCrest); crest('[data-away-crest]', awayCrest);
         text('[data-info-competition]', match.competition); text('[data-info-date]', when); text('[data-info-venue]', match.venue); text('[data-info-team]', match.teamLabel);
@@ -147,7 +153,11 @@ import clubCrestWhiteUrl from '../assets/images/brand/Club Crest White.svg?url';
         renderLineup('[data-home-lineup]', match.details?.homeLineup, matchEvents, 'home'); renderLineup('[data-away-lineup]', match.details?.awayLineup, matchEvents, 'away');
         renderPitch({ ...match, homeCrest, awayCrest });
         const noLineups = one('[data-no-lineups]'); if (noLineups) noLineups.hidden = Boolean(match.details?.homeLineup || match.details?.awayLineup);
-        const timeline = one<HTMLOListElement>('[data-timeline]'); const events = matchEvents; timeline?.replaceChildren();
+        const expectedScore = String(match.score ?? '').match(/(\d+)\D+(\d+)/);
+        const publishedGoalCount = matchEvents.filter((event: any) => /goal/i.test(event.type)).length;
+        const expectedGoalCount = expectedScore ? Number(expectedScore[1]) + Number(expectedScore[2]) : null;
+        const hasCompleteTimeline = match.status !== 'past' || (expectedGoalCount !== null && publishedGoalCount === expectedGoalCount);
+        const timeline = one<HTMLOListElement>('[data-timeline]'); const events = hasCompleteTimeline ? matchEvents : []; timeline?.replaceChildren();
         let homeGoals = 0; let awayGoals = 0; let halfTimeAdded = false;
         const periodRow = (label: string) => { const item = document.createElement('li'); item.className = 'timeline__period'; const name = document.createElement('strong'); name.textContent = label; const score = document.createElement('b'); score.textContent = `${homeGoals} – ${awayGoals}`; item.append(name, score); timeline?.append(item); };
         events.forEach((event: any) => {
@@ -168,7 +178,7 @@ import clubCrestWhiteUrl from '../assets/images/brand/Club Crest White.svg?url';
         });
         if (match.status === 'past' && events.length) { if (!halfTimeAdded) periodRow('HT'); periodRow('FT'); }
         const noEvents = one('[data-no-events]'); if (timeline) timeline.hidden = events.length === 0; if (noEvents) noEvents.hidden = events.length > 0;
-        if (!events.length) { const upcoming = match.status !== 'past'; text('[data-no-events-title]', upcoming ? 'Match information available after the final whistle' : 'No match events were published'); text('[data-no-events-detail]', upcoming ? 'Goals, cards and substitutions will appear here once the result is confirmed.' : 'The final score is available, but a detailed timeline was not supplied for this match.'); }
+        if (!events.length) { const upcoming = match.status !== 'past'; text('[data-no-events-title]', upcoming ? 'Match information available after the final whistle' : 'Complete match information is unavailable'); text('[data-no-events-detail]', upcoming ? 'Goals, cards and substitutions will appear here once the result is confirmed.' : 'The final score is available, but the published event information is incomplete.'); }
         const loading = one('[data-loading]'); const content = one('[data-content]'); if (loading) loading.hidden = true; if (content) content.hidden = false;
         document.title = `${match.homeTeam} vs ${match.awayTeam} | Match Centre`;
       } catch { showError('Match information could not be loaded. Please try again shortly.'); }
