@@ -1,0 +1,6 @@
+---
+interface Props { demo?: boolean; }
+const { demo = false } = Astro.props as Props;
+---
+<dl class="match-info"><div><dt>Competition</dt><dd data-info-competition>{demo ? 'Kerry District League Premier A' : ''}</dd></div><div><dt>Date and time</dt><dd data-info-date>{demo ? 'Sunday, 20 September, 1:00 pm' : ''}</dd></div><div><dt>Venue</dt><dd data-info-venue>{demo ? 'Woodlawn' : ''}</dd></div><div><dt>Team</dt><dd data-info-team>{demo ? 'Senior A' : ''}</dd></div></dl>
+<style>.match-info{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}.match-info div{padding:1rem;background:var(--card-background-muted);border-radius:.65rem}.match-info dt{color:var(--muted);font-size:.75rem;text-transform:uppercase}.match-info dd{margin:.35rem 0 0;font-weight:600}@media(max-width:640px){.match-info{grid-template-columns:1fr}}</style>

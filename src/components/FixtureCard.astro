@@ -13,6 +13,12 @@ interface Props {
   competition?: string;
   date?: string;
   venue?: string;
+  homeCrest?: string | null;
+  awayCrest?: string | null;
+  homeColour?: string;
+  awayColour?: string;
+  muted?: boolean;
+  href?: string;
 }
 
 const {
@@ -24,6 +30,12 @@ const {
   competition = 'Competition to be confirmed',
   date = 'Date and time to be confirmed',
   venue = 'Venue to be confirmed',
+  homeCrest,
+  awayCrest,
+  homeColour,
+  awayColour,
+  muted = false,
+  href,
 } = Astro.props as Props;
 
 const isAthletic = (team: string) => /killarney\s+athletic(?:\s+a\.?f\.?c\.?)?/i.test(team);
@@ -46,14 +58,14 @@ const opponentColours: Record<string, string> = {
   'st-brendans-park-fc': '#d92830',
   'tralee-dynamos': '#b31f2b',
 };
-const opponentColour = opponentColours[opponentSlug] ?? '#344054';
+const opponentColour = opponentColours[opponentSlug] ?? '#52657d';
 const displayScore = score?.replace(/\s*[-–]\s*/, ' – ');
 const homeIsAthletic = isAthletic(homeTeam);
-const gradientStyle = homeIsAthletic
-  ? `--team-left-colour: var(--brand-navy); --team-right-colour: ${opponentColour}`
-  : `--team-left-colour: ${opponentColour}; --team-right-colour: var(--brand-navy)`;
+const gradientStyle = `--team-left-colour: ${homeColour ?? (homeIsAthletic ? 'var(--brand-navy)' : opponentColour)}; --team-right-colour: ${awayColour ?? (!homeIsAthletic ? 'var(--brand-navy)' : opponentColour)}`;
 const crestFor = (team: string) => {
   if (isAthletic(team)) return clubCrestUrl;
+  if (team === homeTeam && homeCrest) return withBase(homeCrest);
+  if (team === awayTeam && awayCrest) return withBase(awayCrest);
   return opponentColours[slugify(team)] ? withBase(`/images/team-crests/${slugify(team)}.png`) : null;
 };
 const displayName = (team: string) => {
@@ -74,7 +86,8 @@ const displayName = (team: string) => {
 };
 ---
 
-<article class="fixture-card" data-match-id={matchId}>
+<article class:list={['fixture-card', { 'fixture-card--past': muted }]} data-match-id={matchId}>
+  {href && <a class="fixture-card__link" href={href} aria-label={`Open match centre for ${homeTeam} versus ${awayTeam}`}></a>}
   <div class="fixture-card__teams" style={gradientStyle}>
     <div class="fixture-team">
       <span class:list={['fixture-team__crest', { 'fixture-team__crest--tbc': !crestFor(homeTeam) }]} aria-hidden="true">

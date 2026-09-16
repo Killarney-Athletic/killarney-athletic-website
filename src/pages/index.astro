@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
-import FixtureCard from '../components/FixtureCard.astro';
 import ImageCtaSection from '../components/ImageCtaSection.astro';
 import LogoCloud from '../components/LogoCloud.astro';
 import HeroSection from '../components/HeroSection.astro';
@@ -19,6 +18,7 @@ import membershipPlayerImageUrl from '../assets/images/backgrounds/membership.pn
 import clubCrestWhiteUrl from '../assets/images/brand/Club Crest White.svg?url';
 import { withBase } from '../utils/paths';
 import ActiveNotices from '../components/ActiveNotices.astro';
+import { readFaiSnapshot } from '../lib/fai/data';
 
 let clubPosts = [];
 const footballBodies = [
@@ -55,9 +55,96 @@ const footballBodies = [
 ];
 
 const allPosts = await getPosts(100);
-clubPosts = allPosts.slice(0, 6);
+clubPosts = allPosts.slice(0, 3);
 const noticesAwaitingExpiry = allPosts.filter((post) => post.notice && post.notice.expiresAt > new Date());
 const tournamentIsActive = isTournamentSeason();
+const fixturePreview = [
+  {
+    squad: 'Senior A',
+    home: 'Killarney Athletic',
+    homeCrest: '/images/team-crests/killarney-athletic-afc.svg',
+    away: 'Tralee Dynamos',
+    awayCrest: '/images/team-crests/tralee-dynamos.png',
+    date: 'Sun 20 Sep',
+    time: '2:00 pm',
+    venue: 'Killarney Athletic Park',
+  },
+  {
+    squad: 'U16 Boys',
+    home: 'St. Brendan’s Park',
+    homeCrest: '/images/team-crests/st-brendans-park-fc.png',
+    away: 'Killarney Athletic',
+    awayCrest: '/images/team-crests/killarney-athletic-afc.svg',
+    date: 'Sat 26 Sep',
+    time: '11:00 am',
+    venue: 'Christy Leahy Park',
+  },
+  {
+    squad: 'U13 Girls',
+    home: 'Killarney Athletic',
+    homeCrest: '/images/team-crests/killarney-athletic-afc.svg',
+    away: 'Castleisland AFC',
+    awayCrest: '/images/team-crests/castleisland-afc.png',
+    date: 'Sun 27 Sep',
+    time: '10:30 am',
+    venue: 'Killarney Athletic Park',
+  },
+  {
+    squad: 'Senior B',
+    home: 'Mastergeeha FC',
+    homeCrest: '/images/team-crests/mastergeeha-fc.png',
+    away: 'Killarney Athletic',
+    awayCrest: '/images/team-crests/killarney-athletic-afc.svg',
+    date: 'Sun 27 Sep',
+    time: '2:30 pm',
+    venue: 'Kilbrean Park',
+  },
+  {
+    squad: 'U15 Boys',
+    home: 'Killarney Athletic',
+    homeCrest: '/images/team-crests/killarney-athletic-afc.svg',
+    away: 'Killorglin AFC',
+    awayCrest: '/images/team-crests/killorglin-afc.png',
+    date: 'Sat 3 Oct',
+    time: '12:30 pm',
+    venue: 'Killarney Athletic Park',
+  },
+  {
+    squad: 'Youths',
+    home: 'Classic FC',
+    homeCrest: '/images/team-crests/classic-fc.png',
+    away: 'Killarney Athletic',
+    awayCrest: '/images/team-crests/killarney-athletic-afc.svg',
+    date: 'Sun 4 Oct',
+    time: '11:00 am',
+    venue: 'Mounthawk Park',
+  },
+  {
+    squad: 'U14 Girls',
+    home: 'Killarney Athletic',
+    homeCrest: '/images/team-crests/killarney-athletic-afc.svg',
+    away: 'Listowel Celtic',
+    awayCrest: '/images/team-crests/listowel-celtic-afc.png',
+    date: 'Sat 10 Oct',
+    time: '10:30 am',
+    venue: 'Killarney Athletic Park',
+  },
+  {
+    squad: 'U12 Boys',
+    home: 'Ballyheigue Athletic',
+    homeCrest: '/images/team-crests/ballyheigue-athletic-fc.png',
+    away: 'Killarney Athletic',
+    awayCrest: '/images/team-crests/killarney-athletic-afc.svg',
+    date: 'Sat 10 Oct',
+    time: '1:00 pm',
+    venue: 'Ballyheigue',
+  },
+];
+const fixturePreviewTeams = [...new Set(fixturePreview.map((fixture) => fixture.squad))];
+const faiData = await readFaiSnapshot();
+const fixtureTimeline = [...faiData.matches].sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
+const formatFixtureDate = (value: string) => new Intl.DateTimeFormat('en-IE', { timeZone: 'Europe/Dublin', weekday: 'short', day: 'numeric', month: 'short' }).format(new Date(value));
+const formatFixtureTime = (value: string) => new Intl.DateTimeFormat('en-IE', { timeZone: 'Europe/Dublin', hour: 'numeric', minute: '2-digit', hour12: true }).format(new Date(value)).replace('a.m.', 'am').replace('p.m.', 'pm');
 ---
 
 <Layout title="Killarney Athletic AFC | Latest News">
@@ -96,21 +183,88 @@ const tournamentIsActive = isTournamentSeason();
     </section>
   )}
 
-  <section id="fixtures" class="fixtures-section section-block" aria-labelledby="fixtures-heading" hidden>
+  <section id="fixtures" class="fixtures-section section-block" aria-labelledby="fixtures-heading">
     <div class="page-shell">
-      <div class="section-heading section-heading--light">
+      <div class="section-heading">
         <div>
-          <h2 id="fixtures-heading">Upcoming fixtures</h2>
+          <h2 id="fixtures-heading">Fixtures & results</h2>
         </div>
-        <p class="section-note">Preview layout — ready for the club’s official fixture data.</p>
+        <p class="section-note">Across the club · Live schedule</p>
       </div>
-      <div class="fixtures-grid">
-        <FixtureCard label="Senior fixture" />
-        <FixtureCard label="Youth fixture" />
-        <FixtureCard label="Underage fixture" />
+      <div class="fixture-preview-panel">
+        <div class="fixture-preview-panel__toolbar">
+          <label for="fixture-team-filter">Filter by team</label>
+          <select id="fixture-team-filter" class="select select-bordered select-sm" data-fixture-team-filter>
+            <option value="all">All teams</option>
+            {faiData.teams.map((team) => <option value={team.id}>{team.label}</option>)}
+          </select>
+          <p data-fixture-count>{fixtureTimeline.length} matches</p>
+        </div>
+        <div class="fixture-preview-scroll" data-fixture-scroll tabindex="0" aria-label="Upcoming fixtures list">
+          <div class="fixture-preview-list">
+          {fixtureTimeline.map((fixture) => (
+            <article class:list={['fixture-preview-row', { 'fixture-preview-row--past': fixture.status === 'past' }]} data-fixture-row data-team={fixture.teamId} data-status={fixture.status}>
+              <p class="fixture-preview-row__squad">{fixture.teamLabel}</p>
+              <div class="fixture-preview-row__match">
+                <span class="fixture-preview-row__club fixture-preview-row__club--home">
+                  <strong>{fixture.homeTeam}</strong>
+                  {fixture.homeCrest && <img src={withBase(fixture.homeCrest)} alt="" width="36" height="36" />}
+                </span>
+                <span class="fixture-preview-row__versus" aria-label={fixture.score ? `Final score ${fixture.score}` : 'versus'}>{fixture.score ?? 'vs'}</span>
+                <span class="fixture-preview-row__club">
+                  {fixture.awayCrest && <img src={withBase(fixture.awayCrest)} alt="" width="36" height="36" />}
+                  <strong>{fixture.awayTeam}</strong>
+                </span>
+              </div>
+              <div class="fixture-preview-row__when">
+                <strong>{formatFixtureDate(fixture.date)}</strong>
+                <span>{formatFixtureTime(fixture.date)}</span>
+              </div>
+              <p class="fixture-preview-row__venue">{fixture.venue}</p>
+            </article>
+          ))}
+          </div>
+        </div>
+        <div class="fixture-preview-panel__footer">
+          <Button href={withBase('/fixtures-results/')} label="View all fixtures & results" variant="outline-dark" />
+        </div>
       </div>
     </div>
   </section>
+
+  <script>
+    const fixtureFilter = document.querySelector<HTMLSelectElement>('[data-fixture-team-filter]');
+    const fixtureScroll = document.querySelector<HTMLElement>('[data-fixture-scroll]');
+    const fixtureCount = document.querySelector<HTMLElement>('[data-fixture-count]');
+    const fixtureRows = Array.from(document.querySelectorAll<HTMLElement>('[data-fixture-row]'));
+    const previewBatchSize = 4;
+    let visibleBefore = previewBatchSize;
+    let visibleAfter = previewBatchSize + 2;
+
+    const renderFixturePreview = (anchor = false) => {
+      const selectedTeam = fixtureFilter?.value ?? 'all';
+      const matches = fixtureRows.filter((row) => selectedTeam === 'all' || row.dataset.team === selectedTeam);
+      const firstFuture = Math.max(0, matches.findIndex((row) => row.dataset.status === 'future'));
+      fixtureRows.forEach((row) => {
+        const matchIndex = matches.indexOf(row);
+        row.hidden = matchIndex < Math.max(0, firstFuture - visibleBefore) || matchIndex >= firstFuture + visibleAfter;
+      });
+      if (fixtureCount) fixtureCount.textContent = `${matches.length} ${matches.length === 1 ? 'match' : 'matches'}`;
+      if (anchor && fixtureScroll) requestAnimationFrame(() => { fixtureScroll.scrollTop = matches[firstFuture]?.offsetTop ?? 0; });
+    };
+
+    fixtureFilter?.addEventListener('change', () => {
+      visibleBefore = previewBatchSize;
+      visibleAfter = previewBatchSize + 2;
+      renderFixturePreview(true);
+    });
+    fixtureScroll?.addEventListener('scroll', () => {
+      if (fixtureScroll.scrollTop < 32) visibleBefore += previewBatchSize;
+      if (fixtureScroll.scrollTop + fixtureScroll.clientHeight >= fixtureScroll.scrollHeight - 32) visibleAfter += previewBatchSize;
+      renderFixturePreview();
+    });
+    renderFixturePreview(true);
+  </script>
 
   <section id="news" class="page-shell section-block news-section" aria-label="Club news">
     <FullBleedCarousel label="Latest club news">

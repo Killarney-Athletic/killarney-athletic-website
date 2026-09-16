@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    # Static Pages refresh: fixtures and tables are rebuilt every 30 minutes.
+    - cron: '7,37 * * * *'
   repository_dispatch:
     types: [wordpress-content-updated]
 

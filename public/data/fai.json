@@ -1,0 +1,5648 @@
+{
+  "version": 1,
+  "generatedAt": "2026-09-16T13:16:41.450Z",
+  "sourceUpdatedAt": "2026-09-16T13:16:41.450Z",
+  "isFallback": false,
+  "teams": [
+    {
+      "id": 83811,
+      "name": "Killarney Athletic AFC U16A Girls",
+      "label": "U16A Girls"
+    },
+    {
+      "id": 83806,
+      "name": "Killarney Athletic AFC U17A Girls 26/27",
+      "label": "U17A Girls"
+    },
+    {
+      "id": 61231,
+      "name": "Killarney Athletic AFC Senior A Men 26/27",
+      "label": "Senior A Men"
+    },
+    {
+      "id": 61165,
+      "name": "Killarney Athletic AFC Senior B Men 26/27",
+      "label": "Senior B Men"
+    },
+    {
+      "id": 35828,
+      "name": "Killarney Athletic AFC U17A Boys 26/27",
+      "label": "U17A Boys"
+    },
+    {
+      "id": 20152,
+      "name": "Killarney Athletic AFC U17B 26/27",
+      "label": "U17B"
+    },
+    {
+      "id": 35827,
+      "name": "Killarney Athletic AFC U18A Boys 26/27",
+      "label": "U18A Boys"
+    }
+  ],
+  "matches": [
+    {
+      "id": 28999326,
+      "teamId": 35828,
+      "teamLabel": "U17A Boys",
+      "homeTeam": "Killarney Athletic A.F.C.",
+      "awayTeam": "Moyne Villa FC",
+      "homeCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "awayCrest": null,
+      "homeColour": "#0b2e78",
+      "awayColour": "#52657d",
+      "competitionId": 28998161,
+      "competition": "FAI Under 17 Cup 24/25 - National",
+      "date": "2024-11-17T14:00:00.000Z",
+      "venue": "Killarney Ath",
+      "status": "past",
+      "score": "2 – 4",
+      "details": {
+        "homeLineup": null,
+        "awayLineup": null,
+        "events": [
+          {
+            "type": "Goal",
+            "minute": "10'",
+            "player": "ROCHE S.",
+            "relatedPlayer": null,
+            "side": "away"
+          },
+          {
+            "type": "Penalty",
+            "minute": "20'",
+            "player": "OIFOH J.",
+            "relatedPlayer": null,
+            "side": "away"
+          },
+          {
+            "type": "Goal",
+            "minute": "35'",
+            "player": "VILLA KING D.",
+            "relatedPlayer": null,
+            "side": "away"
+          },
+          {
+            "type": "Goal",
+            "minute": "40'",
+            "player": "O BRIEN L.",
+            "relatedPlayer": null,
+            "side": "home"
+          },
+          {
+            "type": "Substitution",
+            "minute": "70'",
+            "player": "KRASNIQI S.",
+            "relatedPlayer": "FAHY O.",
+            "side": "away"
+          },
+          {
+            "type": "Goal",
+            "minute": "78'",
+            "player": "O'SULLIVAN D.",
+            "relatedPlayer": null,
+            "side": "home"
+          },
+          {
+            "type": "Goal",
+            "minute": "80'",
+            "player": "KRASNIQI S.",
+            "relatedPlayer": null,
+            "side": "away"
+          }
+        ]
+      }
+    },
+    {
+      "id": 39136342,
+      "teamId": 61165,
+      "teamLabel": "Senior B Men",
+      "homeTeam": "Castleisland AFC",
+      "awayTeam": "Killarney Athletic A.F.C.",
+      "homeCrest": "/images/team-crests/castleisland-afc.png",
+      "awayCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "homeColour": "#5fc090",
+      "awayColour": "#0b2e78",
+      "competitionId": 38810208,
+      "competition": "McCarthy Insurance Group MJS 25/26 - Kerry District League",
+      "date": "2025-09-14T10:00:00.000Z",
+      "venue": "Georgie O'Callaghan Park",
+      "status": "past",
+      "score": "0 – 3",
+      "details": {
+        "homeLineup": null,
+        "awayLineup": null,
+        "events": []
+      }
+    },
+    {
+      "id": 39231440,
+      "teamId": 35827,
+      "teamLabel": "U18A Boys",
+      "homeTeam": "Castleisland AFC",
+      "awayTeam": "Killarney Athletic A.F.C.",
+      "homeCrest": "/images/team-crests/castleisland-afc.png",
+      "awayCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "homeColour": "#5fc090",
+      "awayColour": "#0b2e78",
+      "competitionId": 38816879,
+      "competition": "JAKO Ireland MYC 25/26 - Kerry District League",
+      "date": "2025-09-20T13:00:00.000Z",
+      "venue": "Georgie O'Callaghan Park",
+      "status": "past",
+      "score": "2 – 8",
+      "details": {
+        "homeLineup": null,
+        "awayLineup": null,
+        "events": []
+      }
+    },
+    {
+      "id": 38927736,
+      "teamId": 61165,
+      "teamLabel": "Senior B Men",
+      "homeTeam": "Killarney Athletic A.F.C.",
+      "awayTeam": "Rattoo Rovers FC",
+      "homeCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "awayCrest": "/images/fai/rattoo-rovers-fc-25268.jpg",
+      "homeColour": "#0b2e78",
+      "awayColour": "#077f43",
+      "competitionId": 37368409,
+      "competition": "Kerry and District League 2025/26 Division 1",
+      "date": "2025-09-21T15:00:00.000Z",
+      "venue": "Woodlawn",
+      "status": "past",
+      "score": "0 – 7",
+      "details": {
+        "homeLineup": null,
+        "awayLineup": null,
+        "events": []
+      }
+    },
+    {
+      "id": 40083547,
+      "teamId": 61165,
+      "teamLabel": "Senior B Men",
+      "homeTeam": "Inter Kenmare FC",
+      "awayTeam": "Killarney Athletic A.F.C.",
+      "homeCrest": "/images/fai/inter-kenmare-fc-24789.jpg",
+      "awayCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "homeColour": "#4267b1",
+      "awayColour": "#0b2e78",
+      "competitionId": 38810208,
+      "competition": "McCarthy Insurance Group MJS 25/26 - Kerry District League",
+      "date": "2025-09-28T10:00:00.000Z",
+      "venue": "Inter Kenmare",
+      "status": "past",
+      "score": "8 – 0",
+      "details": {
+        "homeLineup": {
+          "formation": null,
+          "players": [
+            {
+              "name": "HARRINGTON D.",
+              "shirtNumber": 1,
+              "starting": true,
+              "captain": false,
+              "position": "G"
+            },
+            {
+              "name": "RYAN S.",
+              "shirtNumber": 6,
+              "starting": true,
+              "captain": true,
+              "position": null
+            },
+            {
+              "name": "O SHEA N.",
+              "shirtNumber": 7,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "CHRISTIAN E.",
+              "shirtNumber": 8,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "SHEA O.",
+              "shirtNumber": 9,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "GREBOWIEC D.",
+              "shirtNumber": 10,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "BROWN L.",
+              "shirtNumber": 13,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "O CONNOR D.",
+              "shirtNumber": 16,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "DESMOND C.",
+              "shirtNumber": 20,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "O SULLIVAN D.",
+              "shirtNumber": 23,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "KOVACEVIC P.",
+              "shirtNumber": 24,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "NDLOVU S.",
+              "shirtNumber": 15,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "ALIUROV M.",
+              "shirtNumber": 19,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "O'SHEA M.",
+              "shirtNumber": 22,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "HEALY R.",
+              "shirtNumber": 25,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "GRANVILLE N.",
+              "shirtNumber": 26,
+              "starting": false,
+              "captain": false,
+              "position": null
+            }
+          ],
+          "officials": [
+            "O LEARY A."
+          ]
+        },
+        "awayLineup": {
+          "formation": null,
+          "players": [
+            {
+              "name": "SUGRUE G.",
+              "shirtNumber": 1,
+              "starting": true,
+              "captain": false,
+              "position": "G"
+            },
+            {
+              "name": "O CONNELL A.",
+              "shirtNumber": 3,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "CRONIN F.",
+              "shirtNumber": 5,
+              "starting": true,
+              "captain": true,
+              "position": null
+            },
+            {
+              "name": "MCCANN K.",
+              "shirtNumber": 6,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "O'MAHONEY S.",
+              "shirtNumber": 8,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "O BRIEN MAC SWEENEY D.",
+              "shirtNumber": 9,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "O SULLIVAN H.",
+              "shirtNumber": 10,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "COLLINS C.",
+              "shirtNumber": 12,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "O SULLIVAN G.",
+              "shirtNumber": 13,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "COFFEY A.",
+              "shirtNumber": 17,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "SUTER J.",
+              "shirtNumber": 18,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "FLEMING E.",
+              "shirtNumber": 15,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "FLYNN K.",
+              "shirtNumber": 16,
+              "starting": false,
+              "captain": false,
+              "position": null
+            }
+          ],
+          "officials": []
+        },
+        "events": [
+          {
+            "type": "Goal",
+            "minute": "2'",
+            "player": "SHEA O.",
+            "relatedPlayer": "GREBOWIEC D.",
+            "side": "home"
+          },
+          {
+            "type": "Goal",
+            "minute": "19'",
+            "player": "O SHEA N.",
+            "relatedPlayer": "SHEA O.",
+            "side": "home"
+          },
+          {
+            "type": "Goal",
+            "minute": "29'",
+            "player": "SHEA O.",
+            "relatedPlayer": "RYAN S.",
+            "side": "home"
+          },
+          {
+            "type": "Goal",
+            "minute": "30'",
+            "player": "SHEA O.",
+            "relatedPlayer": "O CONNOR D.",
+            "side": "home"
+          },
+          {
+            "type": "Substitution",
+            "minute": "31'",
+            "player": "GRANVILLE N.",
+            "relatedPlayer": "O CONNOR D.",
+            "side": "home"
+          },
+          {
+            "type": "Goal",
+            "minute": "41'",
+            "player": "RYAN S.",
+            "relatedPlayer": null,
+            "side": "home"
+          },
+          {
+            "type": "Yellow card",
+            "minute": "43'",
+            "player": "RYAN S.",
+            "relatedPlayer": null,
+            "side": "home"
+          },
+          {
+            "type": "Substitution",
+            "minute": "46'",
+            "player": "ALIUROV M.",
+            "relatedPlayer": "HARRINGTON D.",
+            "side": "home"
+          },
+          {
+            "type": "Goal",
+            "minute": "46'",
+            "player": "SHEA O.",
+            "relatedPlayer": "O SHEA N.",
+            "side": "home"
+          },
+          {
+            "type": "Goal",
+            "minute": "61'",
+            "player": "GREBOWIEC D.",
+            "relatedPlayer": "O SHEA N.",
+            "side": "home"
+          },
+          {
+            "type": "Goal",
+            "minute": "66'",
+            "player": "O SHEA N.",
+            "relatedPlayer": "SHEA O.",
+            "side": "home"
+          },
+          {
+            "type": "Yellow card",
+            "minute": "68'",
+            "player": "O CONNELL A.",
+            "relatedPlayer": null,
+            "side": "away"
+          },
+          {
+            "type": "Yellow card",
+            "minute": "69'",
+            "player": "CRONIN F.",
+            "relatedPlayer": null,
+            "side": "away"
+          }
+        ]
+      }
+    },
+    {
+      "id": 39231716,
+      "teamId": 35828,
+      "teamLabel": "U17A Boys",
+      "homeTeam": "Killarney Celtic FC",
+      "awayTeam": "Killarney Athletic A.F.C.",
+      "homeCrest": "/images/team-crests/killarney-celtic-fc.png",
+      "awayCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "homeColour": "#036733",
+      "awayColour": "#0b2e78",
+      "competitionId": 38818462,
+      "competition": "Munster FA U17 Cup 25/26 - Kerry District League",
+      "date": "2025-10-08T18:15:00.000Z",
+      "venue": "Killarney Celtic",
+      "status": "past",
+      "score": "5 – 1",
+      "details": {
+        "homeLineup": null,
+        "awayLineup": null,
+        "events": [
+          {
+            "type": "Substitution",
+            "minute": "41'",
+            "player": "FLEMING J.",
+            "relatedPlayer": "KISSANE R.",
+            "side": "away"
+          },
+          {
+            "type": "Yellow card",
+            "minute": "50'",
+            "player": "MOSCA L.",
+            "relatedPlayer": null,
+            "side": "away"
+          },
+          {
+            "type": "Yellow card",
+            "minute": "55'",
+            "player": "O'CONNOR J.",
+            "relatedPlayer": null,
+            "side": "away"
+          },
+          {
+            "type": "Yellow card",
+            "minute": "78'",
+            "player": "O'GRADY J.",
+            "relatedPlayer": null,
+            "side": "away"
+          },
+          {
+            "type": "Yellow card",
+            "minute": "80'",
+            "player": "O'CONNOR J.",
+            "relatedPlayer": null,
+            "side": "away"
+          }
+        ]
+      }
+    },
+    {
+      "id": 38927746,
+      "teamId": 61165,
+      "teamLabel": "Senior B Men",
+      "homeTeam": "Castleisland AFC",
+      "awayTeam": "Killarney Athletic A.F.C.",
+      "homeCrest": "/images/team-crests/castleisland-afc.png",
+      "awayCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "homeColour": "#5fc090",
+      "awayColour": "#0b2e78",
+      "competitionId": 37368409,
+      "competition": "Kerry and District League 2025/26 Division 1",
+      "date": "2025-10-12T10:32:00.000Z",
+      "venue": "Georgie O'Callaghan Park",
+      "status": "past",
+      "score": "3 – 0",
+      "details": {
+        "homeLineup": null,
+        "awayLineup": null,
+        "events": []
+      }
+    },
+    {
+      "id": 38927752,
+      "teamId": 61165,
+      "teamLabel": "Senior B Men",
+      "homeTeam": "Rattoo Rovers FC",
+      "awayTeam": "Killarney Athletic A.F.C.",
+      "homeCrest": "/images/fai/rattoo-rovers-fc-25268.jpg",
+      "awayCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "homeColour": "#077f43",
+      "awayColour": "#0b2e78",
+      "competitionId": 37368409,
+      "competition": "Kerry and District League 2025/26 Division 1",
+      "date": "2025-10-27T19:00:00.000Z",
+      "venue": "Mounthawk Park",
+      "status": "past",
+      "score": "1 – 0",
+      "details": {
+        "homeLineup": null,
+        "awayLineup": {
+          "formation": null,
+          "players": [
+            {
+              "name": "SUGRUE G.",
+              "shirtNumber": 1,
+              "starting": true,
+              "captain": false,
+              "position": "G"
+            },
+            {
+              "name": "LOONEY D.",
+              "shirtNumber": 4,
+              "starting": true,
+              "captain": false,
+              "position": null
+            }
+          ],
+          "officials": []
+        },
+        "events": []
+      }
+    },
+    {
+      "id": 38927761,
+      "teamId": 61165,
+      "teamLabel": "Senior B Men",
+      "homeTeam": "Killarney Athletic A.F.C.",
+      "awayTeam": "Quarry Park Rangers",
+      "homeCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "awayCrest": "/images/fai/quarry-park-rangers-20188.jpg",
+      "homeColour": "#0b2e78",
+      "awayColour": "#0358a4",
+      "competitionId": 37368409,
+      "competition": "Kerry and District League 2025/26 Division 1",
+      "date": "2025-11-02T11:30:00.000Z",
+      "venue": "Woodlawn",
+      "status": "past",
+      "score": "2 – 2",
+      "details": {
+        "homeLineup": null,
+        "awayLineup": null,
+        "events": []
+      }
+    },
+    {
+      "id": 41333297,
+      "teamId": 35827,
+      "teamLabel": "U18A Boys",
+      "homeTeam": "Listowel Celtic",
+      "awayTeam": "Killarney Athletic A.F.C.",
+      "homeCrest": "/images/team-crests/listowel-celtic-afc.png",
+      "awayCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "homeColour": "#02755f",
+      "awayColour": "#0b2e78",
+      "competitionId": 38816879,
+      "competition": "JAKO Ireland MYC 25/26 - Kerry District League",
+      "date": "2025-11-04T09:00:00.000Z",
+      "venue": "Venue to be confirmed",
+      "status": "past",
+      "score": "0 – 3",
+      "details": {
+        "homeLineup": null,
+        "awayLineup": null,
+        "events": []
+      }
+    },
+    {
+      "id": 38927764,
+      "teamId": 61165,
+      "teamLabel": "Senior B Men",
+      "homeTeam": "Killarney Athletic A.F.C.",
+      "awayTeam": "Iveragh United FC",
+      "homeCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "awayCrest": "/images/fai/iveragh-united-fc-63804.png",
+      "homeColour": "#0b2e78",
+      "awayColour": "#dd0a0f",
+      "competitionId": 37368409,
+      "competition": "Kerry and District League 2025/26 Division 1",
+      "date": "2025-11-09T14:30:00.000Z",
+      "venue": "Woodlawn",
+      "status": "past",
+      "score": "2 – 4",
+      "details": {
+        "homeLineup": null,
+        "awayLineup": null,
+        "events": []
+      }
+    },
+    {
+      "id": 42151295,
+      "teamId": 35827,
+      "teamLabel": "U18A Boys",
+      "homeTeam": "Killarney Celtic FC",
+      "awayTeam": "Killarney Athletic A.F.C.",
+      "homeCrest": "/images/team-crests/killarney-celtic-fc.png",
+      "awayCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "homeColour": "#036733",
+      "awayColour": "#0b2e78",
+      "competitionId": 38816879,
+      "competition": "JAKO Ireland MYC 25/26 - Kerry District League",
+      "date": "2025-11-19T19:30:00.000Z",
+      "venue": "Killarney Celtic",
+      "status": "past",
+      "score": "2 – 5",
+      "details": {
+        "homeLineup": null,
+        "awayLineup": null,
+        "events": [
+          {
+            "type": "Goal",
+            "minute": "23'",
+            "player": "KELLIHER B.",
+            "relatedPlayer": null,
+            "side": "away"
+          },
+          {
+            "type": "Goal",
+            "minute": "45'",
+            "player": "DOONA E.",
+            "relatedPlayer": null,
+            "side": "away"
+          },
+          {
+            "type": "Substitution",
+            "minute": "45+15'",
+            "player": "O'SULLIVAN D.",
+            "relatedPlayer": "FENNELL J.",
+            "side": "away"
+          },
+          {
+            "type": "Substitution",
+            "minute": "45+15'",
+            "player": "N/A",
+            "relatedPlayer": "O DONOGHUE J.",
+            "side": "away"
+          },
+          {
+            "type": "Substitution",
+            "minute": "45+30'",
+            "player": "HORAN S.",
+            "relatedPlayer": "MOYNIHAN D.",
+            "side": "home"
+          },
+          {
+            "type": "Goal",
+            "minute": "45+30'",
+            "player": "COFFEY C.",
+            "relatedPlayer": "KHAN R.",
+            "side": "home"
+          },
+          {
+            "type": "Substitution",
+            "minute": "45+34'",
+            "player": "IHEME T.",
+            "relatedPlayer": "KHAN R.",
+            "side": "home"
+          },
+          {
+            "type": "Goal",
+            "minute": "45+36'",
+            "player": "ALLEN L.",
+            "relatedPlayer": null,
+            "side": "away"
+          },
+          {
+            "type": "Goal",
+            "minute": "45+49'",
+            "player": "KELLIHER B.",
+            "relatedPlayer": null,
+            "side": "away"
+          },
+          {
+            "type": "Substitution",
+            "minute": "45+51'",
+            "player": "DOOLAN A.",
+            "relatedPlayer": "KELLIHER B.",
+            "side": "away"
+          },
+          {
+            "type": "Substitution",
+            "minute": "45+51'",
+            "player": "HURLEY J.",
+            "relatedPlayer": "O CONNOR B.",
+            "side": "away"
+          },
+          {
+            "type": "Substitution",
+            "minute": "45+52'",
+            "player": "MCCARTHY B.",
+            "relatedPlayer": "ALLEN L.",
+            "side": "away"
+          },
+          {
+            "type": "Substitution",
+            "minute": "45+57'",
+            "player": "SIROTIAK S.",
+            "relatedPlayer": "SHINE S.",
+            "side": "home"
+          },
+          {
+            "type": "Penalty",
+            "minute": "45+62'",
+            "player": "NASH J.",
+            "relatedPlayer": null,
+            "side": "away"
+          },
+          {
+            "type": "Goal",
+            "minute": "45+65'",
+            "player": "COFFEY C.",
+            "relatedPlayer": null,
+            "side": "home"
+          }
+        ]
+      }
+    },
+    {
+      "id": 38927767,
+      "teamId": 61165,
+      "teamLabel": "Senior B Men",
+      "homeTeam": "Asdee Rovers FC",
+      "awayTeam": "Killarney Athletic A.F.C.",
+      "homeCrest": "/images/fai/asdee-rovers-fc-20139.jpg",
+      "awayCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "homeColour": "#de332d",
+      "awayColour": "#0b2e78",
+      "competitionId": 37368409,
+      "competition": "Kerry and District League 2025/26 Division 1",
+      "date": "2025-11-21T19:30:00.000Z",
+      "venue": "Mounthawk Park",
+      "status": "past",
+      "score": "2 – 1",
+      "details": {
+        "homeLineup": null,
+        "awayLineup": null,
+        "events": []
+      }
+    },
+    {
+      "id": 38927755,
+      "teamId": 61165,
+      "teamLabel": "Senior B Men",
+      "homeTeam": "Killarney Athletic A.F.C.",
+      "awayTeam": "Asdee Rovers FC",
+      "homeCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "awayCrest": "/images/fai/asdee-rovers-fc-20139.jpg",
+      "homeColour": "#0b2e78",
+      "awayColour": "#de332d",
+      "competitionId": 37368409,
+      "competition": "Kerry and District League 2025/26 Division 1",
+      "date": "2025-11-30T14:00:00.000Z",
+      "venue": "Woodlawn",
+      "status": "past",
+      "score": "1 – 2",
+      "details": {
+        "homeLineup": null,
+        "awayLineup": null,
+        "events": []
+      }
+    },
+    {
+      "id": 42547111,
+      "teamId": 35827,
+      "teamLabel": "U18A Boys",
+      "homeTeam": "Leeside United FC",
+      "awayTeam": "Killarney Athletic A.F.C.",
+      "homeCrest": "/images/fai/leeside-united-fc-59164.png",
+      "awayCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "homeColour": "#014da4",
+      "awayColour": "#0b2e78",
+      "competitionId": 42480327,
+      "competition": "FAI Youth Cup 2026 - Munster Region",
+      "date": "2025-11-30T17:00:00.000Z",
+      "venue": "Leeside Park",
+      "status": "past",
+      "score": "3 – 1",
+      "details": {
+        "homeLineup": null,
+        "awayLineup": null,
+        "events": [
+          {
+            "type": "Goal",
+            "minute": "9'",
+            "player": "FOLEY J.",
+            "relatedPlayer": "JAMIE COUGHLAN",
+            "side": "home"
+          },
+          {
+            "type": "Substitution",
+            "minute": "21'",
+            "player": "O BRIEN L.",
+            "relatedPlayer": "FENNELL J.",
+            "side": "away"
+          },
+          {
+            "type": "Goal",
+            "minute": "42'",
+            "player": "FOLEY J.",
+            "relatedPlayer": null,
+            "side": "home"
+          },
+          {
+            "type": "Yellow card",
+            "minute": "50'",
+            "player": "KELLIHER B.",
+            "relatedPlayer": null,
+            "side": "away"
+          },
+          {
+            "type": "Goal",
+            "minute": "53'",
+            "player": "O BRIEN L.",
+            "relatedPlayer": null,
+            "side": "away"
+          },
+          {
+            "type": "Goal",
+            "minute": "58'",
+            "player": "MURRAY R.",
+            "relatedPlayer": null,
+            "side": "home"
+          },
+          {
+            "type": "Yellow card",
+            "minute": "62'",
+            "player": "BOLLARD A.",
+            "relatedPlayer": null,
+            "side": "home"
+          },
+          {
+            "type": "Substitution",
+            "minute": "70'",
+            "player": "N/A",
+            "relatedPlayer": "MOSCA L.",
+            "side": "away"
+          },
+          {
+            "type": "Substitution",
+            "minute": "81'",
+            "player": "DOOLAN A.",
+            "relatedPlayer": "NASH J.",
+            "side": "away"
+          },
+          {
+            "type": "Substitution",
+            "minute": "81'",
+            "player": "MCCARTHY B.",
+            "relatedPlayer": "ALLEN L.",
+            "side": "away"
+          }
+        ]
+      }
+    },
+    {
+      "id": 42601564,
+      "teamId": 35827,
+      "teamLabel": "U18A Boys",
+      "homeTeam": "Killarney Athletic A.F.C.",
+      "awayTeam": "Newcastle West Town FC",
+      "homeCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "awayCrest": "/images/fai/newcastle-west-town-fc-54639.png",
+      "homeColour": "#0b2e78",
+      "awayColour": "#e9dc00",
+      "competitionId": 42601420,
+      "competition": "JAKO Ireland Munster Youth Cup 25/26",
+      "date": "2025-12-06T14:00:00.000Z",
+      "venue": "Woodlawn",
+      "status": "past",
+      "score": "5 – 0",
+      "details": {
+        "homeLineup": null,
+        "awayLineup": null,
+        "events": [
+          {
+            "type": "Goal",
+            "minute": "28'",
+            "player": "DOONA E.",
+            "relatedPlayer": null,
+            "side": "home"
+          },
+          {
+            "type": "Goal",
+            "minute": "35'",
+            "player": "KELLIHER B.",
+            "relatedPlayer": "O BRIEN L.",
+            "side": "home"
+          },
+          {
+            "type": "Goal",
+            "minute": "48'",
+            "player": "MOSCA L.",
+            "relatedPlayer": null,
+            "side": "home"
+          },
+          {
+            "type": "Yellow card",
+            "minute": "60'",
+            "player": "O BRIEN L.",
+            "relatedPlayer": null,
+            "side": "home"
+          },
+          {
+            "type": "Goal",
+            "minute": "68'",
+            "player": "KELLIHER B.",
+            "relatedPlayer": null,
+            "side": "home"
+          },
+          {
+            "type": "Substitution",
+            "minute": "74'",
+            "player": "O'CONNOR J.",
+            "relatedPlayer": "DOONA E.",
+            "side": "home"
+          },
+          {
+            "type": "Goal",
+            "minute": "80'",
+            "player": "O'CONNOR J.",
+            "relatedPlayer": null,
+            "side": "home"
+          }
+        ]
+      }
+    },
+    {
+      "id": 38927780,
+      "teamId": 61165,
+      "teamLabel": "Senior B Men",
+      "homeTeam": "Killarney Athletic A.F.C.",
+      "awayTeam": "Killorglin AFC",
+      "homeCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "awayCrest": "/images/team-crests/killorglin-afc.png",
+      "homeColour": "#0b2e78",
+      "awayColour": "#1e264e",
+      "competitionId": 37368409,
+      "competition": "Kerry and District League 2025/26 Division 1",
+      "date": "2025-12-14T11:30:00.000Z",
+      "venue": "Woodlawn",
+      "status": "past",
+      "score": "3 – 3",
+      "details": {
+        "homeLineup": null,
+        "awayLineup": null,
+        "events": []
+      }
+    },
+    {
+      "id": 38927784,
+      "teamId": 61165,
+      "teamLabel": "Senior B Men",
+      "homeTeam": "Killarney Athletic A.F.C.",
+      "awayTeam": "Asdee Rovers FC",
+      "homeCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "awayCrest": "/images/fai/asdee-rovers-fc-20139.jpg",
+      "homeColour": "#0b2e78",
+      "awayColour": "#de332d",
+      "competitionId": 37368409,
+      "competition": "Kerry and District League 2025/26 Division 1",
+      "date": "2026-01-11T14:00:00.000Z",
+      "venue": "Woodlawn",
+      "status": "past",
+      "score": null,
+      "details": {
+        "homeLineup": null,
+        "awayLineup": null,
+        "events": []
+      }
+    },
+    {
+      "id": 38927743,
+      "teamId": 61165,
+      "teamLabel": "Senior B Men",
+      "homeTeam": "Iveragh United FC",
+      "awayTeam": "Killarney Athletic A.F.C.",
+      "homeCrest": "/images/fai/iveragh-united-fc-63804.png",
+      "awayCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "homeColour": "#dd0a0f",
+      "awayColour": "#0b2e78",
+      "competitionId": 37368409,
+      "competition": "Kerry and District League 2025/26 Division 1",
+      "date": "2026-01-15T14:00:00.000Z",
+      "venue": "Venue to be confirmed",
+      "status": "past",
+      "score": null,
+      "details": {
+        "homeLineup": null,
+        "awayLineup": null,
+        "events": []
+      }
+    },
+    {
+      "id": 38927777,
+      "teamId": 61165,
+      "teamLabel": "Senior B Men",
+      "homeTeam": "Iveragh United FC",
+      "awayTeam": "Killarney Athletic A.F.C.",
+      "homeCrest": "/images/fai/iveragh-united-fc-63804.png",
+      "awayCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "homeColour": "#dd0a0f",
+      "awayColour": "#0b2e78",
+      "competitionId": 37368409,
+      "competition": "Kerry and District League 2025/26 Division 1",
+      "date": "2026-01-22T13:00:00.000Z",
+      "venue": "Venue to be confirmed",
+      "status": "past",
+      "score": null,
+      "details": {
+        "homeLineup": null,
+        "awayLineup": null,
+        "events": []
+      }
+    },
+    {
+      "id": 38927772,
+      "teamId": 61165,
+      "teamLabel": "Senior B Men",
+      "homeTeam": "Quarry Park Rangers",
+      "awayTeam": "Killarney Athletic A.F.C.",
+      "homeCrest": "/images/fai/quarry-park-rangers-20188.jpg",
+      "awayCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "homeColour": "#0358a4",
+      "awayColour": "#0b2e78",
+      "competitionId": 37368409,
+      "competition": "Kerry and District League 2025/26 Division 1",
+      "date": "2026-01-22T14:30:00.000Z",
+      "venue": "Venue to be confirmed",
+      "status": "past",
+      "score": null,
+      "details": {
+        "homeLineup": null,
+        "awayLineup": null,
+        "events": []
+      }
+    },
+    {
+      "id": 43680287,
+      "teamId": 35827,
+      "teamLabel": "U18A Boys",
+      "homeTeam": "Killarney Athletic A.F.C.",
+      "awayTeam": "Lakewood Athletic",
+      "homeCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "awayCrest": "/images/fai/lakewood-athletic-52062.png",
+      "homeColour": "#0b2e78",
+      "awayColour": "#d9171a",
+      "competitionId": 42601420,
+      "competition": "JAKO Ireland Munster Youth Cup 25/26",
+      "date": "2026-01-31T14:00:00.000Z",
+      "venue": "Woodlawn",
+      "status": "past",
+      "score": "1 – 4",
+      "details": {
+        "homeLineup": null,
+        "awayLineup": null,
+        "events": [
+          {
+            "type": "Goal",
+            "minute": "24'",
+            "player": "SHEEHAN D.",
+            "relatedPlayer": "RYAN C.",
+            "side": "away"
+          },
+          {
+            "type": "Goal",
+            "minute": "39'",
+            "player": "O FLYNN C.",
+            "relatedPlayer": "DAVIS HEELAN C.",
+            "side": "away"
+          },
+          {
+            "type": "Substitution",
+            "minute": "46'",
+            "player": "HURLEY J.",
+            "relatedPlayer": "O DONOGHUE J.",
+            "side": "home"
+          },
+          {
+            "type": "Substitution",
+            "minute": "46'",
+            "player": "MOYNIHAN A.",
+            "relatedPlayer": "MOSCA L.",
+            "side": "home"
+          },
+          {
+            "type": "Yellow card",
+            "minute": "53'",
+            "player": "O FLYNN C.",
+            "relatedPlayer": null,
+            "side": "away"
+          },
+          {
+            "type": "Yellow card",
+            "minute": "60'",
+            "player": "DAVIS HEELAN C.",
+            "relatedPlayer": null,
+            "side": "away"
+          },
+          {
+            "type": "Goal",
+            "minute": "63'",
+            "player": "SHEEHAN D.",
+            "relatedPlayer": "O FLYNN C.",
+            "side": "away"
+          },
+          {
+            "type": "Substitution",
+            "minute": "64'",
+            "player": "BARR C.",
+            "relatedPlayer": "O'SULLIVAN C.",
+            "side": "away"
+          },
+          {
+            "type": "Substitution",
+            "minute": "64'",
+            "player": "HAYES C.",
+            "relatedPlayer": "EWETUGA D.",
+            "side": "away"
+          },
+          {
+            "type": "Substitution",
+            "minute": "69'",
+            "player": "MCCARTHY B.",
+            "relatedPlayer": "O BRIEN L.",
+            "side": "home"
+          },
+          {
+            "type": "Substitution",
+            "minute": "70'",
+            "player": "FENNELL J.",
+            "relatedPlayer": "O'SULLIVAN D.",
+            "side": "home"
+          },
+          {
+            "type": "Goal",
+            "minute": "77'",
+            "player": "FENNELL J.",
+            "relatedPlayer": null,
+            "side": "home"
+          },
+          {
+            "type": "Goal",
+            "minute": "85'",
+            "player": "SHEEHAN D.",
+            "relatedPlayer": "BARR C.",
+            "side": "away"
+          },
+          {
+            "type": "Yellow card",
+            "minute": "85'",
+            "player": "O CONNOR B.",
+            "relatedPlayer": null,
+            "side": "home"
+          },
+          {
+            "type": "Substitution",
+            "minute": "87'",
+            "player": "MURPHY T.",
+            "relatedPlayer": "O FLYNN C.",
+            "side": "away"
+          },
+          {
+            "type": "Yellow card",
+            "minute": "87'",
+            "player": "HAYES C.",
+            "relatedPlayer": null,
+            "side": "away"
+          },
+          {
+            "type": "Substitution",
+            "minute": "88'",
+            "player": "ZEPH E.",
+            "relatedPlayer": "RYAN C.",
+            "side": "away"
+          }
+        ]
+      }
+    },
+    {
+      "id": 44956116,
+      "teamId": 61231,
+      "teamLabel": "Senior A Men",
+      "homeTeam": "Mountshannon Celtic",
+      "awayTeam": "Killarney Athletic A.F.C.",
+      "homeCrest": null,
+      "awayCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "homeColour": "#52657d",
+      "awayColour": "#0b2e78",
+      "competitionId": 44893572,
+      "competition": "FAI Junior Cup 2026 - Clare DL - Kerry DL - Limerick Desmond Region",
+      "date": "2026-03-08T14:00:00.000Z",
+      "venue": "Venue to be confirmed",
+      "status": "past",
+      "score": "1 – 2",
+      "details": {
+        "homeLineup": {
+          "formation": null,
+          "players": [
+            {
+              "name": "BARRETT M.",
+              "shirtNumber": 1,
+              "starting": true,
+              "captain": false,
+              "position": "G"
+            },
+            {
+              "name": "DEAR N.",
+              "shirtNumber": 2,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "O'BRIEN M.",
+              "shirtNumber": 3,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "CUNNINGHAM M.",
+              "shirtNumber": 4,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "HARRINGTON B.",
+              "shirtNumber": 5,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "BUCKLEY E.",
+              "shirtNumber": 6,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "PEARL D.",
+              "shirtNumber": 7,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "KEANE E.",
+              "shirtNumber": 8,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "HAYES D.",
+              "shirtNumber": 9,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "O'DONNELL D.",
+              "shirtNumber": 10,
+              "starting": true,
+              "captain": true,
+              "position": null
+            },
+            {
+              "name": "DOOLEY R.",
+              "shirtNumber": 11,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "ROBSON VIGURS G.",
+              "shirtNumber": 12,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "MOLONEY D.",
+              "shirtNumber": 13,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "SLATTERY F.",
+              "shirtNumber": 14,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "RODGERS B.",
+              "shirtNumber": 15,
+              "starting": false,
+              "captain": false,
+              "position": null
+            }
+          ],
+          "officials": [
+            "RODGERS B."
+          ]
+        },
+        "awayLineup": {
+          "formation": null,
+          "players": [
+            {
+              "name": "MITCHELL C.",
+              "shirtNumber": 1,
+              "starting": true,
+              "captain": true,
+              "position": "G"
+            },
+            {
+              "name": "KELLY C.",
+              "shirtNumber": 2,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "HORGAN M.",
+              "shirtNumber": 3,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "LOONEY D.",
+              "shirtNumber": 5,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "KELLIHER D.",
+              "shirtNumber": 6,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "O SULLIVAN O.",
+              "shirtNumber": 7,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "O'SHEA B.",
+              "shirtNumber": 8,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "SPARLING T.",
+              "shirtNumber": 9,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "COOPER J.",
+              "shirtNumber": 10,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "BOWLER J.",
+              "shirtNumber": 11,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "CRONIN N.",
+              "shirtNumber": 16,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "PRENDERGAST I.",
+              "shirtNumber": 12,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "O SHEA D.",
+              "shirtNumber": 13,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "DOONA E.",
+              "shirtNumber": 14,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "DOOLAN S.",
+              "shirtNumber": 15,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "DOOLAN T.",
+              "shirtNumber": 18,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "MULVANEY E.",
+              "shirtNumber": 19,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "MOSCA L.",
+              "shirtNumber": 20,
+              "starting": false,
+              "captain": false,
+              "position": null
+            }
+          ],
+          "officials": [
+            "MULLINS J.",
+            "BREEN C.",
+            "MOLONEY B."
+          ]
+        },
+        "events": [
+          {
+            "type": "Yellow card",
+            "minute": "49'",
+            "player": "BUCKLEY E.",
+            "relatedPlayer": null,
+            "side": "home"
+          },
+          {
+            "type": "Goal",
+            "minute": "59'",
+            "player": "BOWLER J.",
+            "relatedPlayer": "HORGAN M.",
+            "side": "away"
+          },
+          {
+            "type": "Substitution",
+            "minute": "62'",
+            "player": "DOOLAN S.",
+            "relatedPlayer": "SPARLING T.",
+            "side": "away"
+          },
+          {
+            "type": "Goal",
+            "minute": "65'",
+            "player": "O'SHEA B.",
+            "relatedPlayer": "DOOLAN S.",
+            "side": "away"
+          },
+          {
+            "type": "Substitution",
+            "minute": "68'",
+            "player": "ROBSON VIGURS G.",
+            "relatedPlayer": "KEANE E.",
+            "side": "home"
+          },
+          {
+            "type": "Substitution",
+            "minute": "69'",
+            "player": "SLATTERY F.",
+            "relatedPlayer": "PEARL D.",
+            "side": "home"
+          },
+          {
+            "type": "Substitution",
+            "minute": "72'",
+            "player": "O SHEA D.",
+            "relatedPlayer": "O SULLIVAN O.",
+            "side": "away"
+          },
+          {
+            "type": "Goal",
+            "minute": "75'",
+            "player": "HAYES D.",
+            "relatedPlayer": null,
+            "side": "home"
+          },
+          {
+            "type": "Substitution",
+            "minute": "77'",
+            "player": "MOLONEY D.",
+            "relatedPlayer": "HARRINGTON B.",
+            "side": "home"
+          },
+          {
+            "type": "Substitution",
+            "minute": "85'",
+            "player": "PRENDERGAST I.",
+            "relatedPlayer": "KELLY C.",
+            "side": "away"
+          },
+          {
+            "type": "Substitution",
+            "minute": "85'",
+            "player": "DOONA E.",
+            "relatedPlayer": "KELLIHER D.",
+            "side": "away"
+          }
+        ]
+      }
+    },
+    {
+      "id": 45626923,
+      "teamId": 61231,
+      "teamLabel": "Senior A Men",
+      "homeTeam": "Rathkeale AFC",
+      "awayTeam": "Killarney Athletic A.F.C.",
+      "homeCrest": "/images/fai/rathkeale-afc-77308.jpg",
+      "awayCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "homeColour": "#92a8bb",
+      "awayColour": "#0b2e78",
+      "competitionId": 44893572,
+      "competition": "FAI Junior Cup 2026 - Clare DL - Kerry DL - Limerick Desmond Region",
+      "date": "2026-03-29T13:00:00.000Z",
+      "venue": "Rathkeale",
+      "status": "past",
+      "score": "2 – 1",
+      "details": {
+        "homeLineup": {
+          "formation": null,
+          "players": [
+            {
+              "name": "CARMODY B.",
+              "shirtNumber": 1,
+              "starting": true,
+              "captain": false,
+              "position": "G"
+            },
+            {
+              "name": "MCARDLE T.",
+              "shirtNumber": 2,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "MIKEY MORRISSEY",
+              "shirtNumber": 3,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "BARRY E.",
+              "shirtNumber": 4,
+              "starting": true,
+              "captain": true,
+              "position": null
+            },
+            {
+              "name": "O' SHEA S.",
+              "shirtNumber": 5,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "JONES D.",
+              "shirtNumber": 6,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "FITZGERALD J.",
+              "shirtNumber": 7,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "O'SHEA A.",
+              "shirtNumber": 8,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "KEOGH J.",
+              "shirtNumber": 9,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "MEADE B.",
+              "shirtNumber": 10,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "MULCAHY M.",
+              "shirtNumber": 11,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "CUMMANE C.",
+              "shirtNumber": 12,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "HENNESSY J.",
+              "shirtNumber": 13,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "STAPLETON R.",
+              "shirtNumber": 14,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "GEOGHEGAN J.",
+              "shirtNumber": 15,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "MAUNE D.",
+              "shirtNumber": 16,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "HOGAN M.",
+              "shirtNumber": 17,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "O'CARROLL R.",
+              "shirtNumber": 20,
+              "starting": false,
+              "captain": false,
+              "position": null
+            }
+          ],
+          "officials": [
+            "DOYLE A.",
+            "MAUNE D."
+          ]
+        },
+        "awayLineup": {
+          "formation": null,
+          "players": [
+            {
+              "name": "MITCHELL C.",
+              "shirtNumber": 1,
+              "starting": true,
+              "captain": true,
+              "position": "G"
+            },
+            {
+              "name": "KELLY C.",
+              "shirtNumber": 2,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "HORGAN M.",
+              "shirtNumber": 3,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "CRONIN N.",
+              "shirtNumber": 4,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "LOONEY D.",
+              "shirtNumber": 5,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "KELLIHER D.",
+              "shirtNumber": 6,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "O SULLIVAN O.",
+              "shirtNumber": 7,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "O'SHEA B.",
+              "shirtNumber": 8,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "SPARLING T.",
+              "shirtNumber": 9,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "COOPER J.",
+              "shirtNumber": 10,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "BOWLER J.",
+              "shirtNumber": 11,
+              "starting": true,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "O SHEA D.",
+              "shirtNumber": 12,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "PRENDERGAST I.",
+              "shirtNumber": 13,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "DOOLAN T.",
+              "shirtNumber": 14,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "DOOLAN S.",
+              "shirtNumber": 15,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "QUERALES D.",
+              "shirtNumber": 16,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "DALY O.",
+              "shirtNumber": 17,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "MOSCA L.",
+              "shirtNumber": 18,
+              "starting": false,
+              "captain": false,
+              "position": null
+            }
+          ],
+          "officials": [
+            "BREEN C.",
+            "MULLINS J.",
+            "MOLONEY B."
+          ]
+        },
+        "events": [
+          {
+            "type": "Goal",
+            "minute": "28'",
+            "player": "FITZGERALD J.",
+            "relatedPlayer": "MIKEY MORRISSEY",
+            "side": "home"
+          },
+          {
+            "type": "Yellow card",
+            "minute": "36'",
+            "player": "SPARLING T.",
+            "relatedPlayer": null,
+            "side": "away"
+          },
+          {
+            "type": "Goal",
+            "minute": "41'",
+            "player": "SPARLING T.",
+            "relatedPlayer": "BOWLER J.",
+            "side": "away"
+          },
+          {
+            "type": "Substitution",
+            "minute": "46'",
+            "player": "O SHEA D.",
+            "relatedPlayer": "KELLIHER D.",
+            "side": "away"
+          },
+          {
+            "type": "Substitution",
+            "minute": "53'",
+            "player": "MOSCA L.",
+            "relatedPlayer": "SPARLING T.",
+            "side": "away"
+          },
+          {
+            "type": "Substitution",
+            "minute": "63'",
+            "player": "QUERALES D.",
+            "relatedPlayer": "O SULLIVAN O.",
+            "side": "away"
+          },
+          {
+            "type": "Substitution",
+            "minute": "66'",
+            "player": "GEOGHEGAN J.",
+            "relatedPlayer": "JONES D.",
+            "side": "home"
+          },
+          {
+            "type": "Substitution",
+            "minute": "68'",
+            "player": "DOOLAN S.",
+            "relatedPlayer": "HORGAN M.",
+            "side": "away"
+          },
+          {
+            "type": "Yellow card",
+            "minute": "90'",
+            "player": "O'SHEA B.",
+            "relatedPlayer": null,
+            "side": "away"
+          },
+          {
+            "type": "Goal",
+            "minute": "100'",
+            "player": "MULCAHY M.",
+            "relatedPlayer": "KEOGH J.",
+            "side": "home"
+          },
+          {
+            "type": "Substitution",
+            "minute": "101'",
+            "player": "STAPLETON R.",
+            "relatedPlayer": "MULCAHY M.",
+            "side": "home"
+          },
+          {
+            "type": "Substitution",
+            "minute": "103'",
+            "player": "HOGAN M.",
+            "relatedPlayer": "FITZGERALD J.",
+            "side": "home"
+          },
+          {
+            "type": "Substitution",
+            "minute": "110+4'",
+            "player": "MAUNE D.",
+            "relatedPlayer": "KEOGH J.",
+            "side": "home"
+          }
+        ]
+      }
+    },
+    {
+      "id": 45162879,
+      "teamId": 83806,
+      "teamLabel": "U17A Girls",
+      "homeTeam": "Killarney Athletic A.F.C.",
+      "awayTeam": "Douglas Hall AFC",
+      "homeCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "awayCrest": "/images/fai/douglas-hall-afc-61303.png",
+      "homeColour": "#0b2e78",
+      "awayColour": "#31448f",
+      "competitionId": 45162721,
+      "competition": "Munster FA Womens Youth Cup 2026",
+      "date": "2026-04-04T13:00:00.000Z",
+      "venue": "Woodlawn",
+      "status": "past",
+      "score": "0 – 3",
+      "details": {
+        "homeLineup": null,
+        "awayLineup": null,
+        "events": []
+      }
+    },
+    {
+      "id": 53487993,
+      "teamId": 35827,
+      "teamLabel": "U18A Boys",
+      "homeTeam": "Killarney Athletic A.F.C.",
+      "awayTeam": "Killarney Celtic FC",
+      "homeCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "awayCrest": "/images/team-crests/killarney-celtic-fc.png",
+      "homeColour": "#0b2e78",
+      "awayColour": "#036733",
+      "competitionId": 51792174,
+      "competition": "Kerry and District League Youths",
+      "date": "2026-09-06T13:00:00.000Z",
+      "venue": "Woodlawn",
+      "status": "past",
+      "score": null,
+      "details": {
+        "homeLineup": null,
+        "awayLineup": null,
+        "events": []
+      }
+    },
+    {
+      "id": 53668185,
+      "teamId": 35827,
+      "teamLabel": "U18A Boys",
+      "homeTeam": "Ennis Town",
+      "awayTeam": "Killarney Athletic A.F.C.",
+      "homeCrest": null,
+      "awayCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "homeColour": "#52657d",
+      "awayColour": "#0b2e78",
+      "competitionId": 53163965,
+      "competition": "FAI Youth Cup 2026/27 - Clare, Kerry, Desmond",
+      "date": "2026-09-12T12:00:00.000Z",
+      "venue": "Fairgreen, Ennis",
+      "status": "past",
+      "score": "3 – 6",
+      "details": {
+        "homeLineup": null,
+        "awayLineup": null,
+        "events": [
+          {
+            "type": "Goal",
+            "minute": "8'",
+            "player": "MALONE A.",
+            "relatedPlayer": null,
+            "side": "home"
+          },
+          {
+            "type": "Goal",
+            "minute": "21'",
+            "player": "SKERRITT S.",
+            "relatedPlayer": null,
+            "side": "home"
+          },
+          {
+            "type": "Goal",
+            "minute": "32'",
+            "player": "ALLEN L.",
+            "relatedPlayer": null,
+            "side": "away"
+          },
+          {
+            "type": "Yellow card",
+            "minute": "35'",
+            "player": "MCAULIFFE D.",
+            "relatedPlayer": null,
+            "side": "away"
+          },
+          {
+            "type": "Substitution",
+            "minute": "46'",
+            "player": "CRYAN O.",
+            "relatedPlayer": "O'CONNOR J.",
+            "side": "away"
+          },
+          {
+            "type": "Goal",
+            "minute": "46'",
+            "player": "ALLEN L.",
+            "relatedPlayer": null,
+            "side": "away"
+          },
+          {
+            "type": "Goal",
+            "minute": "50'",
+            "player": "ALLEN L.",
+            "relatedPlayer": null,
+            "side": "away"
+          },
+          {
+            "type": "Goal",
+            "minute": "55'",
+            "player": "MOSCA L.",
+            "relatedPlayer": null,
+            "side": "away"
+          },
+          {
+            "type": "Substitution",
+            "minute": "65'",
+            "player": "MARSHALL J.",
+            "relatedPlayer": "KISSANE R.",
+            "side": "away"
+          },
+          {
+            "type": "Goal",
+            "minute": "67'",
+            "player": "ALLEN L.",
+            "relatedPlayer": null,
+            "side": "away"
+          },
+          {
+            "type": "Goal",
+            "minute": "68'",
+            "player": "CRYAN O.",
+            "relatedPlayer": null,
+            "side": "away"
+          },
+          {
+            "type": "Substitution",
+            "minute": "70'",
+            "player": "WALSH O.",
+            "relatedPlayer": "O DONOGHUE D.",
+            "side": "away"
+          },
+          {
+            "type": "Goal",
+            "minute": "78'",
+            "player": "IFEABAJO B.",
+            "relatedPlayer": null,
+            "side": "home"
+          }
+        ]
+      }
+    },
+    {
+      "id": 53100218,
+      "teamId": 61165,
+      "teamLabel": "Senior B Men",
+      "homeTeam": "Castleisland AFC",
+      "awayTeam": "Killarney Athletic A.F.C.",
+      "homeCrest": "/images/team-crests/castleisland-afc.png",
+      "awayCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "homeColour": "#5fc090",
+      "awayColour": "#0b2e78",
+      "competitionId": 53022017,
+      "competition": "McCarthy Insurance Group MJS 26/27 - Kerry District League",
+      "date": "2026-09-12T18:00:00.000Z",
+      "venue": "Georgie O'Callaghan Park",
+      "status": "past",
+      "score": "5 – 2",
+      "details": {
+        "homeLineup": {
+          "formation": "4-2-3-1",
+          "players": [
+            {
+              "name": "O'SHEA B.",
+              "shirtNumber": 1,
+              "starting": true,
+              "captain": false,
+              "position": "GK"
+            },
+            {
+              "name": "BROSNAN B.",
+              "shirtNumber": 2,
+              "starting": true,
+              "captain": false,
+              "position": "RB"
+            },
+            {
+              "name": "QUIRKE C.",
+              "shirtNumber": 3,
+              "starting": true,
+              "captain": false,
+              "position": "LB"
+            },
+            {
+              "name": "CARMODY P.",
+              "shirtNumber": 4,
+              "starting": true,
+              "captain": false,
+              "position": "RCB"
+            },
+            {
+              "name": "MCCARTHY E.",
+              "shirtNumber": 5,
+              "starting": true,
+              "captain": false,
+              "position": "LCB"
+            },
+            {
+              "name": "MANGAN M.",
+              "shirtNumber": 6,
+              "starting": true,
+              "captain": false,
+              "position": "RCAM"
+            },
+            {
+              "name": "MCCARTHY D.",
+              "shirtNumber": 7,
+              "starting": true,
+              "captain": false,
+              "position": "CAM"
+            },
+            {
+              "name": "MCAULIFFE S.",
+              "shirtNumber": 8,
+              "starting": true,
+              "captain": true,
+              "position": "LCM"
+            },
+            {
+              "name": "FEEHAN T.",
+              "shirtNumber": 9,
+              "starting": true,
+              "captain": false,
+              "position": "RCM"
+            },
+            {
+              "name": "BROSNAN J.",
+              "shirtNumber": 10,
+              "starting": true,
+              "captain": false,
+              "position": "LCAM"
+            },
+            {
+              "name": "N/A",
+              "shirtNumber": 11,
+              "starting": true,
+              "captain": false,
+              "position": "CF"
+            },
+            {
+              "name": "O CONNOR M.",
+              "shirtNumber": 13,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "OCONNOR C.",
+              "shirtNumber": 14,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "FEEHAN D.",
+              "shirtNumber": 15,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "DALY S.",
+              "shirtNumber": 16,
+              "starting": false,
+              "captain": false,
+              "position": null
+            }
+          ],
+          "officials": [
+            "CARMODY P."
+          ]
+        },
+        "awayLineup": {
+          "formation": "3-5-2",
+          "players": [
+            {
+              "name": "MCAULIFFE D.",
+              "shirtNumber": 1,
+              "starting": true,
+              "captain": false,
+              "position": "GK"
+            },
+            {
+              "name": "N/A",
+              "shirtNumber": 2,
+              "starting": true,
+              "captain": false,
+              "position": "LCM"
+            },
+            {
+              "name": "N/A",
+              "shirtNumber": 3,
+              "starting": true,
+              "captain": false,
+              "position": "LF"
+            },
+            {
+              "name": "CRONIN F.",
+              "shirtNumber": 4,
+              "starting": true,
+              "captain": false,
+              "position": "RCM"
+            },
+            {
+              "name": "MURPHY K.",
+              "shirtNumber": 5,
+              "starting": true,
+              "captain": true,
+              "position": "LM"
+            },
+            {
+              "name": "MORIARTY G.",
+              "shirtNumber": 6,
+              "starting": true,
+              "captain": false,
+              "position": "RF"
+            },
+            {
+              "name": "O SULLIVAN G.",
+              "shirtNumber": 7,
+              "starting": true,
+              "captain": false,
+              "position": "LCB"
+            },
+            {
+              "name": "O'MAHONEY S.",
+              "shirtNumber": 8,
+              "starting": true,
+              "captain": false,
+              "position": "CM"
+            },
+            {
+              "name": "FENNELL J.",
+              "shirtNumber": 9,
+              "starting": true,
+              "captain": false,
+              "position": "RM"
+            },
+            {
+              "name": "MCCANN K.",
+              "shirtNumber": 10,
+              "starting": true,
+              "captain": false,
+              "position": "RCB"
+            },
+            {
+              "name": "MOYNIHAN A.",
+              "shirtNumber": 11,
+              "starting": true,
+              "captain": false,
+              "position": "CB"
+            },
+            {
+              "name": "COSTELLO K.",
+              "shirtNumber": 12,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "LYNE C.",
+              "shirtNumber": 13,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "O BRIEN MAC SWEENEY D.",
+              "shirtNumber": 14,
+              "starting": false,
+              "captain": false,
+              "position": null
+            }
+          ],
+          "officials": [
+            "MCCORMICK D."
+          ]
+        },
+        "events": [
+          {
+            "type": "Goal",
+            "minute": "8'",
+            "player": "N/A",
+            "relatedPlayer": "MANGAN M.",
+            "side": "home"
+          },
+          {
+            "type": "Goal",
+            "minute": "20'",
+            "player": "MORIARTY G.",
+            "relatedPlayer": null,
+            "side": "away"
+          },
+          {
+            "type": "Goal",
+            "minute": "39'",
+            "player": "MCCANN K.",
+            "relatedPlayer": null,
+            "side": "away"
+          },
+          {
+            "type": "Substitution",
+            "minute": "46'",
+            "player": "FEEHAN D.",
+            "relatedPlayer": "MCCARTHY D.",
+            "side": "home"
+          },
+          {
+            "type": "Substitution",
+            "minute": "46'",
+            "player": "O BRIEN MAC SWEENEY D.",
+            "relatedPlayer": "N/A",
+            "side": "away"
+          },
+          {
+            "type": "Substitution",
+            "minute": "62'",
+            "player": "O CONNOR M.",
+            "relatedPlayer": "BROSNAN J.",
+            "side": "home"
+          },
+          {
+            "type": "Substitution",
+            "minute": "68'",
+            "player": "DALY S.",
+            "relatedPlayer": "N/A",
+            "side": "home"
+          },
+          {
+            "type": "Substitution",
+            "minute": "69'",
+            "player": "LYNE C.",
+            "relatedPlayer": "O'MAHONEY S.",
+            "side": "away"
+          },
+          {
+            "type": "Yellow card",
+            "minute": "79'",
+            "player": "FEEHAN T.",
+            "relatedPlayer": null,
+            "side": "home"
+          },
+          {
+            "type": "Substitution",
+            "minute": "81'",
+            "player": "OCONNOR C.",
+            "relatedPlayer": "MANGAN M.",
+            "side": "home"
+          },
+          {
+            "type": "Yellow card",
+            "minute": "85'",
+            "player": "MORIARTY G.",
+            "relatedPlayer": null,
+            "side": "away"
+          },
+          {
+            "type": "Substitution",
+            "minute": "87'",
+            "player": "COSTELLO K.",
+            "relatedPlayer": "MORIARTY G.",
+            "side": "away"
+          },
+          {
+            "type": "Yellow card",
+            "minute": "88'",
+            "player": "COSTELLO K.",
+            "relatedPlayer": null,
+            "side": "away"
+          },
+          {
+            "type": "Yellow card",
+            "minute": "90+6'",
+            "player": "MCAULIFFE S.",
+            "relatedPlayer": null,
+            "side": "home"
+          },
+          {
+            "type": "Goal",
+            "minute": "90+6'",
+            "player": "MCAULIFFE S.",
+            "relatedPlayer": "BROSNAN B.",
+            "side": "home"
+          },
+          {
+            "type": "Goal",
+            "minute": "92'",
+            "player": "FEEHAN T.",
+            "relatedPlayer": "FEEHAN D.",
+            "side": "home"
+          },
+          {
+            "type": "Goal",
+            "minute": "97'",
+            "player": "FEEHAN T.",
+            "relatedPlayer": "OCONNOR C.",
+            "side": "home"
+          },
+          {
+            "type": "Goal",
+            "minute": "104'",
+            "player": "FEEHAN D.",
+            "relatedPlayer": "O CONNOR M.",
+            "side": "home"
+          }
+        ]
+      }
+    },
+    {
+      "id": 53084198,
+      "teamId": 61231,
+      "teamLabel": "Senior A Men",
+      "homeTeam": "Killarney Athletic A.F.C.",
+      "awayTeam": "Listowel Celtic",
+      "homeCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "awayCrest": "/images/team-crests/listowel-celtic-afc.png",
+      "homeColour": "#0b2e78",
+      "awayColour": "#02755f",
+      "competitionId": 53020318,
+      "competition": "McCarthy Insurance Group MJC 26/27 - Kerry District League",
+      "date": "2026-09-13T13:00:00.000Z",
+      "venue": "Woodlawn",
+      "status": "past",
+      "score": "5 – 2",
+      "details": {
+        "homeLineup": {
+          "formation": "4-3-3",
+          "players": [
+            {
+              "name": "SUGRUE G.",
+              "shirtNumber": 1,
+              "starting": true,
+              "captain": false,
+              "position": "GK"
+            },
+            {
+              "name": "KELLY C.",
+              "shirtNumber": 2,
+              "starting": true,
+              "captain": false,
+              "position": "LB"
+            },
+            {
+              "name": "CRONIN N.",
+              "shirtNumber": 5,
+              "starting": true,
+              "captain": false,
+              "position": "LCB"
+            },
+            {
+              "name": "DOONA E.",
+              "shirtNumber": 6,
+              "starting": true,
+              "captain": false,
+              "position": "RB"
+            },
+            {
+              "name": "O SULLIVAN O.",
+              "shirtNumber": 7,
+              "starting": true,
+              "captain": false,
+              "position": "RW"
+            },
+            {
+              "name": "COOPER J.",
+              "shirtNumber": 8,
+              "starting": true,
+              "captain": false,
+              "position": "LCM"
+            },
+            {
+              "name": "SPARLING T.",
+              "shirtNumber": 9,
+              "starting": true,
+              "captain": false,
+              "position": "LW"
+            },
+            {
+              "name": "O'SHEA B.",
+              "shirtNumber": 10,
+              "starting": true,
+              "captain": false,
+              "position": "CM"
+            },
+            {
+              "name": "BOWLER J.",
+              "shirtNumber": 11,
+              "starting": true,
+              "captain": false,
+              "position": "CF"
+            },
+            {
+              "name": "DOOLAN S.",
+              "shirtNumber": 14,
+              "starting": true,
+              "captain": true,
+              "position": "RCM"
+            },
+            {
+              "name": "HORGAN M.",
+              "shirtNumber": 19,
+              "starting": true,
+              "captain": false,
+              "position": "RCB"
+            },
+            {
+              "name": "DOOLAN T.",
+              "shirtNumber": 3,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "DALY O.",
+              "shirtNumber": 12,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "BROWNE K.",
+              "shirtNumber": 13,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "MOSCA L.",
+              "shirtNumber": 15,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "MULVANEY E.",
+              "shirtNumber": 16,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "ALLEN L.",
+              "shirtNumber": 17,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "O SHEA D.",
+              "shirtNumber": 18,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "O CONNELL A.",
+              "shirtNumber": 21,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "LOONEY D.",
+              "shirtNumber": 22,
+              "starting": false,
+              "captain": false,
+              "position": null
+            }
+          ],
+          "officials": [
+            "DOOLAN D.",
+            "MULLINS J."
+          ]
+        },
+        "awayLineup": {
+          "formation": "4-2-3-1",
+          "players": [
+            {
+              "name": "QUINN P.",
+              "shirtNumber": 1,
+              "starting": true,
+              "captain": false,
+              "position": "GK"
+            },
+            {
+              "name": "SPINK S.",
+              "shirtNumber": 2,
+              "starting": true,
+              "captain": false,
+              "position": "LB"
+            },
+            {
+              "name": "GALVIN J.",
+              "shirtNumber": 3,
+              "starting": true,
+              "captain": false,
+              "position": "RB"
+            },
+            {
+              "name": "MCCARTHY K.",
+              "shirtNumber": 4,
+              "starting": true,
+              "captain": false,
+              "position": "LCB"
+            },
+            {
+              "name": "KEANE S.",
+              "shirtNumber": 5,
+              "starting": true,
+              "captain": false,
+              "position": "RCB"
+            },
+            {
+              "name": "LYNCH M.",
+              "shirtNumber": 6,
+              "starting": true,
+              "captain": false,
+              "position": "LCM"
+            },
+            {
+              "name": "CLARKE C.",
+              "shirtNumber": 7,
+              "starting": true,
+              "captain": false,
+              "position": "RCAM"
+            },
+            {
+              "name": "KEANE T.",
+              "shirtNumber": 8,
+              "starting": true,
+              "captain": true,
+              "position": "RCM"
+            },
+            {
+              "name": "CHUTE A.",
+              "shirtNumber": 9,
+              "starting": true,
+              "captain": false,
+              "position": "CF"
+            },
+            {
+              "name": "GALVIN M.",
+              "shirtNumber": 10,
+              "starting": true,
+              "captain": false,
+              "position": "CAM"
+            },
+            {
+              "name": "CRONIN A.",
+              "shirtNumber": 11,
+              "starting": true,
+              "captain": false,
+              "position": "LCAM"
+            },
+            {
+              "name": "FEALEY C.",
+              "shirtNumber": 12,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "O CARROLL K.",
+              "shirtNumber": 13,
+              "starting": false,
+              "captain": false,
+              "position": null
+            },
+            {
+              "name": "LANDY B.",
+              "shirtNumber": 14,
+              "starting": false,
+              "captain": false,
+              "position": null
+            }
+          ],
+          "officials": [
+            "QUINN P.",
+            "FEALEY J.",
+            "DEREK FEALY"
+          ]
+        },
+        "events": [
+          {
+            "type": "Goal",
+            "minute": "8'",
+            "player": "CLARKE C.",
+            "relatedPlayer": "QUINN P.",
+            "side": "away"
+          },
+          {
+            "type": "Goal",
+            "minute": "13'",
+            "player": "CHUTE A.",
+            "relatedPlayer": "MCCARTHY K.",
+            "side": "away"
+          },
+          {
+            "type": "Goal",
+            "minute": "30'",
+            "player": "O SULLIVAN O.",
+            "relatedPlayer": null,
+            "side": "home"
+          },
+          {
+            "type": "Yellow card",
+            "minute": "33'",
+            "player": "LYNCH M.",
+            "relatedPlayer": null,
+            "side": "away"
+          },
+          {
+            "type": "Goal",
+            "minute": "43'",
+            "player": "O'SHEA B.",
+            "relatedPlayer": null,
+            "side": "home"
+          },
+          {
+            "type": "Substitution",
+            "minute": "46'",
+            "player": "DOOLAN T.",
+            "relatedPlayer": "KELLY C.",
+            "side": "home"
+          },
+          {
+            "type": "Substitution",
+            "minute": "56'",
+            "player": "O CARROLL K.",
+            "relatedPlayer": "SPINK S.",
+            "side": "away"
+          },
+          {
+            "type": "Goal",
+            "minute": "59'",
+            "player": "BOWLER J.",
+            "relatedPlayer": null,
+            "side": "home"
+          },
+          {
+            "type": "Goal",
+            "minute": "64'",
+            "player": "BOWLER J.",
+            "relatedPlayer": null,
+            "side": "home"
+          },
+          {
+            "type": "Substitution",
+            "minute": "65'",
+            "player": "LOONEY D.",
+            "relatedPlayer": "CRONIN N.",
+            "side": "home"
+          },
+          {
+            "type": "Substitution",
+            "minute": "65'",
+            "player": "ALLEN L.",
+            "relatedPlayer": "SPARLING T.",
+            "side": "home"
+          },
+          {
+            "type": "Substitution",
+            "minute": "68'",
+            "player": "FEALEY C.",
+            "relatedPlayer": "CRONIN A.",
+            "side": "away"
+          },
+          {
+            "type": "Substitution",
+            "minute": "76'",
+            "player": "MOSCA L.",
+            "relatedPlayer": "O'SHEA B.",
+            "side": "home"
+          },
+          {
+            "type": "Substitution",
+            "minute": "78'",
+            "player": "MULVANEY E.",
+            "relatedPlayer": "BOWLER J.",
+            "side": "home"
+          },
+          {
+            "type": "Goal",
+            "minute": "80'",
+            "player": "ALLEN L.",
+            "relatedPlayer": null,
+            "side": "home"
+          }
+        ]
+      }
+    },
+    {
+      "id": 53133707,
+      "teamId": 61231,
+      "teamLabel": "Senior A Men",
+      "homeTeam": "Killarney Athletic A.F.C.",
+      "awayTeam": "Killarney Celtic FC",
+      "homeCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "awayCrest": "/images/team-crests/killarney-celtic-fc.png",
+      "homeColour": "#0b2e78",
+      "awayColour": "#036733",
+      "competitionId": 51790064,
+      "competition": "Kerry and District League 26/27 Premier A",
+      "date": "2026-09-20T12:00:00.000Z",
+      "venue": "Woodlawn",
+      "status": "future",
+      "score": null,
+      "details": {
+        "homeLineup": null,
+        "awayLineup": null,
+        "events": []
+      }
+    },
+    {
+      "id": 53325147,
+      "teamId": 61165,
+      "teamLabel": "Senior B Men",
+      "homeTeam": "CS Abbeydorney",
+      "awayTeam": "Killarney Athletic A.F.C.",
+      "homeCrest": "/images/fai/cs-abbeydorney-81326.jpg",
+      "awayCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "homeColour": "#39afe6",
+      "awayColour": "#0b2e78",
+      "competitionId": 51791953,
+      "competition": "Kerry and District League Division 2",
+      "date": "2026-09-20T15:00:00.000Z",
+      "venue": "Mounthawk Park",
+      "status": "future",
+      "score": null,
+      "details": {
+        "homeLineup": null,
+        "awayLineup": null,
+        "events": []
+      }
+    },
+    {
+      "id": 53487720,
+      "teamId": 35828,
+      "teamLabel": "U17A Boys",
+      "homeTeam": "Killarney Athletic A.F.C.",
+      "awayTeam": "Castleisland AFC",
+      "homeCrest": "/images/team-crests/killarney-athletic-afc.svg",
+      "awayCrest": "/images/team-crests/castleisland-afc.png",
+      "homeColour": "#0b2e78",
+      "awayColour": "#5fc090",
+      "competitionId": 51792362,
+      "competition": "Kerry and District League U17s",
+      "date": "2026-09-26T13:00:00.000Z",
+      "venue": "Woodlawn",
+      "status": "future",
+      "score": null,
+      "details": {
+        "homeLineup": null,
+        "awayLineup": null,
+        "events": []
+      }
+    }
+  ],
+  "tables": [
+    {
+      "competitionId": 38810208,
+      "competition": "McCarthy Insurance Group MJS 25/26 - Kerry District League",
+      "teamIds": [
+        61165
+      ],
+      "rows": [
+        {
+          "position": 1,
+          "club": "Castlegregory Celtic B KRYDL",
+          "crestUrl": "/images/fai/castlegregory-celtic-60424.jpg",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 2,
+          "goalsAgainst": 3,
+          "goalDifference": -1,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 2,
+          "club": "Castleisland AFC",
+          "crestUrl": "/images/team-crests/castleisland-afc.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 0,
+          "goalsAgainst": 3,
+          "goalDifference": -3,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 3,
+          "club": "Dingle Bay Rovers - Mens - 24/25",
+          "crestUrl": "/images/fai/dingle-bay-rovers-62792.jpg",
+          "played": 2,
+          "won": 2,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 13,
+          "goalsAgainst": 6,
+          "goalDifference": 7,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 4,
+          "club": "Emerald Eagles FC",
+          "crestUrl": "/images/fai/emerald-eagles-fc-80640.png",
+          "played": 2,
+          "won": 1,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 3,
+          "goalsAgainst": 3,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 5,
+          "club": "Fenit Samphires FC",
+          "crestUrl": "/images/fai/fenit-samphires-fc-25357.jpg",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 0,
+          "goalsAgainst": 1,
+          "goalDifference": -1,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 6,
+          "club": "Inter Kenmare FC A",
+          "crestUrl": "/images/fai/inter-kenmare-fc-24789.jpg",
+          "played": 2,
+          "won": 2,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 11,
+          "goalsAgainst": 2,
+          "goalDifference": 9,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 7,
+          "club": "Killarney Athletic AFC Senior B Men 26/27",
+          "crestUrl": "/images/team-crests/killarney-athletic-afc.svg",
+          "played": 2,
+          "won": 1,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 3,
+          "goalsAgainst": 8,
+          "goalDifference": -5,
+          "points": 0,
+          "isKillarneyAthletic": true
+        },
+        {
+          "position": 8,
+          "club": "Killorglin AFC Senior B 24/25",
+          "crestUrl": "/images/team-crests/killorglin-afc.png",
+          "played": 2,
+          "won": 1,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 7,
+          "goalsAgainst": 9,
+          "goalDifference": -2,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 9,
+          "club": "Mainebank F.C. KRYDL",
+          "crestUrl": null,
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 2,
+          "goalsAgainst": 6,
+          "goalDifference": -4,
+          "points": 0,
+          "isKillarneyAthletic": false
+        }
+      ]
+    },
+    {
+      "competitionId": 38816879,
+      "competition": "JAKO Ireland MYC 25/26 - Kerry District League",
+      "teamIds": [
+        35827
+      ],
+      "rows": [
+        {
+          "position": 1,
+          "club": "Castleisland AFC U18",
+          "crestUrl": "/images/team-crests/castleisland-afc.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 2,
+          "goalsAgainst": 8,
+          "goalDifference": -6,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 2,
+          "club": "Inter Kenmare FC Youths",
+          "crestUrl": "/images/fai/inter-kenmare-fc-27017.jpg",
+          "played": 2,
+          "won": 0,
+          "drawn": 0,
+          "lost": 2,
+          "goalsFor": 5,
+          "goalsAgainst": 10,
+          "goalDifference": -5,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 3,
+          "club": "Killarney Athletic AFC U18A Boys 26/27",
+          "crestUrl": "/images/team-crests/killarney-athletic-afc.svg",
+          "played": 3,
+          "won": 3,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 16,
+          "goalsAgainst": 4,
+          "goalDifference": 12,
+          "points": 9,
+          "isKillarneyAthletic": true
+        },
+        {
+          "position": 4,
+          "club": "Killarney Celtic FC Youths",
+          "crestUrl": "/images/team-crests/killarney-celtic-fc.png",
+          "played": 3,
+          "won": 2,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 13,
+          "goalsAgainst": 11,
+          "goalDifference": 2,
+          "points": 6,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 5,
+          "club": "Killorglin AFC Youths 24/25",
+          "crestUrl": "/images/team-crests/killorglin-afc.png",
+          "played": 1,
+          "won": 1,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 3,
+          "goalsAgainst": 1,
+          "goalDifference": 2,
+          "points": 3,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 6,
+          "club": "Listowel Celtic 2009 Boys",
+          "crestUrl": "/images/team-crests/listowel-celtic-afc.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 0,
+          "goalsAgainst": 3,
+          "goalDifference": -3,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 7,
+          "club": "Mastergeeha FC Youths A",
+          "crestUrl": "/images/team-crests/mastergeeha-fc.png",
+          "played": 1,
+          "won": 1,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 5,
+          "goalsAgainst": 2,
+          "goalDifference": 3,
+          "points": 3,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 8,
+          "club": "St Brendans Park FC",
+          "crestUrl": "/images/team-crests/st-brendans-park-fc.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 2,
+          "goalsAgainst": 5,
+          "goalDifference": -3,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 9,
+          "club": "Tralee Dynamos FC",
+          "crestUrl": "/images/team-crests/tralee-dynamos.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 2,
+          "goalsAgainst": 4,
+          "goalDifference": -2,
+          "points": 0,
+          "isKillarneyAthletic": false
+        }
+      ]
+    },
+    {
+      "competitionId": 37368409,
+      "competition": "Kerry and District League 2025/26 Division 1",
+      "teamIds": [
+        61165
+      ],
+      "rows": [
+        {
+          "position": 1,
+          "club": "Rattoo Rovers FC",
+          "crestUrl": "/images/fai/rattoo-rovers-fc-25268.jpg",
+          "played": 8,
+          "won": 6,
+          "drawn": 1,
+          "lost": 1,
+          "goalsFor": 23,
+          "goalsAgainst": 7,
+          "goalDifference": 16,
+          "points": 19,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 2,
+          "club": "Asdee Rovers FC",
+          "crestUrl": "/images/fai/asdee-rovers-fc-20139.jpg",
+          "played": 8,
+          "won": 5,
+          "drawn": 2,
+          "lost": 1,
+          "goalsFor": 23,
+          "goalsAgainst": 15,
+          "goalDifference": 8,
+          "points": 17,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 3,
+          "club": "Iveragh United FC KRYDL",
+          "crestUrl": "/images/fai/iveragh-united-fc-63804.png",
+          "played": 9,
+          "won": 5,
+          "drawn": 0,
+          "lost": 4,
+          "goalsFor": 19,
+          "goalsAgainst": 17,
+          "goalDifference": 2,
+          "points": 15,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 4,
+          "club": "Quarry Park Rangers",
+          "crestUrl": "/images/fai/quarry-park-rangers-20188.jpg",
+          "played": 7,
+          "won": 3,
+          "drawn": 3,
+          "lost": 1,
+          "goalsFor": 14,
+          "goalsAgainst": 11,
+          "goalDifference": 3,
+          "points": 12,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 5,
+          "club": "Killorglin AFC Senior B 23/24",
+          "crestUrl": "/images/team-crests/killorglin-afc.png",
+          "played": 8,
+          "won": 3,
+          "drawn": 2,
+          "lost": 3,
+          "goalsFor": 20,
+          "goalsAgainst": 25,
+          "goalDifference": -5,
+          "points": 11,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 6,
+          "club": "Windmill United KRYDL",
+          "crestUrl": "/images/fai/windmill-united-64267.png",
+          "played": 7,
+          "won": 3,
+          "drawn": 0,
+          "lost": 4,
+          "goalsFor": 17,
+          "goalsAgainst": 20,
+          "goalDifference": -3,
+          "points": 9,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 7,
+          "club": "Castleisland AFC B Team",
+          "crestUrl": "/images/team-crests/castleisland-afc.png",
+          "played": 7,
+          "won": 1,
+          "drawn": 0,
+          "lost": 6,
+          "goalsFor": 11,
+          "goalsAgainst": 17,
+          "goalDifference": -6,
+          "points": 3,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 8,
+          "club": "Killarney Athletic AFC Senior B Men 26/27",
+          "crestUrl": "/images/team-crests/killarney-athletic-afc.svg",
+          "played": 8,
+          "won": 0,
+          "drawn": 2,
+          "lost": 6,
+          "goalsFor": 9,
+          "goalsAgainst": 24,
+          "goalDifference": -15,
+          "points": 2,
+          "isKillarneyAthletic": true
+        },
+        {
+          "position": 9,
+          "club": "Lenamore Rovers A team",
+          "crestUrl": "/images/fai/lenamore-rovers-17784.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        }
+      ]
+    },
+    {
+      "competitionId": 38818462,
+      "competition": "Munster FA U17 Cup 25/26 - Kerry District League",
+      "teamIds": [
+        35828
+      ],
+      "rows": [
+        {
+          "position": 1,
+          "club": "Castleisland AFC U17",
+          "crestUrl": "/images/team-crests/castleisland-afc.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 3,
+          "goalsAgainst": 7,
+          "goalDifference": -4,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 2,
+          "club": "Killarney Athletic AFC U17A Boys 26/27",
+          "crestUrl": "/images/team-crests/killarney-athletic-afc.svg",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 1,
+          "goalsAgainst": 5,
+          "goalDifference": -4,
+          "points": 0,
+          "isKillarneyAthletic": true
+        },
+        {
+          "position": 3,
+          "club": "Killarney Celtic FC U17 Boys",
+          "crestUrl": "/images/team-crests/killarney-celtic-fc.png",
+          "played": 2,
+          "won": 2,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 9,
+          "goalsAgainst": 2,
+          "goalDifference": 7,
+          "points": 6,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 4,
+          "club": "Killorglin AFC U17 24/25",
+          "crestUrl": "/images/team-crests/killorglin-afc.png",
+          "played": 1,
+          "won": 1,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 3,
+          "goalsAgainst": 0,
+          "goalDifference": 3,
+          "points": 3,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 5,
+          "club": "Listowel Celtic 2009 Boys",
+          "crestUrl": "/images/team-crests/listowel-celtic-afc.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 1,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 1,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 6,
+          "club": "Mastergeeha FC U17 A",
+          "crestUrl": "/images/team-crests/mastergeeha-fc.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 0,
+          "goalsAgainst": 3,
+          "goalDifference": -3,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 7,
+          "club": "St Brendans Park FC",
+          "crestUrl": "/images/team-crests/st-brendans-park-fc.png",
+          "played": 2,
+          "won": 1,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 8,
+          "goalsAgainst": 7,
+          "goalDifference": 1,
+          "points": 3,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 8,
+          "club": "Tralee Dynamos U-17",
+          "crestUrl": "/images/team-crests/tralee-dynamos.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 1,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 1,
+          "isKillarneyAthletic": false
+        }
+      ]
+    },
+    {
+      "competitionId": 42480327,
+      "competition": "FAI Youth Cup 2026 - Munster Region",
+      "teamIds": [
+        35827
+      ],
+      "rows": [
+        {
+          "position": 1,
+          "club": "Fairview Rangers Youths",
+          "crestUrl": null,
+          "played": 1,
+          "won": 1,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 3,
+          "goalsAgainst": 2,
+          "goalDifference": 1,
+          "points": 3,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 2,
+          "club": "Feenagh AFC Youths 2026/27",
+          "crestUrl": "/images/fai/feenagh-afc-76039.jpg",
+          "played": 1,
+          "won": 1,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 4,
+          "goalsAgainst": 2,
+          "goalDifference": 2,
+          "points": 3,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 3,
+          "club": "Killarney Athletic AFC U18A Boys 26/27",
+          "crestUrl": "/images/team-crests/killarney-athletic-afc.svg",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 1,
+          "goalsAgainst": 3,
+          "goalDifference": -2,
+          "points": 0,
+          "isKillarneyAthletic": true
+        },
+        {
+          "position": 4,
+          "club": "Killarney Celtic FC Youths",
+          "crestUrl": "/images/team-crests/killarney-celtic-fc.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 5,
+          "club": "Leeside United U19 League 1A CYL 2026/27",
+          "crestUrl": "/images/fai/leeside-united-fc-59164.png",
+          "played": 1,
+          "won": 1,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 3,
+          "goalsAgainst": 1,
+          "goalDifference": 2,
+          "points": 3,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 6,
+          "club": "Murroe AFC U18 A team LDL",
+          "crestUrl": null,
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 2,
+          "goalsAgainst": 4,
+          "goalDifference": -2,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 7,
+          "club": "Newcastle West Town",
+          "crestUrl": "/images/fai/newcastle-west-town-fc-54639.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 0,
+          "goalsAgainst": 5,
+          "goalDifference": -5,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 8,
+          "club": "Newmarket Celtic FC Youths CDSL",
+          "crestUrl": null,
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 2,
+          "goalsAgainst": 3,
+          "goalDifference": -1,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 9,
+          "club": "Tramore AFC",
+          "crestUrl": "/images/fai/tramore-afc-19773.png",
+          "played": 1,
+          "won": 1,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 5,
+          "goalsAgainst": 0,
+          "goalDifference": 5,
+          "points": 3,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 10,
+          "club": "Villa FC - Youth A WADFL",
+          "crestUrl": "/images/fai/villa-fc-59367.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        }
+      ]
+    },
+    {
+      "competitionId": 42601420,
+      "competition": "JAKO Ireland Munster Youth Cup 25/26",
+      "teamIds": [
+        35827
+      ],
+      "rows": [
+        {
+          "position": 1,
+          "club": "Bohemians FC Waterford",
+          "crestUrl": "/images/fai/bohemians-fc-waterford-78126.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 5,
+          "goalsAgainst": 6,
+          "goalDifference": -1,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 2,
+          "club": "Clonmel Town FC Youth Team TSDL",
+          "crestUrl": null,
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 1,
+          "goalsAgainst": 2,
+          "goalDifference": -1,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 3,
+          "club": "Corinthian Boys 16C CSL 26/27",
+          "crestUrl": "/images/fai/college-corinthians-afc-41605.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 2,
+          "goalsAgainst": 6,
+          "goalDifference": -4,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 4,
+          "club": "Corbally United U'18A LDL",
+          "crestUrl": null,
+          "played": 2,
+          "won": 1,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 8,
+          "goalsAgainst": 8,
+          "goalDifference": 0,
+          "points": 3,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 5,
+          "club": "Fairview Rangers Youths",
+          "crestUrl": null,
+          "played": 3,
+          "won": 2,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 7,
+          "goalsAgainst": 2,
+          "goalDifference": 5,
+          "points": 6,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 6,
+          "club": "Feenagh AFC Youths 2026/27",
+          "crestUrl": "/images/fai/feenagh-afc-76039.jpg",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 1,
+          "goalsAgainst": 5,
+          "goalDifference": -4,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 7,
+          "club": "Kanturk Afc U-18 L1  2025/26 CYL",
+          "crestUrl": "/images/fai/kanturk-afc-42192.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 1,
+          "goalsAgainst": 2,
+          "goalDifference": -1,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 8,
+          "club": "Killarney Athletic AFC U18A Boys 26/27",
+          "crestUrl": "/images/team-crests/killarney-athletic-afc.svg",
+          "played": 2,
+          "won": 1,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 6,
+          "goalsAgainst": 4,
+          "goalDifference": 2,
+          "points": 3,
+          "isKillarneyAthletic": true
+        },
+        {
+          "position": 9,
+          "club": "Lakewood Athletic U-18 Premier 2025/26",
+          "crestUrl": "/images/fai/lakewood-athletic-52062.png",
+          "played": 4,
+          "won": 2,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 8,
+          "goalsAgainst": 6,
+          "goalDifference": 2,
+          "points": 8,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 10,
+          "club": "Leeside United U19 League 1A CYL 2026/27",
+          "crestUrl": "/images/fai/leeside-united-fc-59164.png",
+          "played": 4,
+          "won": 4,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 16,
+          "goalsAgainst": 7,
+          "goalDifference": 9,
+          "points": 12,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 11,
+          "club": "Midleton 18 Premier 2025/26",
+          "crestUrl": "/images/fai/midleton-83360.png",
+          "played": 2,
+          "won": 1,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 4,
+          "goalsAgainst": 4,
+          "goalDifference": 0,
+          "points": 3,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 12,
+          "club": "Moneygall FC U18 Boys 26/27",
+          "crestUrl": "/images/fai/moneygall-fc-80250.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 13,
+          "club": "Murroe AFC U18 A team LDL",
+          "crestUrl": null,
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 0,
+          "goalsAgainst": 5,
+          "goalDifference": -5,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 14,
+          "club": "Newcastle West Town",
+          "crestUrl": "/images/fai/newcastle-west-town-fc-54639.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 0,
+          "goalsAgainst": 5,
+          "goalDifference": -5,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 15,
+          "club": "Newmarket Celtic FC Youths CDSL",
+          "crestUrl": null,
+          "played": 3,
+          "won": 2,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 5,
+          "goalsAgainst": 3,
+          "goalDifference": 2,
+          "points": 7,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 16,
+          "club": "Peake Villa FC Youths A TSDL",
+          "crestUrl": null,
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 0,
+          "goalsAgainst": 2,
+          "goalDifference": -2,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 17,
+          "club": "Tramore AFC",
+          "crestUrl": "/images/fai/tramore-afc-19773.png",
+          "played": 2,
+          "won": 1,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 5,
+          "goalsAgainst": 2,
+          "goalDifference": 3,
+          "points": 3,
+          "isKillarneyAthletic": false
+        }
+      ]
+    },
+    {
+      "competitionId": 44893572,
+      "competition": "FAI Junior Cup 2026 - Clare DL - Kerry DL - Limerick Desmond Region",
+      "teamIds": [
+        61231
+      ],
+      "rows": [
+        {
+          "position": 1,
+          "club": "Abbeyfeale United FC A Team 2025/26 Season",
+          "crestUrl": null,
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 0,
+          "goalsAgainst": 2,
+          "goalDifference": -2,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 2,
+          "club": "Athea United",
+          "crestUrl": "/images/fai/athea-united-61192.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 0,
+          "goalsAgainst": 5,
+          "goalDifference": -5,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 3,
+          "club": "Avenue United A",
+          "crestUrl": null,
+          "played": 3,
+          "won": 3,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 15,
+          "goalsAgainst": 3,
+          "goalDifference": 12,
+          "points": 9,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 4,
+          "club": "Ballingarry AFC Junior Mens A Team 2026-2027 season",
+          "crestUrl": null,
+          "played": 3,
+          "won": 2,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 8,
+          "goalsAgainst": 8,
+          "goalDifference": 0,
+          "points": 6,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 5,
+          "club": "Ballyheigue Athletic FC KRYDL",
+          "crestUrl": "/images/team-crests/ballyheigue-athletic-fc.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 0,
+          "goalsAgainst": 2,
+          "goalDifference": -2,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 6,
+          "club": "Breska Rovers A",
+          "crestUrl": null,
+          "played": 2,
+          "won": 1,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 2,
+          "goalsAgainst": 3,
+          "goalDifference": -1,
+          "points": 3,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 7,
+          "club": "Bridge Celtic CDSL",
+          "crestUrl": null,
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 0,
+          "goalsAgainst": 3,
+          "goalDifference": -3,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 8,
+          "club": "Bridge United AFC A - Clare CDSL",
+          "crestUrl": "/images/fai/bridge-united-afc-clare-61442.png",
+          "played": 2,
+          "won": 1,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 6,
+          "goalsAgainst": 3,
+          "goalDifference": 3,
+          "points": 3,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 9,
+          "club": "Broadford United Senior Men A's 26/27",
+          "crestUrl": "/images/fai/broadford-united-76519.jpg",
+          "played": 2,
+          "won": 2,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 10,
+          "goalsAgainst": 1,
+          "goalDifference": 9,
+          "points": 6,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 10,
+          "club": "Bunratty Cratloe FC",
+          "crestUrl": "/images/fai/bunratty-cratloe-fc-32795.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 0,
+          "goalsAgainst": 2,
+          "goalDifference": -2,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 11,
+          "club": "Castleisland AFC",
+          "crestUrl": "/images/team-crests/castleisland-afc.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 0,
+          "goalsAgainst": 2,
+          "goalDifference": -2,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 12,
+          "club": "Classic F.C",
+          "crestUrl": null,
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 1,
+          "goalsAgainst": 7,
+          "goalDifference": -6,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 13,
+          "club": "Creeves Celtic Men, 26/27",
+          "crestUrl": "/images/fai/creeves-celtic-17188.jpg",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 0,
+          "goalsAgainst": 6,
+          "goalDifference": -6,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 14,
+          "club": "Dromore Utd A",
+          "crestUrl": "/images/fai/dromore-utd-62734.jpg",
+          "played": 3,
+          "won": 2,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 12,
+          "goalsAgainst": 5,
+          "goalDifference": 7,
+          "points": 6,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 15,
+          "club": "Ennis Dons FC A",
+          "crestUrl": "/images/fai/ennis-dons-fc-59878.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 1,
+          "goalsAgainst": 3,
+          "goalDifference": -2,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 16,
+          "club": "Fern Celtic AFC",
+          "crestUrl": "/images/fai/fern-celtic-afc-16794.jpg",
+          "played": 2,
+          "won": 1,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 3,
+          "goalsAgainst": 4,
+          "goalDifference": -1,
+          "points": 3,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 17,
+          "club": "Glin Rovers A",
+          "crestUrl": "/images/fai/glin-rovers-77393.jpg",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 2,
+          "goalsAgainst": 3,
+          "goalDifference": -1,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 18,
+          "club": "Killarney Athletic AFC Senior A Men 26/27",
+          "crestUrl": "/images/team-crests/killarney-athletic-afc.svg",
+          "played": 2,
+          "won": 1,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 3,
+          "goalsAgainst": 3,
+          "goalDifference": 0,
+          "points": 3,
+          "isKillarneyAthletic": true
+        },
+        {
+          "position": 19,
+          "club": "Killarney Celtic FC KRYDL Premier A",
+          "crestUrl": "/images/team-crests/killarney-celtic-fc.png",
+          "played": 2,
+          "won": 2,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 7,
+          "goalsAgainst": 0,
+          "goalDifference": 7,
+          "points": 6,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 20,
+          "club": "Listowel Celtic KDL A",
+          "crestUrl": "/images/team-crests/listowel-celtic-afc.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 0,
+          "goalsAgainst": 6,
+          "goalDifference": -6,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 21,
+          "club": "Mastergeeha FC",
+          "crestUrl": "/images/team-crests/mastergeeha-fc.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 0,
+          "goalsAgainst": 3,
+          "goalDifference": -3,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 22,
+          "club": "Mountshannon Celtic A",
+          "crestUrl": null,
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 1,
+          "goalsAgainst": 2,
+          "goalDifference": -1,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 23,
+          "club": "Newmarket Celtic FC A",
+          "crestUrl": null,
+          "played": 3,
+          "won": 3,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 21,
+          "goalsAgainst": 3,
+          "goalDifference": 18,
+          "points": 9,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 24,
+          "club": "Rathkeale AFC Junior A 2025/26",
+          "crestUrl": "/images/fai/rathkeale-afc-77308.jpg",
+          "played": 2,
+          "won": 2,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 5,
+          "goalsAgainst": 1,
+          "goalDifference": 4,
+          "points": 6,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 25,
+          "club": "Shannon Hibernians A Team",
+          "crestUrl": null,
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 0,
+          "goalsAgainst": 4,
+          "goalDifference": -4,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 26,
+          "club": "Shannon Olympic AFC A",
+          "crestUrl": "/images/fai/shannon-olympic-afc-59567.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 1,
+          "goalsAgainst": 3,
+          "goalDifference": -2,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 27,
+          "club": "Shannon Town A CDSL 26/27",
+          "crestUrl": null,
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 0,
+          "goalsAgainst": 4,
+          "goalDifference": -4,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 28,
+          "club": "Shountrade AFC Juniors 26/27",
+          "crestUrl": "/images/fai/shountrade-77327.jpg",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 1,
+          "goalsAgainst": 13,
+          "goalDifference": -12,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 29,
+          "club": "St Brendans Park FC",
+          "crestUrl": "/images/team-crests/st-brendans-park-fc.png",
+          "played": 3,
+          "won": 2,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 6,
+          "goalsAgainst": 6,
+          "goalDifference": 0,
+          "points": 6,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 30,
+          "club": "St. Itas AFC A 26/27",
+          "crestUrl": "/images/fai/st-itas-afc-77030.jpg",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 0,
+          "goalsAgainst": 1,
+          "goalDifference": -1,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 31,
+          "club": "Tralee Dynamos Premier A",
+          "crestUrl": "/images/team-crests/tralee-dynamos.png",
+          "played": 2,
+          "won": 1,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 5,
+          "goalsAgainst": 5,
+          "goalDifference": 0,
+          "points": 3,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 32,
+          "club": "Tulla Utd CDSL Junior A Team",
+          "crestUrl": null,
+          "played": 3,
+          "won": 3,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 8,
+          "goalsAgainst": 2,
+          "goalDifference": 6,
+          "points": 9,
+          "isKillarneyAthletic": false
+        }
+      ]
+    },
+    {
+      "competitionId": 45162721,
+      "competition": "Munster FA Womens Youth Cup 2026",
+      "teamIds": [
+        83806
+      ],
+      "rows": [
+        {
+          "position": 1,
+          "club": "Aisling Annacotty FC U18's Women 2026",
+          "crestUrl": "/images/fai/aisling-annacotty-fc-74212.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 1,
+          "goalsAgainst": 3,
+          "goalDifference": -2,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 2,
+          "club": "Avenue United U17 LWSSL 2026",
+          "crestUrl": null,
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 2,
+          "goalsAgainst": 4,
+          "goalDifference": -2,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 3,
+          "club": "Ballymackey FC - Girls U19",
+          "crestUrl": "/images/fai/ballymackey-fc-76499.png",
+          "played": 2,
+          "won": 1,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 4,
+          "goalsAgainst": 6,
+          "goalDifference": -2,
+          "points": 3,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 4,
+          "club": "Bunratty Cratloe FC Youths",
+          "crestUrl": "/images/fai/bunratty-cratloe-fc-81322.png",
+          "played": 2,
+          "won": 1,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 3,
+          "goalsAgainst": 2,
+          "goalDifference": 1,
+          "points": 3,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 5,
+          "club": "Carrigaline United AFC CWSSL U19 Utd Premier Division",
+          "crestUrl": "/images/fai/carrigaline-united-afc-59441.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 0,
+          "goalsAgainst": 2,
+          "goalDifference": -2,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 6,
+          "club": "Carrigtwohill United U17 CWSSL 25/26",
+          "crestUrl": "/images/fai/carrigtwohill-united-83935.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 0,
+          "goalsAgainst": 4,
+          "goalDifference": -4,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 7,
+          "club": "College Corinthians Girls CWSSL U17",
+          "crestUrl": "/images/fai/college-corinthians-afc-62874.png",
+          "played": 2,
+          "won": 1,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 7,
+          "goalsAgainst": 6,
+          "goalDifference": 1,
+          "points": 3,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 8,
+          "club": "Douglas Hall LFC U19  CWSSL 26/27",
+          "crestUrl": "/images/fai/douglas-hall-afc-61303.png",
+          "played": 3,
+          "won": 1,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 6,
+          "goalsAgainst": 7,
+          "goalDifference": -1,
+          "points": 5,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 9,
+          "club": "Holycross AFC Youth Women 2026",
+          "crestUrl": "/images/fai/holycross-afc-30230.jpg",
+          "played": 3,
+          "won": 2,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 6,
+          "goalsAgainst": 4,
+          "goalDifference": 2,
+          "points": 6,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 10,
+          "club": "Inter Kenmare FC U17 Girls",
+          "crestUrl": "/images/fai/inter-kenmare-fc-34600.jpg",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 1,
+          "goalsAgainst": 3,
+          "goalDifference": -2,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 11,
+          "club": "Killarney Athletic AFC U17A Girls 26/27",
+          "crestUrl": "/images/team-crests/killarney-athletic-afc.svg",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 0,
+          "goalsAgainst": 3,
+          "goalDifference": -3,
+          "points": 0,
+          "isKillarneyAthletic": true
+        },
+        {
+          "position": 12,
+          "club": "Murroe LWSSL u18 Ladies",
+          "crestUrl": null,
+          "played": 2,
+          "won": 1,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 5,
+          "goalsAgainst": 3,
+          "goalDifference": 2,
+          "points": 4,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 13,
+          "club": "Newcastle West Town FC U18 Munster",
+          "crestUrl": "/images/fai/newcastle-west-town-fc-85562.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 0,
+          "goalsAgainst": 3,
+          "goalDifference": -3,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 14,
+          "club": "Regional United Yths LWSSL Mun Yths Cup 2026",
+          "crestUrl": "/images/fai/regional-united-24741.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 3,
+          "goalsAgainst": 4,
+          "goalDifference": -1,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 15,
+          "club": "Ringmahon Rangers Girls Under 17s 25/26",
+          "crestUrl": "/images/fai/ringmahon-rangers-83526.png",
+          "played": 2,
+          "won": 1,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 3,
+          "goalsAgainst": 3,
+          "goalDifference": 0,
+          "points": 3,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 16,
+          "club": "Riverstown U18 Women's Cup 2026",
+          "crestUrl": "/images/fai/riverstown-85446.png",
+          "played": 5,
+          "won": 4,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 15,
+          "goalsAgainst": 4,
+          "goalDifference": 11,
+          "points": 12,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 17,
+          "club": "Shountrade U18 Ladies 2026",
+          "crestUrl": "/images/fai/shountrade-24776.jpg",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 0,
+          "goalsAgainst": 4,
+          "goalDifference": -4,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 18,
+          "club": "Tramore AFC U18A WDWSL",
+          "crestUrl": "/images/fai/tramore-afc-26214.png",
+          "played": 4,
+          "won": 4,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 12,
+          "goalsAgainst": 5,
+          "goalDifference": 7,
+          "points": 12,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 19,
+          "club": "Tulla Utd CDSL U17 Ladies",
+          "crestUrl": null,
+          "played": 2,
+          "won": 1,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 4,
+          "goalsAgainst": 2,
+          "goalDifference": 2,
+          "points": 3,
+          "isKillarneyAthletic": false
+        }
+      ]
+    },
+    {
+      "competitionId": 51792174,
+      "competition": "Kerry and District League Youths",
+      "teamIds": [
+        35827
+      ],
+      "rows": [
+        {
+          "position": 1,
+          "club": "Castleisland AFC",
+          "crestUrl": "/images/team-crests/castleisland-afc.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 2,
+          "club": "Inter Kenmare FC Youths",
+          "crestUrl": "/images/fai/inter-kenmare-fc-27017.jpg",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 3,
+          "club": "Killarney Athletic AFC U18A Boys 26/27",
+          "crestUrl": "/images/team-crests/killarney-athletic-afc.svg",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": true
+        },
+        {
+          "position": 4,
+          "club": "Killarney Celtic FC Youths",
+          "crestUrl": "/images/team-crests/killarney-celtic-fc.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 5,
+          "club": "Killorglin AFC U18 KRYDL",
+          "crestUrl": "/images/team-crests/killorglin-afc.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 6,
+          "club": "Mastergeeha FC Youths A",
+          "crestUrl": "/images/team-crests/mastergeeha-fc.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 7,
+          "club": "St Brendans Park FC",
+          "crestUrl": "/images/team-crests/st-brendans-park-fc.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 8,
+          "club": "Tralee Dynamos",
+          "crestUrl": "/images/team-crests/tralee-dynamos.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        }
+      ]
+    },
+    {
+      "competitionId": 53163965,
+      "competition": "FAI Youth Cup 2026/27 - Clare, Kerry, Desmond",
+      "teamIds": [
+        35827
+      ],
+      "rows": [
+        {
+          "position": 1,
+          "club": "Abbeyfeale United FC U18 Mens 26/27 Season",
+          "crestUrl": null,
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 2,
+          "club": "Askeaton/Kilcornan-Youths",
+          "crestUrl": "/images/fai/askeaton-kilcornan-afc-76136.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 3,
+          "club": "Blackhill F.C. Youths 26/27",
+          "crestUrl": "/images/fai/blackhill-f-c-87123.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 4,
+          "club": "Breska Rovers U18 26/27",
+          "crestUrl": null,
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 5,
+          "club": "Bridge United AFC Boys 2009A",
+          "crestUrl": "/images/fai/bridge-united-afc-clare-83788.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 1,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 6,
+          "club": "Castleisland AFC U18",
+          "crestUrl": "/images/team-crests/castleisland-afc.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 7,
+          "club": "Creeves Celtic Youths 26/27",
+          "crestUrl": "/images/fai/creeves-celtic-45032.jpg",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 8,
+          "club": "Dromore Utd Youths",
+          "crestUrl": "/images/fai/dromore-utd-76036.jpg",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 9,
+          "club": "Ennis Town FC Youths A CDSL",
+          "crestUrl": null,
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 3,
+          "goalsAgainst": 6,
+          "goalDifference": -3,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 10,
+          "club": "GB Rovers Youths 26/27",
+          "crestUrl": "/images/fai/gb-rovers-fc-55950.jpg",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 11,
+          "club": "Killarney Athletic AFC U18A Boys 26/27",
+          "crestUrl": "/images/team-crests/killarney-athletic-afc.svg",
+          "played": 1,
+          "won": 1,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 6,
+          "goalsAgainst": 3,
+          "goalDifference": 3,
+          "points": 3,
+          "isKillarneyAthletic": true
+        },
+        {
+          "position": 12,
+          "club": "Killarney Celtic FC Youths",
+          "crestUrl": "/images/team-crests/killarney-celtic-fc.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 13,
+          "club": "Killorglin AFC Youths 24/25",
+          "crestUrl": "/images/team-crests/killorglin-afc.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 2,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 14,
+          "club": "Newcastle West Town FC Youth A 26/27",
+          "crestUrl": "/images/fai/newcastle-west-town-fc-76025.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 15,
+          "club": "Newmarket Celtic FC Youths CDSL",
+          "crestUrl": null,
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 16,
+          "club": "Shannon Town Youths 2026/27",
+          "crestUrl": null,
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 17,
+          "club": "St Brendans Park FC",
+          "crestUrl": "/images/team-crests/st-brendans-park-fc.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 18,
+          "club": "Tralee Dynamos FC",
+          "crestUrl": "/images/team-crests/tralee-dynamos.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        }
+      ]
+    },
+    {
+      "competitionId": 53022017,
+      "competition": "McCarthy Insurance Group MJS 26/27 - Kerry District League",
+      "teamIds": [
+        61165
+      ],
+      "rows": [
+        {
+          "position": 1,
+          "club": "Castlegregory Celtic B KRYDL",
+          "crestUrl": "/images/fai/castlegregory-celtic-60424.jpg",
+          "played": 1,
+          "won": 1,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 4,
+          "goalsAgainst": 2,
+          "goalDifference": 2,
+          "points": 3,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 2,
+          "club": "Castleisland AFC B Team",
+          "crestUrl": "/images/team-crests/castleisland-afc.png",
+          "played": 1,
+          "won": 1,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 5,
+          "goalsAgainst": 2,
+          "goalDifference": 3,
+          "points": 3,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 3,
+          "club": "Inter Kenmare FC A",
+          "crestUrl": "/images/fai/inter-kenmare-fc-24789.jpg",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 1,
+          "goalsAgainst": 3,
+          "goalDifference": -2,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 4,
+          "club": "Iveragh United FC",
+          "crestUrl": "/images/fai/iveragh-united-fc-87574.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 2,
+          "goalsAgainst": 4,
+          "goalDifference": -2,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 5,
+          "club": "Killarney Athletic AFC Senior B Men 26/27",
+          "crestUrl": "/images/team-crests/killarney-athletic-afc.svg",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 2,
+          "goalsAgainst": 5,
+          "goalDifference": -3,
+          "points": 0,
+          "isKillarneyAthletic": true
+        },
+        {
+          "position": 6,
+          "club": "Killarney United FC",
+          "crestUrl": "/images/fai/killarney-united-fc-87460.png",
+          "played": 1,
+          "won": 1,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 3,
+          "goalsAgainst": 1,
+          "goalDifference": 2,
+          "points": 3,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 7,
+          "club": "Killorglin AFC Senior B 24/25",
+          "crestUrl": "/images/team-crests/killorglin-afc.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        }
+      ]
+    },
+    {
+      "competitionId": 53020318,
+      "competition": "McCarthy Insurance Group MJC 26/27 - Kerry District League",
+      "teamIds": [
+        61231
+      ],
+      "rows": [
+        {
+          "position": 1,
+          "club": "Castleisland AFC A Team",
+          "crestUrl": "/images/team-crests/castleisland-afc.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 2,
+          "club": "Classic F.C",
+          "crestUrl": null,
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 3,
+          "club": "Fenit Samphires FC",
+          "crestUrl": "/images/fai/fenit-samphires-fc-15394.jpg",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 4,
+          "club": "Killarney Athletic AFC Senior A Men 26/27",
+          "crestUrl": "/images/team-crests/killarney-athletic-afc.svg",
+          "played": 1,
+          "won": 1,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 5,
+          "goalsAgainst": 2,
+          "goalDifference": 3,
+          "points": 3,
+          "isKillarneyAthletic": true
+        },
+        {
+          "position": 5,
+          "club": "Killarney Celtic FC KRYDL Premier A",
+          "crestUrl": "/images/team-crests/killarney-celtic-fc.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 6,
+          "club": "Killorglin AFC Senior A 24/25",
+          "crestUrl": "/images/team-crests/killorglin-afc.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 7,
+          "club": "Listowel Celtic KDL A",
+          "crestUrl": "/images/team-crests/listowel-celtic-afc.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 2,
+          "goalsAgainst": 5,
+          "goalDifference": -3,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 8,
+          "club": "Mastergeeha FC Senior A",
+          "crestUrl": "/images/team-crests/mastergeeha-fc.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 9,
+          "club": "St Brendans Park FC",
+          "crestUrl": "/images/team-crests/st-brendans-park-fc.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 10,
+          "club": "Tralee Dynamos Premier A",
+          "crestUrl": "/images/team-crests/tralee-dynamos.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        }
+      ]
+    },
+    {
+      "competitionId": 51790064,
+      "competition": "Kerry and District League 26/27 Premier A",
+      "teamIds": [
+        61231
+      ],
+      "rows": [
+        {
+          "position": 1,
+          "club": "Castlegregory Celtic A KRYDL",
+          "crestUrl": "/images/fai/castlegregory-celtic-59461.jpg",
+          "played": 1,
+          "won": 1,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 5,
+          "goalsAgainst": 3,
+          "goalDifference": 2,
+          "points": 3,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 2,
+          "club": "St Brendans Park FC",
+          "crestUrl": "/images/team-crests/st-brendans-park-fc.png",
+          "played": 1,
+          "won": 1,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 3,
+          "goalsAgainst": 0,
+          "goalDifference": 3,
+          "points": 3,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 3,
+          "club": "Ballyheigue Athletic FC",
+          "crestUrl": "/images/team-crests/ballyheigue-athletic-fc.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 4,
+          "club": "Castleisland AFC A Team",
+          "crestUrl": "/images/team-crests/castleisland-afc.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 0,
+          "goalsAgainst": 3,
+          "goalDifference": -3,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 5,
+          "club": "Classic F.C",
+          "crestUrl": null,
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 3,
+          "goalsAgainst": 5,
+          "goalDifference": -2,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 6,
+          "club": "Killarney Athletic AFC Senior A Men 26/27",
+          "crestUrl": "/images/team-crests/killarney-athletic-afc.svg",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": true
+        },
+        {
+          "position": 7,
+          "club": "Killarney Celtic FC KRYDL Premier A",
+          "crestUrl": "/images/team-crests/killarney-celtic-fc.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 8,
+          "club": "Killorglin AFC Senior A 23/24",
+          "crestUrl": "/images/team-crests/killorglin-afc.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 9,
+          "club": "Listowel Celtic KDL A",
+          "crestUrl": "/images/team-crests/listowel-celtic-afc.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 10,
+          "club": "Tralee Dynamos Premier A",
+          "crestUrl": "/images/team-crests/tralee-dynamos.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        }
+      ]
+    },
+    {
+      "competitionId": 51791953,
+      "competition": "Kerry and District League Division 2",
+      "teamIds": [
+        61165
+      ],
+      "rows": [
+        {
+          "position": 1,
+          "club": "Ballyheigue Athletic FC 2 KRYDL",
+          "crestUrl": "/images/team-crests/ballyheigue-athletic-fc.png",
+          "played": 1,
+          "won": 1,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 9,
+          "goalsAgainst": 0,
+          "goalDifference": 9,
+          "points": 3,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 2,
+          "club": "Ballyhar Dynamos AFC KRYDL",
+          "crestUrl": "/images/fai/ballyhar-dynamos-afc-64314.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 3,
+          "club": "CS Abbeydorney",
+          "crestUrl": "/images/fai/cs-abbeydorney-81326.jpg",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 4,
+          "club": "Castleisland AFC B",
+          "crestUrl": "/images/team-crests/castleisland-afc.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 5,
+          "club": "Classic F.C B",
+          "crestUrl": null,
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 6,
+          "club": "Emerald Eagles FC",
+          "crestUrl": "/images/fai/emerald-eagles-fc-80640.png",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "goalsFor": 0,
+          "goalsAgainst": 9,
+          "goalDifference": -9,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 7,
+          "club": "Killarney Athletic AFC Senior B Men 26/27",
+          "crestUrl": "/images/team-crests/killarney-athletic-afc.svg",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": true
+        },
+        {
+          "position": 8,
+          "club": "St Brendans Park FC B",
+          "crestUrl": "/images/team-crests/st-brendans-park-fc.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        }
+      ]
+    },
+    {
+      "competitionId": 51792362,
+      "competition": "Kerry and District League U17s",
+      "teamIds": [
+        35828
+      ],
+      "rows": [
+        {
+          "position": 1,
+          "club": "Castleisland AFC",
+          "crestUrl": "/images/team-crests/castleisland-afc.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 2,
+          "club": "Inter Kenmare FC U17 A",
+          "crestUrl": "/images/fai/inter-kenmare-fc-34526.jpg",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 3,
+          "club": "Killarney Athletic AFC U17A Boys 26/27",
+          "crestUrl": "/images/team-crests/killarney-athletic-afc.svg",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": true
+        },
+        {
+          "position": 4,
+          "club": "Killarney Celtic FC U17 Boys",
+          "crestUrl": "/images/team-crests/killarney-celtic-fc.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 5,
+          "club": "Killorglin AFC C",
+          "crestUrl": "/images/team-crests/killorglin-afc.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        },
+        {
+          "position": 6,
+          "club": "Tralee Dynamos U-17",
+          "crestUrl": "/images/team-crests/tralee-dynamos.png",
+          "played": 0,
+          "won": 0,
+          "drawn": 0,
+          "lost": 0,
+          "goalsFor": 0,
+          "goalsAgainst": 0,
+          "goalDifference": 0,
+          "points": 0,
+          "isKillarneyAthletic": false
+        }
+      ]
+    }
+  ]
+}

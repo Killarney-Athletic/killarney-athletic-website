@@ -1,0 +1,5 @@
+---
+interface Props { title?: string; id?: string; dynamic?: boolean; }
+const { title = 'League table', id = 'league-table-heading', dynamic = false } = Astro.props as Props;
+---
+<div class="section-header league-table-shell__header"><div class="section-header__copy"><h2 id={id} data-table-heading={dynamic ? '' : undefined}>{title}</h2></div></div>

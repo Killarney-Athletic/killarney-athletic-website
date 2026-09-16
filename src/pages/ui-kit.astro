@@ -27,6 +27,14 @@ import FilterBar from '../components/ui/FilterBar.astro';
 import TabGroup from '../components/ui/TabGroup.astro';
 import TeamInfoCard from '../components/TeamInfoCard.astro';
 import TeamSwitcher from '../components/TeamSwitcher.astro';
+import CarouselNavigation from '../components/CarouselNavigation.astro';
+import LeagueTableHeader from '../components/LeagueTableHeader.astro';
+import MatchScoreboard from '../components/match/MatchScoreboard.astro';
+import MatchNavigation from '../components/match/MatchNavigation.astro';
+import MatchTimeline from '../components/match/MatchTimeline.astro';
+import MatchFormation from '../components/match/MatchFormation.astro';
+import MatchLineups from '../components/match/MatchLineups.astro';
+import MatchInformation from '../components/match/MatchInformation.astro';
 import clubhouseImage from '../assets/images/backgrounds/Clubhouse.jpg';
 import joinTheClubImage from '../assets/images/backgrounds/JoinTheClub.png';
 import pitchImage from '../assets/images/backgrounds/pitch.jpg';
@@ -177,6 +185,30 @@ const componentGroups = [
     description: 'Reusable, but more specific to this club website.',
     items: [
       {
+        name: 'MatchScoreboard', path: 'src/components/match/MatchScoreboard.astro', note: 'Responsive match header containing competition, crests, score, status, date and venue.',
+      },
+      {
+        name: 'MatchNavigation', path: 'src/components/match/MatchNavigation.astro', note: 'Match tabs combined with chronological Previous and Next navigation.',
+      },
+      {
+        name: 'MatchTimeline', path: 'src/components/match/MatchTimeline.astro', note: 'Event timeline with scores, cards, substitutions, periods and an upcoming-match empty state.',
+      },
+      {
+        name: 'MatchFormation', path: 'src/components/match/MatchFormation.astro', note: 'Responsive full-pitch formation with team identities and event markers.',
+      },
+      {
+        name: 'MatchLineups', path: 'src/components/match/MatchLineups.astro', note: 'Two-team line-up tables with player event chips and responsive stacking.',
+      },
+      {
+        name: 'MatchInformation', path: 'src/components/match/MatchInformation.astro', note: 'Compact match metadata grid used by the Information tab.',
+      },
+      {
+        name: 'CarouselNavigation', path: 'src/components/CarouselNavigation.astro', note: 'Shared Previous and Next controls for chronological match carousels.',
+      },
+      {
+        name: 'LeagueTableHeader', path: 'src/components/LeagueTableHeader.astro', note: 'Dynamic league-table section header matching the standard section-title pattern.',
+      },
+      {
         name: 'ImageCtaSection',
         path: 'src/components/ImageCtaSection.astro',
         note: 'Reusable full-width image/gradient call-to-action section.',
@@ -284,6 +316,43 @@ const contentBadgeExamples = [
           </div>
         </PagePanel>
       ))}
+    </div>
+  </section>
+
+  <section class="ui-kit-section page-shell" id="match-centre-components">
+    <div class="section-heading">
+      <h2>Match and fixtures system</h2>
+      <p class="section-note">Production components used by Fixtures & Results and Match Centre.</p>
+    </div>
+    <div class="ui-kit-content-card-demos">
+      <PagePanel>
+        <SectionHeader slot="header" title="Match scoreboard" intro="Responsive competition, teams, score, date and venue header." />
+        <MatchScoreboard competition="Kerry District League Premier A" homeTeam="Killarney Athletic A.F.C." awayTeam="Listowel Celtic" homeCrest={clubCrestWhiteUrl} awayCrest={clubCrestWhiteUrl} score="5 – 2" status="Full time" when="Sunday 13 September 2026, 2:00 pm" venue="Woodlawn" />
+      </PagePanel>
+      <PagePanel>
+        <SectionHeader slot="header" title="Match tabs and chronology" intro="Tabs control match views while Previous and Next move through the club schedule." />
+        <MatchNavigation previousHref="#match-centre-components" nextHref="#match-centre-components" />
+      </PagePanel>
+      <PagePanel>
+        <SectionHeader slot="header" title="Event timeline" intro="Home and away events, running score, period rows and substitutions." />
+        <MatchTimeline demo />
+      </PagePanel>
+      <PagePanel>
+        <SectionHeader slot="header" title="Formation pitch" intro="Shown only when reliable positional data is available for both teams." />
+        <MatchFormation demo />
+      </PagePanel>
+      <PagePanel>
+        <SectionHeader slot="header" title="Line-up tables" intro="The fallback when formations are unavailable, and the detailed companion to the pitch." />
+        <MatchLineups demo />
+      </PagePanel>
+      <PagePanel>
+        <SectionHeader slot="header" title="Match information" />
+        <MatchInformation demo />
+      </PagePanel>
+      <PagePanel>
+        <SectionHeader slot="header" title="Carousel and league-table headers" />
+        <div class="ui-kit-match-controls"><CarouselNavigation /><LeagueTableHeader title="Kerry District League Premier A table" /></div>
+      </PagePanel>
     </div>
   </section>
 

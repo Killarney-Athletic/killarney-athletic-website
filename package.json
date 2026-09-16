@@ -7,7 +7,8 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "npm run sync:kdl && astro build",
+    "build": "npm run sync:fai && astro build",
+    "sync:fai": "tsx scripts/sync-fai.ts",
     "sync:kdl": "tsx scripts/sync-kdl.ts",
     "postbuild": "node scripts/clean-appledouble.mjs",
     "test": "tsx --test tests/*.test.ts",

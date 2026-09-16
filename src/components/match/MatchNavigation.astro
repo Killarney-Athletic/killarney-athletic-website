@@ -1,0 +1,16 @@
+---
+interface Props { previousHref?: string; nextHref?: string; }
+const { previousHref, nextHref } = Astro.props as Props;
+---
+<div class="match-centre__nav-row">
+  <nav class="match-centre__tabs" aria-label="Match sections">
+    <button type="button" data-tab-button="timeline" aria-selected="true">Timeline</button>
+    <button type="button" data-tab-button="lineups" aria-selected="false">Line-ups</button>
+    <button type="button" data-tab-button="info" aria-selected="false">Information</button>
+  </nav>
+  <nav class="match-pager" aria-label="Browse matches"><a data-match-prev href={previousHref} hidden={!previousHref}>← <span>Previous</span></a><a data-match-next href={nextHref} hidden={!nextHref}><span>Next</span> →</a></nav>
+</div>
+<style>
+  .match-centre__nav-row{display:flex;align-items:flex-end;gap:1rem;margin:1.5rem 0;border-bottom:1px solid var(--line)}.match-centre__tabs{display:flex;gap:.5rem}.match-centre__tabs button{padding:.8rem 1rem;border:0;border-bottom:3px solid transparent;color:var(--muted);background:transparent}.match-centre__tabs button[aria-selected=true]{border-color:var(--brand-royal);color:var(--brand-navy);font-weight:700}.match-pager{display:flex;align-items:center;gap:.45rem;margin:0 0 .45rem auto}.match-pager a{display:inline-flex;align-items:center;min-height:2.15rem;padding:.38rem .7rem;border:1px solid var(--line);border-radius:999px;color:var(--brand-navy);background:white;font-size:.76rem;font-weight:500;text-decoration:none;box-shadow:0 2px 8px rgb(0 35 102/.06)}.match-pager a:hover,.match-pager a:focus-visible{border-color:var(--brand-royal);color:var(--brand-royal)}.match-pager a[hidden]{display:none}
+  @media(max-width:640px){.match-centre__nav-row{align-items:stretch;flex-wrap:wrap;gap:0}.match-centre__tabs{width:100%;overflow-x:auto}.match-pager{width:100%;margin:.55rem 0;justify-content:flex-end}.match-pager a{min-height:2rem}.match-pager a span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}}
+</style>
