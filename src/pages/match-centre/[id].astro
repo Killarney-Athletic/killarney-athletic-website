@@ -1,0 +1,43 @@
+---
+import { readFaiSnapshot } from '../../lib/fai/data';
+import { withBase } from '../../utils/paths';
+
+export async function getStaticPaths() {
+  const snapshot = await readFaiSnapshot();
+  return snapshot.matches.map((match) => ({ params: { id: String(match.id) }, props: { match } }));
+}
+
+const { match } = Astro.props;
+const siteUrl = Astro.site ?? new URL('https://www.killarneyathletic.com');
+const canonicalPath = withBase(`/match-centre/${match.id}/`);
+const canonicalUrl = new URL(canonicalPath, siteUrl);
+const imageUrl = new URL(withBase(`/images/social/matches/${match.id}.png`), siteUrl);
+const destination = withBase(`/match-centre/?match=${match.id}`);
+const title = `${match.homeTeam} ${match.score ?? 'vs'} ${match.awayTeam} | Match Centre`;
+const description = `${match.competition} · ${match.venue}`;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:site_name" content="Killarney Athletic AFC" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+    <title>{title}</title>
+    <script define:vars={{ destination }}>window.location.replace(destination);</script>
+  </head>
+  <body><p>Opening <a href={destination}>Match Centre</a>…</p></body>
+</html>

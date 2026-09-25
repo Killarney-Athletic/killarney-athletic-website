@@ -261,9 +261,11 @@ img { display: block; max-width: 100%; }
 .fixture-preview-scroll { max-height: 276px; overflow-y: auto; overscroll-behavior: contain; scrollbar-color: rgb(65 105 225 / 30%) transparent; }
 .fixture-preview-scroll:focus-visible { outline: 2px solid var(--brand-royal); outline-offset: -2px; }
 .fixture-preview-list { display: grid; }
-.fixture-preview-row { display: grid; grid-template-columns: 7rem minmax(21rem, 1fr) 7rem minmax(10rem, .65fr); grid-template-areas: 'squad match when venue'; align-items: center; gap: 1rem; min-height: 92px; padding: 1rem 1.25rem; border-bottom: 1px solid var(--line); }
+.fixture-preview-row { display: grid; grid-template-columns: 7rem minmax(21rem, 1fr) 7rem minmax(8rem, .5fr) auto; grid-template-areas: 'squad match when venue action'; align-items: center; gap: 1rem; min-height: 92px; padding: 1rem 1.25rem; border-bottom: 1px solid var(--line); }
 .fixture-preview-row--past { background: rgb(16 23 32 / 4%); filter: saturate(.6); opacity: .72; }
-.fixture-preview-row__squad { grid-area: squad; width: fit-content; margin: 0; padding: .28rem .55rem; border-radius: 999px; color: var(--brand-navy); background: var(--blue-100); font-size: .72rem; font-weight: 650; white-space: nowrap; }
+.fixture-preview-row__context { grid-area: squad; display: grid; justify-items: start; align-content: center; gap: .35rem; }
+.fixture-preview-row__squad { width: fit-content; margin: 0; color: var(--brand-navy); font-size: .76rem; font-weight: 650; white-space: nowrap; }
+.fixture-preview-row__badge { font-size: .65rem; white-space: nowrap; }
 .fixture-preview-row__match { grid-area: match; display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: .8rem; }
 .fixture-preview-row__club { display: flex; align-items: center; gap: .65rem; min-width: 0; }
 .fixture-preview-row__club--home { justify-content: flex-end; text-align: right; }
@@ -274,8 +276,9 @@ img { display: block; max-width: 100%; }
 .fixture-preview-row__when strong { color: var(--brand-navy); font-weight: 650; }
 .fixture-preview-row__when span { color: var(--muted); font-weight: 300; }
 .fixture-preview-row__venue { grid-area: venue; margin: 0; color: var(--muted); font-size: .78rem; font-weight: 300; line-height: 1.35; }
+.fixture-preview-row__action { grid-area: action; white-space: nowrap; }
 .fixture-preview-panel__footer { display: flex; justify-content: flex-end; padding: .9rem 1.25rem; background: var(--card-background-muted); }
-.fixture-card { position: relative; overflow: hidden; border: 1px solid var(--card-border); border-radius: var(--card-radius); color: var(--ink); background: var(--card-background); box-shadow: var(--card-shadow); transition: var(--card-transition); }
+.fixture-card { position: relative; display: flex; overflow: hidden; flex-direction: column; border: 1px solid var(--card-border); border-radius: var(--card-radius); color: var(--ink); background: var(--card-background); box-shadow: var(--card-shadow); transition: var(--card-transition); }
 .fixture-card__link { position: absolute; z-index: 2; inset: 0; border-radius: inherit; }
 .fixture-card__link:focus-visible { outline: 3px solid var(--brand-royal); outline-offset: -4px; }
 .fixture-card:hover, .fixture-card:focus-within { border-color: var(--card-border-hover); box-shadow: var(--card-shadow-hover); }
@@ -288,12 +291,15 @@ img { display: block; max-width: 100%; }
 .fixture-team__crest--tbc { width: 58px; height: 58px; border: 2px solid rgb(255 255 255 / 45%); border-radius: 50%; color: rgb(255 255 255 / 75%); font-size: 1.5rem; font-weight: 850; }
 .fixture-card__versus { color: rgb(255 255 255 / 90%); font-family: "Oleo Script Swash Caps", ui-serif, Georgia, serif; font-size: 1.55rem; font-weight: 400; line-height: 1; }
 .fixture-card__score { min-width: 3.4ch; font-size: 1.75rem; text-align: center; white-space: nowrap; }
-.fixture-card__details { min-height: 185px; padding: 1.25rem 1.5rem 1.5rem; }
+.fixture-card__details { display: flex; min-height: 185px; flex: 1; flex-direction: column; padding: 1.25rem 1.5rem 1rem; }
 .fixture-card__type { margin: 0 0 .85rem; color: var(--muted); font-size: .76rem; }
 .fixture-card h3 { margin: 0 0 1rem; color: var(--blue-950); font-size: 1.25rem; line-height: var(--type-leading-heading); letter-spacing: var(--type-tracking); }
 .fixture-card__date, .fixture-card__venue { display: flex; align-items: center; gap: .55rem; margin: .6rem 0 0; font-size: .9rem; }
 .fixture-card__date svg, .fixture-card__venue svg { flex: 0 0 auto; }
 .fixture-card__date { color: var(--club-blue); }
+.fixture-card__footer { display: flex; align-items: flex-end; min-height: 1.9rem; margin-top: auto; padding-top: .4rem; }
+.fixture-card__context { font-weight: 750; }
+.fixture-card__context[hidden] { display: none; }
 .fixture-card__venue { color: var(--muted); font-weight: 300; }
 .news-section { padding-bottom: 5rem; }
 .news-grid, .full-bleed-carousel { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 1.25rem; row-gap: 2.25rem; }
@@ -775,7 +781,7 @@ body.is-ui-kit-page .section-note { max-width: 640px; color: var(--muted); font-
 .officer-card__email:focus-visible { border-color: rgb(65 105 225 / 28%); color: var(--brand-royal); background: rgb(65 105 225 / 8%); outline: none; transform: translateY(-1px); }
 
 @media (max-width: 1020px) {
-  .fixture-preview-row { grid-template-columns: 6.5rem minmax(0, 1fr) 7rem; grid-template-areas: 'squad match when' 'squad venue when'; row-gap: .25rem; }
+  .fixture-preview-row { grid-template-columns: 6.5rem minmax(0, 1fr) 7rem auto; grid-template-areas: 'squad match when action' 'squad venue when action'; row-gap: .25rem; }
   .header-action { display: none; }
   .main-nav { display: none; }
   .mobile-menu-button { display: inline-flex; margin-left: auto; }
@@ -829,7 +835,7 @@ body.is-ui-kit-page .section-note { max-width: 640px; color: var(--muted); font-
   .fixture-preview-panel__toolbar { grid-template-columns: 1fr; gap: .45rem; padding: .85rem 1rem; }
   .fixture-preview-panel__toolbar p { justify-self: start; }
   .fixture-preview-scroll { max-height: 330px; }
-  .fixture-preview-row { grid-template-columns: 1fr auto; grid-template-areas: 'squad when' 'match match' 'venue venue'; gap: .7rem 1rem; padding: 1rem; }
+  .fixture-preview-row { grid-template-columns: 1fr auto; grid-template-areas: 'squad when' 'match match' 'venue action'; gap: .7rem 1rem; padding: 1rem; }
   .fixture-preview-row__when { justify-items: end; padding-left: 0; border-left: 0; }
   .fixture-preview-row__match { gap: .45rem; }
   .fixture-preview-row__club { align-items: center; flex-direction: column; gap: .35rem; text-align: center; }
@@ -875,7 +881,7 @@ body.is-ui-kit-page .section-note { max-width: 640px; color: var(--muted); font-
   .filter-bar { grid-template-columns: 1fr; margin-top: 0; padding: 0 1rem 1rem; border: 0; border-top: 1px solid rgb(16 23 32 / 7%); border-radius: 0; background: transparent; }
   .filter-bar__actions { display: grid; grid-template-columns: 1fr; }
   .filter-bar__actions .btn { width: 100%; }
-  .fixture-card { display: block; }
+  .fixture-card { display: flex; }
   .fixture-card__teams, .fixture-card__details { min-height: auto; }
   .image-cta-section__content { grid-template-columns: 1fr; gap: 1.25rem; }
   .image-cta-section__description, .image-cta-section__button { grid-column: 1; grid-row: auto; }

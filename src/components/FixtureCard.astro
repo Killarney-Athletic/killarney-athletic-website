@@ -1,6 +1,7 @@
 ---
 import { CalendarDays, MapPin } from '@lucide/astro';
 import clubCrestUrl from '../assets/images/brand/Club Crest White.svg?url';
+import ContentBadge from './ContentBadge.astro';
 import { withBase } from '../utils/paths';
 
 interface Props {
@@ -19,6 +20,7 @@ interface Props {
   awayColour?: string;
   muted?: boolean;
   href?: string;
+  contextLabel?: string;
 }
 
 const {
@@ -36,6 +38,7 @@ const {
   awayColour,
   muted = false,
   href,
+  contextLabel = '',
 } = Astro.props as Props;
 
 const isAthletic = (team: string) => /killarney\s+athletic(?:\s+a\.?f\.?c\.?)?/i.test(team);
@@ -110,5 +113,8 @@ const displayName = (team: string) => {
     <h3>{competition}</h3>
     <p class="fixture-card__date"><CalendarDays aria-hidden="true" size={17} stroke-width={1.8} /> {date}</p>
     <p class="fixture-card__venue"><MapPin aria-hidden="true" size={17} stroke-width={1.8} /> {venue}</p>
+    <div class="fixture-card__footer">
+      <ContentBadge label={contextLabel} tone="soft-indigo" class="fixture-card__context" data-match-context hidden={!contextLabel} />
+    </div>
   </div>
 </article>

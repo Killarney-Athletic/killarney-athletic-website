@@ -8,6 +8,9 @@ const API = 'https://api-fai.analyticom.de/api/live/FAI';
 const CLUB_ID = Number(process.env.FAI_CLUB_ID ?? 11184);
 const OUTPUT = resolve(process.cwd(), 'public/data/fai.json');
 const IMAGE_DIR = resolve(process.cwd(), 'public/images/fai');
+const MATCH_SOCIAL_DIR = resolve(process.cwd(), 'public/images/social/matches');
+const SOCIAL_ATHLETIC_CREST = resolve(process.cwd(), 'src/assets/images/brand/Club Crest White.svg');
+const SCORE_FONT_URL = 'https://fonts.gstatic.com/s/oleoscriptswashcaps/v14/Noag6Vb-w5SFbTTAsZP_7JkCS08K-jCzDn_HCcaBbYU.ttf';
 const ATHLETIC_CREST = '/images/team-crests/killarney-athletic-afc.svg';
 const PAGE_SIZE = 50;
 
@@ -52,6 +55,17 @@ export const cleanTeamLabel = (name: string) => name
   .replace(/\s+\d{2}\/\d{2}$/i, '')
   .replace(/\s+/g, ' ')
   .trim() || 'First Team';
+
+export const displayVenue = (homeTeam: string, venue: string | null | undefined) => {
+  const suppliedVenue = String(venue ?? '').trim();
+  if (!isAthletic(homeTeam)) return suppliedVenue || 'Venue to be confirmed';
+
+  const athleticHomeVenue = /\bwood\s*lawn\b|\bferndale\b|\bkillarney\s+ath(?:letic)?\b/i.test(suppliedVenue);
+  return athleticHomeVenue ? 'Ferndale' : suppliedVenue || 'Venue to be confirmed';
+};
+
+export const fixtureStatus = (date: string | Date, now = new Date()): 'past' | 'future' =>
+  new Date(date).getTime() > now.getTime() ? 'future' : 'past';
 
 export const dublinOffsetMinutes = (date = new Date()) => {
   const parts = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Dublin', timeZoneName: 'longOffset' }).formatToParts(date);
@@ -128,8 +142,10 @@ function normalizeLineup(side: Json | undefined): FaiLineup | null {
 
 function normalizeEvents(events: Json[]): FaiMatchEvent[] {
   return events.filter((event) => event.eventType?.name).map((event) => ({
-    type: event.eventType.name,
-    minute: event.displayMinute || (Number.isFinite(event.minute) ? `${event.minute}'` : ''),
+    type: event.eventType.fcdName === 'SECOND_YELLOW' ? 'Second yellow card' : event.eventType.name,
+    minute: event.matchPhase?.fcdName === 'AFTER_THE_MATCH'
+      ? 'FT'
+      : event.displayMinute || (Number.isFinite(event.minuteFull) ? `${event.minuteFull}'` : Number.isFinite(event.minute) ? `${event.minute}'` : ''),
     player: event.player?.shortName || event.player?.name || null,
     relatedPlayer: event.player2?.shortName || event.player2?.name || null,
     side: event.homeTeam === true ? 'home' : event.homeTeam === false ? 'away' : null,
@@ -166,14 +182,16 @@ async function buildSnapshot(): Promise<FaiSnapshot> {
           includeLineups ? api(`/match/${row.id}/lineups`, token).catch(() => null) : Promise.resolve(null),
           api(`/match/${row.id}/events?showComments=false`, token).catch(() => []),
         ]);
+        const effectiveStatus = fixtureStatus(row.dateTimeUTC);
         matches.push({
           id: row.id, teamId: team.id, teamLabel: team.label,
           homeTeam: publicTeamName(home), awayTeam: publicTeamName(away),
           homeCrest: await getCrest(home), awayCrest: await getCrest(away),
           homeColour: colourFor(home), awayColour: colourFor(away),
           competitionId: row.competition.id, competition: row.competition.name,
-          date: new Date(row.dateTimeUTC).toISOString(), venue: detail.facility?.name ?? detail.facility?.place ?? 'Venue to be confirmed',
-          status, score: status === 'past' && Number.isFinite(row.homeTeamResult?.current) && Number.isFinite(row.awayTeamResult?.current)
+          date: new Date(row.dateTimeUTC).toISOString(),
+          venue: displayVenue(publicTeamName(home), detail.facility?.name ?? detail.facility?.place),
+          status: effectiveStatus, score: effectiveStatus === 'past' && Number.isFinite(row.homeTeamResult?.current) && Number.isFinite(row.awayTeamResult?.current)
             ? `${row.homeTeamResult.current} – ${row.awayTeamResult.current}` : null,
           details: { homeLineup: normalizeLineup(lineups?.home), awayLineup: normalizeLineup(lineups?.away), events: normalizeEvents(Array.isArray(events) ? events : []) },
         });
@@ -206,10 +224,40 @@ async function buildSnapshot(): Promise<FaiSnapshot> {
   return { version: 1, generatedAt: now, sourceUpdatedAt: now, isFallback: false, teams, matches: uniqueMatches, tables };
 }
 
+const xml = (value: unknown) => String(value ?? '').replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;' })[character]!);
+async function crestData(path: string | null) {
+  if (!path?.startsWith('/')) return '';
+  try {
+    const buffer = await readFile(resolve(process.cwd(), 'public', path.slice(1)));
+    const extension = path.split('.').at(-1)?.toLowerCase();
+    const mime = extension === 'svg' ? 'image/svg+xml' : extension === 'jpg' || extension === 'jpeg' ? 'image/jpeg' : 'image/png';
+    return `data:${mime};base64,${buffer.toString('base64')}`;
+  } catch { return ''; }
+}
+async function fileImageData(path: string, mime: string) {
+  try { return `data:${mime};base64,${(await readFile(path)).toString('base64')}`; } catch { return ''; }
+}
+async function generateMatchSocialImages(matches: FaiMatch[]) {
+  await mkdir(MATCH_SOCIAL_DIR, { recursive: true });
+  const scoreFont = await fetch(SCORE_FONT_URL).then((response) => response.ok ? response.arrayBuffer() : null).catch(() => null);
+  const scoreFontFace = scoreFont ? `@font-face{font-family:OleoScore;src:url(data:font/ttf;base64,${Buffer.from(scoreFont).toString('base64')}) format('truetype');font-weight:700}` : '';
+  for (const match of matches) {
+    const [homeCrest, awayCrest] = await Promise.all([
+      isAthletic(match.homeTeam) ? fileImageData(SOCIAL_ATHLETIC_CREST, 'image/svg+xml') : crestData(match.homeCrest),
+      isAthletic(match.awayTeam) ? fileImageData(SOCIAL_ATHLETIC_CREST, 'image/svg+xml') : crestData(match.awayCrest),
+    ]);
+    const when = new Intl.DateTimeFormat('en-IE', { timeZone: 'Europe/Dublin', weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true }).format(new Date(match.date)).replace(' at ', ', ').replace('a.m.', 'am').replace('p.m.', 'pm');
+    const image = (data: string, x: number) => data ? `<image href="${data}" x="${x}" y="166" width="150" height="150" preserveAspectRatio="xMidYMid meet"/>` : '';
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><defs><style>${scoreFontFace}</style><linearGradient id="g" x1="0" x2="1"><stop stop-color="${xml(match.homeColour)}"/><stop offset=".5" stop-color="#4169e1"/><stop offset="1" stop-color="${xml(match.awayColour)}"/></linearGradient></defs><rect width="1200" height="630" fill="url(#g)"/><g fill="white" font-family="Arial,Helvetica,sans-serif" text-anchor="middle"> <text x="600" y="82" font-size="27">${xml(match.competition)}</text>${image(homeCrest,150)}${image(awayCrest,900)}<text x="225" y="370" font-size="35" font-weight="700">${xml(match.homeTeam)}</text><text x="975" y="370" font-size="35" font-weight="700">${xml(match.awayTeam)}</text><text x="600" y="275" font-family="OleoScore,Georgia,serif" font-size="88" font-weight="700">${xml(match.score ?? 'vs')}</text><text x="600" y="325" font-size="20" letter-spacing="3">${match.status === 'past' ? 'FULL TIME' : 'UPCOMING FIXTURE'}</text><text x="600" y="438" font-size="24">${xml(when)}</text><text x="600" y="476" font-size="23">${xml(match.venue)}</text><text x="600" y="570" font-size="22" opacity=".8">KILLARNEY ATHLETIC A.F.C. · MATCH CENTRE</text></g></svg>`;
+    await sharp(Buffer.from(svg)).png().toFile(resolve(MATCH_SOCIAL_DIR, `${match.id}.png`));
+  }
+}
+
 async function main() {
   await mkdir(dirname(OUTPUT), { recursive: true });
   try {
     const snapshot = await buildSnapshot();
+    await generateMatchSocialImages(snapshot.matches);
     const temporary = `${OUTPUT}.tmp`;
     await writeFile(temporary, `${JSON.stringify(snapshot, null, 2)}\n`);
     await rename(temporary, OUTPUT);

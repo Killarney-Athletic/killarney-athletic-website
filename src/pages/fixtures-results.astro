@@ -9,7 +9,9 @@ import { readFaiSnapshot } from '../lib/fai/data';
 import { withBase } from '../utils/paths';
 
 const data = await readFaiSnapshot();
-const matches = [...data.matches].sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
+const matches = data.matches
+  .map((match) => ({ ...match, status: Date.parse(match.date) > Date.now() ? 'future' as const : 'past' as const }))
+  .sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
 const formatDate = (value: string) => new Intl.DateTimeFormat('en-IE', { timeZone: 'Europe/Dublin', weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true }).format(new Date(value)).replace(' at ', ', ').replace('a.m.', 'am').replace('p.m.', 'pm');
 const displayClubName = (value: string) => {
   if (/^Killarney Athletic AFC\b/i.test(value)) {
@@ -42,8 +44,10 @@ const updatedAt = new Intl.DateTimeFormat('en-IE', { dateStyle: 'medium', timeSt
     <section class="match-section" aria-labelledby="matches-heading">
       <div class="carousel-heading"><div><p class="eyebrow" data-matches-context>All teams</p><h2 id="matches-heading">Matches</h2></div><CarouselNavigation /></div>
       <div class="match-carousel" data-carousel tabindex="0" aria-label="Fixtures and results">
-        {matches.map((match) => <div class="match-carousel__item" data-match data-team={match.teamId} data-competition={match.competitionId} data-status={match.status}><FixtureCard matchId={String(match.id)} href={withBase(`/match-centre/?match=${match.id}`)} score={match.score ?? undefined} label={match.status === 'past' ? 'Full time' : match.teamLabel} homeTeam={match.homeTeam} awayTeam={match.awayTeam} homeCrest={match.homeCrest} awayCrest={match.awayCrest} homeColour={match.homeColour} awayColour={match.awayColour} competition={match.competition} date={formatDate(match.date)} venue={match.venue} muted={match.status === 'past'} /></div>)}
+        {matches.map((match) => <div class="match-carousel__item" data-match data-team={match.teamId} data-competition={match.competitionId} data-status={match.status} data-date={match.date}><FixtureCard matchId={String(match.id)} href={withBase(`/match-centre/${match.id}/`)} score={match.score ?? undefined} label={match.teamLabel} homeTeam={match.homeTeam} awayTeam={match.awayTeam} homeCrest={match.homeCrest} awayCrest={match.awayCrest} homeColour={match.homeColour} awayColour={match.awayColour} competition={match.competition} date={formatDate(match.date)} venue={match.venue} muted={match.status === 'past'} /></div>)}
         {!matches.length && <p>No match information is currently available.</p>}
+        <span class="match-carousel__spacer" data-carousel-spacer aria-hidden="true"></span>
+        <span class="match-carousel__spacer" data-carousel-spacer aria-hidden="true"></span>
       </div>
     </section>
     <section class="league-table-section" aria-labelledby="league-table-heading">
@@ -59,7 +63,15 @@ const updatedAt = new Intl.DateTimeFormat('en-IE', { dateStyle: 'medium', timeSt
   <script>
     const filter = document.querySelector<HTMLSelectElement>('[data-team-filter]');
     const carousel = document.querySelector<HTMLElement>('[data-carousel]');
-    const items = Array.from(document.querySelectorAll<HTMLElement>('[data-match]'));
+    const matchTime = (item: HTMLElement) => Date.parse(item.dataset.date ?? '');
+    const items = Array.from(document.querySelectorAll<HTMLElement>('[data-match]')).sort((a, b) => {
+      const aTime = matchTime(a); const bTime = matchTime(b);
+      if (!Number.isFinite(aTime)) return 1;
+      if (!Number.isFinite(bTime)) return -1;
+      return aTime - bTime;
+    });
+    const spacers = Array.from(document.querySelectorAll<HTMLElement>('[data-carousel-spacer]'));
+    if (carousel) { items.forEach((item) => carousel.append(item)); spacers.forEach((spacer) => carousel.append(spacer)); }
     const tables = Array.from(document.querySelectorAll<HTMLTableElement>('[data-table]'));
     const empty = document.querySelector<HTMLElement>('[data-table-empty]');
     const heading = document.querySelector<HTMLElement>('[data-table-heading]');
@@ -69,14 +81,21 @@ const updatedAt = new Intl.DateTimeFormat('en-IE', { dateStyle: 'medium', timeSt
       const team = filter?.value ?? 'all';
       if (matchesContext) matchesContext.textContent = team === 'all' ? 'All teams' : filter?.selectedOptions[0]?.textContent?.trim() || 'Selected team';
       items.forEach((item) => item.hidden = team !== 'all' && item.dataset.team !== team);
-      const visibleItems = items.filter((item) => !item.hidden); const present = visibleItems.find((item) => item.dataset.status === 'future') ?? visibleItems.at(-1);
-      if (carousel && present) requestAnimationFrame(() => carousel.scrollTo({ left: Math.max(0, present.offsetLeft - (carousel.clientWidth - present.offsetWidth) / 2), behavior }));
+      const visibleItems = items.filter((item) => !item.hidden);
+      items.forEach((item) => { const badge = item.querySelector<HTMLElement>('[data-match-context]'); if (badge) { badge.hidden = true; badge.textContent = ''; } });
+      const now = Date.now();
+      const lastMatch = visibleItems.filter((item) => matchTime(item) <= now).at(-1);
+      const nextMatch = visibleItems.find((item) => matchTime(item) > now);
+      const setContextBadge = (item: HTMLElement | undefined, label: string) => { const badge = item?.querySelector<HTMLElement>('[data-match-context]'); if (badge) { badge.textContent = label; badge.hidden = false; } };
+      setContextBadge(lastMatch, 'Last match'); setContextBadge(nextMatch, 'Next match');
+      const startingMatch = lastMatch ?? nextMatch ?? visibleItems[0];
+      if (carousel && startingMatch) requestAnimationFrame(() => carousel.scrollTo({ left: Math.max(0, startingMatch.offsetLeft - carousel.offsetLeft), behavior }));
       let shown = false;
       const firstCompetition = items.find((item) => !item.hidden)?.dataset.competition;
       const preferred = tables.find((table) => team !== 'all' && table.dataset.competition === firstCompetition) ?? tables.find((table) => team !== 'all' && (table.dataset.teamIds ?? '').split(',').includes(team));
       tables.forEach((table) => { const relevant = table === preferred; table.hidden = !relevant; if (relevant) { shown = true; if (heading) { const competition = table.querySelector('caption')?.textContent?.replace(' standings', ''); heading.textContent = competition ? `${competition} table` : 'League table'; } } });
       if (empty) { empty.hidden = shown; empty.textContent = team === 'all' ? 'Select a team to see its current league table.' : 'No published league table is available for this team.'; }
-      if (live) live.textContent = `${visibleItems.length} matches shown. Returned to the current point in the schedule.`;
+      if (live) live.textContent = `${visibleItems.length} matches shown. Last match followed by next match.`;
     };
     const moveCarousel = (direction: -1 | 1) => {
       if (!carousel) return;
@@ -93,7 +112,7 @@ const updatedAt = new Intl.DateTimeFormat('en-IE', { dateStyle: 'medium', timeSt
     filter?.addEventListener('change', () => reset('smooth'));
     document.querySelector('[data-carousel-prev]')?.addEventListener('click', () => moveCarousel(-1));
     document.querySelector('[data-carousel-next]')?.addEventListener('click', () => moveCarousel(1));
-    document.querySelector('[data-refresh]')?.addEventListener('click', () => { reset('auto'); if (live) live.textContent = `${filter?.selectedOptions[0]?.textContent?.trim() || 'All teams'} refreshed and returned to the next match.`; });
+    document.querySelector('[data-refresh]')?.addEventListener('click', () => { reset('auto'); if (live) live.textContent = `${filter?.selectedOptions[0]?.textContent?.trim() || 'All teams'} refreshed and returned to the last match.`; });
     reset('auto');
   </script>
 </Layout>
@@ -102,6 +121,6 @@ const updatedAt = new Intl.DateTimeFormat('en-IE', { dateStyle: 'medium', timeSt
   .fai-toolbar{display:grid;grid-template-columns:auto minmax(12rem,18rem) 1fr auto;align-items:center;gap:.75rem;margin-bottom:2rem;padding:1rem;border:1px solid var(--card-border);border-radius:var(--card-radius);background:white;box-shadow:var(--card-shadow)}
   .fai-toolbar label{font-weight:650;color:var(--brand-navy)} .fai-toolbar p{justify-self:end;margin:0;color:var(--muted);font-size:.8rem}.fai-refresh svg{width:1rem;height:1rem;fill:none;stroke:currentColor;stroke-width:2}
   .carousel-heading{display:flex;align-items:end;justify-content:space-between;gap:1rem;margin-bottom:1rem}.carousel-heading :where(p,h2){margin:0}
-  .match-carousel{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 2rem)/3);gap:1rem;overflow-x:auto;padding:.2rem .1rem 1.5rem;scroll-snap-type:x mandatory;scrollbar-width:thin}.match-carousel__item{scroll-snap-align:start;min-width:0}.match-carousel__item[hidden]{display:none}.match-carousel__item :global(.fixture-card){height:100%}.table-empty{padding:1.5rem;color:var(--muted)}
+  .match-carousel{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 2rem)/3);align-items:stretch;gap:1rem;overflow-x:auto;padding:.2rem .1rem 1.5rem;scroll-snap-type:x mandatory;scrollbar-width:thin}.match-carousel__item{display:flex;min-width:0;align-self:stretch;scroll-snap-align:start}.match-carousel__item[hidden]{display:none}.match-carousel__spacer{display:block;min-width:0;pointer-events:none}.match-carousel__item :global(.fixture-card){width:100%;height:100%}.table-empty{padding:1.5rem;color:var(--muted)}
   @media(max-width:900px){.match-carousel{grid-auto-columns:calc((100% - 1rem)/2)}} @media(max-width:640px){.fai-toolbar{grid-template-columns:1fr auto}.fai-toolbar label,.fai-toolbar select{grid-column:1/-1}.fai-toolbar p{justify-self:start}.match-carousel{grid-auto-columns:92%}}
 </style>

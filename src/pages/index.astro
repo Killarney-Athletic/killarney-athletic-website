@@ -18,6 +18,7 @@ import membershipPlayerImageUrl from '../assets/images/backgrounds/membership.pn
 import clubCrestWhiteUrl from '../assets/images/brand/Club Crest White.svg?url';
 import { withBase } from '../utils/paths';
 import ActiveNotices from '../components/ActiveNotices.astro';
+import ContentBadge from '../components/ContentBadge.astro';
 import { readFaiSnapshot } from '../lib/fai/data';
 
 let clubPosts = [];
@@ -203,8 +204,11 @@ const formatFixtureTime = (value: string) => new Intl.DateTimeFormat('en-IE', { 
         <div class="fixture-preview-scroll" data-fixture-scroll tabindex="0" aria-label="Upcoming fixtures list">
           <div class="fixture-preview-list">
           {fixtureTimeline.map((fixture) => (
-            <article class:list={['fixture-preview-row', { 'fixture-preview-row--past': fixture.status === 'past' }]} data-fixture-row data-team={fixture.teamId} data-status={fixture.status}>
-              <p class="fixture-preview-row__squad">{fixture.teamLabel}</p>
+            <article class:list={['fixture-preview-row', { 'fixture-preview-row--past': fixture.status === 'past' }]} data-fixture-row data-team={fixture.teamId} data-status={fixture.status} data-date={fixture.date}>
+              <div class="fixture-preview-row__context">
+                <p class="fixture-preview-row__squad">{fixture.teamLabel}</p>
+                <ContentBadge label="" tone="soft-indigo" class="fixture-preview-row__badge" data-fixture-context hidden />
+              </div>
               <div class="fixture-preview-row__match">
                 <span class="fixture-preview-row__club fixture-preview-row__club--home">
                   <strong>{fixture.homeTeam}</strong>
@@ -221,6 +225,15 @@ const formatFixtureTime = (value: string) => new Intl.DateTimeFormat('en-IE', { 
                 <span>{formatFixtureTime(fixture.date)}</span>
               </div>
               <p class="fixture-preview-row__venue">{fixture.venue}</p>
+              <Button
+                class="fixture-preview-row__action"
+                href={withBase(`/match-centre/${fixture.id}/`)}
+                label="Match centre"
+                size="sm"
+                variant="outline-dark"
+                icon={false}
+                ariaLabel={`Open Match Centre for ${fixture.homeTeam} versus ${fixture.awayTeam}`}
+              />
             </article>
           ))}
           </div>
@@ -244,13 +257,20 @@ const formatFixtureTime = (value: string) => new Intl.DateTimeFormat('en-IE', { 
     const renderFixturePreview = (anchor = false) => {
       const selectedTeam = fixtureFilter?.value ?? 'all';
       const matches = fixtureRows.filter((row) => selectedTeam === 'all' || row.dataset.team === selectedTeam);
-      const firstFuture = Math.max(0, matches.findIndex((row) => row.dataset.status === 'future'));
+      const now = Date.now();
+      const lastMatch = matches.filter((row) => Date.parse(row.dataset.date ?? '') <= now).at(-1);
+      const nextMatch = matches.find((row) => Date.parse(row.dataset.date ?? '') > now);
+      fixtureRows.forEach((row) => { const badge = row.querySelector<HTMLElement>('[data-fixture-context]'); if (badge) { badge.hidden = true; badge.textContent = ''; } });
+      const setContextBadge = (row: HTMLElement | undefined, label: string) => { const badge = row?.querySelector<HTMLElement>('[data-fixture-context]'); if (badge) { badge.textContent = label; badge.hidden = false; } };
+      setContextBadge(lastMatch, 'Last match');
+      setContextBadge(nextMatch, 'Next match');
+      const anchorIndex = Math.max(0, matches.indexOf(lastMatch ?? nextMatch ?? matches[0]));
       fixtureRows.forEach((row) => {
         const matchIndex = matches.indexOf(row);
-        row.hidden = matchIndex < Math.max(0, firstFuture - visibleBefore) || matchIndex >= firstFuture + visibleAfter;
+        row.hidden = matchIndex < Math.max(0, anchorIndex - visibleBefore) || matchIndex >= anchorIndex + visibleAfter;
       });
       if (fixtureCount) fixtureCount.textContent = `${matches.length} ${matches.length === 1 ? 'match' : 'matches'}`;
-      if (anchor && fixtureScroll) requestAnimationFrame(() => { fixtureScroll.scrollTop = matches[firstFuture]?.offsetTop ?? 0; });
+      if (anchor && fixtureScroll) requestAnimationFrame(() => { fixtureScroll.scrollTop = matches[anchorIndex]?.offsetTop ?? 0; });
     };
 
     fixtureFilter?.addEventListener('change', () => {
