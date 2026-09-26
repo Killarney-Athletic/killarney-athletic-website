@@ -24,7 +24,8 @@ const slugify = (value: string) => value.toLowerCase().replace(/&/g, 'and').repl
 const knownColours: Record<string, string> = {
   'ballyheigue-athletic-fc': '#078b21', 'castleisland-afc': '#56aeda', 'classic-fc': '#bd242c',
   'killarney-celtic-fc': '#08723e', 'killorglin-afc': '#242650', 'listowel-celtic-afc': '#087c5c',
-  'mastergeeha-fc': '#5874ad', 'st-brendans-park-fc': '#d92830', 'tralee-dynamos': '#b31f2b',
+  'mastergeeha-fc': '#5874ad', 'mountshannon-celtic': '#a89921', 'st-brendans-park-fc': '#d92830',
+  'tralee-dynamos': '#b31f2b',
 };
 const knownCrests = new Set(Object.keys(knownColours));
 const derivedColours = new Map<number, string>();

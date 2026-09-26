@@ -14,6 +14,7 @@ import ContentBadge from '../components/ContentBadge.astro';
 import ContactCard from '../components/ContactCard.astro';
 import ContactForm from '../components/ContactForm.astro';
 import FixtureCard from '../components/FixtureCard.astro';
+import FixturePreviewRow from '../components/FixturePreviewRow.astro';
 import LogoCloud from '../components/LogoCloud.astro';
 import NewsCard from '../components/NewsCard.astro';
 import FullBleedCarousel from '../components/FullBleedCarousel.astro';
@@ -697,6 +698,13 @@ const contentBadgeExamples = [
             venue="Killarney Athletic Park"
             contextLabel="Last match"
           />
+        </div>
+      </PagePanel>
+
+      <PagePanel>
+        <SectionHeader slot="header" title="Compact fixture row" intro="The homepage match pattern keeps team and date first, the fixture central, and venue plus a quiet action last." />
+        <div class="fixture-preview-list">
+          <FixturePreviewRow id="53133707" teamId="61231" teamLabel="Senior A Men" status="past" dateValue="2026-09-20T12:00:00.000Z" date="Sun, 20 Sept" time="1:00 pm" venue="Ferndale" homeTeam="Killarney Athletic A.F.C." awayTeam="Killarney Celtic FC" homeCrest="/images/team-crests/killarney-athletic-afc.svg" awayCrest="/images/team-crests/killarney-celtic-fc.png" score="3 – 2" contextLabel="Last match" />
         </div>
       </PagePanel>
 

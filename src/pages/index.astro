@@ -18,7 +18,7 @@ import membershipPlayerImageUrl from '../assets/images/backgrounds/membership.pn
 import clubCrestWhiteUrl from '../assets/images/brand/Club Crest White.svg?url';
 import { withBase } from '../utils/paths';
 import ActiveNotices from '../components/ActiveNotices.astro';
-import ContentBadge from '../components/ContentBadge.astro';
+import FixturePreviewRow from '../components/FixturePreviewRow.astro';
 import { readFaiSnapshot } from '../lib/fai/data';
 
 let clubPosts = [];
@@ -203,39 +203,7 @@ const formatFixtureTime = (value: string) => new Intl.DateTimeFormat('en-IE', { 
         </div>
         <div class="fixture-preview-scroll" data-fixture-scroll tabindex="0" aria-label="Upcoming fixtures list">
           <div class="fixture-preview-list">
-          {fixtureTimeline.map((fixture) => (
-            <article class:list={['fixture-preview-row', { 'fixture-preview-row--past': fixture.status === 'past' }]} data-fixture-row data-team={fixture.teamId} data-status={fixture.status} data-date={fixture.date}>
-              <div class="fixture-preview-row__context">
-                <p class="fixture-preview-row__squad">{fixture.teamLabel}</p>
-                <ContentBadge label="" tone="soft-indigo" class="fixture-preview-row__badge" data-fixture-context hidden />
-              </div>
-              <div class="fixture-preview-row__match">
-                <span class="fixture-preview-row__club fixture-preview-row__club--home">
-                  <strong>{fixture.homeTeam}</strong>
-                  {fixture.homeCrest && <img src={withBase(fixture.homeCrest)} alt="" width="36" height="36" />}
-                </span>
-                <span class="fixture-preview-row__versus" aria-label={fixture.score ? `Final score ${fixture.score}` : 'versus'}>{fixture.score ?? 'vs'}</span>
-                <span class="fixture-preview-row__club">
-                  {fixture.awayCrest && <img src={withBase(fixture.awayCrest)} alt="" width="36" height="36" />}
-                  <strong>{fixture.awayTeam}</strong>
-                </span>
-              </div>
-              <div class="fixture-preview-row__when">
-                <strong>{formatFixtureDate(fixture.date)}</strong>
-                <span>{formatFixtureTime(fixture.date)}</span>
-              </div>
-              <p class="fixture-preview-row__venue">{fixture.venue}</p>
-              <Button
-                class="fixture-preview-row__action"
-                href={withBase(`/match-centre/${fixture.id}/`)}
-                label="Match centre"
-                size="sm"
-                variant="outline-dark"
-                icon={false}
-                ariaLabel={`Open Match Centre for ${fixture.homeTeam} versus ${fixture.awayTeam}`}
-              />
-            </article>
-          ))}
+          {fixtureTimeline.map((fixture) => <FixturePreviewRow id={fixture.id} teamId={fixture.teamId} teamLabel={fixture.teamLabel} status={fixture.status} dateValue={fixture.date} date={formatFixtureDate(fixture.date)} time={formatFixtureTime(fixture.date)} venue={fixture.venue} homeTeam={fixture.homeTeam} awayTeam={fixture.awayTeam} homeCrest={fixture.homeCrest} awayCrest={fixture.awayCrest} score={fixture.score} />)}
           </div>
         </div>
         <div class="fixture-preview-panel__footer">

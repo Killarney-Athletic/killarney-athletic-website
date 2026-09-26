@@ -1,0 +1,21 @@
+---
+import { ArrowRight, MapPin } from '@lucide/astro';
+import ContentBadge from './ContentBadge.astro';
+import { withBase } from '../utils/paths';
+
+interface Props {
+  id: string | number; teamId: string | number; teamLabel: string; status: 'past' | 'future'; dateValue: string;
+  date: string; time: string; venue: string; homeTeam: string; awayTeam: string; homeCrest?: string | null;
+  awayCrest?: string | null; score?: string | null; contextLabel?: string;
+}
+const { id, teamId, teamLabel, status, dateValue, date, time, venue, homeTeam, awayTeam, homeCrest, awayCrest, score, contextLabel = '' } = Astro.props;
+---
+<article class:list={['fixture-preview-row', { 'fixture-preview-row--past': status === 'past' }]} data-fixture-row data-team={teamId} data-status={status} data-date={dateValue}>
+  <header class="fixture-preview-row__header">
+    <div class="fixture-preview-row__context"><p class="fixture-preview-row__squad">{teamLabel}</p><ContentBadge label={contextLabel} tone="soft-indigo" class="fixture-preview-row__badge" data-fixture-context hidden={!contextLabel} /></div>
+    <div class="fixture-preview-row__when"><strong>{date}</strong><span>{time}</span></div>
+  </header>
+  <div class="fixture-preview-row__match"><span class="fixture-preview-row__club fixture-preview-row__club--home"><strong>{homeTeam}</strong>{homeCrest && <img src={withBase(homeCrest)} alt="" width="36" height="36" />}</span><span class="fixture-preview-row__versus" aria-label={score ? `Final score ${score}` : 'versus'}>{score ?? 'vs'}</span><span class="fixture-preview-row__club">{awayCrest && <img src={withBase(awayCrest)} alt="" width="36" height="36" />}<strong>{awayTeam}</strong></span></div>
+  <p class="fixture-preview-row__venue"><MapPin aria-hidden="true" size={15} stroke-width={1.8} /><span>{venue}</span></p>
+  <a class="fixture-preview-row__action" href={withBase(`/match-centre/${id}/`)} aria-label={`View ${homeTeam} versus ${awayTeam} in Match Centre`}><span>View match</span><ArrowRight aria-hidden="true" size={15} stroke-width={2} /></a>
+</article>
