@@ -67,10 +67,13 @@ const homeIsAthletic = isAthletic(homeTeam);
 const gradientStyle = `--team-left-colour: ${homeColour ?? (homeIsAthletic ? 'var(--brand-navy)' : opponentColour)}; --team-right-colour: ${awayColour ?? (!homeIsAthletic ? 'var(--brand-navy)' : opponentColour)}`;
 const crestFor = (team: string) => {
   if (isAthletic(team)) return clubCrestUrl;
+  const knownCrest = opponentColours[slugify(team)] ? withBase(`/images/team-crests/${slugify(team)}.png`) : null;
+  if (slugify(team) === 'classic-fc') return knownCrest;
   if (team === homeTeam && homeCrest) return withBase(homeCrest);
   if (team === awayTeam && awayCrest) return withBase(awayCrest);
-  return opponentColours[slugify(team)] ? withBase(`/images/team-crests/${slugify(team)}.png`) : null;
+  return knownCrest;
 };
+const isRoundCrest = (team: string) => slugify(team) === 'classic-fc';
 const displayName = (team: string) => {
   if (isAthletic(team)) return ['Killarney', 'Athletic A.F.C.'];
   if (team.length <= 18 || !team.includes(' ')) return [team];
@@ -94,7 +97,7 @@ const displayName = (team: string) => {
   <div class="fixture-card__teams" style={gradientStyle}>
     <div class="fixture-team">
       <span class:list={['fixture-team__crest', { 'fixture-team__crest--tbc': !crestFor(homeTeam) }]} aria-hidden="true">
-        {crestFor(homeTeam) ? <img src={crestFor(homeTeam)} alt="" width="64" height="64" /> : '?'}
+        {crestFor(homeTeam) ? <img class:list={{ 'club-crest--round': isRoundCrest(homeTeam) }} src={crestFor(homeTeam)} alt="" width="64" height="64" /> : '?'}
       </span>
       <strong>{displayName(homeTeam).map((line) => <span>{line}</span>)}</strong>
     </div>
@@ -103,7 +106,7 @@ const displayName = (team: string) => {
     </span>
     <div class="fixture-team">
       <span class:list={['fixture-team__crest', { 'fixture-team__crest--tbc': !crestFor(awayTeam) }]} aria-hidden="true">
-        {crestFor(awayTeam) ? <img src={crestFor(awayTeam)} alt="" width="64" height="64" /> : '?'}
+        {crestFor(awayTeam) ? <img class:list={{ 'club-crest--round': isRoundCrest(awayTeam) }} src={crestFor(awayTeam)} alt="" width="64" height="64" /> : '?'}
       </span>
       <strong>{displayName(awayTeam).map((line) => <span>{line}</span>)}</strong>
     </div>
