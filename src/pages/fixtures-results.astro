@@ -6,6 +6,7 @@ import CarouselNavigation from '../components/CarouselNavigation.astro';
 import LeagueTableHeader from '../components/LeagueTableHeader.astro';
 import Layout from '../layouts/Layout.astro';
 import { readFaiSnapshot } from '../lib/fai/data';
+import { getCurrentLeagueTables } from '../lib/fai/tables';
 import { withBase } from '../utils/paths';
 
 const data = await readFaiSnapshot();
@@ -29,6 +30,7 @@ const displayClubName = (value: string) => {
     .trim();
 };
 const updatedAt = new Intl.DateTimeFormat('en-IE', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Europe/Dublin' }).format(new Date(data.sourceUpdatedAt));
+const currentLeagueTables = getCurrentLeagueTables(data.teams, data.tables, data.matches);
 ---
 
 <Layout title="Fixtures & Results | Killarney Athletic A.F.C." description="Fixtures, results and league tables for every Killarney Athletic A.F.C. team." canonicalPath="/fixtures-results/">
@@ -54,7 +56,7 @@ const updatedAt = new Intl.DateTimeFormat('en-IE', { dateStyle: 'medium', timeSt
       <PagePanel class="league-table-shell" flush>
         <LeagueTableHeader slot="header" dynamic />
         <div class="overflow-x-auto">
-          {data.tables.map((table) => <table class="table table-zebra league-table" data-table data-competition={table.competitionId} data-team-ids={table.teamIds.join(',')} hidden><caption class="sr-only">{table.competition} standings</caption><thead><tr><th>Pos</th><th>Club</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th></tr></thead><tbody>{table.rows.map((row) => <tr class:list={{ 'league-table__club-row': row.isKillarneyAthletic }}><td>{row.position}</td><th scope="row"><span class="league-table__club">{row.crestUrl ? <img src={withBase(row.crestUrl)} alt="" width="28" height="28" loading="lazy" /> : <span class="league-table__crest-placeholder"></span>}<span>{displayClubName(row.club)}</span></span></th><td>{row.played}</td><td>{row.won}</td><td>{row.drawn}</td><td>{row.lost}</td><td>{row.goalsFor}</td><td>{row.goalsAgainst}</td><td>{row.goalDifference}</td><td><strong>{row.points}</strong></td></tr>)}</tbody></table>)}
+          {Array.from(currentLeagueTables.entries()).map(([teamId, table]) => <table class="table table-zebra league-table" data-table data-team-id={teamId} hidden><caption class="sr-only">{table.competition} standings</caption><thead><tr><th>Pos</th><th>Club</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th></tr></thead><tbody>{table.rows.map((row) => <tr class:list={{ 'league-table__club-row': row.isKillarneyAthletic }}><td>{row.position}</td><th scope="row"><span class="league-table__club">{row.crestUrl ? <img src={withBase(row.crestUrl)} alt="" width="28" height="28" loading="lazy" /> : <span class="league-table__crest-placeholder"></span>}<span>{displayClubName(row.club)}</span></span></th><td>{row.played}</td><td>{row.won}</td><td>{row.drawn}</td><td>{row.lost}</td><td>{row.goalsFor}</td><td>{row.goalsAgainst}</td><td>{row.goalDifference}</td><td><strong>{row.points}</strong></td></tr>)}</tbody></table>)}
           <p class="table-empty" data-table-empty>Select a team to see its current league table.</p>
         </div>
       </PagePanel>
@@ -91,9 +93,9 @@ const updatedAt = new Intl.DateTimeFormat('en-IE', { dateStyle: 'medium', timeSt
       const startingMatch = lastMatch ?? nextMatch ?? visibleItems[0];
       if (carousel && startingMatch) requestAnimationFrame(() => carousel.scrollTo({ left: Math.max(0, startingMatch.offsetLeft - carousel.offsetLeft), behavior }));
       let shown = false;
-      const firstCompetition = items.find((item) => !item.hidden)?.dataset.competition;
-      const preferred = tables.find((table) => team !== 'all' && table.dataset.competition === firstCompetition) ?? tables.find((table) => team !== 'all' && (table.dataset.teamIds ?? '').split(',').includes(team));
+      const preferred = tables.find((table) => team !== 'all' && table.dataset.teamId === team);
       tables.forEach((table) => { const relevant = table === preferred; table.hidden = !relevant; if (relevant) { shown = true; if (heading) { const competition = table.querySelector('caption')?.textContent?.replace(' standings', ''); heading.textContent = competition ? `${competition} table` : 'League table'; } } });
+      if (!shown && heading) heading.textContent = 'League table';
       if (empty) { empty.hidden = shown; empty.textContent = team === 'all' ? 'Select a team to see its current league table.' : 'No published league table is available for this team.'; }
       if (live) live.textContent = `${visibleItems.length} matches shown. Last match followed by next match.`;
     };
