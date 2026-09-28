@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { cleanTeamLabel, displayVenue, dublinOffsetMinutes, fixtureStatus } from '../scripts/sync-fai';
-import { getCurrentLeagueTables, isLeagueTable } from '../src/lib/fai/tables';
+import { getCurrentLeagueTables, getTeamFilterOptions, isLeagueTable, teamFilterLabel } from '../src/lib/fai/tables';
 import type { FaiMatch, FaiTable, FaiTeam } from '../src/lib/types/fai';
 
 test('cleans the club prefix and season from squad labels', () => {
@@ -51,4 +51,28 @@ test('selects the most recently active league table associated with each team', 
   );
 
   assert.equal(selected.get(team.id), currentLeague);
+});
+
+test('orders and labels team filter options without changing their API IDs', () => {
+  const teams = [
+    { id: 7, name: 'u16', label: 'U16A Girls' },
+    { id: 5, name: 'u17a', label: 'U17A Boys' },
+    { id: 1, name: 'senior-a', label: 'Senior A Men' },
+    { id: 6, name: 'u17b', label: 'U17B' },
+    { id: 3, name: 'u18', label: 'U18A Boys' },
+    { id: 2, name: 'senior-b', label: 'Senior B Men' },
+    { id: 4, name: 'girls', label: 'U17A Girls' },
+  ] satisfies FaiTeam[];
+
+  const options = getTeamFilterOptions(teams);
+  assert.deepEqual(options.map((team) => team.id), [1, 2, 3, 5, 6, 4, 7]);
+  assert.deepEqual(options.map(teamFilterLabel), [
+    'Senior A Men',
+    'Senior B Men',
+    'U18A Boys',
+    'U17A Boys',
+    'U17B Boys',
+    'U17A Girls',
+    'U16A Girls',
+  ]);
 });
