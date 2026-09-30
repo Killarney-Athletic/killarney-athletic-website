@@ -1,5 +1,6 @@
 import * as cheerio from 'cheerio';
 import type { KDLApiResponse, KDLMatch, KDLMatchStatus, KDLStandingsRow } from '../types/kdl';
+import { localCrestForTeam } from '../../utils/teamCrests';
 
 export const KDL_SOURCE_URL = 'https://www.finalwhistle.ie/soccer/kerry-dl-premier-a/';
 export const KDL_CACHE_CONTROL = 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400';
@@ -26,7 +27,7 @@ const slugify = (value: string) =>
 const getLocalCrestPath = (club: string) =>
   KILLARNEY_RE.test(club)
     ? '/images/team-crests/killarney-athletic-afc.svg'
-    : `/images/team-crests/${slugify(club)}.png`;
+    : localCrestForTeam(club) ?? `/images/team-crests/${slugify(club)}.png`;
 
 const parseScore = (rawValue: string) => {
   const raw = normaliseText(rawValue);

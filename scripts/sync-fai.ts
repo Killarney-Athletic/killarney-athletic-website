@@ -3,6 +3,7 @@ import { dirname, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import sharp from 'sharp';
 import type { FaiLineup, FaiMatch, FaiMatchEvent, FaiSnapshot, FaiStanding, FaiTable, FaiTeam } from '../src/lib/types/fai';
+import { localCrestForTeam } from '../src/utils/teamCrests';
 
 const API = 'https://api-fai.analyticom.de/api/live/FAI';
 const CLUB_ID = Number(process.env.FAI_CLUB_ID ?? 11184);
@@ -100,6 +101,13 @@ async function paginated(path: string, token: string) {
 
 async function crestFor(team: Json, token: string) {
   if (isAthletic(team.name ?? '')) return ATHLETIC_CREST;
+  const localCrest = localCrestForTeam(publicTeamName(team));
+  if (localCrest) {
+    const localPath = resolve(process.cwd(), 'public', localCrest.replace(/^\//, ''));
+    const colour = await readFile(localPath).then(dominantColour).catch(() => null);
+    if (colour) derivedColours.set(team.id, colour);
+    return localCrest;
+  }
   const slug = slugify(publicTeamName(team));
   const knownSlug = knownSlugFor(publicTeamName(team));
   if (knownSlug) {

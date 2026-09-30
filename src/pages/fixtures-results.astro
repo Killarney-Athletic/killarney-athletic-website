@@ -8,6 +8,7 @@ import Layout from '../layouts/Layout.astro';
 import { readFaiSnapshot } from '../lib/fai/data';
 import { getCurrentLeagueTables, getTeamFilterOptions, teamFilterLabel } from '../lib/fai/tables';
 import { withBase } from '../utils/paths';
+import { hasRoundTeamCrest, localCrestForTeam } from '../utils/teamCrests';
 
 const data = await readFaiSnapshot();
 const matches = data.matches
@@ -29,8 +30,7 @@ const displayClubName = (value: string) => {
     .replace(/\s+(?:\d{2}\/\d{2}|20\d{2}\/\d{2}|20\d{2}-20\d{2})(?:\s+season)?$/i, '')
     .trim();
 };
-const isClassicFc = (value: string) => /^Classic F\.?C\b/i.test(value);
-const displayCrestUrl = (club: string, crestUrl: string | null) => isClassicFc(club) ? '/images/team-crests/classic-fc.png' : crestUrl;
+const displayCrestUrl = (club: string, crestUrl: string | null) => localCrestForTeam(club) ?? crestUrl;
 const updatedAt = new Intl.DateTimeFormat('en-IE', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Europe/Dublin' }).format(new Date(data.sourceUpdatedAt));
 const currentLeagueTables = getCurrentLeagueTables(data.teams, data.tables, data.matches);
 const teamFilterOptions = getTeamFilterOptions(data.teams);
@@ -59,7 +59,7 @@ const teamFilterOptions = getTeamFilterOptions(data.teams);
       <PagePanel class="league-table-shell" flush>
         <LeagueTableHeader slot="header" dynamic />
         <div class="overflow-x-auto">
-          {Array.from(currentLeagueTables.entries()).map(([teamId, table]) => <table class="table table-zebra league-table" data-table data-team-id={teamId} hidden><caption class="sr-only">{table.competition} standings</caption><thead><tr><th>Pos</th><th>Club</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th></tr></thead><tbody>{table.rows.map((row) => <tr class:list={{ 'league-table__club-row': row.isKillarneyAthletic }}><td>{row.position}</td><th scope="row"><span class="league-table__club">{displayCrestUrl(row.club, row.crestUrl) ? <img class:list={{ 'club-crest--round': isClassicFc(row.club) }} src={withBase(displayCrestUrl(row.club, row.crestUrl)!)} alt="" width="28" height="28" loading="lazy" /> : <span class="league-table__crest-placeholder"></span>}<span>{displayClubName(row.club)}</span></span></th><td>{row.played}</td><td>{row.won}</td><td>{row.drawn}</td><td>{row.lost}</td><td>{row.goalsFor}</td><td>{row.goalsAgainst}</td><td>{row.goalDifference}</td><td><strong>{row.points}</strong></td></tr>)}</tbody></table>)}
+          {Array.from(currentLeagueTables.entries()).map(([teamId, table]) => <table class="table table-zebra league-table" data-table data-team-id={teamId} hidden><caption class="sr-only">{table.competition} standings</caption><thead><tr><th>Pos</th><th>Club</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th></tr></thead><tbody>{table.rows.map((row) => <tr class:list={{ 'league-table__club-row': row.isKillarneyAthletic }}><td>{row.position}</td><th scope="row"><span class="league-table__club">{displayCrestUrl(row.club, row.crestUrl) ? <img class:list={{ 'club-crest--round': hasRoundTeamCrest(row.club) }} src={withBase(displayCrestUrl(row.club, row.crestUrl)!)} alt="" width="28" height="28" loading="lazy" /> : <span class="league-table__crest-placeholder"></span>}<span>{displayClubName(row.club)}</span></span></th><td>{row.played}</td><td>{row.won}</td><td>{row.drawn}</td><td>{row.lost}</td><td>{row.goalsFor}</td><td>{row.goalsAgainst}</td><td>{row.goalDifference}</td><td><strong>{row.points}</strong></td></tr>)}</tbody></table>)}
           <p class="table-empty" data-table-empty>Select a team to see its current league table.</p>
         </div>
       </PagePanel>

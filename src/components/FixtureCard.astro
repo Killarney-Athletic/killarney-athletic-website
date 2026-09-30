@@ -3,6 +3,7 @@ import { CalendarDays, MapPin } from '@lucide/astro';
 import clubCrestUrl from '../assets/images/brand/Club Crest White.svg?url';
 import ContentBadge from './ContentBadge.astro';
 import { withBase } from '../utils/paths';
+import { hasRoundTeamCrest, localCrestForTeam } from '../utils/teamCrests';
 
 interface Props {
   matchId?: string;
@@ -67,13 +68,14 @@ const homeIsAthletic = isAthletic(homeTeam);
 const gradientStyle = `--team-left-colour: ${homeColour ?? (homeIsAthletic ? 'var(--brand-navy)' : opponentColour)}; --team-right-colour: ${awayColour ?? (!homeIsAthletic ? 'var(--brand-navy)' : opponentColour)}`;
 const crestFor = (team: string) => {
   if (isAthletic(team)) return clubCrestUrl;
+  const localCrest = localCrestForTeam(team);
+  if (localCrest) return withBase(localCrest);
   const knownCrest = opponentColours[slugify(team)] ? withBase(`/images/team-crests/${slugify(team)}.png`) : null;
-  if (slugify(team) === 'classic-fc') return knownCrest;
   if (team === homeTeam && homeCrest) return withBase(homeCrest);
   if (team === awayTeam && awayCrest) return withBase(awayCrest);
   return knownCrest;
 };
-const isRoundCrest = (team: string) => slugify(team) === 'classic-fc';
+const isRoundCrest = (team: string) => hasRoundTeamCrest(team);
 const displayName = (team: string) => {
   if (isAthletic(team)) return ['Killarney', 'Athletic A.F.C.'];
   if (team.length <= 18 || !team.includes(' ')) return [team];

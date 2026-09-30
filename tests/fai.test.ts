@@ -3,6 +3,17 @@ import test from 'node:test';
 import { cleanTeamLabel, displayVenue, dublinOffsetMinutes, fixtureStatus } from '../scripts/sync-fai';
 import { getCurrentLeagueTables, getTeamFilterOptions, isLeagueTable, teamFilterLabel } from '../src/lib/fai/tables';
 import type { FaiMatch, FaiTable, FaiTeam } from '../src/lib/types/fai';
+import { hasRoundTeamCrest, localCrestForTeam } from '../src/utils/teamCrests';
+
+test('uses local round crests for every Classic and Avenue United team variant', () => {
+  assert.equal(localCrestForTeam('Classic F.C'), '/images/team-crests/classic-fc.png');
+  assert.equal(localCrestForTeam('Classic F.C B'), '/images/team-crests/classic-fc.png');
+  assert.equal(localCrestForTeam('Avenue United FC'), '/images/team-crests/avenue-united-fc.png');
+  assert.equal(localCrestForTeam('Avenue United U17 LWSSL 2026'), '/images/team-crests/avenue-united-fc.png');
+  assert.equal(hasRoundTeamCrest('Classic FC'), true);
+  assert.equal(hasRoundTeamCrest('Avenue United CDSL U17'), true);
+  assert.equal(localCrestForTeam('Another Club'), null);
+});
 
 test('cleans the club prefix and season from squad labels', () => {
   assert.equal(cleanTeamLabel('Killarney Athletic AFC Senior A Men 26/27'), 'Senior A Men');

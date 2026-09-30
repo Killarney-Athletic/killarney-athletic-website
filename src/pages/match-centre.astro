@@ -28,16 +28,19 @@ import clubCrestWhiteUrl from '../assets/images/brand/Club Crest White.svg?url';
   </article>
 
   <script>
+    import { hasRoundTeamCrest, localCrestForTeam } from '../utils/teamCrests';
+
     const root = document.querySelector<HTMLElement>('[data-match-centre]');
     const athleticCrest = root?.dataset.athleticCrest ?? '';
     const isAthletic = (name: string) => /killarney\s+athletic/i.test(name);
     const one = <T extends HTMLElement>(selector: string) => root?.querySelector<T>(selector) ?? null;
     const text = (selector: string, value: unknown) => { const element = one(selector); if (element) element.textContent = String(value ?? ''); };
     const formatDate = (value: string) => new Intl.DateTimeFormat('en-IE', { timeZone: 'Europe/Dublin', weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true }).format(new Date(value)).replace(' at ', ', ').replace('a.m.', 'am').replace('p.m.', 'pm');
-    const crest = (selector: string, source: string | null) => {
+    const crest = (selector: string, source: string | null, team = '') => {
       const image = one<HTMLImageElement>(selector); if (!image) return;
       image.hidden = !source;
       if (!source) return;
+      image.classList.toggle('club-crest--round', hasRoundTeamCrest(team));
       const base = import.meta.env.BASE_URL;
       image.src = source.startsWith(base) || !source.startsWith('/') ? source : `${base.replace(/\/$/, '')}${source}`;
     };
@@ -136,8 +139,8 @@ import clubCrestWhiteUrl from '../assets/images/brand/Club Crest White.svg?url';
       };
       renderSide(match.details?.homeLineup, 'home', match.homeColour); renderSide(match.details?.awayLineup, 'away', match.awayColour);
       text('[data-pitch-home-formation]', match.details?.homeLineup?.formation ?? '—'); text('[data-pitch-away-formation]', match.details?.awayLineup?.formation ?? '—');
-      crest('[data-pitch-home-crest]', match.homeCrest); crest('[data-pitch-away-crest]', match.awayCrest);
-      crest('[data-pitch-home-badge-crest]', match.homeCrest); crest('[data-pitch-away-badge-crest]', match.awayCrest);
+      crest('[data-pitch-home-crest]', match.homeCrest, match.homeTeam); crest('[data-pitch-away-crest]', match.awayCrest, match.awayTeam);
+      crest('[data-pitch-home-badge-crest]', match.homeCrest, match.homeTeam); crest('[data-pitch-away-badge-crest]', match.awayCrest, match.awayTeam);
     };
     const showError = (message: string) => { const loading = one('[data-loading]'); const error = one('[data-error]'); if (loading) loading.hidden = true; if (error) { error.hidden = false; error.textContent = message; } };
     const load = async () => {
@@ -156,8 +159,8 @@ import clubCrestWhiteUrl from '../assets/images/brand/Club Crest White.svg?url';
         const scoreboard = one<HTMLElement>('.match-centre__scoreboard');
         scoreboard?.style.setProperty('--team-left-colour', match.homeColour || (isAthletic(match.homeTeam) ? 'var(--brand-navy)' : '#52657d'));
         scoreboard?.style.setProperty('--team-right-colour', match.awayColour || (isAthletic(match.awayTeam) ? 'var(--brand-navy)' : '#52657d'));
-        const homeCrest = isAthletic(match.homeTeam) ? athleticCrest : match.homeCrest; const awayCrest = isAthletic(match.awayTeam) ? athleticCrest : match.awayCrest;
-        const when = formatDate(match.date); text('[data-when]', when); text('[data-venue]', match.venue); crest('[data-home-crest]', homeCrest); crest('[data-away-crest]', awayCrest);
+        const homeCrest = isAthletic(match.homeTeam) ? athleticCrest : localCrestForTeam(match.homeTeam) ?? match.homeCrest; const awayCrest = isAthletic(match.awayTeam) ? athleticCrest : localCrestForTeam(match.awayTeam) ?? match.awayCrest;
+        const when = formatDate(match.date); text('[data-when]', when); text('[data-venue]', match.venue); crest('[data-home-crest]', homeCrest, match.homeTeam); crest('[data-away-crest]', awayCrest, match.awayTeam);
         text('[data-info-competition]', match.competition); text('[data-info-date]', when); text('[data-info-venue]', match.venue); text('[data-info-team]', match.teamLabel);
         text('[data-home-lineup-title]', match.homeTeam); text('[data-away-lineup-title]', match.awayTeam);
         const matchEvents = match.details?.events ?? [];
