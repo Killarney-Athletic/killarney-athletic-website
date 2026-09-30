@@ -72,6 +72,12 @@ const HTML_ENTITY_MAP: Record<string, string> = {
   rdquo: '”',
 };
 
+const CMS_ORIGIN = 'https://killarneyathletic.com';
+
+export function rewriteLegacyWordPressUrl(value: string): string {
+  return value.replace(/https?:\/\/(?:www\.)?killarneyathletic\.com(?=\/)/gi, CMS_ORIGIN);
+}
+
 function decodeEntitiesOnce(value: string): string {
   return value.replace(/&(#x?[0-9a-f]+|[a-z]+);/gi, (entity, code: string) => {
     if (/^#x/i.test(code)) {
@@ -131,7 +137,7 @@ function parseNotice(meta: Record<string, unknown> | undefined): WPPost['notice'
 }
 
 function sanitizeContent(value: string): string {
-  return sanitizeHtml(decodeEntities(value), {
+  return sanitizeHtml(rewriteLegacyWordPressUrl(decodeEntities(value)), {
     allowedTags: ['p', 'br', 'a', 'img'],
     disallowedTagsMode: 'discard',
     allowedAttributes: {
@@ -179,7 +185,10 @@ export function parseWPPost(payload: WPPostPayload): WPPost {
       slug: term.slug ?? 'general',
     }));
 
-  const featuredImageUrl = payload._embedded?.['wp:featuredmedia']?.[0]?.source_url;
+  const featuredImageUrlValue = payload._embedded?.['wp:featuredmedia']?.[0]?.source_url;
+  const featuredImageUrl = featuredImageUrlValue
+    ? rewriteLegacyWordPressUrl(featuredImageUrlValue)
+    : undefined;
   const featuredImageAlt = toPlainText(
     payload._embedded?.['wp:featuredmedia']?.[0]?.alt_text ?? '',
   ) || title;
@@ -197,7 +206,7 @@ export function parseWPPost(payload: WPPostPayload): WPPost {
     featuredImageUrl,
     featuredImageAlt,
     hasClubforceLink,
-    link: payload.link ?? '/',
+    link: rewriteLegacyWordPressUrl(payload.link ?? '/'),
     notice: parseNotice(payload.meta),
   };
 }

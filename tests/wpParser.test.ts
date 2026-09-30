@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { isNoticeActive, parseWPPost, type WPPostPayload } from '../src/utils/wpParser';
+import { isNoticeActive, parseWPPost, rewriteLegacyWordPressUrl, type WPPostPayload } from '../src/utils/wpParser';
 
 const payload = (overrides: Partial<WPPostPayload> = {}): WPPostPayload => ({
   id: 1,
@@ -34,4 +34,27 @@ test('ignores incomplete or invalid notice metadata', () => {
   const post = parseWPPost(payload({ meta: { ka_notice_team: 'Senior A' } }));
   assert.equal(post.notice, undefined);
   assert.equal(isNoticeActive(post), false);
+});
+
+test('rewrites legacy WordPress URLs to the CMS origin', () => {
+  assert.equal(
+    rewriteLegacyWordPressUrl('http://www.killarneyathletic.com/wp-content/uploads/photo.jpg'),
+    'https://killarneyathletic.com/wp-content/uploads/photo.jpg',
+  );
+
+  const post = parseWPPost(payload({
+    link: 'https://www.killarneyathletic.com/training-update/',
+    content: {
+      rendered: '<p><img src="https://www.killarneyathletic.com/wp-content/uploads/photo.jpg"></p>',
+    },
+    _embedded: {
+      'wp:featuredmedia': [{
+        source_url: 'http://killarneyathletic.com/wp-content/uploads/featured.jpg',
+      }],
+    },
+  }));
+
+  assert.match(post.content, /https:\/\/killarneyathletic\.com\/wp-content\/uploads\/photo\.jpg/);
+  assert.equal(post.featuredImageUrl, 'https://killarneyathletic.com/wp-content/uploads/featured.jpg');
+  assert.equal(post.link, 'https://killarneyathletic.com/training-update/');
 });

@@ -23,8 +23,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      ASTRO_SITE: https://killarney-athletic.github.io
-      ASTRO_BASE: /killarney-athletic-website/
+      ASTRO_SITE: https://www.killarneyathletic.com
+      ASTRO_BASE: /
+      PUBLIC_WP_API_URL: https://killarneyathletic.com/wp-json/wp/v2
     steps:
       - name: Check out repository
         uses: actions/checkout@v4

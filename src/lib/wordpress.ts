@@ -1,8 +1,8 @@
-import { parseWPPost, type WPPost, type WPPostPayload } from '../utils/wpParser';
+import { parseWPPost, rewriteLegacyWordPressUrl, type WPPost, type WPPostPayload } from '../utils/wpParser';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 
-const DEFAULT_API_URL = 'https://www.killarneyathletic.com/wp-json/wp/v2';
+const DEFAULT_API_URL = 'https://killarneyathletic.com/wp-json/wp/v2';
 const REQUEST_TIMEOUT_MS = 8_000;
 const POSTS_CACHE_PATH = resolve(process.cwd(), '.cache/wp-posts-cache.json');
 const MAX_POSTS = 100;
@@ -166,7 +166,7 @@ function extractGalleryImages(content: string, title: string): GalleryImage[] {
   let match: RegExpExecArray | null;
 
   while ((match = linkedImagePattern.exec(content))) {
-    const src = decodeGalleryAttribute(match[2]);
+    const src = rewriteLegacyWordPressUrl(decodeGalleryAttribute(match[2]));
     if (seen.has(src)) continue;
 
     const imageMarkup = match[3];

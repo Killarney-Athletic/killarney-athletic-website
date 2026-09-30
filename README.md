@@ -24,13 +24,13 @@ npm run preview
 
 The build refreshes KDL data and generates the static website in `dist/`.
 
-## GitHub Pages preview
+## GitHub Pages deployment
 
-Pushing to `main` runs `.github/workflows/deploy-pages.yml`. The workflow builds and publishes the site at:
+Pushing to `main` runs `.github/workflows/deploy-pages.yml`. The workflow builds and publishes the production site at:
 
-`https://killarney-athletic.github.io/killarney-athletic-website/`
+`https://www.killarneyathletic.com/`
 
-The workflow supplies the GitHub Pages `site` and `base` values at build time. Local development and the eventual production domain continue to use `/` as their base path.
+The workflow supplies the production `site`, root `base`, and `https://killarneyathletic.com/wp-json/wp/v2` WordPress API values at build time.
 
 Repository administrators must select **GitHub Actions** as the publishing source under **Settings → Pages** before the first deployment.
 
