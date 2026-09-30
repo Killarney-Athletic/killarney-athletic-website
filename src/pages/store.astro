@@ -1,0 +1,54 @@
+---
+import { ExternalLink, Shirt, ShieldCheck, ShoppingBag } from '@lucide/astro';
+import Button from '../components/Button.astro';
+import PageHeader from '../components/PageHeader.astro';
+import PagePanel from '../components/PagePanel.astro';
+import Layout from '../layouts/Layout.astro';
+import { CLUB_LINKS } from '../config/links';
+---
+
+<Layout
+  title="Athletic Store & Official Kit | Killarney Athletic A.F.C."
+  description="Official team jerseys, training apparel, club merchandise, and leisurewear for players, parents, and supporters."
+  canonicalPath="/store/"
+>
+  <article class="page-shell page-template">
+    <PageHeader
+      title="Athletic Store"
+      intro="Shop official Killarney Athletic A.F.C. kit, training apparel and club leisurewear through our JAKO store."
+      breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Athletic Store' }]}
+    />
+    <PagePanel>
+      <div class="store-panel">
+        <ShoppingBag aria-hidden="true" size={42} stroke-width={1.7} />
+        <div>
+          <h2>Official club range</h2>
+          <p>Browse jerseys, training wear and supporter clothing supplied through the club’s secure external shop.</p>
+          <ul>
+            <li><Shirt aria-hidden="true" size={18} /> Official Killarney Athletic kit and apparel</li>
+            <li><ShieldCheck aria-hidden="true" size={18} /> Secure ordering through JAKO Ireland</li>
+          </ul>
+          <Button
+            href={CLUB_LINKS.shop.jako}
+            label="Visit the official store"
+            variant="primary"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <ExternalLink slot="icon" size={18} stroke-width={2} />
+          </Button>
+        </div>
+      </div>
+    </PagePanel>
+  </article>
+</Layout>
+
+<style>
+  .store-panel { display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; align-items: start; max-width: 760px; }
+  .store-panel > svg { color: var(--color-primary); }
+  .store-panel h2 { margin: 0 0 .5rem; }
+  .store-panel p { max-width: 62ch; }
+  .store-panel ul { display: grid; gap: .65rem; margin: 1.25rem 0 1.5rem; padding: 0; list-style: none; }
+  .store-panel li { display: flex; gap: .55rem; align-items: center; }
+  @media (max-width: 520px) { .store-panel { grid-template-columns: 1fr; } }
+</style>

@@ -148,7 +148,11 @@ const formatFixtureDate = (value: string) => new Intl.DateTimeFormat('en-IE', { 
 const formatFixtureTime = (value: string) => new Intl.DateTimeFormat('en-IE', { timeZone: 'Europe/Dublin', hour: 'numeric', minute: '2-digit', hour12: true }).format(new Date(value)).replace('a.m.', 'am').replace('p.m.', 'pm');
 ---
 
-<Layout title="Killarney Athletic AFC | Latest News">
+<Layout
+  title="Killarney Athletic A.F.C. | Official Website"
+  description="Official Killarney Athletic A.F.C. channel. Fixtures, results, club news, academy registrations, online club shop, and community events from Woodlawn."
+  canonicalPath="/"
+>
   <HeroSection
     variant="registration"
     eyebrow="Registration open · 2026/27"

@@ -15,7 +15,7 @@
     "category": "Membership",
     "summary": "Online registration for all age grades (Academy, Underage, Youths, Seniors) is managed via Clubforce.",
     "actionLabel": "View Membership",
-    "actionUrl": "/membership/"
+    "actionUrl": "/registration/"
   },
   {
     "id": "pitch-location",

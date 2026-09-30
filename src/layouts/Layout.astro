@@ -1,7 +1,6 @@
 ---
 import '../styles/global.css';
 import { CLUB_LINKS } from '../config/links';
-import Button from '../components/Button.astro';
 import ParentAssistant from '../components/ParentAssistant.astro';
 import clubCrestDefaultUrl from '../assets/images/brand/Club Crest Default.svg?url';
 import clubCrestWhiteUrl from '../assets/images/brand/Club Crest White.svg?url';
@@ -13,22 +12,24 @@ interface Props {
   title?: string;
   description?: string;
   canonicalPath?: string;
+  canonicalURL?: URL | string;
   image?: string;
   bodyClass?: string;
   hideFooter?: boolean;
 }
 
 const {
-  title = 'Killarney Athletic AFC',
-  description = 'News and updates from Killarney Athletic AFC at Woodlawn.',
+  title = 'Killarney Athletic A.F.C. | Official Website',
+  description = 'Official Killarney Athletic A.F.C. channel. Fixtures, results, club news, academy registrations, online club shop, and community events from Woodlawn.',
   canonicalPath = Astro.url.pathname,
-  image = '/images/placeholders/news-fallback.svg',
+  canonicalURL,
+  image = '/android-chrome-512x512.png',
   bodyClass = '',
   hideFooter = false,
 } = Astro.props as Props;
 
 const siteUrl = Astro.site ?? new URL('https://www.killarneyathletic.com');
-const canonicalUrl = new URL(withBase(canonicalPath), siteUrl);
+const canonicalUrl = canonicalURL ? new URL(canonicalURL, siteUrl) : new URL(withBase(canonicalPath), siteUrl);
 const socialImageUrl = new URL(withBase(image), siteUrl);
 const isHomePage = Astro.url.pathname === withBase('/');
 const tournamentIsActive = isTournamentSeason();
@@ -38,23 +39,24 @@ const structuredData = {
   '@context': 'https://schema.org',
   '@graph': [
     {
-      '@type': 'SportsOrganization',
+      '@type': 'SportsClub',
       '@id': `${siteUrl.href}#club`,
-      name: 'Killarney Athletic AFC',
+      name: 'Killarney Athletic A.F.C.',
       url: siteUrl.href,
-      logo: new URL(clubCrestDefaultUrl, siteUrl).href,
+      logo: new URL('/android-chrome-512x512.png', siteUrl).href,
       foundingDate: '1965',
       address: {
         '@type': 'PostalAddress',
+        streetAddress: 'Woodlawn',
         addressLocality: 'Killarney',
-        addressRegion: 'County Kerry',
+        addressRegion: 'Co. Kerry',
         addressCountry: 'IE',
       },
     },
     {
       '@type': 'WebSite',
       '@id': `${siteUrl.href}#website`,
-      name: 'Killarney Athletic AFC',
+      name: 'Killarney Athletic A.F.C.',
       url: siteUrl.href,
       publisher: { '@id': `${siteUrl.href}#club` },
     },
@@ -76,6 +78,11 @@ const structuredData = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
+    <link rel="icon" type="image/x-icon" href={withBase('/favicon.ico')} />
+    <link rel="icon" type="image/png" sizes="32x32" href={withBase('/favicon-32x32.png')} />
+    <link rel="icon" type="image/png" sizes="16x16" href={withBase('/favicon-16x16.png')} />
+    <link rel="apple-touch-icon" sizes="180x180" href={withBase('/apple-touch-icon.png')} />
+    <link rel="manifest" href={withBase('/site.webmanifest')} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Oleo+Script+Swash+Caps:wght@400;700&display=swap" rel="stylesheet" />
@@ -85,12 +92,11 @@ const structuredData = {
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={socialImageUrl} />
-    <meta property="og:site_name" content="Killarney Athletic AFC" />
+    <meta property="og:site_name" content="Killarney Athletic A.F.C." />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImageUrl} />
-    <link rel="icon" type="image/svg+xml" href={clubCrestDefaultUrl} />
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
     <title>{title}</title>
   </head>
@@ -105,7 +111,7 @@ const structuredData = {
             <b>A.F.C</b>
           </span>
         </a>
-        <nav class="main-nav" aria-label="Main navigation">
+        <nav class="main-nav" aria-label="Main Navigation">
           {tournamentIsActive && <a class="seasonal-nav-link" href={withBase(tournamentPath)}>7-A-Side</a>}
           <a href={withBase('/news/')}>News</a>
           <div class="nav-dropdown">
@@ -123,6 +129,7 @@ const structuredData = {
               <a href={withBase('/teams/academy/')}>Academy</a>
             </div>
           </div>
+          <a href={withBase('/registration/')}>Registration</a>
           <a href={withBase('/fixtures-results/')}>Fixtures &amp; Results</a>
           <div class="nav-dropdown">
             <button class="nav-dropdown__trigger" type="button" aria-haspopup="true">
@@ -138,27 +145,18 @@ const structuredData = {
               <a href={withBase('/child-welfare/')}>Child Welfare</a>
               <a href={withBase(tournamentPath)}>7-A-Side Tournament</a>
               <a href={withBase('/photo-galleries/')}>Photo Galleries</a>
-              <a href={withBase('/contact-us/')}>Contact Us</a>
             </div>
           </div>
+          <a href={withBase('/contact/')}>Contact</a>
           <a
             class="jako-store-link"
-            href={CLUB_LINKS.shop.jako}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="JAKO Store"
+            href={withBase('/store/')}
+            aria-label="Athletic Store"
           >
             <img src={jakoLogoUrl} alt="" width="105" height="30" />
-            <span>Store</span>
+            <span>Athletic Store</span>
           </a>
         </nav>
-        <Button
-          class="header-action"
-          href={withBase('/membership/')}
-          label="Join the club"
-          size="sm"
-          variant="outline-light"
-        />
         <button
           class="mobile-menu-button"
           type="button"
@@ -190,14 +188,10 @@ const structuredData = {
               <a href={withBase('/teams/academy/')}>Academy</a>
             </div>
           </details>
+          <a href={withBase('/registration/')}>Registration</a>
           <a href={withBase('/fixtures-results/')}>Fixtures &amp; Results</a>
-          <a
-            href={CLUB_LINKS.shop.jako}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Shop
-          </a>
+          <a href={withBase('/store/')}>Athletic Store</a>
+          <a href={withBase('/contact/')}>Contact</a>
           <details class="mobile-nav-group">
             <summary>
               <span>Club</span>
@@ -212,16 +206,8 @@ const structuredData = {
               <a href={withBase('/child-welfare/')}>Child Welfare</a>
               <a href={withBase(tournamentPath)}>7-A-Side Tournament</a>
               <a href={withBase('/photo-galleries/')}>Photo Galleries</a>
-              <a href={withBase('/contact-us/')}>Contact Us</a>
             </div>
           </details>
-          <Button
-            class="mobile-menu__action"
-            href={withBase('/membership/')}
-            label="Join the Club"
-            size="md"
-            variant="primary"
-          />
         </nav>
       </div>
     </header>
@@ -264,8 +250,8 @@ const structuredData = {
             >
               Shop
             </a>
-            <a href={withBase('/membership/')}>Membership</a>
-            <a href={withBase('/contact-us/')}>Contact Us</a>
+            <a href={withBase('/registration/')}>Registration</a>
+            <a href={withBase('/contact/')}>Contact</a>
           </div>
           <div>
             <h2>Programmes</h2>
