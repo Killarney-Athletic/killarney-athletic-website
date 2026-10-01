@@ -7,6 +7,12 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: process.env.ASTRO_SITE ?? 'https://www.killarneyathletic.com',
   base: process.env.ASTRO_BASE ?? '/',
+  redirects: {
+    '/membership': '/registration',
+    '/contact-us': '/contact',
+    '/child-welfare-course': '/contact',
+    '/7-a-side-archive': '/fixtures-results',
+  },
   integrations: [
     sitemap({
       filter: (page) => ![
