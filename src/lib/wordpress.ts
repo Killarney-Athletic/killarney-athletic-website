@@ -1,10 +1,11 @@
 import { parseWPPost, rewriteLegacyWordPressUrl, type WPPost, type WPPostPayload } from '../utils/wpParser';
+import { WPRawPostSchema } from './schema/post';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 
 const DEFAULT_API_URL = 'https://killarneyathletic.com/wp-json/wp/v2';
-const REQUEST_TIMEOUT_MS = 8_000;
-const POSTS_CACHE_PATH = resolve(process.cwd(), '.cache/wp-posts-cache.json');
+const REQUEST_TIMEOUT_MS = 12_000;
+const POSTS_CACHE_PATH = resolve(process.cwd(), '.cache/wp-posts.json');
 const MAX_POSTS = 100;
 
 type CachedNotice = {
@@ -13,8 +14,9 @@ type CachedNotice = {
   expiresAt: string;
 };
 
-type CachedWPPost = Omit<WPPost, 'date' | 'notice'> & {
+type CachedWPPost = Omit<WPPost, 'date' | 'publishedAt' | 'notice'> & {
   date: string;
+  publishedAt: string;
   notice?: CachedNotice;
 };
 
@@ -32,10 +34,18 @@ function isCachedPost(value: unknown): value is CachedWPPost {
   if (!value || typeof value !== 'object') return false;
   const post = value as Partial<CachedWPPost>;
   return typeof post.slug === 'string'
+    && typeof post.id === 'number'
     && typeof post.title === 'string'
     && typeof post.content === 'string'
     && typeof post.date === 'string'
     && !Number.isNaN(Date.parse(post.date))
+    && typeof post.publishedAt === 'string'
+    && !Number.isNaN(Date.parse(post.publishedAt))
+    && typeof post.contentHtml === 'string'
+    && typeof post.heroImage === 'object'
+    && post.heroImage !== null
+    && typeof post.heroImage.src === 'string'
+    && typeof post.heroImage.alt === 'string'
     && (post.notice === undefined || isCachedNotice(post.notice));
 }
 
@@ -53,6 +63,7 @@ async function readPostsCache(): Promise<WPPost[]> {
   return cached.map((post) => ({
     ...post,
     date: new Date(post.date),
+    publishedAt: new Date(post.publishedAt),
     notice: post.notice ? {
       ...post.notice,
       startsAt: new Date(post.notice.startsAt),
@@ -106,13 +117,39 @@ async function request<T>(path: string, params: Record<string, string | number>)
   }
 }
 
+function postId(value: unknown): string {
+  if (!value || typeof value !== 'object' || !('id' in value)) return 'unknown';
+  return String(value.id);
+}
+
+export function parsePostsPayload(payload: unknown): WPPost[] {
+  if (!Array.isArray(payload)) {
+    throw new WordPressError('Invalid WordPress payload: expected an array of posts.');
+  }
+
+  return payload.flatMap((item) => {
+    const result = WPRawPostSchema.safeParse(item);
+    if (!result.success) {
+      console.warn(`[WP Ingestion] Skipping invalid post ID ${postId(item)}:`, result.error.issues);
+      return [];
+    }
+
+    try {
+      return [parseWPPost(result.data)];
+    } catch (error) {
+      console.warn(`[WP Ingestion] Skipping malformed post ID ${result.data.id}:`, error);
+      return [];
+    }
+  });
+}
+
 async function loadPosts(): Promise<WPPost[]> {
   try {
-    const posts = await request<WPPostPayload[]>('posts', {
+    const posts = await request<unknown>('posts', {
       _embed: 1,
       per_page: MAX_POSTS,
     });
-    const normalizedPosts = posts.map(parseWPPost);
+    const normalizedPosts = parsePostsPayload(posts);
 
     if (normalizedPosts.length === 0) {
       throw new WordPressError('WordPress returned an empty post archive.');
@@ -126,11 +163,11 @@ async function loadPosts(): Promise<WPPost[]> {
       console.warn('WordPress is unavailable; using the last-known-good post cache.');
       return cachedPosts;
     } catch (cacheError) {
-      throw new WordPressError(
-        'WordPress is unavailable and no valid last-known-good cache exists; aborting the build.',
-        undefined,
-        { liveError, cacheError },
-      );
+      console.error('[WP Ingestion] WordPress and its cache are unavailable; continuing with no posts.', {
+        liveError,
+        cacheError,
+      });
+      return [];
     }
   }
 }
@@ -183,22 +220,31 @@ function extractGalleryImages(content: string, title: string): GalleryImage[] {
 
 export async function getGalleryPosts(limit = 100): Promise<GalleryPost[]> {
   try {
-    const posts = await request<WPPostPayload[]>('posts', {
+    const posts = await request<unknown>('posts', {
       _embed: 1,
       categories: 39,
       per_page: Math.min(Math.max(limit, 1), 100),
     });
 
+    if (!Array.isArray(posts)) throw new WordPressError('Invalid WordPress gallery payload.');
+
     return posts
-      .map((payload) => {
+      .flatMap((item) => {
+        const result = WPRawPostSchema.safeParse(item);
+        if (!result.success) {
+          console.warn(`[WP Ingestion] Skipping invalid gallery post ID ${postId(item)}:`, result.error.issues);
+          return [];
+        }
+
+        const payload: WPPostPayload = result.data;
         const post = parseWPPost(payload);
         const images = extractGalleryImages(payload.content?.rendered ?? '', post.title);
 
-        return {
+        return [{
           ...post,
           images,
           coverImageUrl: post.featuredImageUrl || images[0]?.src || '',
-        };
+        }];
       })
       .filter((post) => post.images.length > 0);
   } catch (error) {

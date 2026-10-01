@@ -1,60 +1,8 @@
 import sanitizeHtml from 'sanitize-html';
+import type { ClubPost, WPRawPostInput } from '../lib/schema/post';
 
-export interface WPPostPayload {
-  id: number;
-  slug: string;
-  title?: {
-    rendered?: string;
-  };
-  content?: {
-    rendered?: string;
-    protected?: boolean;
-  };
-  excerpt?: {
-    rendered?: string;
-    protected?: boolean;
-  };
-  date: string;
-  author?: number;
-  categories?: number[];
-  link?: string;
-  meta?: Record<string, unknown>;
-  _embedded?: {
-    author?: Array<{
-      name?: string;
-      avatar_urls?: Record<string, string>;
-    }>;
-    'wp:term'?: Array<Array<{
-      id?: number;
-      name?: string;
-      slug?: string;
-      taxonomy?: string;
-    }>>;
-    'wp:featuredmedia'?: Array<{
-      source_url?: string;
-      alt_text?: string;
-    }>;
-  };
-}
-
-export interface WPPost {
-  slug: string;
-  title: string;
-  excerpt: string;
-  content: string;
-  date: Date;
-  authorName: string;
-  categories: Array<{ id: number; name: string; slug: string }>;
-  featuredImageUrl?: string;
-  featuredImageAlt: string;
-  hasClubforceLink: boolean;
-  link: string;
-  notice?: {
-    team: string;
-    startsAt: Date;
-    expiresAt: Date;
-  };
-}
+export type WPPostPayload = WPRawPostInput;
+export type WPPost = ClubPost;
 
 const HTML_ENTITY_MAP: Record<string, string> = {
   amp: '&',
@@ -73,6 +21,7 @@ const HTML_ENTITY_MAP: Record<string, string> = {
 };
 
 const CMS_ORIGIN = 'https://killarneyathletic.com';
+const DEFAULT_HERO_IMAGE = '/android-chrome-512x512.png';
 
 export function rewriteLegacyWordPressUrl(value: string): string {
   return value.replace(/https?:\/\/(?:www\.)?killarneyathletic\.com(?=\/)/gi, CMS_ORIGIN);
@@ -102,6 +51,16 @@ function decodeEntities(value: string): string {
   }
 
   return decoded;
+}
+
+function validHttpUrl(value: string | undefined): string | undefined {
+  if (!value) return undefined;
+  try {
+    const url = new URL(value);
+    return url.protocol === 'http:' || url.protocol === 'https:' ? value : undefined;
+  } catch {
+    return undefined;
+  }
 }
 
 function toPlainText(value: string): string {
@@ -185,7 +144,7 @@ export function parseWPPost(payload: WPPostPayload): WPPost {
       slug: term.slug ?? 'general',
     }));
 
-  const featuredImageUrlValue = payload._embedded?.['wp:featuredmedia']?.[0]?.source_url;
+  const featuredImageUrlValue = validHttpUrl(payload._embedded?.['wp:featuredmedia']?.[0]?.source_url);
   const featuredImageUrl = featuredImageUrlValue
     ? rewriteLegacyWordPressUrl(featuredImageUrlValue)
     : undefined;
@@ -196,11 +155,18 @@ export function parseWPPost(payload: WPPostPayload): WPPost {
   const hasClubforceLink = /clubforce|register|membership/i.test(excerpt + ' ' + plainContent);
 
   return {
+    id: payload.id,
     slug: payload.slug,
     title,
     excerpt: excerpt || 'Read the latest update from Killarney Athletic AFC.',
     content: content || '<p>No content available yet.</p>',
     date: new Date(payload.date),
+    contentHtml: content || '<p>No content available yet.</p>',
+    publishedAt: new Date(payload.date),
+    heroImage: {
+      src: featuredImageUrl || DEFAULT_HERO_IMAGE,
+      alt: featuredImageAlt,
+    },
     authorName,
     categories,
     featuredImageUrl,

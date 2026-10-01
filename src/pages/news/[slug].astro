@@ -4,14 +4,14 @@ import { Share2 } from '@lucide/astro';
 import PageHeader from '../../components/PageHeader.astro';
 import ContentBadge from '../../components/ContentBadge.astro';
 import { getPostPaths } from '../../lib/wordpress';
-import type { WPPost } from '../../utils/wpParser';
+import type { ClubPost } from '../../lib/schema/post';
 import { CLUB_LINKS } from '../../config/links';
 
 export async function getStaticPaths() {
   return getPostPaths(100);
 }
 
-const { post } = Astro.props as { post: WPPost };
+const { post } = Astro.props as { post: ClubPost };
 const postUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://www.killarneyathletic.com');
 ---
 
