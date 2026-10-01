@@ -57,7 +57,7 @@ const faqs = [
   <article class="membership-page">
     <section class="membership-hero page-shell">
       <PageHeader
-        variant="hero"
+        variant="standard"
         title="Join Killarney Athletic"
         intro="Find the right membership, understand the registration process and continue securely to Clubforce when you are ready."
         breadcrumbs={[
@@ -66,45 +66,14 @@ const faqs = [
         ]}
       >
         <div slot="meta" class="meta-row">
+          <ContentBadge label="One club, every stage" tone="soft-indigo" />
           <ContentBadge label="2026/27 season" tone="cool-blue" />
           <span>Online registration through Clubforce</span>
-        </div>
-        <div slot="actions" class="membership-hero__actions">
-          <Button
-            href={CLUB_LINKS.clubforce.membership}
-            label="Register on Clubforce"
-            variant="primary"
-            target="_blank"
-            rel="noopener noreferrer"
-          />
-          <Button href="#membership-options" label="View membership options" variant="outline-dark" icon={false} />
         </div>
       </PageHeader>
     </section>
 
-    <section class="membership-intro page-shell section-block" aria-labelledby="membership-intro-heading">
-      <div>
-        <ContentBadge label="One club, every stage" tone="soft-indigo" />
-        <h2 id="membership-intro-heading">A place to play, develop and belong</h2>
-      </div>
-      <div class="membership-intro__copy">
-        <p>
-          Membership supports football at every level of Killarney Athletic—from a child’s
-          first Academy session to youth and senior football.
-        </p>
-        <p>
-          Registration is managed through Clubforce so membership details and payments
-          remain together in one secure account.
-        </p>
-      </div>
-    </section>
-
-    <section id="membership-options" class="membership-options page-shell section-block" aria-labelledby="membership-options-heading">
-      <SectionHeader
-        title="Membership options"
-        intro="Choose a category, compare the available options and continue securely to Clubforce."
-        id="membership-options-heading"
-      />
+    <section id="membership-options" class="membership-options page-shell" aria-label="Membership options">
       <MembershipGrid />
     </section>
 
@@ -167,11 +136,9 @@ const faqs = [
 
 <style>
   .membership-page { padding-bottom:clamp(4rem,8vw,7rem); }
-  .membership-hero__actions { display:flex; flex-wrap:wrap; gap:.75rem; margin-top:1.5rem; }
-  .membership-intro { display:grid; grid-template-columns:minmax(250px,.85fr) minmax(300px,1.15fr); gap:clamp(2rem,7vw,6rem); align-items:start; }
-  .membership-intro h2 { max-width:13ch; margin:.8rem 0 0; color:var(--brand-navy); font-size:clamp(2rem,4vw,3.25rem); line-height:1.05; }
-  .membership-intro__copy { display:grid; gap:1rem; }
-  .membership-intro__copy p { margin:0; color:var(--muted); font-size:clamp(1rem,2vw,1.12rem); line-height:var(--type-leading-body); }
+  :global(.membership-hero .page-header__body > div:first-child) { width:100%; }
+  :global(.membership-hero .page-header__body p) { width:75%; max-width:75%; }
+  .membership-options { padding-top:1.5rem; }
   .membership-process { margin-block:clamp(3rem,7vw,5rem); background:var(--blue-50); }
   .membership-process__steps { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin:1.5rem 0 0; padding:0; list-style:none; }
   .membership-process__step { position:relative; }
@@ -193,7 +160,8 @@ const faqs = [
   .membership-help h2 { margin:.7rem 0 .35rem; color:var(--brand-navy); font-size:clamp(1.4rem,3vw,2rem); }
   .membership-help p { max-width:44rem; margin:0; color:var(--muted); }
   @media (max-width:700px) {
-    .membership-intro,.membership-process__steps { grid-template-columns:1fr; }
+    :global(.membership-hero .page-header__body p) { width:100%; max-width:100%; }
+    .membership-process__steps { grid-template-columns:1fr; }
     .membership-help__panel { align-items:flex-start; flex-direction:column; }
   }
   @media (max-width:520px) {

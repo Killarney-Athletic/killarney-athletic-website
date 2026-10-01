@@ -11,6 +11,8 @@ interface Props {
   activeId?: string;
   ariaLabel?: string;
   class?: string;
+  renderPanels?: boolean;
+  controlsId?: string;
 }
 
 const {
@@ -18,6 +20,8 @@ const {
   activeId = items[0]?.id,
   ariaLabel = 'Choose a section',
   class: className = '',
+  renderPanels = true,
+  controlsId,
 } = Astro.props;
 
 const groupId = `tab-group-${crypto.randomUUID()}`;
@@ -43,8 +47,9 @@ const isNavigation = items.some((item) => item.href);
             id={`${groupId}-tab-${item.id}`}
             type="button"
             role="tab"
+            data-tab-id={item.id}
             aria-selected={isActive ? 'true' : 'false'}
-            aria-controls={`${groupId}-panel-${item.id}`}
+            aria-controls={controlsId ?? `${groupId}-panel-${item.id}`}
             tabindex={isActive ? 0 : -1}
           >
             {item.label}
@@ -54,7 +59,7 @@ const isNavigation = items.some((item) => item.href);
     </div>
   </div>
 
-  {!isNavigation && items.map((item) => {
+  {!isNavigation && renderPanels && items.map((item) => {
     const isActive = item.id === activeId;
     return (
       <div
@@ -78,7 +83,7 @@ const isNavigation = items.some((item) => item.href);
 
     const tabs = Array.from(group.querySelectorAll('[role="tab"]'));
     const panels = Array.from(group.querySelectorAll('[role="tabpanel"]'));
-    const isNavigation = panels.length === 0;
+    const isNavigation = tabs.length === 0;
 
     const selectTab = (tab, focus = false) => {
       if (!(tab instanceof HTMLElement)) return;
@@ -92,6 +97,10 @@ const isNavigation = items.some((item) => item.href);
       panels.forEach((panel) => {
         panel.toggleAttribute('hidden', panel.id !== tab.getAttribute('aria-controls'));
       });
+
+      group.dispatchEvent(new CustomEvent('tab-change', {
+        detail: { id: tab.dataset.tabId },
+      }));
 
       tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
       if (focus) tab.focus();
