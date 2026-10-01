@@ -58,3 +58,14 @@ test('rewrites legacy WordPress URLs to the CMS origin', () => {
   assert.equal(post.featuredImageUrl, 'https://killarneyathletic.com/wp-content/uploads/featured.jpg');
   assert.equal(post.link, 'https://killarneyathletic.com/training-update/');
 });
+
+test('uses the first safe inline WordPress upload when featured media is missing', () => {
+  const post = parseWPPost(payload({
+    content: {
+      rendered: '<p><img src="http://www.killarneyathletic.com/wp-content/uploads/2026/academy.jpg"></p>',
+    },
+  }));
+
+  assert.equal(post.featuredImageUrl, 'https://killarneyathletic.com/wp-content/uploads/2026/academy.jpg');
+  assert.equal(post.heroImage.src, 'https://killarneyathletic.com/wp-content/uploads/2026/academy.jpg');
+});

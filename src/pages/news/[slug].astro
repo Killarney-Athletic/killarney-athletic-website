@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { Share2 } from '@lucide/astro';
+import { Image } from 'astro:assets';
 import PageHeader from '../../components/PageHeader.astro';
 import ContentBadge from '../../components/ContentBadge.astro';
 import { getPostPaths } from '../../lib/wordpress';
@@ -41,7 +42,22 @@ const postUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://www.killarney
       )}
     </PageHeader>
 
-    <div class="notice-page__content" set:html={post.content} />
+    {post.featuredImageUrl && (
+      <figure class="notice-page__hero">
+        <Image
+          src={post.featuredImageUrl}
+          alt={post.featuredImageAlt}
+          width={1200}
+          height={675}
+          format="webp"
+          quality={80}
+          loading="eager"
+          decoding="async"
+        />
+      </figure>
+    )}
+
+    <div class="notice-page__content" set:html={post.contentHtml} />
 
     <footer class="notice-page__share" aria-label="Share this news post">
       <p>Share this update</p>

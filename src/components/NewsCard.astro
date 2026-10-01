@@ -1,5 +1,5 @@
 ---
-import { Picture, type ImageMetadata } from 'astro:assets';
+import { Image, Picture, type ImageMetadata } from 'astro:assets';
 import ContentBadge from './ContentBadge.astro';
 
 interface Props {
@@ -44,7 +44,16 @@ const fallbackClass = [
 <article class:list={['news-card', className]}>
   <a class="news-card__media" href={href} tabindex="-1" aria-hidden="true">
     {useFeaturedImage ? (
-      <img src={featuredImageUrl} alt={featuredImageAlt} loading="lazy" width="800" height="450" />
+      <Image
+        src={featuredImageUrl}
+        alt={featuredImageAlt}
+        loading="lazy"
+        decoding="async"
+        width={800}
+        height={450}
+        format="webp"
+        quality={75}
+      />
     ) : (
       <span class:list={fallbackClass}>
         {treatment === 'three-hundred-club' ? (

@@ -1,5 +1,6 @@
 import sanitizeHtml from 'sanitize-html';
 import type { ClubPost, WPRawPostInput } from '../lib/schema/post';
+import { firstWpContentImage, optimizeWpContentHtml } from '../lib/html-processor';
 
 export type WPPostPayload = WPRawPostInput;
 export type WPPost = ClubPost;
@@ -96,14 +97,16 @@ function parseNotice(meta: Record<string, unknown> | undefined): WPPost['notice'
 }
 
 function sanitizeContent(value: string): string {
-  return sanitizeHtml(rewriteLegacyWordPressUrl(decodeEntities(value)), {
-    allowedTags: ['p', 'br', 'a', 'img'],
+  const sanitized = sanitizeHtml(rewriteLegacyWordPressUrl(decodeEntities(value)), {
+    allowedTags: ['p', 'br', 'a', 'img', 'iframe'],
     disallowedTagsMode: 'discard',
     allowedAttributes: {
       a: ['href', 'title', 'target', 'rel'],
       img: ['src', 'alt', 'title', 'width', 'height', 'loading'],
+      iframe: ['src', 'title', 'width', 'height', 'allow', 'allowfullscreen', 'loading'],
     },
     allowedSchemes: ['http', 'https', 'mailto'],
+    allowedIframeHostnames: ['www.youtube.com', 'youtube.com', 'www.google.com', 'google.com'],
     transformTags: {
       a: (_tagName, attribs) => ({
         tagName: 'a',
@@ -125,6 +128,8 @@ function sanitizeContent(value: string): string {
       }),
     },
   });
+
+  return optimizeWpContentHtml(sanitized);
 }
 
 export function parseWPPost(payload: WPPostPayload): WPPost {
@@ -144,7 +149,8 @@ export function parseWPPost(payload: WPPostPayload): WPPost {
       slug: term.slug ?? 'general',
     }));
 
-  const featuredImageUrlValue = validHttpUrl(payload._embedded?.['wp:featuredmedia']?.[0]?.source_url);
+  const featuredImageUrlValue = validHttpUrl(payload._embedded?.['wp:featuredmedia']?.[0]?.source_url)
+    ?? firstWpContentImage(rawContent);
   const featuredImageUrl = featuredImageUrlValue
     ? rewriteLegacyWordPressUrl(featuredImageUrlValue)
     : undefined;

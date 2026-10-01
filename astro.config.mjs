@@ -13,6 +13,16 @@ export default defineConfig({
     '/child-welfare-course': '/contact',
     '/7-a-side-archive': '/fixtures-results',
   },
+  image: {
+    domains: ['killarneyathletic.com', 'www.killarneyathletic.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**.killarneyathletic.com',
+        pathname: '/wp-content/uploads/**',
+      },
+    ],
+  },
   integrations: [
     sitemap({
       filter: (page) => ![
