@@ -1,0 +1,148 @@
+---
+import { Check, ExternalLink } from '@lucide/astro';
+import Button from '../Button.astro';
+import ContentBadge from '../ContentBadge.astro';
+import Card from '../ui/Card.astro';
+import { REGISTRATION_TIERS, type RegistrationCategory } from '../../data/registration';
+
+const filters: Array<{ category: RegistrationCategory; label: string }> = [
+  { category: 'all', label: 'All memberships' },
+  { category: 'academy', label: 'Academy (U6–U10)' },
+  { category: 'underage', label: 'Underage (U11–U17)' },
+  { category: 'senior', label: 'Seniors' },
+  { category: 'supporter', label: '300 Club & patrons' },
+];
+---
+
+<div class="membership-grid" id="registration-filter-root">
+  <div class="membership-grid__filter-scroll">
+    <div class="membership-grid__filters" role="tablist" aria-label="Registration categories">
+      {filters.map((filter, index) => (
+        <button
+          type="button"
+          class="membership-grid__filter"
+          data-category={filter.category}
+          role="tab"
+          aria-selected={index === 0 ? 'true' : 'false'}
+          aria-controls="registration-tier-list"
+          tabindex={index === 0 ? 0 : -1}
+        >
+          {filter.label}
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <div class="membership-grid__cards" id="registration-tier-list" role="tabpanel" aria-live="polite">
+    {REGISTRATION_TIERS.map((tier) => (
+      <Card
+        class:list={['membership-tier', tier.highlighted && 'membership-tier--highlighted']}
+        data-tier-category={tier.category}
+      >
+        <div class="membership-tier__body">
+          <div class="membership-tier__meta">
+            <ContentBadge label={tier.category} tone="cool-blue" />
+            {tier.badge && <span class="membership-tier__badge">{tier.badge}</span>}
+          </div>
+
+          <h3>{tier.name}</h3>
+          {tier.ageBracket && <p class="membership-tier__ages">{tier.ageBracket}</p>}
+          <p class="membership-tier__description">{tier.description}</p>
+
+          <ul class="membership-tier__benefits">
+            {tier.keyBenefits.map((benefit) => (
+              <li><Check size={17} stroke-width={2.5} aria-hidden="true" /><span>{benefit}</span></li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="membership-tier__footer">
+          <p class="membership-tier__price">
+            <strong>{tier.priceFormatted}</strong>
+            {tier.pricePeriod && <span>/{tier.pricePeriod}</span>}
+          </p>
+          <Button
+            href={tier.clubforceUrl}
+            label="Proceed to Clubforce"
+            variant={tier.highlighted ? 'primary' : 'primary-dark'}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="membership-tier__action"
+          >
+            <ExternalLink slot="icon" size={17} stroke-width={2.1} />
+          </Button>
+        </div>
+      </Card>
+    ))}
+  </div>
+</div>
+
+<script>
+  const roots = document.querySelectorAll<HTMLElement>('#registration-filter-root');
+
+  roots.forEach((root) => {
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+    const cards = Array.from(root.querySelectorAll<HTMLElement>('[data-tier-category]'));
+
+    const selectTab = (tab: HTMLButtonElement) => {
+      const category = tab.dataset.category;
+
+      tabs.forEach((item) => {
+        const selected = item === tab;
+        item.setAttribute('aria-selected', String(selected));
+        item.tabIndex = selected ? 0 : -1;
+      });
+
+      cards.forEach((card) => {
+        card.hidden = category !== 'all' && card.dataset.tierCategory !== category;
+      });
+    };
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => selectTab(tab));
+      tab.addEventListener('keydown', (event) => {
+        if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+        event.preventDefault();
+        const nextIndex = event.key === 'Home'
+          ? 0
+          : event.key === 'End'
+            ? tabs.length - 1
+            : (index + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+        tabs[nextIndex]?.focus();
+        if (tabs[nextIndex]) selectTab(tabs[nextIndex]);
+      });
+    });
+  });
+</script>
+
+<style>
+  .membership-grid { min-width:0; margin-top:1.75rem; }
+  .membership-grid__filter-scroll { max-width:100%; margin-inline:calc(var(--page-gutter, 1rem) * -1); padding:0 var(--page-gutter, 1rem) .5rem; overflow-x:auto; overscroll-behavior-inline:contain; scrollbar-width:thin; }
+  .membership-grid__filters { display:flex; width:max-content; min-width:100%; justify-content:center; gap:.3rem; padding:.35rem; border:1px solid var(--line); border-radius:1rem; background:var(--card-background-muted); }
+  .membership-grid__filter { min-height:44px; padding:.65rem .9rem; border:0; border-radius:.72rem; color:var(--muted); background:transparent; font:inherit; font-size:.82rem; font-weight:700; white-space:nowrap; cursor:pointer; transition:color .18s ease,background .18s ease,box-shadow .18s ease; }
+  .membership-grid__filter:hover { color:var(--brand-navy); }
+  .membership-grid__filter[aria-selected='true'] { color:var(--brand-royal); background:white; box-shadow:0 2px 8px rgb(0 35 102 / 10%); }
+  .membership-grid__filter:focus-visible { outline:3px solid rgb(52 105 230 / 30%); outline-offset:2px; }
+  .membership-grid__cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.25rem; margin-top:1.25rem; }
+  .membership-grid__cards :global(.membership-tier) { display:flex; min-width:0; min-height:100%; flex-direction:column; justify-content:space-between; padding:clamp(1.25rem,3vw,1.75rem); }
+  .membership-grid__cards :global(.membership-tier[hidden]) { display:none; }
+  .membership-grid__cards :global(.membership-tier--highlighted) { border-color:var(--brand-royal); box-shadow:0 14px 35px rgb(31 78 191 / 12%); }
+  .membership-tier__meta { display:flex; align-items:center; justify-content:space-between; gap:.65rem; }
+  .membership-tier__badge { padding:.3rem .6rem; border:1px solid #f1d08a; border-radius:999px; color:#805a0b; background:#fff8df; font-size:.72rem; font-weight:750; white-space:nowrap; }
+  .membership-tier h3 { margin:1rem 0 .2rem; color:var(--brand-navy); font-size:clamp(1.3rem,2.5vw,1.7rem); line-height:1.15; }
+  .membership-tier__ages { margin:0; color:var(--muted); font-size:.82rem; font-weight:650; }
+  .membership-tier__description { margin:1rem 0 0; color:var(--muted); line-height:1.6; }
+  .membership-tier__benefits { display:grid; gap:.7rem; margin:1.35rem 0 0; padding:1.25rem 0 0; border-top:1px solid var(--line); list-style:none; }
+  .membership-tier__benefits li { display:flex; align-items:flex-start; gap:.55rem; color:var(--muted); font-size:.87rem; line-height:1.45; }
+  .membership-tier__benefits svg { flex:0 0 auto; margin-top:.12rem; color:#15803d; }
+  .membership-tier__footer { margin-top:1.5rem; padding-top:1.35rem; border-top:1px solid var(--line); }
+  .membership-tier__price { display:flex; align-items:baseline; gap:.35rem; margin:0 0 1rem; }
+  .membership-tier__price strong { color:var(--brand-navy); font-size:clamp(2rem,5vw,2.6rem); line-height:1; }
+  .membership-tier__price span { color:var(--muted); font-size:.8rem; font-weight:600; }
+  .membership-tier__footer :global(.membership-tier__action) { width:100%; min-height:48px; }
+  @media (max-width:700px) {
+    .membership-grid__filter-scroll { margin-inline:-1rem; padding-inline:1rem; }
+    .membership-grid__filters { justify-content:flex-start; }
+    .membership-grid__cards { grid-template-columns:1fr; }
+  }
+</style>
