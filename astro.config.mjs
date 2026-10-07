@@ -25,12 +25,16 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      filter: (page) => ![
-        '/404.html',
-        '/contact-us/',
-        '/membership/',
-        '/ui-kit/',
-      ].some((path) => page.endsWith(path)),
+      filter: (page) => {
+        const pathname = new URL(page).pathname;
+
+        return ![
+          '/404.html',
+          '/contact-us/',
+          '/membership/',
+          '/ui-kit/',
+        ].includes(pathname) && !/^\/match-centre\/\d+\/$/.test(pathname);
+      },
     }),
   ],
   vite: {

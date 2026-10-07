@@ -20,5 +20,5 @@ const displayedAwayCrest = localCrestForTeam(awayTeam) ?? awayCrest;
   </header>
   <div class="fixture-preview-row__match"><span class="fixture-preview-row__club fixture-preview-row__club--home"><strong>{homeTeam}</strong>{displayedHomeCrest && <img class:list={{ 'club-crest--round': hasRoundTeamCrest(homeTeam) }} src={withBase(displayedHomeCrest)} alt="" width="36" height="36" />}</span><span class="fixture-preview-row__versus" aria-label={score ? `Final score ${score}` : 'versus'}>{score ?? 'vs'}</span><span class="fixture-preview-row__club">{displayedAwayCrest && <img class:list={{ 'club-crest--round': hasRoundTeamCrest(awayTeam) }} src={withBase(displayedAwayCrest)} alt="" width="36" height="36" />}<strong>{awayTeam}</strong></span></div>
   <p class="fixture-preview-row__venue"><MapPin aria-hidden="true" size={15} stroke-width={1.8} /><span>{venue}</span></p>
-  <a class="fixture-preview-row__action" href={withBase(`/match-centre/${id}/`)} aria-label={`View ${homeTeam} versus ${awayTeam} in Match Centre`}><span>View match</span><ArrowRight aria-hidden="true" size={15} stroke-width={2} /></a>
+  <a class="fixture-preview-row__action" href={withBase(`/match-centre/?match=${id}`)} aria-label={`View ${homeTeam} versus ${awayTeam} in Match Centre`}><span>View match</span><ArrowRight aria-hidden="true" size={15} stroke-width={2} /></a>
 </article>

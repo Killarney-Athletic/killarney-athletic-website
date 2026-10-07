@@ -9,7 +9,10 @@ export async function getStaticPaths() {
 
 const { match } = Astro.props;
 const siteUrl = Astro.site ?? new URL('https://www.killarneyathletic.com');
-const canonicalPath = withBase(`/match-centre/${match.id}/`);
+// These lightweight pages exist only to provide match-specific social metadata
+// before forwarding visitors to the interactive Match Centre. They are not
+// separate search results, so their canonical must agree with the destination.
+const canonicalPath = withBase('/match-centre/');
 const canonicalUrl = new URL(canonicalPath, siteUrl);
 const imageUrl = new URL(withBase(`/images/social/matches/${match.id}.png`), siteUrl);
 const destination = withBase(`/match-centre/?match=${match.id}`);
@@ -22,6 +25,7 @@ const description = `${match.competition} · ${match.venue}`;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
+    <meta name="robots" content="noindex, follow" />
     <link rel="canonical" href={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
