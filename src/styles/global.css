@@ -603,6 +603,7 @@ body.is-ui-kit-page .section-note { max-width: 640px; color: var(--muted); font-
 .site-footer__nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.25rem, 3vw, 2.25rem); }
 .site-footer h2 { margin: 0 0 .9rem; color: var(--primary-text); font-size: .78rem; font-weight: 700; line-height: var(--type-leading-small); letter-spacing: var(--type-tracking); text-transform: uppercase; }
 .site-footer__nav a { display: block; width: fit-content; margin-top: .55rem; color: var(--muted); font-size: .92rem; font-weight: 300; text-decoration: none; transition: color .18s ease, transform .18s ease; }
+.site-footer__nav .site-footer__sub-link { margin-left: .8rem; font-size: .86rem; }
 .site-footer__nav a:hover, .site-footer__nav a:focus-visible { color: var(--brand-royal); transform: translateX(2px); }
 .site-footer__social { align-content: start; }
 .social-links { display: flex; gap: .7rem; }

@@ -1,0 +1,174 @@
+---
+import { Download } from '@lucide/astro';
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { withBase } from '../utils/paths';
+
+import crestDefault from '../assets/images/brand/Club Crest Default.svg?url';
+import crestAlternative from '../assets/images/brand/Club Crest Alt.svg?url';
+import crestBlue from '../assets/images/brand/Club Crest Blue.svg?url';
+import crestBlack from '../assets/images/brand/Club Crest Black.svg?url';
+import crestWhite from '../assets/images/brand/Club Crest White.svg?url';
+
+const crestGroups = [
+  {
+    title: 'Current club crest',
+    intro: 'Approved colour and single-colour versions for current club communications.',
+    crests: [
+      { name: 'Default', note: 'Primary full-colour crest', svg: crestDefault, svgName: 'killarney-athletic-crest-default.svg', png: 'killarney-athletic-crest-default.png' },
+      { name: 'Alternative', note: 'Alternative full-colour crest', svg: crestAlternative, svgName: 'killarney-athletic-crest-alternative.svg', png: 'killarney-athletic-crest-alternative.png' },
+      { name: 'Royal blue', note: 'Single-colour blue crest', svg: crestBlue, svgName: 'killarney-athletic-crest-blue.svg', png: 'killarney-athletic-crest-blue.png' },
+      { name: 'Black', note: 'Single-colour dark crest', svg: crestBlack, svgName: 'killarney-athletic-crest-black.svg', png: 'killarney-athletic-crest-black.png' },
+      { name: 'White', note: 'For dark or photographic backgrounds', svg: crestWhite, svgName: 'killarney-athletic-crest-white.svg', png: 'killarney-athletic-crest-white.png', darkPreview: true },
+    ],
+  },
+];
+---
+
+<Layout
+  title="Brand Kit | Killarney Athletic AFC"
+  description="Download official Killarney Athletic AFC club crests as SVG or transparent PNG files."
+  canonicalPath="/brand-kit/"
+>
+  <article class="brand-kit page-shell page-template page-template--standard">
+    <PageHeader
+      title="Brand Kit"
+      intro="Official Killarney Athletic A.F.C. crest artwork, ready for print and digital use. Every PNG has a transparent background."
+      breadcrumbs={[
+        { label: 'Home', href: '/' },
+        { label: 'UI Kit', href: '/ui-kit/' },
+        { label: 'Brand Kit' },
+      ]}
+    />
+
+    <aside class="brand-kit__guidance" aria-label="File format guidance">
+      <p><strong>SVG</strong> is best for print, signage and large-format artwork.</p>
+      <p><strong>Transparent PNG</strong> is best for presentations, social media and documents.</p>
+    </aside>
+
+    {crestGroups.map((group) => (
+      <section class="brand-kit__section" aria-labelledby={`brand-kit-${group.title.toLowerCase().replaceAll(' ', '-')}`}>
+        <header class="brand-kit__section-header">
+          <h2 id={`brand-kit-${group.title.toLowerCase().replaceAll(' ', '-')}`}>{group.title}</h2>
+          <p>{group.intro}</p>
+        </header>
+
+        <div class="brand-kit__grid">
+          {group.crests.map((crest) => (
+            <article class="crest-card">
+              <div class:list={['crest-card__preview', { 'crest-card__preview--dark': crest.darkPreview }]}>
+                <img src={crest.svg} alt={`${crest.name} Killarney Athletic AFC crest`} width="210" height="310" loading="lazy" />
+              </div>
+              <div class="crest-card__body">
+                <div>
+                  <h3>{crest.name}</h3>
+                  <p>{crest.note}</p>
+                </div>
+                <div class="crest-card__downloads" aria-label={`Download ${crest.name}`}>
+                  <a href={crest.svg} download={crest.svgName}>
+                    <Download aria-hidden="true" size={16} stroke-width={2} />
+                    SVG
+                  </a>
+                  <a href={withBase(`/brand-kit/${crest.png}`)} download={crest.png}>
+                    <Download aria-hidden="true" size={16} stroke-width={2} />
+                    PNG
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    ))}
+  </article>
+</Layout>
+
+<style>
+  .brand-kit__guidance {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    overflow: hidden;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--line);
+  }
+
+  .brand-kit__guidance p {
+    margin: 0;
+    padding: 1rem 1.1rem;
+    color: var(--muted);
+    background: white;
+    font-size: .94rem;
+    font-weight: 300;
+  }
+
+  .brand-kit__guidance strong { color: var(--brand-navy); font-weight: 600; }
+  .brand-kit__section + .brand-kit__section { margin-top: clamp(3rem, 7vw, 5rem); }
+  .brand-kit__section-header { margin-bottom: 1.25rem; }
+  .brand-kit__section-header h2 { margin: 0; color: var(--brand-navy); font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 400; letter-spacing: var(--type-tracking); }
+  .brand-kit__section-header p { max-width: 660px; margin: .45rem 0 0; color: var(--muted); font-weight: 300; line-height: var(--type-leading-body); }
+  .brand-kit__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+
+  .crest-card {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: white;
+  }
+
+  .crest-card__preview {
+    display: grid;
+    min-height: 330px;
+    place-items: center;
+    padding: 2rem;
+    background-color: #f6f7f9;
+    background-image:
+      linear-gradient(45deg, rgb(16 23 32 / 4%) 25%, transparent 25%),
+      linear-gradient(-45deg, rgb(16 23 32 / 4%) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, rgb(16 23 32 / 4%) 75%),
+      linear-gradient(-45deg, transparent 75%, rgb(16 23 32 / 4%) 75%);
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+    background-size: 20px 20px;
+  }
+
+  .crest-card__preview--dark { background-color: var(--brand-royal); background-image: none; }
+  .crest-card__preview img { width: auto; max-width: 100%; height: 250px; object-fit: contain; }
+  .crest-card__body { display: grid; gap: 1rem; padding: 1rem; border-top: 1px solid var(--line); }
+  .crest-card h3 { margin: 0; color: var(--brand-navy); font-size: 1.05rem; font-weight: 600; }
+  .crest-card p { margin: .25rem 0 0; color: var(--muted); font-size: .88rem; font-weight: 300; }
+  .crest-card__downloads { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55rem; }
+
+  .crest-card__downloads a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    min-height: 40px;
+    border: 1px solid rgb(65 105 225 / 25%);
+    border-radius: 7px;
+    color: var(--brand-navy);
+    font-size: .84rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: border-color .18s ease, color .18s ease, background .18s ease;
+  }
+
+  .crest-card__downloads a:hover,
+  .crest-card__downloads a:focus-visible {
+    border-color: var(--brand-royal);
+    color: var(--brand-royal);
+    background: rgb(65 105 225 / 6%);
+  }
+
+  @media (max-width: 900px) {
+    .brand-kit__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 560px) {
+    .brand-kit__guidance, .brand-kit__grid { grid-template-columns: 1fr; }
+    .crest-card__preview { min-height: 280px; }
+    .crest-card__preview img { height: 220px; }
+  }
+</style>
