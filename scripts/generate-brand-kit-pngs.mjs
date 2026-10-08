@@ -6,11 +6,11 @@ const root = process.cwd();
 const outputDirectory = path.join(root, 'public', 'brand-kit');
 
 const crests = [
-  ['src/assets/images/brand/Club Crest Default.svg', 'killarney-athletic-crest-default.png'],
-  ['src/assets/images/brand/Club Crest Alt.svg', 'killarney-athletic-crest-alternative.png'],
-  ['src/assets/images/brand/Club Crest Blue.svg', 'killarney-athletic-crest-blue.png'],
-  ['src/assets/images/brand/Club Crest Black.svg', 'killarney-athletic-crest-black.png'],
-  ['src/assets/images/brand/Club Crest White.svg', 'killarney-athletic-crest-white.png'],
+  ['src/assets/images/brand/crest/svg/Club Crest Default.svg', 'killarney-athletic-crest-default.png'],
+  ['src/assets/images/brand/crest/svg/Club Crest Alt.svg', 'killarney-athletic-crest-alternative.png'],
+  ['src/assets/images/brand/crest/svg/Club Crest Blue.svg', 'killarney-athletic-crest-blue.png'],
+  ['src/assets/images/brand/crest/svg/Club Crest Black.svg', 'killarney-athletic-crest-black.png'],
+  ['src/assets/images/brand/crest/svg/Club Crest White.svg', 'killarney-athletic-crest-white.png'],
 ];
 
 await mkdir(outputDirectory, { recursive: true });

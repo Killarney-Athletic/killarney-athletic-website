@@ -4,11 +4,11 @@ import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import { withBase } from '../utils/paths';
 
-import crestDefault from '../assets/images/brand/Club Crest Default.svg?url';
-import crestAlternative from '../assets/images/brand/Club Crest Alt.svg?url';
-import crestBlue from '../assets/images/brand/Club Crest Blue.svg?url';
-import crestBlack from '../assets/images/brand/Club Crest Black.svg?url';
-import crestWhite from '../assets/images/brand/Club Crest White.svg?url';
+import crestDefault from '../assets/images/brand/crest/svg/Club Crest Default.svg?url';
+import crestAlternative from '../assets/images/brand/crest/svg/Club Crest Alt.svg?url';
+import crestBlue from '../assets/images/brand/crest/svg/Club Crest Blue.svg?url';
+import crestBlack from '../assets/images/brand/crest/svg/Club Crest Black.svg?url';
+import crestWhite from '../assets/images/brand/crest/svg/Club Crest White.svg?url';
 
 const crestGroups = [
   {
@@ -46,6 +46,35 @@ const crestGroups = [
       <p><strong>Transparent PNG</strong> is best for presentations, social media and documents.</p>
     </aside>
 
+    <section class="brand-kit__background-controls" aria-labelledby="background-controls-title" data-background-controls>
+      <div class="brand-kit__background-heading">
+        <div>
+          <h2 id="background-controls-title">Background</h2>
+          <p>Apply one background style to every preview and PNG download.</p>
+        </div>
+        <label class="brand-kit__toggle">
+          <input type="checkbox" data-background-toggle />
+          <span aria-hidden="true"></span>
+          <b>Off</b>
+        </label>
+      </div>
+
+      <div class="brand-kit__background-options" data-background-options hidden>
+        <fieldset>
+          <legend>Shape</legend>
+          <label><input type="radio" name="background-shape" value="square" checked /> Square</label>
+          <label><input type="radio" name="background-shape" value="circle" /> Circle</label>
+        </fieldset>
+        <fieldset class="brand-kit__colours">
+          <legend>Colour</legend>
+          <label><input type="radio" name="background-colour" value="#4169e1" data-colour-name="royal-blue" checked /><span style="--swatch:#4169e1"></span>Royal blue</label>
+          <label><input type="radio" name="background-colour" value="#002366" data-colour-name="navy" /><span style="--swatch:#002366"></span>Navy</label>
+          <label><input type="radio" name="background-colour" value="#101720" data-colour-name="charcoal" /><span style="--swatch:#101720"></span>Charcoal</label>
+          <label><input type="radio" name="background-colour" value="#ffffff" data-colour-name="white" /><span class="is-white" style="--swatch:#ffffff"></span>White</label>
+        </fieldset>
+      </div>
+    </section>
+
     {crestGroups.map((group) => (
       <section class="brand-kit__section" aria-labelledby={`brand-kit-${group.title.toLowerCase().replaceAll(' ', '-')}`}>
         <header class="brand-kit__section-header">
@@ -57,7 +86,9 @@ const crestGroups = [
           {group.crests.map((crest) => (
             <article class="crest-card">
               <div class:list={['crest-card__preview', { 'crest-card__preview--dark': crest.darkPreview }]}>
-                <img src={crest.svg} alt={`${crest.name} Killarney Athletic AFC crest`} width="210" height="310" loading="lazy" />
+                <div class="crest-card__backdrop">
+                  <img src={withBase(`/brand-kit/${crest.png}`)} alt={`${crest.name} Killarney Athletic AFC crest`} width="210" height="310" loading="lazy" />
+                </div>
               </div>
               <div class="crest-card__body">
                 <div>
@@ -69,7 +100,7 @@ const crestGroups = [
                     <Download aria-hidden="true" size={16} stroke-width={2} />
                     SVG
                   </a>
-                  <a href={withBase(`/brand-kit/${crest.png}`)} download={crest.png}>
+                  <a href={withBase(`/brand-kit/${crest.png}`)} download={crest.png} data-png-download data-filename={crest.png}>
                     <Download aria-hidden="true" size={16} stroke-width={2} />
                     PNG
                   </a>
@@ -83,15 +114,85 @@ const crestGroups = [
   </article>
 </Layout>
 
+<script>
+  const brandKit = document.querySelector<HTMLElement>('.brand-kit');
+  const toggle = document.querySelector<HTMLInputElement>('[data-background-toggle]');
+  const options = document.querySelector<HTMLElement>('[data-background-options]');
+  const toggleLabel = toggle?.closest('label')?.querySelector('b');
+  const shapeInputs = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="background-shape"]'));
+  const colourInputs = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="background-colour"]'));
+
+  const selected = (inputs: HTMLInputElement[]) => inputs.find((input) => input.checked);
+  const syncBackgrounds = () => {
+    if (!brandKit || !toggle || !options) return;
+    const enabled = toggle.checked;
+    const shape = selected(shapeInputs)?.value ?? 'square';
+    const colour = selected(colourInputs)?.value ?? '#4169e1';
+    brandKit.classList.toggle('has-custom-background', enabled);
+    brandKit.dataset.backgroundShape = shape;
+    brandKit.style.setProperty('--crest-background', colour);
+    options.hidden = !enabled;
+    if (toggleLabel) toggleLabel.textContent = enabled ? 'On' : 'Off';
+  };
+
+  toggle?.addEventListener('change', syncBackgrounds);
+  [...shapeInputs, ...colourInputs].forEach((input) => input.addEventListener('change', syncBackgrounds));
+  syncBackgrounds();
+
+  document.querySelectorAll<HTMLAnchorElement>('[data-png-download]').forEach((link) => {
+    link.addEventListener('click', async (event) => {
+      if (!toggle?.checked) return;
+      event.preventDefault();
+
+      const image = new Image();
+      image.src = link.href;
+      await image.decode();
+
+      const size = 1550;
+      const canvas = document.createElement('canvas');
+      canvas.width = size;
+      canvas.height = size;
+      const context = canvas.getContext('2d');
+      if (!context) return;
+
+      const shape = selected(shapeInputs)?.value ?? 'square';
+      const colourInput = selected(colourInputs);
+      const colour = colourInput?.value ?? '#4169e1';
+      context.fillStyle = colour;
+      if (shape === 'circle') {
+        context.beginPath();
+        context.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
+        context.fill();
+      } else {
+        context.fillRect(0, 0, size, size);
+      }
+
+      const inset = 150;
+      const available = size - inset * 2;
+      const scale = Math.min(available / image.naturalWidth, available / image.naturalHeight);
+      const width = image.naturalWidth * scale;
+      const height = image.naturalHeight * scale;
+      context.drawImage(image, (size - width) / 2, (size - height) / 2, width, height);
+
+      const colourName = colourInput?.dataset.colourName ?? 'background';
+      const filename = (link.dataset.filename ?? 'killarney-athletic-crest.png').replace('.png', `-${colourName}-${shape}.png`);
+      const downloadLink = document.createElement('a');
+      downloadLink.href = canvas.toDataURL('image/png');
+      downloadLink.download = filename;
+      downloadLink.click();
+    });
+  });
+</script>
+
 <style>
   .brand-kit__guidance {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1px;
     overflow: hidden;
-    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 0;
     border: 1px solid var(--line);
-    border-radius: 8px;
+    border-radius: 8px 8px 0 0;
     background: var(--line);
   }
 
@@ -105,6 +206,27 @@ const crestGroups = [
   }
 
   .brand-kit__guidance strong { color: var(--brand-navy); font-weight: 600; }
+  .brand-kit__background-controls { margin: 0 0 clamp(2.5rem, 5vw, 4rem); border: 1px solid var(--line); border-top: 0; border-radius: 0 0 8px 8px; background: white; }
+  .brand-kit__background-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.1rem; }
+  .brand-kit__background-heading h2 { margin: 0; color: var(--brand-navy); font-size: 1rem; font-weight: 600; }
+  .brand-kit__background-heading p { margin: .15rem 0 0; color: var(--muted); font-size: .88rem; font-weight: 300; }
+  .brand-kit__toggle { display: inline-flex; align-items: center; gap: .55rem; color: var(--brand-navy); font-size: .84rem; cursor: pointer; }
+  .brand-kit__toggle input { position: absolute; opacity: 0; pointer-events: none; }
+  .brand-kit__toggle span { position: relative; width: 40px; height: 22px; border-radius: 999px; background: rgb(16 23 32 / 20%); transition: background .18s ease; }
+  .brand-kit__toggle span::after { position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: white; box-shadow: 0 1px 3px rgb(16 23 32 / 22%); content: ''; transition: transform .18s ease; }
+  .brand-kit__toggle input:checked + span { background: var(--brand-royal); }
+  .brand-kit__toggle input:checked + span::after { transform: translateX(18px); }
+  .brand-kit__toggle input:focus-visible + span { outline: 2px solid var(--brand-navy); outline-offset: 2px; }
+  .brand-kit__toggle b { min-width: 20px; font-weight: 600; }
+  .brand-kit__background-options { display: flex; flex-wrap: wrap; gap: 1.5rem 2.5rem; padding: 1rem 1.1rem; border-top: 1px solid var(--line); }
+  .brand-kit__background-options[hidden] { display: none; }
+  .brand-kit__background-options fieldset { display: flex; align-items: center; flex-wrap: wrap; gap: .55rem; min-width: 0; margin: 0; padding: 0; border: 0; }
+  .brand-kit__background-options legend { width: 100%; margin-bottom: .2rem; color: var(--muted); font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+  .brand-kit__background-options label { display: inline-flex; align-items: center; gap: .4rem; min-height: 34px; padding: .35rem .65rem; border: 1px solid var(--line); border-radius: 999px; color: var(--brand-navy); font-size: .82rem; cursor: pointer; }
+  .brand-kit__background-options label:has(input:checked) { border-color: var(--brand-royal); background: rgb(65 105 225 / 7%); }
+  .brand-kit__colours input { position: absolute; opacity: 0; pointer-events: none; }
+  .brand-kit__colours span { width: 18px; height: 18px; border-radius: 50%; background: var(--swatch); box-shadow: inset 0 0 0 1px rgb(16 23 32 / 10%); }
+  .brand-kit__colours span.is-white { border: 1px solid var(--line); }
   .brand-kit__section + .brand-kit__section { margin-top: clamp(3rem, 7vw, 5rem); }
   .brand-kit__section-header { margin-bottom: 1.25rem; }
   .brand-kit__section-header h2 { margin: 0; color: var(--brand-navy); font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 400; letter-spacing: var(--type-tracking); }
@@ -134,7 +256,12 @@ const crestGroups = [
   }
 
   .crest-card__preview--dark { background-color: var(--brand-royal); background-image: none; }
+  .crest-card__backdrop { display: grid; width: 100%; height: 266px; place-items: center; }
   .crest-card__preview img { width: auto; max-width: 100%; height: 250px; object-fit: contain; }
+  .brand-kit.has-custom-background .crest-card__preview { background-color: #f6f7f9; background-image: linear-gradient(45deg, rgb(16 23 32 / 4%) 25%, transparent 25%), linear-gradient(-45deg, rgb(16 23 32 / 4%) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, rgb(16 23 32 / 4%) 75%), linear-gradient(-45deg, transparent 75%, rgb(16 23 32 / 4%) 75%); }
+  .brand-kit.has-custom-background .crest-card__backdrop { max-width: 266px; background: var(--crest-background); }
+  .brand-kit.has-custom-background[data-background-shape="circle"] .crest-card__backdrop { border-radius: 50%; }
+  .brand-kit.has-custom-background .crest-card__preview img { height: 220px; }
   .crest-card__body { display: grid; gap: 1rem; padding: 1rem; border-top: 1px solid var(--line); }
   .crest-card h3 { margin: 0; color: var(--brand-navy); font-size: 1.05rem; font-weight: 600; }
   .crest-card p { margin: .25rem 0 0; color: var(--muted); font-size: .88rem; font-weight: 300; }
@@ -168,6 +295,7 @@ const crestGroups = [
 
   @media (max-width: 560px) {
     .brand-kit__guidance, .brand-kit__grid { grid-template-columns: 1fr; }
+    .brand-kit__background-heading { align-items: flex-start; }
     .crest-card__preview { min-height: 280px; }
     .crest-card__preview img { height: 220px; }
   }
