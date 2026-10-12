@@ -13,8 +13,8 @@ import GalleryCarousel from '../components/GalleryCarousel.astro';
 import ContentBadge from '../components/ContentBadge.astro';
 import ContactCard from '../components/ContactCard.astro';
 import ContactForm from '../components/ContactForm.astro';
-import FixtureCard from '../components/FixtureCard.astro';
-import FixturePreviewRow from '../components/FixturePreviewRow.astro';
+import FixtureTabletRow from '../components/FixtureTabletRow.astro';
+import FixtureMobileCard from '../components/FixtureMobileCard.astro';
 import LogoCloud from '../components/LogoCloud.astro';
 import NewsCard from '../components/NewsCard.astro';
 import FullBleedCarousel from '../components/FullBleedCarousel.astro';
@@ -30,6 +30,7 @@ import TeamInfoCard from '../components/TeamInfoCard.astro';
 import TeamSwitcher from '../components/TeamSwitcher.astro';
 import CarouselNavigation from '../components/CarouselNavigation.astro';
 import LeagueTableHeader from '../components/LeagueTableHeader.astro';
+import MatchScoreboardConcept from '../components/match/MatchScoreboardConcept.astro';
 import MatchScoreboard from '../components/match/MatchScoreboard.astro';
 import MatchNavigation from '../components/match/MatchNavigation.astro';
 import MatchTimeline from '../components/match/MatchTimeline.astro';
@@ -81,6 +82,21 @@ const componentGroups = [
         name: 'PagePanel',
         path: 'src/components/PagePanel.astro',
         note: 'Contained module wrapper for tables, filters, resources and forms.',
+      },
+      {
+        name: 'TeamCrest',
+        path: 'src/components/match/TeamCrest.astro',
+        note: 'Consistent club-crest wrapper with local-asset resolution and a missing-crest state.',
+      },
+      {
+        name: 'MatchTeam',
+        path: 'src/components/match/MatchTeam.astro',
+        note: 'Home or away team identity composed from a crest and resilient team-name treatment.',
+      },
+      {
+        name: 'MatchScore',
+        path: 'src/components/match/MatchScore.astro',
+        note: 'Normalized score or versus marker shared by dense match-listing patterns.',
       },
     ],
   },
@@ -134,9 +150,9 @@ const componentGroups = [
         note: 'Image-led card for long-form club-history articles, with a dark text overlay and subtle hover zoom.',
       },
       {
-        name: 'FixtureCard',
-        path: 'src/components/FixtureCard.astro',
-        note: 'Specialised two-part match card that shares the card radius and surface tokens.',
+        name: 'FixtureTabletRow',
+        path: 'src/components/FixtureTabletRow.astro',
+        note: 'Canonical dense fixture and result row composed from reusable team, crest and score primitives.',
       },
       {
         name: 'FullBleedCarousel',
@@ -328,7 +344,11 @@ const contentBadgeExamples = [
     <div class="ui-kit-content-card-demos">
       <PagePanel>
         <SectionHeader slot="header" title="Match scoreboard" intro="Responsive competition, teams, score, date and venue header." />
-        <MatchScoreboard competition="Kerry District League Premier A" homeTeam="Killarney Athletic A.F.C." awayTeam="Listowel Celtic" homeCrest={clubCrestWhiteUrl} awayCrest={clubCrestWhiteUrl} score="5 – 2" status="Full time" when="Sunday 13 September 2026, 2:00 pm" venue="Woodlawn" />
+        <MatchScoreboard teamLabel="Senior A" competition="McCarthy Insurance Group MJC 26/27 - Kerry District League" homeTeam="Killarney Athletic A.F.C." awayTeam="Listowel Celtic" homeCrest={clubCrestWhiteUrl} awayCrest={clubCrestWhiteUrl} score="5 – 2" status="Full time" when="Sunday 13 September 2026, 2:00 pm" venue="Woodlawn" />
+      </PagePanel>
+      <PagePanel>
+        <SectionHeader slot="header" title="Scoreboard concept" intro="Experimental broadcast style · sample Athletic 4–2 Celtic result with illustrative scorers." />
+        <MatchScoreboardConcept homeScorers={[{ name: 'J. Cooper', minutes: ['12', '59'] }, { name: 'D. Murphy', minutes: ['34'] }, { name: 'T. Sparling', minutes: ['78'] }]} awayScorers={[{ name: 'A. Kelly', minutes: ['23'] }, { name: 'S. O’Brien', minutes: ['45+2'] }]} />
       </PagePanel>
       <PagePanel>
         <SectionHeader slot="header" title="Match tabs and chronology" intro="Tabs control match views while Previous and Next move through the club schedule." />
@@ -677,34 +697,16 @@ const contentBadgeExamples = [
       </PagePanel>
 
       <PagePanel>
-        <SectionHeader slot="header" title="Fixture cards" intro="Upcoming matches use ‘vs’; completed matches replace it with the final score." />
-        <div class="ui-kit-fixture-card-demo">
-          <FixtureCard
-            label="Upcoming fixture"
-            homeTeam="Killarney Athletic AFC"
-            awayTeam="Tralee Dynamos"
-            competition="KDL Premier A"
-            date="Sunday, 10 June · 3:00 pm"
-            venue="Killarney Athletic Park"
-            contextLabel="Next match"
-          />
-          <FixtureCard
-            score="3–1"
-            label="Full time"
-            homeTeam="Killarney Athletic AFC"
-            awayTeam="St. Brendan’s Park FC"
-            competition="KDL Premier A"
-            date="Sunday, 2 June · 12:00 pm"
-            venue="Killarney Athletic Park"
-            contextLabel="Last match"
-          />
+        <SectionHeader slot="header" title="Fixture and result rows" intro="The canonical dense match pattern covers upcoming, completed, long-name and missing-crest states." />
+        <div class="fixture-tablet-list"><div class="fixture-desktop-header" aria-hidden="true"><span>Competition</span><span>Teams</span><span>Score</span><span>Result</span><span>Venue</span><span>Details</span></div>
+          <FixtureTabletRow id="53133707" teamId="61231" teamLabel="Senior A Men" status="past" dateValue="2026-09-20T12:00:00.000Z" date="Sun, 20 Sept" time="1:00 pm" venue="Ferndale" homeTeam="Killarney Athletic A.F.C." awayTeam="Killarney Celtic FC" awayCrest="/images/team-crests/killarney-celtic-fc.png" score="3 – 2" competition="KDL Premier A" contextLabel="Last match" />
+          <FixtureTabletRow id="53133708" teamId="61231" teamLabel="Senior A Men" status="future" dateValue="2026-10-18T13:00:00.000Z" date="Sun, 18 Oct" time="2:00 pm" venue="Woodlawn" homeTeam="Killarney Athletic A.F.C." awayTeam="Tralee Dynamos" competition="KDL Premier A" contextLabel="Next match" />
+          <FixtureTabletRow id="53133709" teamId="61232" teamLabel="Under 17" status="future" dateValue="2026-10-24T10:30:00.000Z" date="Sat, 24 Oct" time="11:30 am" venue="Venue to be confirmed" homeTeam="Ballyheigue Athletic Football Club Under 17" awayTeam="Killarney Athletic A.F.C." competition="Kerry Youth League" />
         </div>
-      </PagePanel>
-
-      <PagePanel>
-        <SectionHeader slot="header" title="Compact fixture row" intro="The homepage match pattern keeps team and date first, the fixture central, and venue plus a quiet action last." />
-        <div class="fixture-preview-list">
-          <FixturePreviewRow id="53133707" teamId="61231" teamLabel="Senior A Men" status="past" dateValue="2026-09-20T12:00:00.000Z" date="Sun, 20 Sept" time="1:00 pm" venue="Ferndale" homeTeam="Killarney Athletic A.F.C." awayTeam="Killarney Celtic FC" homeCrest="/images/team-crests/killarney-athletic-afc.svg" awayCrest="/images/team-crests/killarney-celtic-fc.png" score="3 – 2" contextLabel="Last match" />
+        <div class="fixture-mobile-list">
+          <FixtureMobileCard id="53133707" teamId="61231" teamLabel="Senior A Men" status="past" dateValue="2026-09-20T12:00:00.000Z" date="Sun, 20 Sept" time="1:00 pm" venue="Ferndale" homeTeam="Killarney Athletic A.F.C." awayTeam="Killarney Celtic FC" awayCrest="/images/team-crests/killarney-celtic-fc.png" score="3 – 2" competition="KDL Premier A" contextLabel="Last match" />
+          <FixtureMobileCard id="53133708" teamId="61231" teamLabel="Senior A Men" status="future" dateValue="2026-10-18T13:00:00.000Z" date="Sun, 18 Oct" time="2:00 pm" venue="Woodlawn" homeTeam="Killarney Athletic A.F.C." awayTeam="Tralee Dynamos" competition="KDL Premier A" contextLabel="Next match" />
+          <FixtureMobileCard id="53133709" teamId="61232" teamLabel="Under 17" status="future" dateValue="2026-10-24T10:30:00.000Z" date="Sat, 24 Oct" time="11:30 am" venue="Venue to be confirmed" homeTeam="Ballyheigue Athletic Football Club Under 17" awayTeam="Killarney Athletic A.F.C." competition="Kerry Youth League" />
         </div>
       </PagePanel>
 

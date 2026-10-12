@@ -18,8 +18,11 @@ import membershipPlayerImageUrl from '../assets/images/backgrounds/membership.pn
 import clubCrestWhiteUrl from '../assets/images/brand/crest/svg/Club Crest White.svg?url';
 import { withBase } from '../utils/paths';
 import ActiveNotices from '../components/ActiveNotices.astro';
-import FixturePreviewRow from '../components/FixturePreviewRow.astro';
+import FixtureTabletRow from '../components/FixtureTabletRow.astro';
+import FixtureMobileCard from '../components/FixtureMobileCard.astro';
 import { readFaiSnapshot } from '../lib/fai/data';
+import { RefreshCw } from '@lucide/astro';
+import { getTeamFilterOptions, teamFilterLabel } from '../lib/fai/tables';
 
 let clubPosts = [];
 const footballBodies = [
@@ -143,7 +146,13 @@ const fixturePreview = [
 ];
 const fixturePreviewTeams = [...new Set(fixturePreview.map((fixture) => fixture.squad))];
 const faiData = await readFaiSnapshot();
-const fixtureTimeline = [...faiData.matches].sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
+const homeTeamFilterOptions = getTeamFilterOptions(faiData.teams);
+const latestResultByTeam = new Map<number, (typeof faiData.matches)[number]>();
+for (const match of [...faiData.matches].filter((item) => item.status === 'past' && item.score).sort((a, b) => Date.parse(b.date) - Date.parse(a.date))) {
+  if (!latestResultByTeam.has(match.teamId)) latestResultByTeam.set(match.teamId, match);
+}
+const fixtureTimeline = [...latestResultByTeam.values()].sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
+const faiUpdatedAt = new Intl.DateTimeFormat('en-IE', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Europe/Dublin' }).format(new Date(faiData.sourceUpdatedAt));
 const formatFixtureDate = (value: string) => new Intl.DateTimeFormat('en-IE', { timeZone: 'Europe/Dublin', weekday: 'short', day: 'numeric', month: 'short' }).format(new Date(value));
 const formatFixtureTime = (value: string) => new Intl.DateTimeFormat('en-IE', { timeZone: 'Europe/Dublin', hour: 'numeric', minute: '2-digit', hour12: true }).format(new Date(value)).replace('a.m.', 'am').replace('p.m.', 'pm');
 ---
@@ -192,7 +201,7 @@ const formatFixtureTime = (value: string) => new Intl.DateTimeFormat('en-IE', { 
     <div class="page-shell">
       <div class="section-heading">
         <div>
-          <h2 id="fixtures-heading">Fixtures & results</h2>
+          <h2 id="fixtures-heading">Results</h2>
         </div>
         <p class="section-note">Across the club · Live schedule</p>
       </div>
@@ -201,15 +210,15 @@ const formatFixtureTime = (value: string) => new Intl.DateTimeFormat('en-IE', { 
           <label for="fixture-team-filter">Filter by team</label>
           <select id="fixture-team-filter" class="select select-bordered select-sm" data-fixture-team-filter>
             <option value="all">All teams</option>
-            {faiData.teams.map((team) => <option value={team.id}>{team.label}</option>)}
+            {homeTeamFilterOptions.map((team) => <option value={team.id}>{teamFilterLabel(team)}</option>)}
           </select>
-          <p data-fixture-count>{fixtureTimeline.length} matches</p>
-        </div>
-        <div class="fixture-preview-scroll" data-fixture-scroll tabindex="0" aria-label="Upcoming fixtures list">
-          <div class="fixture-preview-list">
-          {fixtureTimeline.map((fixture) => <FixturePreviewRow id={fixture.id} teamId={fixture.teamId} teamLabel={fixture.teamLabel} status={fixture.status} dateValue={fixture.date} date={formatFixtureDate(fixture.date)} time={formatFixtureTime(fixture.date)} venue={fixture.venue} homeTeam={fixture.homeTeam} awayTeam={fixture.awayTeam} homeCrest={fixture.homeCrest} awayCrest={fixture.awayCrest} score={fixture.score} />)}
+          <div class="fixture-preview-panel__toolbar-meta">
+            <p>Updated {faiUpdatedAt}</p>
+            <button class="btn btn-ghost btn-sm fixture-preview-refresh" type="button" data-fixture-refresh><RefreshCw aria-hidden="true" size={16} stroke-width={1.9} /> Refresh</button>
           </div>
         </div>
+        <div class="fixture-tablet-list"><div class="fixture-desktop-header" aria-hidden="true"><span>Competition</span><span>Teams</span><span>Score</span><span>Result</span><span>Venue</span><span>Details</span></div>{fixtureTimeline.map((fixture) => <FixtureTabletRow id={fixture.id} teamId={fixture.teamId} teamLabel={fixture.teamLabel} status={fixture.status} dateValue={fixture.date} date={formatFixtureDate(fixture.date)} time={formatFixtureTime(fixture.date)} venue={fixture.venue} homeTeam={fixture.homeTeam} awayTeam={fixture.awayTeam} homeCrest={fixture.homeCrest} awayCrest={fixture.awayCrest} score={fixture.score} competition={fixture.competition} />)}</div>
+        <div class="fixture-mobile-list">{fixtureTimeline.map((fixture) => <FixtureMobileCard id={fixture.id} teamId={fixture.teamId} teamLabel={fixture.teamLabel} status={fixture.status} dateValue={fixture.date} date={formatFixtureDate(fixture.date)} time={formatFixtureTime(fixture.date)} venue={fixture.venue} homeTeam={fixture.homeTeam} awayTeam={fixture.awayTeam} homeCrest={fixture.homeCrest} awayCrest={fixture.awayCrest} score={fixture.score} competition={fixture.competition} />)}</div>
         <div class="fixture-preview-panel__footer">
           <Button href={withBase('/fixtures-results/')} label="View all fixtures & results" variant="outline-dark" />
         </div>
@@ -219,43 +228,24 @@ const formatFixtureTime = (value: string) => new Intl.DateTimeFormat('en-IE', { 
 
   <script>
     const fixtureFilter = document.querySelector<HTMLSelectElement>('[data-fixture-team-filter]');
-    const fixtureScroll = document.querySelector<HTMLElement>('[data-fixture-scroll]');
-    const fixtureCount = document.querySelector<HTMLElement>('[data-fixture-count]');
     const fixtureRows = Array.from(document.querySelectorAll<HTMLElement>('[data-fixture-row]'));
-    const previewBatchSize = 4;
-    let visibleBefore = previewBatchSize;
-    let visibleAfter = previewBatchSize + 2;
 
-    const renderFixturePreview = (anchor = false) => {
+    const renderFixturePreview = () => {
       const selectedTeam = fixtureFilter?.value ?? 'all';
       const matches = fixtureRows.filter((row) => selectedTeam === 'all' || row.dataset.team === selectedTeam);
-      const now = Date.now();
-      const lastMatch = matches.filter((row) => Date.parse(row.dataset.date ?? '') <= now).at(-1);
-      const nextMatch = matches.find((row) => Date.parse(row.dataset.date ?? '') > now);
-      fixtureRows.forEach((row) => { const badge = row.querySelector<HTMLElement>('[data-fixture-context]'); if (badge) { badge.hidden = true; badge.textContent = ''; } });
-      const setContextBadge = (row: HTMLElement | undefined, label: string) => { const badge = row?.querySelector<HTMLElement>('[data-fixture-context]'); if (badge) { badge.textContent = label; badge.hidden = false; } };
-      setContextBadge(lastMatch, 'Last match');
-      setContextBadge(nextMatch, 'Next match');
-      const anchorIndex = Math.max(0, matches.indexOf(lastMatch ?? nextMatch ?? matches[0]));
       fixtureRows.forEach((row) => {
-        const matchIndex = matches.indexOf(row);
-        row.hidden = matchIndex < Math.max(0, anchorIndex - visibleBefore) || matchIndex >= anchorIndex + visibleAfter;
+        row.hidden = !matches.includes(row);
+        const teamContext = row.querySelector<HTMLElement>('[data-fixture-team-context]');
+        if (teamContext) teamContext.hidden = selectedTeam !== 'all';
       });
-      if (fixtureCount) fixtureCount.textContent = `${matches.length} ${matches.length === 1 ? 'match' : 'matches'}`;
-      if (anchor && fixtureScroll) requestAnimationFrame(() => { fixtureScroll.scrollTop = matches[anchorIndex]?.offsetTop ?? 0; });
     };
 
-    fixtureFilter?.addEventListener('change', () => {
-      visibleBefore = previewBatchSize;
-      visibleAfter = previewBatchSize + 2;
-      renderFixturePreview(true);
-    });
-    fixtureScroll?.addEventListener('scroll', () => {
-      if (fixtureScroll.scrollTop < 32) visibleBefore += previewBatchSize;
-      if (fixtureScroll.scrollTop + fixtureScroll.clientHeight >= fixtureScroll.scrollHeight - 32) visibleAfter += previewBatchSize;
+    fixtureFilter?.addEventListener('change', renderFixturePreview);
+    document.querySelector('[data-fixture-refresh]')?.addEventListener('click', () => {
+      if (fixtureFilter) fixtureFilter.value = 'all';
       renderFixturePreview();
     });
-    renderFixturePreview(true);
+    renderFixturePreview();
   </script>
 
   <section id="news" class="page-shell section-block news-section" aria-label="Club news">

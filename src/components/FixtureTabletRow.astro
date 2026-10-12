@@ -1,0 +1,46 @@
+---
+import { List as ListIcon, MapPin, Trophy, Volleyball } from '@lucide/astro';
+import ContentBadge from './ContentBadge.astro';
+import { withBase } from '../utils/paths';
+import MatchTeam from './match/MatchTeam.astro';
+import MatchScore from './match/MatchScore.astro';
+import { clubOutcome, matchSummary, scoreParts } from '../utils/matchPresentation';
+
+interface Props {
+  id: string | number; teamId: string | number; teamLabel: string; status: 'past' | 'future'; dateValue: string;
+  date: string; time: string; venue: string; homeTeam: string; awayTeam: string; homeCrest?: string | null;
+  awayCrest?: string | null; score?: string | null; contextLabel?: string;
+  competition?: string; href?: string;
+}
+const { id, teamId, teamLabel, status, dateValue, date, time, venue, homeTeam, awayTeam, homeCrest, awayCrest, score, contextLabel = '', competition = '', href = withBase(`/match-centre/?match=${id}`) } = Astro.props;
+const summary = matchSummary({ homeTeam, awayTeam, score, status, date, time, venue });
+const goals = scoreParts(score);
+const outcome = status === 'past' ? clubOutcome(homeTeam, awayTeam, score) : null;
+const homeIsAthletic = /killarney\s+athletic/i.test(homeTeam);
+const awayIsAthletic = /killarney\s+athletic/i.test(awayTeam);
+const homeWon = Boolean(goals && goals.home > goals.away);
+const awayWon = Boolean(goals && goals.away > goals.home);
+const isCupCompetition = /\b(cup|shield|trophy)\b/i.test(competition);
+---
+<a class:list={['fixture-tablet-row', { 'fixture-tablet-row--past': status === 'past' }]} href={href} aria-label={`${summary} View match details.`} data-fixture-row data-match data-team={teamId} data-status={status} data-date={dateValue}>
+  <div class="fixture-tablet-row__cell"><div class="fixture-preview-row__context">
+    <span class="fixture-tablet-row__competition-icon fixture-preview-row__competition-icon">
+      {isCupCompetition ? <Trophy aria-hidden="true" size={16} stroke-width={1.8} /> : <ListIcon aria-hidden="true" size={16} stroke-width={1.8} />}
+    </span>
+    <div class="fixture-preview-row__context-copy">
+      <div class="fixture-preview-row__context-line" data-fixture-team-context><p class="fixture-preview-row__squad">{teamLabel}</p><ContentBadge label={contextLabel} tone="soft-indigo" class="fixture-preview-row__badge" data-fixture-context hidden={!contextLabel} /></div>
+      {competition && <p class="fixture-preview-row__competition">{competition}</p>}
+    </div>
+  </div></div>
+  <div class="fixture-tablet-row__cell"><div class="fixture-preview-row__scoreboard">
+    <MatchTeam name={homeTeam} crest={homeCrest} highlight={homeIsAthletic} />
+    <MatchTeam name={awayTeam} crest={awayCrest} highlight={awayIsAthletic} />
+  </div></div>
+  <div class="fixture-tablet-row__cell"><div class="fixture-preview-row__scores">
+    <MatchScore value={goals?.home} winning={homeWon} />
+    <MatchScore value={goals?.away} winning={awayWon} />
+  </div></div>
+  <div class="fixture-tablet-row__cell"><span class:list={['fixture-preview-row__outcome', outcome && `fixture-preview-row__outcome--${outcome.toLowerCase()}`]}>{outcome ?? '–'}</span></div>
+  <div class="fixture-tablet-row__cell"><div class="fixture-preview-row__when"><strong>{date}</strong><span>{time}</span><small><MapPin aria-hidden="true" size={14} stroke-width={1.8} />{venue}</small></div></div>
+  <span class="fixture-tablet-row__details"><Volleyball aria-hidden="true" size={14} stroke-width={1.9} /><span>Match details</span></span>
+</a>

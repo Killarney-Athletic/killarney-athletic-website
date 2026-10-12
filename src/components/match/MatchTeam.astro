@@ -1,0 +1,22 @@
+---
+import TeamCrest from './TeamCrest.astro';
+
+interface Props {
+  name: string;
+  crest?: string | null;
+  highlight?: boolean;
+}
+
+const { name, crest, highlight = false } = Astro.props as Props;
+---
+
+<span class:list={['match-team', { 'match-team--club': highlight }]}>
+  <TeamCrest team={name} src={crest} size={16} />
+  <strong>{name}</strong>
+</span>
+
+<style>
+  .match-team { display:grid; width:100%; grid-template-columns:18px minmax(0,1fr); align-items:center; column-gap:.5rem; min-width:0; }
+  .match-team strong { color:var(--primary-text); font-size:.86rem; font-weight:450; line-height:1.25; white-space:nowrap; }
+  .match-team--club strong { color:var(--brand-navy); font-weight:750; }
+</style>

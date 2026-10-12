@@ -5,13 +5,16 @@ import { getCurrentLeagueTables, getTeamFilterOptions, isLeagueTable, teamFilter
 import type { FaiMatch, FaiTable, FaiTeam } from '../src/lib/types/fai';
 import { hasRoundTeamCrest, localCrestForTeam } from '../src/utils/teamCrests';
 
-test('uses local round crests for every Classic and Avenue United team variant', () => {
+test('uses local round crests for known team-name variants', () => {
   assert.equal(localCrestForTeam('Classic F.C'), '/images/team-crests/classic-fc.png');
   assert.equal(localCrestForTeam('Classic F.C B'), '/images/team-crests/classic-fc.png');
   assert.equal(localCrestForTeam('Avenue United FC'), '/images/team-crests/avenue-united-fc.png');
   assert.equal(localCrestForTeam('Avenue United U17 LWSSL 2026'), '/images/team-crests/avenue-united-fc.png');
   assert.equal(hasRoundTeamCrest('Classic FC'), true);
   assert.equal(hasRoundTeamCrest('Avenue United CDSL U17'), true);
+  assert.equal(localCrestForTeam('Tulla Utd'), '/images/team-crests/tulla-united.png');
+  assert.equal(localCrestForTeam('Tulla United FC'), '/images/team-crests/tulla-united.png');
+  assert.equal(hasRoundTeamCrest('Tulla Utd'), true);
   assert.equal(localCrestForTeam('Another Club'), null);
 });
 

@@ -3,7 +3,7 @@ import { dirname, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import sharp from 'sharp';
 import type { FaiLineup, FaiMatch, FaiMatchEvent, FaiSnapshot, FaiStanding, FaiTable, FaiTeam } from '../src/lib/types/fai';
-import { localCrestForTeam } from '../src/utils/teamCrests';
+import { hasRoundTeamCrest, localCrestForTeam } from '../src/utils/teamCrests';
 
 const API = 'https://api-fai.analyticom.de/api/live/FAI';
 const CLUB_ID = Number(process.env.FAI_CLUB_ID ?? 11184);
@@ -11,7 +11,6 @@ const OUTPUT = resolve(process.cwd(), 'public/data/fai.json');
 const IMAGE_DIR = resolve(process.cwd(), 'public/images/fai');
 const MATCH_SOCIAL_DIR = resolve(process.cwd(), 'public/images/social/matches');
 const SOCIAL_ATHLETIC_CREST = resolve(process.cwd(), 'src/assets/images/brand/crest/svg/Club Crest White.svg');
-const SCORE_FONT_URL = 'https://fonts.gstatic.com/s/oleoscriptswashcaps/v14/Noag6Vb-w5SFbTTAsZP_7JkCS08K-jCzDn_HCcaBbYU.ttf';
 const ATHLETIC_CREST = '/images/team-crests/killarney-athletic-afc.svg';
 const PAGE_SIZE = 50;
 
@@ -246,18 +245,37 @@ async function crestData(path: string | null) {
 async function fileImageData(path: string, mime: string) {
   try { return `data:${mime};base64,${(await readFile(path)).toString('base64')}`; } catch { return ''; }
 }
-async function generateMatchSocialImages(matches: FaiMatch[]) {
+export async function generateMatchSocialImages(matches: FaiMatch[]) {
   await mkdir(MATCH_SOCIAL_DIR, { recursive: true });
-  const scoreFont = await fetch(SCORE_FONT_URL).then((response) => response.ok ? response.arrayBuffer() : null).catch(() => null);
-  const scoreFontFace = scoreFont ? `@font-face{font-family:OleoScore;src:url(data:font/ttf;base64,${Buffer.from(scoreFont).toString('base64')}) format('truetype');font-weight:700}` : '';
   for (const match of matches) {
     const [homeCrest, awayCrest] = await Promise.all([
       isAthletic(match.homeTeam) ? fileImageData(SOCIAL_ATHLETIC_CREST, 'image/svg+xml') : crestData(match.homeCrest),
       isAthletic(match.awayTeam) ? fileImageData(SOCIAL_ATHLETIC_CREST, 'image/svg+xml') : crestData(match.awayCrest),
     ]);
     const when = new Intl.DateTimeFormat('en-IE', { timeZone: 'Europe/Dublin', weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true }).format(new Date(match.date)).replace(' at ', ', ').replace('a.m.', 'am').replace('p.m.', 'pm');
-    const image = (data: string, x: number) => data ? `<image href="${data}" x="${x}" y="166" width="150" height="150" preserveAspectRatio="xMidYMid meet"/>` : '';
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><defs><style>${scoreFontFace}</style><linearGradient id="g" x1="0" x2="1"><stop stop-color="${xml(match.homeColour)}"/><stop offset=".5" stop-color="#4169e1"/><stop offset="1" stop-color="${xml(match.awayColour)}"/></linearGradient></defs><rect width="1200" height="630" fill="url(#g)"/><g fill="white" font-family="Arial,Helvetica,sans-serif" text-anchor="middle"> <text x="600" y="82" font-size="27">${xml(match.competition)}</text>${image(homeCrest,150)}${image(awayCrest,900)}<text x="225" y="370" font-size="35" font-weight="700">${xml(match.homeTeam)}</text><text x="975" y="370" font-size="35" font-weight="700">${xml(match.awayTeam)}</text><text x="600" y="275" font-family="OleoScore,Georgia,serif" font-size="88" font-weight="700">${xml(match.score ?? 'vs')}</text><text x="600" y="325" font-size="20" letter-spacing="3">${match.status === 'past' ? 'FULL TIME' : 'UPCOMING FIXTURE'}</text><text x="600" y="438" font-size="24">${xml(when)}</text><text x="600" y="476" font-size="23">${xml(match.venue)}</text><text x="600" y="570" font-size="22" opacity=".8">KILLARNEY ATHLETIC A.F.C. · MATCH CENTRE</text></g></svg>`;
+    const image = (data: string, x: number, y = 170, size = 130, opacity = 1) => data ? `<image href="${data}" x="${x}" y="${y}" width="${size}" height="${size}" opacity="${opacity}" preserveAspectRatio="xMidYMid meet" ${size === 130 && hasRoundTeamCrest(x === 205 ? match.homeTeam : match.awayTeam) ? `clip-path="url(#crest-${x})"` : ''}/>` : '';
+    const nameLines = (name: string, x: number) => {
+      const words = name.split(' '); const lines: string[] = []; let line = '';
+      for (const word of words) { if ((line + ' ' + word).trim().length > 24 && line) { lines.push(line); line = word; } else line = (line + ' ' + word).trim(); }
+      if (line) lines.push(line);
+      return lines.map((line, index) => `<text x="${x}" y="${345 + index * 30}" font-size="27">${xml(line)}</text>`).join('');
+    };
+    const displayPlayerName = (value: string) => {
+      const words = String(value).trim().split(/\s+/); const initial = words.at(-1);
+      const surnameWords = words.slice(0, -1); if (surnameWords.length > 1 && surnameWords[0].toUpperCase() === 'O') surnameWords.splice(0, 2, `O'${surnameWords[1]}`);
+      const surname = surnameWords.map((word) => { const titled = word.toLowerCase().replace(/(^|['’-])\p{L}/gu, (letter) => letter.toUpperCase()); return /^Mc\p{L}/u.test(titled) ? `Mc${titled[2].toUpperCase()}${titled.slice(3)}` : titled; }).join(' ');
+      return initial && /^[A-Z]\.?$/i.test(initial) && surname ? `${initial.replace('.', '').toUpperCase()}. ${surname}` : value;
+    };
+    const scorers = (side: 'home' | 'away') => {
+      const grouped = new Map<string, string[]>();
+      for (const event of match.details?.events ?? []) {
+        if (!/^(goal|penalty)$/i.test(event.type.trim()) || event.side !== side || !event.player) continue;
+        grouped.set(event.player, [...(grouped.get(event.player) ?? []), event.minute.replace(/['′]/g, '') + '′']);
+      }
+      return [...grouped].map(([name, minutes], index) => `<text x="${side === 'home' ? 565 : 635}" y="${435 + index * 24}" text-anchor="${side === 'home' ? 'end' : 'start'}" font-size="18">${xml(displayPlayerName(name))} ${xml(minutes.join(', '))}</text>`).join('');
+    };
+    const homeGoals = scorers('home'); const awayGoals = scorers('away');
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><defs><linearGradient id="g"><stop stop-color="${xml(match.homeColour || '#09204d')}"/><stop offset=".25" stop-color="${xml(match.homeColour || '#09204d')}"/><stop offset=".75" stop-color="${xml(match.awayColour || '#0e483a')}"/><stop offset="1" stop-color="${xml(match.awayColour || '#0e483a')}"/></linearGradient><pattern id="dots" width="4" height="4" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".7" fill="#000" opacity=".25"/></pattern><clipPath id="crest-205"><circle cx="270" cy="235" r="65"/></clipPath><clipPath id="crest-865"><circle cx="930" cy="235" r="65"/></clipPath><clipPath id="clip"><rect x="3" y="3" width="1194" height="624" rx="16"/></clipPath></defs><g clip-path="url(#clip)"><rect width="1200" height="630" fill="url(#g)"/><rect width="1200" height="630" fill="url(#dots)"/>${image(homeCrest,-130,60,540,.05)}${image(awayCrest,790,60,540,.05)}<g fill="white" font-family="Arial,Helvetica,sans-serif" text-anchor="middle"><text x="600" y="45" font-size="18"><tspan font-weight="700">${xml(match.teamLabel.replace(/^(Senior [AB]) Men$/, '$1'))}</tspan> - ${xml(match.competition)}</text><text x="600" y="80" font-size="17">${xml(when)} · ${xml(match.venue)}</text>${image(homeCrest,205)}${image(awayCrest,865)}${nameLines(match.homeTeam,270)}${nameLines(match.awayTeam,930)}<text x="600" y="275" font-size="100" font-weight="900">${xml(match.score?.replace(/\s*[–—-]\s*/g, ' - ') ?? 'vs')}</text><text x="600" y="320" font-size="18" letter-spacing="1">${match.score ? 'FULL TIME' : 'UPCOMING FIXTURE'}</text>${homeGoals}${awayGoals}${homeGoals || awayGoals ? '<g transform="translate(600 429)" fill="none" stroke="white" stroke-width="2"><circle r="12"/><path d="M0 -6L6 -2L4 5L-4 5L-6 -2Z"/><path d="M0 -6V-12M6 -2L11 -5M4 5L7 10M-4 5L-7 10M-6 -2L-11 -5"/></g>' : ''}<text x="600" y="590" font-size="16" opacity=".7">Killarney Athletic A.F.C. · Match Centre</text><g font-size="23" opacity=".6"><text x="25" y="30">+</text><text x="1175" y="30">+</text><text x="25" y="607">+</text><text x="1175" y="607">+</text></g></g></g><rect x="2" y="2" width="1196" height="626" rx="16" fill="none" stroke="${xml(match.homeColour || '#4169e1')}" stroke-width="4"/></svg>`;
     await sharp(Buffer.from(svg)).png().toFile(resolve(MATCH_SOCIAL_DIR, `${match.id}.png`));
   }
 }
