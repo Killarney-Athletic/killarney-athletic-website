@@ -1,0 +1,56 @@
+<section class="match-share" aria-label="Share match">
+  <button class="btn btn-outline btn-sm" data-open-share type="button">Share match</button>
+  <dialog data-share-dialog aria-labelledby="share-title">
+    <div class="match-share__panel">
+      <button class="match-share__close" data-close-share aria-label="Close share preview" type="button">×</button>
+      <h2 id="share-title">Share the match</h2>
+      <p>Send the result card to your friends.</p>
+      <img data-share-preview alt="Match share card preview" />
+      <div class="match-share__actions"><button class="btn btn-primary" data-share-image type="button" disabled>Share image</button><a class="btn btn-outline" data-download-image download>Download image</a></div>
+      <p class="match-share__message" data-share-message role="status"></p>
+    </div>
+  </dialog>
+</section>
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('[data-share-dialog]');
+  const shareButton = document.querySelector<HTMLButtonElement>('[data-share-image]');
+  const message = document.querySelector<HTMLElement>('[data-share-message]');
+  let file: File | null = null;
+  let title = '';
+  window.addEventListener('match-loaded', async (event) => {
+    const match = (event as CustomEvent).detail;
+    title = `${match.homeTeam} ${match.score ?? 'vs'} ${match.awayTeam}`;
+    const url = `${import.meta.env.BASE_URL}images/social/matches/${match.id}.png?v=scoreboard-v2-${encodeURIComponent(match.shareImageVersion ?? 'current')}`;
+    const preview = document.querySelector<HTMLImageElement>('[data-share-preview]');
+    const download = document.querySelector<HTMLAnchorElement>('[data-download-image]');
+    if (preview) preview.src = url;
+    if (download) { download.href = url; download.download = `killarney-athletic-${match.id}.png`; }
+    try {
+      const response = await fetch(url, { cache: 'no-store' });
+      if (!response.ok) throw new Error('Image unavailable');
+      file = new File([await response.blob()], `killarney-athletic-${match.id}.png`, { type: 'image/png' });
+      const supported = Boolean(navigator.canShare?.({ files: [file] }));
+      if (shareButton) { shareButton.disabled = !supported; shareButton.hidden = !supported; }
+      if (message && !supported) message.textContent = 'Download the image to share it from your photos or files.';
+    } catch { if (message) message.textContent = 'The share image is unavailable. Please try again later.'; }
+  });
+  document.querySelector('[data-open-share]')?.addEventListener('click', () => dialog?.showModal());
+  document.querySelector('[data-close-share]')?.addEventListener('click', () => dialog?.close());
+  dialog?.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
+  shareButton?.addEventListener('click', async () => {
+    if (!file) return;
+    try { await navigator.share({ files: [file], title }); }
+    catch (error) { if ((error as Error).name !== 'AbortError' && message) message.textContent = 'Sharing did not complete. You can download the image instead.'; }
+  });
+</script>
+<style>
+  .match-share { display:flex; justify-content:flex-end; margin:.75rem 0; }
+  dialog { position:fixed; inset:0; margin:auto; height:fit-content; width:min(94vw,650px); max-height:90dvh; overflow:auto; padding:0; border:1px solid var(--line); border-radius:16px; color:var(--primary-text); background:white; }
+  dialog::backdrop { background:rgb(0 0 0 / 65%); }
+  .match-share__panel { position:relative; padding:1.25rem; text-align:center; }
+  h2 { margin:.4rem 0; font-size:1.4rem; } p { font-size:.85rem; color:var(--muted); }
+  img { display:block; width:100%; border-radius:10px; margin:1rem 0; }
+  .match-share__actions { display:flex; justify-content:center; flex-wrap:wrap; gap:.65rem; }
+  .match-share__close { position:absolute; right:.5rem; top:.4rem; width:44px; height:44px; font-size:1.5rem; cursor:pointer; border:0; background:transparent; }
+  .match-share__message:empty { display:none; }
+</style>

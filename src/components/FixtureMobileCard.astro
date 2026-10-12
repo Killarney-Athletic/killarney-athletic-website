@@ -1,0 +1,45 @@
+---
+import { MapPin } from '@lucide/astro';
+import TeamCrest from './match/TeamCrest.astro';
+import { withBase } from '../utils/paths';
+
+
+import { clubOutcome, matchSummary, scoreParts } from '../utils/matchPresentation';
+
+interface Props {
+  id: string | number; teamId: string | number; teamLabel: string; status: 'past' | 'future'; dateValue: string;
+  date: string; time: string; venue: string; homeTeam: string; awayTeam: string; homeCrest?: string | null;
+  awayCrest?: string | null; score?: string | null; contextLabel?: string;
+  competition?: string; href?: string;
+}
+const { id, teamId, teamLabel, status, dateValue, date, time, venue, homeTeam, awayTeam, homeCrest, awayCrest, score, contextLabel = '', competition = '', href = withBase(`/match-centre/?match=${id}`) } = Astro.props;
+const summary = matchSummary({ homeTeam, awayTeam, score, status, date, time, venue });
+const goals = scoreParts(score);
+const outcome = status === 'past' ? clubOutcome(homeTeam, awayTeam, score) : null;
+const homeIsAthletic = /killarney\s+athletic/i.test(homeTeam);
+const awayIsAthletic = /killarney\s+athletic/i.test(awayTeam);
+const homeWon = Boolean(goals && goals.home > goals.away);
+const awayWon = Boolean(goals && goals.away > goals.home);
+
+const shortCompetition = competition
+  .replace(/McCarthy Insurance Group|JAKO Ireland/gi, '')
+  .replace(/Kerry and District League|Kerry District League|KDL/gi, '')
+  .replace(/\b(?:20)?\d{2}\/\d{2}\b/g, '')
+  .replace(/\s+-\s+.*$/, '').replace(/\s+/g, ' ').trim() || competition;
+const statusLabel = outcome ?? (goals ? 'FT' : 'Fixture');
+---
+
+<a class="fixture-mobile-card" href={href} aria-label={`${summary} View match details.`} data-fixture-row data-match data-team={teamId} data-status={status} data-date={dateValue}>
+  <div class="fixture-mobile-card__top">
+    <div class="fixture-mobile-card__metadata"><strong>{teamLabel}</strong><span title={competition}>{shortCompetition}</span></div>
+    <div class="fixture-mobile-card__kickoff"><strong>{date}</strong><span>{time}</span></div>
+  </div>
+  <div class="fixture-mobile-card__teams">
+    {[{name:homeTeam,crest:homeCrest,club:homeIsAthletic,goals:goals?.home,won:homeWon}, {name:awayTeam,crest:awayCrest,club:awayIsAthletic,goals:goals?.away,won:awayWon}].map(team => <div class="fixture-mobile-card__team">
+      <TeamCrest team={team.name} src={team.crest} size={24} />
+      <span class:list={{'fixture-mobile-card__club':team.club}}>{team.name}</span>
+      <strong class:list={['fixture-mobile-card__score', {'fixture-mobile-card__winner':team.won}]}>{team.goals ?? '–'}</strong>
+    </div>)}
+  </div>
+  <div class="fixture-mobile-card__bottom"><span class="fixture-mobile-card__venue"><MapPin aria-hidden="true" size={15} />{venue}</span><span class:list={['fixture-mobile-card__status', outcome && `fixture-mobile-card__status--${outcome.toLowerCase()}`]}>{statusLabel}</span></div>
+</a>

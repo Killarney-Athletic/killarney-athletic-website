@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
+import MatchShare from '../components/match/MatchShare.astro';
 import MatchScoreboard from '../components/match/MatchScoreboard.astro';
 import MatchNavigation from '../components/match/MatchNavigation.astro';
 import MatchTimeline from '../components/match/MatchTimeline.astro';
@@ -17,6 +18,7 @@ import clubCrestWhiteUrl from '../assets/images/brand/crest/svg/Club Crest White
     <div data-error class="match-centre__error" hidden></div>
     <div data-content hidden>
       <MatchScoreboard />
+      <MatchShare />
       <MatchNavigation />
       <MatchTimeline />
       <section data-panel="lineups" aria-label="Line-ups" hidden>
@@ -155,7 +157,10 @@ import clubCrestWhiteUrl from '../assets/images/brand/crest/svg/Club Crest White
         const orderedMatches = [...snapshot.matches].sort((a: any, b: any) => Date.parse(a.date) - Date.parse(b.date)); const matchIndex = orderedMatches.findIndex((item: any) => item.id === id);
         const setMatchLink = (selector: string, target: any, label: string) => { const link = one<HTMLAnchorElement>(selector); if (!link || !target) return; link.hidden = false; link.href = `${import.meta.env.BASE_URL}match-centre/${target.id}/`; link.title = `${label}: ${target.homeTeam} vs ${target.awayTeam}`; };
         setMatchLink('[data-match-prev]', orderedMatches[matchIndex - 1], 'Previous match'); setMatchLink('[data-match-next]', orderedMatches[matchIndex + 1], 'Next match');
-        text('[data-competition]', match.competition); text('[data-home-team]', match.homeTeam); text('[data-away-team]', match.awayTeam); text('[data-score]', match.score ?? 'vs'); text('[data-status]', match.status === 'past' ? 'Full time' : 'Upcoming fixture');
+        text('[data-scoreboard-team]', match.teamLabel.replace(/^(Senior [AB]) Men$/, '$1'));
+        const titleSeparator = document.querySelector<HTMLElement>('[data-scoreboard-separator]');
+        if (titleSeparator) titleSeparator.hidden = !match.teamLabel;
+        text('[data-competition]', match.competition); text('[data-home-team]', match.homeTeam); text('[data-away-team]', match.awayTeam); text('[data-score]', match.score?.replace(/\s*[–—-]\s*/g, ' - ') ?? 'vs'); text('[data-status]', match.status === 'past' ? 'Full time' : 'Upcoming fixture');
         const scoreboard = one<HTMLElement>('.match-centre__scoreboard');
         scoreboard?.style.setProperty('--team-left-colour', match.homeColour || (isAthletic(match.homeTeam) ? 'var(--brand-navy)' : '#52657d'));
         scoreboard?.style.setProperty('--team-right-colour', match.awayColour || (isAthletic(match.awayTeam) ? 'var(--brand-navy)' : '#52657d'));
@@ -163,7 +168,29 @@ import clubCrestWhiteUrl from '../assets/images/brand/crest/svg/Club Crest White
         const when = formatDate(match.date); text('[data-when]', when); text('[data-venue]', match.venue); crest('[data-home-crest]', homeCrest, match.homeTeam); crest('[data-away-crest]', awayCrest, match.awayTeam);
         text('[data-info-competition]', match.competition); text('[data-info-date]', when); text('[data-info-venue]', match.venue); text('[data-info-team]', match.teamLabel);
         text('[data-home-lineup-title]', match.homeTeam); text('[data-away-lineup-title]', match.awayTeam);
+        window.dispatchEvent(new CustomEvent('match-loaded', { detail: { ...match, shareImageVersion: snapshot.generatedAt } }));
         const matchEvents = match.details?.events ?? [];
+        crest('[data-home-watermark]', homeCrest, match.homeTeam); crest('[data-away-watermark]', awayCrest, match.awayTeam);
+        let scorerCount = 0;
+        for (const side of ['home', 'away']) {
+          const list = one<HTMLElement>(`[data-${side}-scorers]`);
+          if (!list) continue;
+          list.replaceChildren();
+          const scorers = new Map<string, string[]>();
+          for (const event of matchEvents) {
+            if (!isScoringEvent(event) || event.side !== side || !event.player) continue;
+            const name = `${displayPlayerName(event.player)}${/own goal/i.test(event.type) ? ' (OG)' : ''}`;
+            scorers.set(name, [...(scorers.get(name) ?? []), event.minute]);
+          }
+          for (const [name, minutes] of scorers) {
+            const item = document.createElement('li');
+            item.textContent = `${name} ${minutes.map(minute => String(minute).replace(/['′]/g, '') + '′').join(', ')}`;
+            list.append(item); scorerCount++;
+          }
+        }
+        const scorerStrip = one<HTMLElement>('[data-scoreboard-scorers]');
+        if (scorerStrip) scorerStrip.hidden = scorerCount === 0;
+
         renderLineup('[data-home-lineup]', match.details?.homeLineup, matchEvents, 'home'); renderLineup('[data-away-lineup]', match.details?.awayLineup, matchEvents, 'away');
         renderPitch({ ...match, homeCrest, awayCrest });
         const noLineups = one('[data-no-lineups]'); if (noLineups) noLineups.hidden = Boolean(match.details?.homeLineup || match.details?.awayLineup);

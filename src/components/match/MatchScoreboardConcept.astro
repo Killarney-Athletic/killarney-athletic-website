@@ -1,0 +1,7 @@
+---
+import MatchScoreboard from './MatchScoreboard.astro';
+import clubCrest from '../../assets/images/brand/crest/svg/Club Crest White.svg?url';
+import { withBase } from '../../utils/paths';
+const { homeScorers = [], awayScorers = [] } = Astro.props;
+---
+<div id="scoreboard-concept"><MatchScoreboard teamLabel="Senior A" competition="McCarthy Insurance Group MJC 26/27 - Kerry District League" homeTeam="Killarney Athletic A.F.C." awayTeam="Killarney Celtic F.C." homeCrest={clubCrest} awayCrest={withBase('/images/team-crests/killarney-celtic-fc.png')} score="4 - 2" status="Full time" when="Sun, 11 Oct 1:00 pm" venue="Ferndale" homeScorers={homeScorers} awayScorers={awayScorers} /></div>

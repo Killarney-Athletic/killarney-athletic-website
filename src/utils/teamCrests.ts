@@ -9,6 +9,11 @@ const LOCAL_TEAM_CRESTS = [
     path: '/images/team-crests/avenue-united-fc.png',
     round: true,
   },
+  {
+    matches: (name: string) => /^tulla(?:\s+united|\s+utd)(?:\s|$)/.test(name),
+    path: '/images/team-crests/tulla-united.png',
+    round: true,
+  },
 ] as const;
 
 const comparableTeamName = (team: string) => team
