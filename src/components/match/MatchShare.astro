@@ -29,9 +29,16 @@
       const response = await fetch(url, { cache: 'no-store' });
       if (!response.ok) throw new Error('Image unavailable');
       file = new File([await response.blob()], `killarney-athletic-${match.id}.png`, { type: 'image/png' });
-      const supported = Boolean(navigator.canShare?.({ files: [file] }));
-      if (shareButton) { shareButton.disabled = !supported; shareButton.hidden = !supported; }
-      if (message && !supported) message.textContent = 'Download the image to share it from your photos or files.';
+      const nativeShareAvailable = typeof navigator.share === 'function';
+      if (shareButton) {
+        shareButton.disabled = !nativeShareAvailable;
+        shareButton.hidden = !nativeShareAvailable;
+      }
+      if (message) {
+        message.textContent = nativeShareAvailable
+          ? ''
+          : 'Download the image to share it from your photos or files.';
+      }
     } catch { if (message) message.textContent = 'The share image is unavailable. Please try again later.'; }
   });
   document.querySelector('[data-open-share]')?.addEventListener('click', () => dialog?.showModal());
@@ -39,8 +46,13 @@
   dialog?.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
   shareButton?.addEventListener('click', async () => {
     if (!file) return;
-    try { await navigator.share({ files: [file], title }); }
-    catch (error) { if ((error as Error).name !== 'AbortError' && message) message.textContent = 'Sharing did not complete. You can download the image instead.'; }
+    try {
+      await navigator.share({ files: [file], title });
+    } catch (error) {
+      if ((error as Error).name !== 'AbortError' && message) {
+        message.textContent = 'This browser could not share the image. You can download it instead.';
+      }
+    }
   });
 </script>
 <style>
